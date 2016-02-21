@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMapsCompare", "SpatialMapsCompare\SpatialMapsCompare.csproj", "{A042C959-FC03-41A4-B176-7C2975F61838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib", "GeoLib 4.0\GeoLib.csproj", "{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPolygons", "GeoPolygons 4.0\GeoPolygons.csproj", "{A13AA7E0-06C4-4401-9006-C7EB506B3479}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Evaluation|Any CPU = Evaluation|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Evaluation|Any CPU.ActiveCfg = Release|Any CPU
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Evaluation|Any CPU.Build.0 = Release|Any CPU
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A042C959-FC03-41A4-B176-7C2975F61838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Evaluation|Any CPU.ActiveCfg = Evaluation|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Evaluation|Any CPU.Build.0 = Evaluation|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263192A1-5B8D-4F2B-96AD-0FBA86C9F4F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Evaluation|Any CPU.ActiveCfg = Release|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Evaluation|Any CPU.Build.0 = Release|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
