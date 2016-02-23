@@ -8,34 +8,34 @@ namespace WindowsFormsApplication4
 
 		private double _y;
 
-		public double x
+		public double X
 		{
 			get
 			{
-				return this._x;
+				return _x;
 			}
 			set
 			{
-				this._x = value;
+				_x = value;
 			}
 		}
 
-		public double y
+		public double Y
 		{
 			get
 			{
-				return this._y;
+				return _y;
 			}
 			set
 			{
-				this._y = value;
+				_y = value;
 			}
 		}
 
 		public Point(double a, double b)
 		{
-			this._x = a;
-			this._y = b;
+			_x = a;
+			_y = b;
 		}
 
 		public Point(object a, object b)
@@ -44,19 +44,19 @@ namespace WindowsFormsApplication4
 			{
 				if (a != null)
 				{
-					this._x = Convert.ToDouble(a);
+					_x = Convert.ToDouble(a);
 				}
 				else
 				{
-					this._x = 0.0;
+					_x = 0.0;
 				}
 				if (b != null)
 				{
-					this._y = Convert.ToDouble(b);
+					_y = Convert.ToDouble(b);
 				}
 				else
 				{
-					this._y = 0.0;
+					_y = 0.0;
 				}
 			}
 			catch (FormatException)
@@ -69,9 +69,9 @@ namespace WindowsFormsApplication4
 			}
 		}
 
-		public double distance(Point another)
+		public double Distance(Point another)
 		{
-			return Math.Sqrt(Math.Pow(this.x - another.x, 2.0) + Math.Pow(this.y - another.y, 2.0));
+			return Math.Sqrt(Math.Pow(X - another.X, 2.0) + Math.Pow(Y - another.Y, 2.0));
 		}
 	}
 }

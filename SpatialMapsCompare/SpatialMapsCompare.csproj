@@ -37,9 +37,6 @@
       <HintPath>..\packages\Clipper.6.2.10\lib\net40\clipper_library.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="GeoLib">
-      <HintPath>..\GeoPolygons 4.0\References\GeoLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -71,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -87,8 +85,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GeoLib 4.0\GeoLib.csproj">
+      <Project>{263192a1-5b8d-4f2b-96ad-0fba86c9f4f5}</Project>
+      <Name>GeoLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeoPolygons 4.0\GeoPolygons.csproj">
-      <Project>{A13AA7E0-06C4-4401-9006-C7EB506B3479}</Project>
+      <Project>{a13aa7e0-06c4-4401-9006-c7eb506b3479}</Project>
       <Name>GeoPolygons</Name>
     </ProjectReference>
   </ItemGroup>

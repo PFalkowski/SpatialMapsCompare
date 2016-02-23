@@ -114,4 +114,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Form1_aboutToolStripMenuItem_Click_" xml:space="preserve">
+    <value>This software was written by Piotr Falkowski, all rights reserved.
+For licensing and questions write: piotr.falkowski.fm@gmail.com. Build in Microsoft (R) Visual Studio(R) Express 13 using .NET 4.5 and GeoLib geometric library: www.geolib.co.uk.</value>
+  </data>
+  <data name="Form1_helpToolStripMenuItem_Click_" xml:space="preserve">
+    <value>Note, that the number of cells every pair of columns (odd and even)  must be equal.
+The odd column represents X value while even the Y value. It is also crucial, that any two points from different poits-sets would NOT be equal (coincidental).</value>
+  </data>
+  <data name="Form1_Calculate_Figure_area_can_not_be_zero_" xml:space="preserve">
+    <value>Figure area can not be zero.</value>
+  </data>
 </root>

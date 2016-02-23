@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpatialMapsCompare.Properties
-{
-
-
+namespace SpatialMapsCompare.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,49 +22,70 @@ namespace SpatialMapsCompare.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SpatialMapsCompare.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This software was written by Piotr Falkowski, all rights reserved.
+        ///For licensing and questions write: piotr.falkowski.fm@gmail.com. Build in Microsoft (R) Visual Studio(R) Express 13 using .NET 4.5 and GeoLib geometric library: www.geolib.co.uk..
+        /// </summary>
+        internal static string Form1_aboutToolStripMenuItem_Click_ {
+            get {
+                return ResourceManager.GetString("Form1_aboutToolStripMenuItem_Click_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Figure area can not be zero..
+        /// </summary>
+        internal static string Form1_Calculate_Figure_area_can_not_be_zero_ {
+            get {
+                return ResourceManager.GetString("Form1_Calculate_Figure_area_can_not_be_zero_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note, that the number of cells every pair of columns (odd and even)  must be equal.
+        ///The odd column represents X value while even the Y value. It is also crucial, that any two points from different poits-sets would NOT be equal (coincidental)..
+        /// </summary>
+        internal static string Form1_helpToolStripMenuItem_Click_ {
+            get {
+                return ResourceManager.GetString("Form1_helpToolStripMenuItem_Click_", resourceCulture);
             }
         }
     }
