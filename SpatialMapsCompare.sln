@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib", "GeoLib 4.0\GeoLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPolygons", "GeoPolygons 4.0\GeoPolygons.csproj", "{A13AA7E0-06C4-4401-9006-C7EB506B3479}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMapsCompareTests", "SpatialMapsCompareTests\SpatialMapsCompareTests.csproj", "{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,12 @@ Global
 		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Evaluation|Any CPU.Build.0 = Release|Any CPU
 		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A13AA7E0-06C4-4401-9006-C7EB506B3479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Evaluation|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Evaluation|Any CPU.Build.0 = Release|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

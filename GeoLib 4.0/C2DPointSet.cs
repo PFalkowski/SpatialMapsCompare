@@ -91,7 +91,7 @@ namespace GeoLib
 	        for (int i = 1 ; i < Other.Count; i++)
 	        {
 		        C2DPoint pt = Other[i];
-		        if (pt.x < ptLeftMost.x)
+		        if (pt.X < ptLeftMost.X)
 		        {
 			        ptLeftMost = pt;
 			        nLeftMost = i;
@@ -557,9 +557,9 @@ namespace GeoLib
         {
             if (A == B)
                 return 0;
-            if (A.x > B.x)
+            if (A.X > B.X)
                 return 1;
-            else if (A.x < B.x)
+            else if (A.X < B.X)
                 return -1;
             else
                 return 0;

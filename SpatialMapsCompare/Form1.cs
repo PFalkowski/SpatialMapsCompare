@@ -243,12 +243,6 @@ namespace SpatialMapsCompare
 
         private GroupBox _groupBox2;
 
-        private RadioButton _radioButton3;
-
-        private RadioButton _radioButton2;
-
-        private RadioButton _radioButton1;
-
         private TrackBar _trackBar1;
 
         private Label _label26;
@@ -287,10 +281,10 @@ namespace SpatialMapsCompare
             }
             for (int i = 0; i < polygon.Lines.Count; i++)
             {
-                _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().x;
-                _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().y;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().x;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().y;
+                _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().X;
+                _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().Y;
+                _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().X;
+                _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().Y;
             }
         }
 
@@ -299,8 +293,8 @@ namespace SpatialMapsCompare
             _chart1.Series[seriesName].Points.Clear();
             foreach (var t in polygon.Lines)
             {
-                _chart1.Series[seriesName].Points.AddXY(t.GetPointFrom().x, t.GetPointFrom().y);
-                _chart1.Series[seriesName].Points.AddXY(t.GetPointTo().x, t.GetPointTo().y);
+                _chart1.Series[seriesName].Points.AddXY(t.GetPointFrom().X, t.GetPointFrom().Y);
+                _chart1.Series[seriesName].Points.AddXY(t.GetPointTo().X, t.GetPointTo().Y);
             }
         }
 
@@ -316,8 +310,8 @@ namespace SpatialMapsCompare
             Series series = new Series();
             for (int i = 0; i < polygon.Lines.Count; i++)
             {
-                series.Points.AddXY(polygon.Lines[i].GetPointFrom().x, polygon.Lines[i].GetPointFrom().y);
-                series.Points.AddXY(polygon.Lines[i].GetPointTo().x, polygon.Lines[i].GetPointTo().y);
+                series.Points.AddXY(polygon.Lines[i].GetPointFrom().X, polygon.Lines[i].GetPointFrom().Y);
+                series.Points.AddXY(polygon.Lines[i].GetPointTo().X, polygon.Lines[i].GetPointTo().Y);
             }
             series.ChartArea = "ChartArea1";
             series.ChartType = SeriesChartType.Line;
@@ -527,12 +521,12 @@ namespace SpatialMapsCompare
         {
             List<C2DPoint> list = new List<C2DPoint>();
             polygon.GetPointsCopy(list);
-            double num = list.Min((C2DPoint item) => item.x);
-            double num2 = list.Min((C2DPoint item) => item.y);
+            double num = list.Min((C2DPoint item) => item.X);
+            double num2 = list.Min((C2DPoint item) => item.Y);
             foreach (C2DPoint current in list.ToList<C2DPoint>())
             {
-                current.x -= num;
-                current.y -= num2;
+                current.X -= num;
+                current.Y -= num2;
             }
             return new C2DPolygon(list, false);
         }
@@ -548,510 +542,670 @@ namespace SpatialMapsCompare
 
         private void InitializeComponent()
         {
-            components = new Container();
-            ChartArea chartArea = new ChartArea();
-            Legend legend = new Legend();
-            Series series = new Series();
-            Series series2 = new Series();
-            _label1 = new Label();
-            _label2 = new Label();
-            _button1 = new Button();
-            _dataGridView1 = new DataGridView();
-            _x = new DataGridViewTextBoxColumn();
-            _y = new DataGridViewTextBoxColumn();
-            _oryginalX = new DataGridViewTextBoxColumn();
-            _oryginalY = new DataGridViewTextBoxColumn();
-            _panel1 = new Panel();
-            _groupBox2 = new GroupBox();
-            _radioButton3 = new RadioButton();
-            _radioButton2 = new RadioButton();
-            _radioButton1 = new RadioButton();
-            _groupBox1 = new GroupBox();
-            _label24 = new Label();
-            _label25 = new Label();
-            _label22 = new Label();
-            _label23 = new Label();
-            _label21 = new Label();
-            _label19 = new Label();
-            _label20 = new Label();
-            _label17 = new Label();
-            _label18 = new Label();
-            _label15 = new Label();
-            _label16 = new Label();
-            _label11 = new Label();
-            _label12 = new Label();
-            _label13 = new Label();
-            _label14 = new Label();
-            _label4 = new Label();
-            _label3 = new Label();
-            _label9 = new Label();
-            _label6 = new Label();
-            _label10 = new Label();
-            _label5 = new Label();
-            _label7 = new Label();
-            _label8 = new Label();
-            _chart1 = new Chart();
-            _dataSet1 = new DataSet();
-            _dataTable1 = new DataTable();
-            _contextMenuStrip1 = new ContextMenuStrip(components);
-            _aboutToolStripMenuItem = new ToolStripMenuItem();
-            _helpToolStripMenuItem = new ToolStripMenuItem();
-            _checkBox2 = new CheckBox();
-            _checkBox1 = new CheckBox();
-            _trackBar1 = new TrackBar();
-            _label26 = new Label();
-            _label27 = new Label();
-            _button2 = new Button();
-            _timer1 = new Timer(components);
-            _form1BindingSource = new BindingSource(components);
-            ((ISupportInitialize)_dataGridView1).BeginInit();
-            _panel1.SuspendLayout();
-            _groupBox2.SuspendLayout();
-            _groupBox1.SuspendLayout();
-            ((ISupportInitialize)_chart1).BeginInit();
-            ((ISupportInitialize)_dataSet1).BeginInit();
-            ((ISupportInitialize)_dataTable1).BeginInit();
-            _contextMenuStrip1.SuspendLayout();
-            ((ISupportInitialize)_trackBar1).BeginInit();
-            ((ISupportInitialize)_form1BindingSource).BeginInit();
-            SuspendLayout();
-            _label1.AutoSize = true;
-            _label1.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label1.ForeColor = Color.RoyalBlue;
-            _label1.Location = new Point(8, 16);
-            _label1.Name = "_label1";
-            _label1.Size = new Size(112, 13);
-            _label1.TabIndex = 0;
-            _label1.Text = "Blue Figure Area =";
-            _label2.AutoSize = true;
-            _label2.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label2.Location = new Point(129, 16);
-            _label2.Name = "_label2";
-            _label2.Size = new Size(14, 13);
-            _label2.TabIndex = 1;
-            _label2.Text = "0";
-            _button1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _button1.Location = new Point(874, 523);
-            _button1.Name = "_button1";
-            _button1.Size = new Size(75, 23);
-            _button1.TabIndex = 2;
-            _button1.Text = "Calculate";
-            _button1.UseVisualStyleBackColor = true;
-            _button1.Click += new EventHandler(button1_Click);
-            _dataGridView1.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
-            _dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            _dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            _dataGridView1.Columns.AddRange(new DataGridViewColumn[]
-            {
-                _x,
-                _y,
-                _oryginalX,
-                _oryginalY
-            });
-            _dataGridView1.Location = new Point(0, 0);
-            _dataGridView1.Name = "_dataGridView1";
-            _dataGridView1.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            _dataGridView1.Size = new Size(352, 483);
-            _dataGridView1.TabIndex = 3;
-            _dataGridView1.CellContentClick += new DataGridViewCellEventHandler(dataGridView1_CellContentClick);
-            _x.FillWeight = 48.89976f;
-            _x.HeaderText = "Your X";
-            _x.Name = "_x";
-            _x.Width = 64;
-            _y.FillWeight = 151.1003f;
-            _y.HeaderText = "Your Y";
-            _y.Name = "_y";
-            _y.Width = 64;
-            _oryginalX.HeaderText = "Oryginal X";
-            _oryginalX.Name = "_oryginalX";
-            _oryginalX.Width = 80;
-            _oryginalY.HeaderText = "Oryginal Y";
-            _oryginalY.Name = "_oryginalY";
-            _oryginalY.Width = 80;
-            _panel1.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
-            _panel1.Controls.Add(_groupBox2);
-            _panel1.Controls.Add(_groupBox1);
-            _panel1.Controls.Add(_chart1);
-            _panel1.Controls.Add(_dataGridView1);
-            _panel1.Location = new Point(15, 25);
-            _panel1.Name = "_panel1";
-            _panel1.Size = new Size(934, 483);
-            _panel1.TabIndex = 5;
-            _groupBox2.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _groupBox2.Controls.Add(_radioButton3);
-            _groupBox2.Controls.Add(_radioButton2);
-            _groupBox2.Controls.Add(_radioButton1);
-            _groupBox2.Location = new Point(386, 280);
-            _groupBox2.Name = "_groupBox2";
-            _groupBox2.Size = new Size(230, 203);
-            _groupBox2.TabIndex = 30;
-            _groupBox2.TabStop = false;
-            _groupBox2.Text = "Load";
-            _radioButton3.AutoSize = true;
-            _radioButton3.Location = new Point(6, 65);
-            _radioButton3.Name = "_radioButton3";
-            _radioButton3.Size = new Size(69, 17);
-            _radioButton3.TabIndex = 2;
-            _radioButton3.TabStop = true;
-            _radioButton3.Text = "101_ET3";
-            _radioButton3.UseVisualStyleBackColor = true;
-            _radioButton3.CheckedChanged += new EventHandler(radioButton3_CheckedChanged);
-            _radioButton2.AutoSize = true;
-            _radioButton2.Location = new Point(6, 42);
-            _radioButton2.Name = "_radioButton2";
-            _radioButton2.Size = new Size(69, 17);
-            _radioButton2.TabIndex = 1;
-            _radioButton2.TabStop = true;
-            _radioButton2.Text = "101_ET2";
-            _radioButton2.UseVisualStyleBackColor = true;
-            _radioButton2.CheckedChanged += new EventHandler(radioButton2_CheckedChanged);
-            _radioButton1.AutoSize = true;
-            _radioButton1.Location = new Point(6, 19);
-            _radioButton1.Name = "_radioButton1";
-            _radioButton1.Size = new Size(69, 17);
-            _radioButton1.TabIndex = 0;
-            _radioButton1.TabStop = true;
-            _radioButton1.Text = "101_ET1";
-            _radioButton1.UseVisualStyleBackColor = true;
-            _radioButton1.CheckedChanged += new EventHandler(radioButton1_CheckedChanged);
-            _groupBox1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _groupBox1.BackColor = Color.Transparent;
-            _groupBox1.Controls.Add(_label24);
-            _groupBox1.Controls.Add(_label25);
-            _groupBox1.Controls.Add(_label22);
-            _groupBox1.Controls.Add(_label23);
-            _groupBox1.Controls.Add(_label21);
-            _groupBox1.Controls.Add(_label19);
-            _groupBox1.Controls.Add(_label20);
-            _groupBox1.Controls.Add(_label17);
-            _groupBox1.Controls.Add(_label18);
-            _groupBox1.Controls.Add(_label15);
-            _groupBox1.Controls.Add(_label16);
-            _groupBox1.Controls.Add(_label11);
-            _groupBox1.Controls.Add(_label12);
-            _groupBox1.Controls.Add(_label13);
-            _groupBox1.Controls.Add(_label14);
-            _groupBox1.Controls.Add(_label1);
-            _groupBox1.Controls.Add(_label2);
-            _groupBox1.Controls.Add(_label4);
-            _groupBox1.Controls.Add(_label3);
-            _groupBox1.Controls.Add(_label9);
-            _groupBox1.Controls.Add(_label6);
-            _groupBox1.Controls.Add(_label10);
-            _groupBox1.Controls.Add(_label5);
-            _groupBox1.Controls.Add(_label7);
-            _groupBox1.Controls.Add(_label8);
-            _groupBox1.Location = new Point(614, 280);
-            _groupBox1.Name = "_groupBox1";
-            _groupBox1.Size = new Size(320, 203);
-            _groupBox1.TabIndex = 18;
-            _groupBox1.TabStop = false;
-            _label24.AutoSize = true;
-            _label24.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label24.Location = new Point(205, 146);
-            _label24.Name = "_label24";
-            _label24.Size = new Size(14, 13);
-            _label24.TabIndex = 29;
-            _label24.Text = "0";
-            _label25.AutoSize = true;
-            _label25.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label25.ForeColor = SystemColors.ControlText;
-            _label25.Location = new Point(8, 146);
-            _label25.Name = "_label25";
-            _label25.Size = new Size(196, 13);
-            _label25.TabIndex = 28;
-            _label25.Text = "Non-overlapping areas raw sum =";
-            _label22.AutoSize = true;
-            _label22.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label22.Location = new Point(158, 133);
-            _label22.Name = "_label22";
-            _label22.Size = new Size(14, 13);
-            _label22.TabIndex = 27;
-            _label22.Text = "0";
-            _label23.AutoSize = true;
-            _label23.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label23.ForeColor = Color.FromArgb(64, 64, 64);
-            _label23.Location = new Point(8, 133);
-            _label23.Name = "_label23";
-            _label23.Size = new Size(144, 13);
-            _label23.TabIndex = 26;
-            _label23.Text = "Overlapping areas raw sum =";
-            _label21.AutoSize = true;
-            _label21.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label21.Location = new Point(295, 172);
-            _label21.Name = "_label21";
-            _label21.Size = new Size(16, 13);
-            _label21.TabIndex = 25;
-            _label21.Text = "%";
-            _label19.AutoSize = true;
-            _label19.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label19.Location = new Point(245, 172);
-            _label19.Name = "_label19";
-            _label19.Size = new Size(14, 13);
-            _label19.TabIndex = 24;
-            _label19.Text = "0";
-            _label20.AutoSize = true;
-            _label20.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label20.ForeColor = Color.DarkRed;
-            _label20.Location = new Point(152, 172);
-            _label20.Name = "_label20";
-            _label20.Size = new Size(87, 13);
-            _label20.TabIndex = 23;
-            _label20.Text = "Match index =";
-            _label17.AutoSize = true;
-            _label17.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label17.Location = new Point(152, 107);
-            _label17.Name = "_label17";
-            _label17.Size = new Size(14, 13);
-            _label17.TabIndex = 22;
-            _label17.Text = "0";
-            _label18.AutoSize = true;
-            _label18.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label18.ForeColor = Color.FromArgb(64, 64, 64);
-            _label18.Location = new Point(8, 107);
-            _label18.Name = "_label18";
-            _label18.Size = new Size(140, 13);
-            _label18.TabIndex = 21;
-            _label18.Text = "Blue non-overlapping area =";
-            _label15.AutoSize = true;
-            _label15.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label15.Location = new Point(142, 94);
-            _label15.Name = "_label15";
-            _label15.Size = new Size(14, 13);
-            _label15.TabIndex = 20;
-            _label15.Text = "0";
-            _label16.AutoSize = true;
-            _label16.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label16.ForeColor = Color.FromArgb(64, 64, 64);
-            _label16.Location = new Point(8, 94);
-            _label16.Name = "_label16";
-            _label16.Size = new Size(129, 13);
-            _label16.TabIndex = 19;
-            _label16.Text = "Yellow overlapping area =";
-            _label11.AutoSize = true;
-            _label11.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label11.ForeColor = Color.RoyalBlue;
-            _label11.Location = new Point(8, 42);
-            _label11.Name = "_label11";
-            _label11.Size = new Size(139, 13);
-            _label11.TabIndex = 15;
-            _label11.Text = "Blue Figure Perimeter =";
-            _label12.AutoSize = true;
-            _label12.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label12.Location = new Point(151, 42);
-            _label12.Name = "_label12";
-            _label12.Size = new Size(14, 13);
-            _label12.TabIndex = 16;
-            _label12.Text = "0";
-            _label13.AutoSize = true;
-            _label13.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label13.ForeColor = Color.DarkGoldenrod;
-            _label13.Location = new Point(8, 55);
-            _label13.Name = "_label13";
-            _label13.Size = new Size(148, 13);
-            _label13.TabIndex = 17;
-            _label13.Text = "Yellow figure Perimeter =";
-            _label14.AutoSize = true;
-            _label14.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label14.Location = new Point(158, 55);
-            _label14.Name = "_label14";
-            _label14.Size = new Size(14, 13);
-            _label14.TabIndex = 18;
-            _label14.Text = "0";
-            _label4.AutoSize = true;
-            _label4.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label4.ForeColor = Color.DarkGoldenrod;
-            _label4.Location = new Point(8, 29);
-            _label4.Name = "_label4";
-            _label4.Size = new Size(121, 13);
-            _label4.TabIndex = 6;
-            _label4.Text = "Yellow figure Area =";
-            _label3.AutoSize = true;
-            _label3.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label3.Location = new Point(136, 29);
-            _label3.Name = "_label3";
-            _label3.Size = new Size(14, 13);
-            _label3.TabIndex = 7;
-            _label3.Text = "0";
-            _label9.AutoSize = true;
-            _label9.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label9.Location = new Point(164, 120);
-            _label9.Name = "_label9";
-            _label9.Size = new Size(14, 13);
-            _label9.TabIndex = 14;
-            _label9.Text = "0";
-            _label6.AutoSize = true;
-            _label6.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label6.ForeColor = Color.FromArgb(64, 64, 64);
-            _label6.Location = new Point(8, 68);
-            _label6.Name = "_label6";
-            _label6.Size = new Size(138, 13);
-            _label6.TabIndex = 8;
-            _label6.Text = "Difference between areas =";
-            _label10.AutoSize = true;
-            _label10.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label10.ForeColor = Color.FromArgb(64, 64, 64);
-            _label10.Location = new Point(8, 120);
-            _label10.Name = "_label10";
-            _label10.Size = new Size(150, 13);
-            _label10.TabIndex = 13;
-            _label10.Text = "Yellow non-overlapping area =";
-            _label5.AutoSize = true;
-            _label5.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label5.Location = new Point(149, 68);
-            _label5.Name = "_label5";
-            _label5.Size = new Size(14, 13);
-            _label5.TabIndex = 9;
-            _label5.Text = "0";
-            _label7.AutoSize = true;
-            _label7.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label7.Location = new Point(129, 81);
-            _label7.Name = "_label7";
-            _label7.Size = new Size(14, 13);
-            _label7.TabIndex = 11;
-            _label7.Text = "0";
-            _label8.AutoSize = true;
-            _label8.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 238);
-            _label8.ForeColor = Color.FromArgb(64, 64, 64);
-            _label8.Location = new Point(8, 81);
-            _label8.Name = "_label8";
-            _label8.Size = new Size(119, 13);
-            _label8.TabIndex = 10;
-            _label8.Text = "Blue overlapping area =";
-            _chart1.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
-            chartArea.AlignmentOrientation = AreaAlignmentOrientations.All;
-            chartArea.Name = "ChartArea1";
-            _chart1.ChartAreas.Add(chartArea);
-            legend.Name = "Legend1";
-            _chart1.Legends.Add(legend);
-            _chart1.Location = new Point(358, 0);
-            _chart1.Name = "_chart1";
-            series.BorderWidth = 9;
-            series.ChartArea = "ChartArea1";
-            series.ChartType = SeriesChartType.Line;
-            series.Legend = "Legend1";
-            series.Name = "Series1";
-            series2.BorderWidth = 9;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            _chart1.Series.Add(series);
-            _chart1.Series.Add(series2);
-            _chart1.Size = new Size(576, 255);
-            _chart1.TabIndex = 4;
-            _chart1.Text = "chart1";
-            _dataSet1.DataSetName = "NewDataSet";
-            _dataSet1.Tables.AddRange(new DataTable[]
-            {
-                _dataTable1
-            });
-            _dataTable1.TableName = "Table1";
-            _contextMenuStrip1.Items.AddRange(new ToolStripItem[]
-            {
-                _aboutToolStripMenuItem,
-                _helpToolStripMenuItem
-            });
-            _contextMenuStrip1.Name = "_contextMenuStrip1";
-            _contextMenuStrip1.Size = new Size(108, 48);
-            _contextMenuStrip1.Opening += new CancelEventHandler(contextMenuStrip1_Opening);
-            _aboutToolStripMenuItem.Name = "_aboutToolStripMenuItem";
-            _aboutToolStripMenuItem.Size = new Size(107, 22);
-            _aboutToolStripMenuItem.Text = "About";
-            _aboutToolStripMenuItem.Click += new EventHandler(aboutToolStripMenuItem_Click);
-            _helpToolStripMenuItem.Name = "_helpToolStripMenuItem";
-            _helpToolStripMenuItem.Size = new Size(107, 22);
-            _helpToolStripMenuItem.Text = "Help";
-            _helpToolStripMenuItem.Click += new EventHandler(helpToolStripMenuItem_Click);
-            _checkBox2.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _checkBox2.AutoSize = true;
-            _checkBox2.Location = new Point(720, 542);
-            _checkBox2.Name = "_checkBox2";
-            _checkBox2.Size = new Size(132, 17);
-            _checkBox2.TabIndex = 24;
-            _checkBox2.Text = "Show difference areas";
-            _checkBox2.UseVisualStyleBackColor = true;
-            _checkBox2.Visible = false;
-            _checkBox2.CheckedChanged += new EventHandler(checkBox2_CheckedChanged);
-            _checkBox1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _checkBox1.AutoSize = true;
-            _checkBox1.Checked = true;
-            _checkBox1.CheckState = CheckState.Checked;
-            _checkBox1.Location = new Point(720, 521);
-            _checkBox1.Name = "_checkBox1";
-            _checkBox1.Size = new Size(87, 17);
-            _checkBox1.TabIndex = 23;
-            _checkBox1.Text = "Show figures";
-            _checkBox1.UseVisualStyleBackColor = true;
-            _checkBox1.Visible = false;
-            _checkBox1.CheckedChanged += new EventHandler(checkBox1_CheckedChanged);
-            _trackBar1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _trackBar1.Location = new Point(60, 514);
-            _trackBar1.Maximum = 200;
-            _trackBar1.Minimum = 1;
-            _trackBar1.Name = "_trackBar1";
-            _trackBar1.Size = new Size(307, 45);
-            _trackBar1.TabIndex = 31;
-            _trackBar1.Value = 100;
-            _trackBar1.Visible = false;
-            _trackBar1.Scroll += new EventHandler(trackBar1_Scroll);
-            _label26.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _label26.AutoSize = true;
-            _label26.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label26.Location = new Point(373, 528);
-            _label26.Name = "_label26";
-            _label26.Size = new Size(36, 13);
-            _label26.TabIndex = 32;
-            _label26.Text = "Grow";
-            _label26.Visible = false;
-            _label27.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _label27.AutoSize = true;
-            _label27.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 238);
-            _label27.Location = new Point(11, 528);
-            _label27.Name = "_label27";
-            _label27.Size = new Size(43, 13);
-            _label27.TabIndex = 33;
-            _label27.Text = "Shrink";
-            _label27.Visible = false;
-            _button2.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
-            _button2.Location = new Point(415, 523);
-            _button2.Name = "_button2";
-            _button2.Size = new Size(91, 23);
-            _button2.TabIndex = 34;
-            _button2.Text = "Scale To Area";
-            _button2.UseVisualStyleBackColor = true;
-            _button2.Click += new EventHandler(button2_Click);
-            _timer1.Interval = 50;
-            _form1BindingSource.DataSource = typeof(Form1);
-            AutoScaleDimensions = new SizeF(6f, 13f);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(961, 558);
-            ContextMenuStrip = _contextMenuStrip1;
-            Controls.Add(_button2);
-            Controls.Add(_label27);
-            Controls.Add(_label26);
-            Controls.Add(_trackBar1);
-            Controls.Add(_checkBox2);
-            Controls.Add(_checkBox1);
-            Controls.Add(_panel1);
-            Controls.Add(_button1);
-            Name = "Form1";
-            Text = "5";
-            Load += new EventHandler(Form1_Load);
-            ((ISupportInitialize)_dataGridView1).EndInit();
-            _panel1.ResumeLayout(false);
-            _groupBox2.ResumeLayout(false);
-            _groupBox2.PerformLayout();
-            _groupBox1.ResumeLayout(false);
-            _groupBox1.PerformLayout();
-            ((ISupportInitialize)_chart1).EndInit();
-            ((ISupportInitialize)_dataSet1).EndInit();
-            ((ISupportInitialize)_dataTable1).EndInit();
-            _contextMenuStrip1.ResumeLayout(false);
-            ((ISupportInitialize)_trackBar1).EndInit();
-            ((ISupportInitialize)_form1BindingSource).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this._label1 = new System.Windows.Forms.Label();
+            this._label2 = new System.Windows.Forms.Label();
+            this._button1 = new System.Windows.Forms.Button();
+            this._dataGridView1 = new System.Windows.Forms.DataGridView();
+            this._x = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._oryginalX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._oryginalY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._panel1 = new System.Windows.Forms.Panel();
+            this._groupBox2 = new System.Windows.Forms.GroupBox();
+            this._groupBox1 = new System.Windows.Forms.GroupBox();
+            this._label24 = new System.Windows.Forms.Label();
+            this._label25 = new System.Windows.Forms.Label();
+            this._label22 = new System.Windows.Forms.Label();
+            this._label23 = new System.Windows.Forms.Label();
+            this._label21 = new System.Windows.Forms.Label();
+            this._label19 = new System.Windows.Forms.Label();
+            this._label20 = new System.Windows.Forms.Label();
+            this._label17 = new System.Windows.Forms.Label();
+            this._label18 = new System.Windows.Forms.Label();
+            this._label15 = new System.Windows.Forms.Label();
+            this._label16 = new System.Windows.Forms.Label();
+            this._label11 = new System.Windows.Forms.Label();
+            this._label12 = new System.Windows.Forms.Label();
+            this._label13 = new System.Windows.Forms.Label();
+            this._label14 = new System.Windows.Forms.Label();
+            this._label4 = new System.Windows.Forms.Label();
+            this._label3 = new System.Windows.Forms.Label();
+            this._label9 = new System.Windows.Forms.Label();
+            this._label6 = new System.Windows.Forms.Label();
+            this._label10 = new System.Windows.Forms.Label();
+            this._label5 = new System.Windows.Forms.Label();
+            this._label7 = new System.Windows.Forms.Label();
+            this._label8 = new System.Windows.Forms.Label();
+            this._chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this._dataSet1 = new System.Data.DataSet();
+            this._dataTable1 = new System.Data.DataTable();
+            this._contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._checkBox2 = new System.Windows.Forms.CheckBox();
+            this._checkBox1 = new System.Windows.Forms.CheckBox();
+            this._trackBar1 = new System.Windows.Forms.TrackBar();
+            this._label26 = new System.Windows.Forms.Label();
+            this._label27 = new System.Windows.Forms.Label();
+            this._button2 = new System.Windows.Forms.Button();
+            this._timer1 = new System.Windows.Forms.Timer(this.components);
+            this._form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._radioButton3 = new System.Windows.Forms.RadioButton();
+            this._radioButton2 = new System.Windows.Forms.RadioButton();
+            this._radioButton1 = new System.Windows.Forms.RadioButton();
+            ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).BeginInit();
+            this._panel1.SuspendLayout();
+            this._groupBox2.SuspendLayout();
+            this._groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataTable1)).BeginInit();
+            this._contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._form1BindingSource)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // _label1
+            // 
+            this._label1.AutoSize = true;
+            this._label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this._label1.Location = new System.Drawing.Point(8, 16);
+            this._label1.Name = "_label1";
+            this._label1.Size = new System.Drawing.Size(112, 13);
+            this._label1.TabIndex = 0;
+            this._label1.Text = "Blue Figure Area =";
+            // 
+            // _label2
+            // 
+            this._label2.AutoSize = true;
+            this._label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label2.Location = new System.Drawing.Point(129, 16);
+            this._label2.Name = "_label2";
+            this._label2.Size = new System.Drawing.Size(14, 13);
+            this._label2.TabIndex = 1;
+            this._label2.Text = "0";
+            // 
+            // _button1
+            // 
+            this._button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._button1.Location = new System.Drawing.Point(874, 523);
+            this._button1.Name = "_button1";
+            this._button1.Size = new System.Drawing.Size(75, 23);
+            this._button1.TabIndex = 2;
+            this._button1.Text = "Calculate";
+            this._button1.UseVisualStyleBackColor = true;
+            this._button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // _dataGridView1
+            // 
+            this._dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this._dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this._dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this._x,
+            this._y,
+            this._oryginalX,
+            this._oryginalY});
+            this._dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this._dataGridView1.Name = "_dataGridView1";
+            this._dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this._dataGridView1.Size = new System.Drawing.Size(352, 483);
+            this._dataGridView1.TabIndex = 3;
+            this._dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // _x
+            // 
+            this._x.FillWeight = 48.89976F;
+            this._x.HeaderText = "Your X";
+            this._x.Name = "_x";
+            this._x.Width = 64;
+            // 
+            // _y
+            // 
+            this._y.FillWeight = 151.1003F;
+            this._y.HeaderText = "Your Y";
+            this._y.Name = "_y";
+            this._y.Width = 64;
+            // 
+            // _oryginalX
+            // 
+            this._oryginalX.HeaderText = "Oryginal X";
+            this._oryginalX.Name = "_oryginalX";
+            this._oryginalX.Width = 80;
+            // 
+            // _oryginalY
+            // 
+            this._oryginalY.HeaderText = "Oryginal Y";
+            this._oryginalY.Name = "_oryginalY";
+            this._oryginalY.Width = 80;
+            // 
+            // _panel1
+            // 
+            this._panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._panel1.Controls.Add(this._groupBox2);
+            this._panel1.Controls.Add(this._groupBox1);
+            this._panel1.Controls.Add(this._chart1);
+            this._panel1.Controls.Add(this._dataGridView1);
+            this._panel1.Location = new System.Drawing.Point(15, 25);
+            this._panel1.Name = "_panel1";
+            this._panel1.Size = new System.Drawing.Size(934, 483);
+            this._panel1.TabIndex = 5;
+            // 
+            // _groupBox2
+            // 
+            this._groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._groupBox2.Controls.Add(this._radioButton3);
+            this._groupBox2.Controls.Add(this._radioButton2);
+            this._groupBox2.Controls.Add(this._radioButton1);
+            this._groupBox2.Location = new System.Drawing.Point(386, 280);
+            this._groupBox2.Name = "_groupBox2";
+            this._groupBox2.Size = new System.Drawing.Size(230, 203);
+            this._groupBox2.TabIndex = 30;
+            this._groupBox2.TabStop = false;
+            this._groupBox2.Text = "Load";
+            // 
+            // _groupBox1
+            // 
+            this._groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this._groupBox1.Controls.Add(this._label24);
+            this._groupBox1.Controls.Add(this._label25);
+            this._groupBox1.Controls.Add(this._label22);
+            this._groupBox1.Controls.Add(this._label23);
+            this._groupBox1.Controls.Add(this._label21);
+            this._groupBox1.Controls.Add(this._label19);
+            this._groupBox1.Controls.Add(this._label20);
+            this._groupBox1.Controls.Add(this._label17);
+            this._groupBox1.Controls.Add(this._label18);
+            this._groupBox1.Controls.Add(this._label15);
+            this._groupBox1.Controls.Add(this._label16);
+            this._groupBox1.Controls.Add(this._label11);
+            this._groupBox1.Controls.Add(this._label12);
+            this._groupBox1.Controls.Add(this._label13);
+            this._groupBox1.Controls.Add(this._label14);
+            this._groupBox1.Controls.Add(this._label1);
+            this._groupBox1.Controls.Add(this._label2);
+            this._groupBox1.Controls.Add(this._label4);
+            this._groupBox1.Controls.Add(this._label3);
+            this._groupBox1.Controls.Add(this._label9);
+            this._groupBox1.Controls.Add(this._label6);
+            this._groupBox1.Controls.Add(this._label10);
+            this._groupBox1.Controls.Add(this._label5);
+            this._groupBox1.Controls.Add(this._label7);
+            this._groupBox1.Controls.Add(this._label8);
+            this._groupBox1.Location = new System.Drawing.Point(614, 280);
+            this._groupBox1.Name = "_groupBox1";
+            this._groupBox1.Size = new System.Drawing.Size(320, 203);
+            this._groupBox1.TabIndex = 18;
+            this._groupBox1.TabStop = false;
+            // 
+            // _label24
+            // 
+            this._label24.AutoSize = true;
+            this._label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label24.Location = new System.Drawing.Point(205, 146);
+            this._label24.Name = "_label24";
+            this._label24.Size = new System.Drawing.Size(14, 13);
+            this._label24.TabIndex = 29;
+            this._label24.Text = "0";
+            // 
+            // _label25
+            // 
+            this._label25.AutoSize = true;
+            this._label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label25.ForeColor = System.Drawing.SystemColors.ControlText;
+            this._label25.Location = new System.Drawing.Point(8, 146);
+            this._label25.Name = "_label25";
+            this._label25.Size = new System.Drawing.Size(196, 13);
+            this._label25.TabIndex = 28;
+            this._label25.Text = "Non-overlapping areas raw sum =";
+            // 
+            // _label22
+            // 
+            this._label22.AutoSize = true;
+            this._label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label22.Location = new System.Drawing.Point(158, 133);
+            this._label22.Name = "_label22";
+            this._label22.Size = new System.Drawing.Size(14, 13);
+            this._label22.TabIndex = 27;
+            this._label22.Text = "0";
+            // 
+            // _label23
+            // 
+            this._label23.AutoSize = true;
+            this._label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label23.Location = new System.Drawing.Point(8, 133);
+            this._label23.Name = "_label23";
+            this._label23.Size = new System.Drawing.Size(144, 13);
+            this._label23.TabIndex = 26;
+            this._label23.Text = "Overlapping areas raw sum =";
+            // 
+            // _label21
+            // 
+            this._label21.AutoSize = true;
+            this._label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label21.Location = new System.Drawing.Point(295, 172);
+            this._label21.Name = "_label21";
+            this._label21.Size = new System.Drawing.Size(16, 13);
+            this._label21.TabIndex = 25;
+            this._label21.Text = "%";
+            // 
+            // _label19
+            // 
+            this._label19.AutoSize = true;
+            this._label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label19.Location = new System.Drawing.Point(245, 172);
+            this._label19.Name = "_label19";
+            this._label19.Size = new System.Drawing.Size(14, 13);
+            this._label19.TabIndex = 24;
+            this._label19.Text = "0";
+            // 
+            // _label20
+            // 
+            this._label20.AutoSize = true;
+            this._label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label20.ForeColor = System.Drawing.Color.DarkRed;
+            this._label20.Location = new System.Drawing.Point(152, 172);
+            this._label20.Name = "_label20";
+            this._label20.Size = new System.Drawing.Size(87, 13);
+            this._label20.TabIndex = 23;
+            this._label20.Text = "Match index =";
+            // 
+            // _label17
+            // 
+            this._label17.AutoSize = true;
+            this._label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label17.Location = new System.Drawing.Point(152, 107);
+            this._label17.Name = "_label17";
+            this._label17.Size = new System.Drawing.Size(14, 13);
+            this._label17.TabIndex = 22;
+            this._label17.Text = "0";
+            // 
+            // _label18
+            // 
+            this._label18.AutoSize = true;
+            this._label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label18.Location = new System.Drawing.Point(8, 107);
+            this._label18.Name = "_label18";
+            this._label18.Size = new System.Drawing.Size(140, 13);
+            this._label18.TabIndex = 21;
+            this._label18.Text = "Blue non-overlapping area =";
+            // 
+            // _label15
+            // 
+            this._label15.AutoSize = true;
+            this._label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label15.Location = new System.Drawing.Point(142, 94);
+            this._label15.Name = "_label15";
+            this._label15.Size = new System.Drawing.Size(14, 13);
+            this._label15.TabIndex = 20;
+            this._label15.Text = "0";
+            // 
+            // _label16
+            // 
+            this._label16.AutoSize = true;
+            this._label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label16.Location = new System.Drawing.Point(8, 94);
+            this._label16.Name = "_label16";
+            this._label16.Size = new System.Drawing.Size(129, 13);
+            this._label16.TabIndex = 19;
+            this._label16.Text = "Yellow overlapping area =";
+            // 
+            // _label11
+            // 
+            this._label11.AutoSize = true;
+            this._label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label11.ForeColor = System.Drawing.Color.RoyalBlue;
+            this._label11.Location = new System.Drawing.Point(8, 42);
+            this._label11.Name = "_label11";
+            this._label11.Size = new System.Drawing.Size(139, 13);
+            this._label11.TabIndex = 15;
+            this._label11.Text = "Blue Figure Perimeter =";
+            // 
+            // _label12
+            // 
+            this._label12.AutoSize = true;
+            this._label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label12.Location = new System.Drawing.Point(151, 42);
+            this._label12.Name = "_label12";
+            this._label12.Size = new System.Drawing.Size(14, 13);
+            this._label12.TabIndex = 16;
+            this._label12.Text = "0";
+            // 
+            // _label13
+            // 
+            this._label13.AutoSize = true;
+            this._label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label13.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this._label13.Location = new System.Drawing.Point(8, 55);
+            this._label13.Name = "_label13";
+            this._label13.Size = new System.Drawing.Size(148, 13);
+            this._label13.TabIndex = 17;
+            this._label13.Text = "Yellow figure Perimeter =";
+            // 
+            // _label14
+            // 
+            this._label14.AutoSize = true;
+            this._label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label14.Location = new System.Drawing.Point(158, 55);
+            this._label14.Name = "_label14";
+            this._label14.Size = new System.Drawing.Size(14, 13);
+            this._label14.TabIndex = 18;
+            this._label14.Text = "0";
+            // 
+            // _label4
+            // 
+            this._label4.AutoSize = true;
+            this._label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label4.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this._label4.Location = new System.Drawing.Point(8, 29);
+            this._label4.Name = "_label4";
+            this._label4.Size = new System.Drawing.Size(121, 13);
+            this._label4.TabIndex = 6;
+            this._label4.Text = "Yellow figure Area =";
+            // 
+            // _label3
+            // 
+            this._label3.AutoSize = true;
+            this._label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label3.Location = new System.Drawing.Point(136, 29);
+            this._label3.Name = "_label3";
+            this._label3.Size = new System.Drawing.Size(14, 13);
+            this._label3.TabIndex = 7;
+            this._label3.Text = "0";
+            // 
+            // _label9
+            // 
+            this._label9.AutoSize = true;
+            this._label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label9.Location = new System.Drawing.Point(164, 120);
+            this._label9.Name = "_label9";
+            this._label9.Size = new System.Drawing.Size(14, 13);
+            this._label9.TabIndex = 14;
+            this._label9.Text = "0";
+            // 
+            // _label6
+            // 
+            this._label6.AutoSize = true;
+            this._label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label6.Location = new System.Drawing.Point(8, 68);
+            this._label6.Name = "_label6";
+            this._label6.Size = new System.Drawing.Size(138, 13);
+            this._label6.TabIndex = 8;
+            this._label6.Text = "Difference between areas =";
+            // 
+            // _label10
+            // 
+            this._label10.AutoSize = true;
+            this._label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label10.Location = new System.Drawing.Point(8, 120);
+            this._label10.Name = "_label10";
+            this._label10.Size = new System.Drawing.Size(150, 13);
+            this._label10.TabIndex = 13;
+            this._label10.Text = "Yellow non-overlapping area =";
+            // 
+            // _label5
+            // 
+            this._label5.AutoSize = true;
+            this._label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label5.Location = new System.Drawing.Point(149, 68);
+            this._label5.Name = "_label5";
+            this._label5.Size = new System.Drawing.Size(14, 13);
+            this._label5.TabIndex = 9;
+            this._label5.Text = "0";
+            // 
+            // _label7
+            // 
+            this._label7.AutoSize = true;
+            this._label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label7.Location = new System.Drawing.Point(129, 81);
+            this._label7.Name = "_label7";
+            this._label7.Size = new System.Drawing.Size(14, 13);
+            this._label7.TabIndex = 11;
+            this._label7.Text = "0";
+            // 
+            // _label8
+            // 
+            this._label8.AutoSize = true;
+            this._label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this._label8.Location = new System.Drawing.Point(8, 81);
+            this._label8.Name = "_label8";
+            this._label8.Size = new System.Drawing.Size(119, 13);
+            this._label8.TabIndex = 10;
+            this._label8.Text = "Blue overlapping area =";
+            // 
+            // _chart1
+            // 
+            this._chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea3.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea3.Name = "ChartArea1";
+            this._chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this._chart1.Legends.Add(legend3);
+            this._chart1.Location = new System.Drawing.Point(358, 0);
+            this._chart1.Name = "_chart1";
+            series5.BorderWidth = 9;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            series6.BorderWidth = 9;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Series2";
+            this._chart1.Series.Add(series5);
+            this._chart1.Series.Add(series6);
+            this._chart1.Size = new System.Drawing.Size(576, 255);
+            this._chart1.TabIndex = 4;
+            this._chart1.Text = "chart1";
+            // 
+            // _dataSet1
+            // 
+            this._dataSet1.DataSetName = "NewDataSet";
+            this._dataSet1.Tables.AddRange(new System.Data.DataTable[] {
+            this._dataTable1});
+            // 
+            // _dataTable1
+            // 
+            this._dataTable1.TableName = "Table1";
+            // 
+            // _contextMenuStrip1
+            // 
+            this._contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._aboutToolStripMenuItem,
+            this._helpToolStripMenuItem});
+            this._contextMenuStrip1.Name = "_contextMenuStrip1";
+            this._contextMenuStrip1.Size = new System.Drawing.Size(108, 48);
+            this._contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // _aboutToolStripMenuItem
+            // 
+            this._aboutToolStripMenuItem.Name = "_aboutToolStripMenuItem";
+            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this._aboutToolStripMenuItem.Text = "About";
+            this._aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // _helpToolStripMenuItem
+            // 
+            this._helpToolStripMenuItem.Name = "_helpToolStripMenuItem";
+            this._helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this._helpToolStripMenuItem.Text = "Help";
+            this._helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // _checkBox2
+            // 
+            this._checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._checkBox2.AutoSize = true;
+            this._checkBox2.Location = new System.Drawing.Point(720, 542);
+            this._checkBox2.Name = "_checkBox2";
+            this._checkBox2.Size = new System.Drawing.Size(132, 17);
+            this._checkBox2.TabIndex = 24;
+            this._checkBox2.Text = "Show difference areas";
+            this._checkBox2.UseVisualStyleBackColor = true;
+            this._checkBox2.Visible = false;
+            this._checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // _checkBox1
+            // 
+            this._checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._checkBox1.AutoSize = true;
+            this._checkBox1.Checked = true;
+            this._checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._checkBox1.Location = new System.Drawing.Point(720, 521);
+            this._checkBox1.Name = "_checkBox1";
+            this._checkBox1.Size = new System.Drawing.Size(87, 17);
+            this._checkBox1.TabIndex = 23;
+            this._checkBox1.Text = "Show figures";
+            this._checkBox1.UseVisualStyleBackColor = true;
+            this._checkBox1.Visible = false;
+            this._checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // _trackBar1
+            // 
+            this._trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._trackBar1.Location = new System.Drawing.Point(60, 514);
+            this._trackBar1.Maximum = 200;
+            this._trackBar1.Minimum = 1;
+            this._trackBar1.Name = "_trackBar1";
+            this._trackBar1.Size = new System.Drawing.Size(307, 45);
+            this._trackBar1.TabIndex = 31;
+            this._trackBar1.Value = 100;
+            this._trackBar1.Visible = false;
+            this._trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // _label26
+            // 
+            this._label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._label26.AutoSize = true;
+            this._label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label26.Location = new System.Drawing.Point(373, 528);
+            this._label26.Name = "_label26";
+            this._label26.Size = new System.Drawing.Size(36, 13);
+            this._label26.TabIndex = 32;
+            this._label26.Text = "Grow";
+            this._label26.Visible = false;
+            // 
+            // _label27
+            // 
+            this._label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._label27.AutoSize = true;
+            this._label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._label27.Location = new System.Drawing.Point(11, 528);
+            this._label27.Name = "_label27";
+            this._label27.Size = new System.Drawing.Size(43, 13);
+            this._label27.TabIndex = 33;
+            this._label27.Text = "Shrink";
+            this._label27.Visible = false;
+            // 
+            // _button2
+            // 
+            this._button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._button2.Location = new System.Drawing.Point(415, 523);
+            this._button2.Name = "_button2";
+            this._button2.Size = new System.Drawing.Size(91, 23);
+            this._button2.TabIndex = 34;
+            this._button2.Text = "Scale To Area";
+            this._button2.UseVisualStyleBackColor = true;
+            this._button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // _timer1
+            // 
+            this._timer1.Interval = 50;
+            // 
+            // _form1BindingSource
+            // 
+            this._form1BindingSource.DataSource = typeof(SpatialMapsCompare.Form1);
+            // 
+            // _radioButton3
+            // 
+            this._radioButton3.AutoSize = true;
+            this._radioButton3.Location = new System.Drawing.Point(6, 65);
+            this._radioButton3.Name = "_radioButton3";
+            this._radioButton3.Size = new System.Drawing.Size(69, 17);
+            this._radioButton3.TabIndex = 2;
+            this._radioButton3.TabStop = true;
+            this._radioButton3.Text = "101_ET3";
+            this._radioButton3.UseVisualStyleBackColor = true;
+            this._radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // _radioButton2
+            // 
+            this._radioButton2.AutoSize = true;
+            this._radioButton2.Location = new System.Drawing.Point(6, 42);
+            this._radioButton2.Name = "_radioButton2";
+            this._radioButton2.Size = new System.Drawing.Size(69, 17);
+            this._radioButton2.TabIndex = 1;
+            this._radioButton2.TabStop = true;
+            this._radioButton2.Text = "101_ET2";
+            this._radioButton2.UseVisualStyleBackColor = true;
+            this._radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // _radioButton1
+            // 
+            this._radioButton1.AutoSize = true;
+            this._radioButton1.Location = new System.Drawing.Point(6, 19);
+            this._radioButton1.Name = "_radioButton1";
+            this._radioButton1.Size = new System.Drawing.Size(69, 17);
+            this._radioButton1.TabIndex = 0;
+            this._radioButton1.TabStop = true;
+            this._radioButton1.Text = "101_ET1";
+            this._radioButton1.UseVisualStyleBackColor = true;
+            this._radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(961, 558);
+            this.ContextMenuStrip = this._contextMenuStrip1;
+            this.Controls.Add(this._button2);
+            this.Controls.Add(this._label27);
+            this.Controls.Add(this._label26);
+            this.Controls.Add(this._trackBar1);
+            this.Controls.Add(this._checkBox2);
+            this.Controls.Add(this._checkBox1);
+            this.Controls.Add(this._panel1);
+            this.Controls.Add(this._button1);
+            this.Name = "Form1";
+            this.Text = "5";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).EndInit();
+            this._panel1.ResumeLayout(false);
+            this._groupBox2.ResumeLayout(false);
+            this._groupBox2.PerformLayout();
+            this._groupBox1.ResumeLayout(false);
+            this._groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dataTable1)).EndInit();
+            this._contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._form1BindingSource)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
+
+        private RadioButton _radioButton1;
+        private RadioButton _radioButton2;
+        private RadioButton _radioButton3;
     }
 }

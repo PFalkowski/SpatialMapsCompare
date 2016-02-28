@@ -410,9 +410,9 @@ namespace GeoLib
         /// </summary>
 	    public static double GetAreaSigned(C2DPoint pt1, C2DPoint pt2, C2DPoint pt3)
         {
-	        double dArea = pt1.x * pt2.y - pt2.x * pt1.y +
-				           pt2.x * pt3.y - pt3.x * pt2.y +
-				           pt3.x * pt1.y - pt1.x * pt3.y;
+	        double dArea = pt1.X * pt2.Y - pt2.X * pt1.Y +
+				           pt2.X * pt3.Y - pt3.X * pt2.Y +
+				           pt3.X * pt1.Y - pt1.X * pt3.Y;
 
 	        dArea /= 2.0;
 

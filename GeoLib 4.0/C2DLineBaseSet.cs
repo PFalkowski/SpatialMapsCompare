@@ -426,9 +426,9 @@ namespace GeoLib
             {
                 if (L1 == L2)
                     return 0;
-                if (L1.Rect.TopLeft.x > L2.Rect.TopLeft.x)
+                if (L1.Rect.TopLeft.X > L2.Rect.TopLeft.X)
                     return 1;
-                else if (L1.Rect.TopLeft.x == L2.Rect.TopLeft.x)
+                else if (L1.Rect.TopLeft.X == L2.Rect.TopLeft.X)
                     return 0;
                 else
                     return -1;
