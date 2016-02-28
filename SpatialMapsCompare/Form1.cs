@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -14,6 +15,7 @@ namespace SpatialMapsCompare
 {
     public class Form1 : Form
     {
+        private Dictionary<string, Polygon> Polygons = new Dictionary<string, Polygon>();
         private List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
         {
             new C2DPoint(0.50001, 0.750001),
@@ -543,10 +545,10 @@ namespace SpatialMapsCompare
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this._label1 = new System.Windows.Forms.Label();
             this._label2 = new System.Windows.Forms.Label();
             this._button1 = new System.Windows.Forms.Button();
@@ -557,6 +559,9 @@ namespace SpatialMapsCompare
             this._oryginalY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._panel1 = new System.Windows.Forms.Panel();
             this._groupBox2 = new System.Windows.Forms.GroupBox();
+            this._radioButton3 = new System.Windows.Forms.RadioButton();
+            this._radioButton2 = new System.Windows.Forms.RadioButton();
+            this._radioButton1 = new System.Windows.Forms.RadioButton();
             this._groupBox1 = new System.Windows.Forms.GroupBox();
             this._label24 = new System.Windows.Forms.Label();
             this._label25 = new System.Windows.Forms.Label();
@@ -594,10 +599,10 @@ namespace SpatialMapsCompare
             this._label27 = new System.Windows.Forms.Label();
             this._button2 = new System.Windows.Forms.Button();
             this._timer1 = new System.Windows.Forms.Timer(this.components);
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this._form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this._radioButton3 = new System.Windows.Forms.RadioButton();
-            this._radioButton2 = new System.Windows.Forms.RadioButton();
-            this._radioButton1 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).BeginInit();
             this._panel1.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -703,6 +708,8 @@ namespace SpatialMapsCompare
             // _groupBox2
             // 
             this._groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._groupBox2.Controls.Add(this.button1);
+            this._groupBox2.Controls.Add(this.listBox1);
             this._groupBox2.Controls.Add(this._radioButton3);
             this._groupBox2.Controls.Add(this._radioButton2);
             this._groupBox2.Controls.Add(this._radioButton1);
@@ -712,6 +719,42 @@ namespace SpatialMapsCompare
             this._groupBox2.TabIndex = 30;
             this._groupBox2.TabStop = false;
             this._groupBox2.Text = "Load";
+            // 
+            // _radioButton3
+            // 
+            this._radioButton3.AutoSize = true;
+            this._radioButton3.Location = new System.Drawing.Point(6, 65);
+            this._radioButton3.Name = "_radioButton3";
+            this._radioButton3.Size = new System.Drawing.Size(69, 17);
+            this._radioButton3.TabIndex = 2;
+            this._radioButton3.TabStop = true;
+            this._radioButton3.Text = "101_ET3";
+            this._radioButton3.UseVisualStyleBackColor = true;
+            this._radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // _radioButton2
+            // 
+            this._radioButton2.AutoSize = true;
+            this._radioButton2.Location = new System.Drawing.Point(6, 42);
+            this._radioButton2.Name = "_radioButton2";
+            this._radioButton2.Size = new System.Drawing.Size(69, 17);
+            this._radioButton2.TabIndex = 1;
+            this._radioButton2.TabStop = true;
+            this._radioButton2.Text = "101_ET2";
+            this._radioButton2.UseVisualStyleBackColor = true;
+            this._radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // _radioButton1
+            // 
+            this._radioButton1.AutoSize = true;
+            this._radioButton1.Location = new System.Drawing.Point(6, 19);
+            this._radioButton1.Name = "_radioButton1";
+            this._radioButton1.Size = new System.Drawing.Size(69, 17);
+            this._radioButton1.TabIndex = 0;
+            this._radioButton1.TabStop = true;
+            this._radioButton1.Text = "101_ET1";
+            this._radioButton1.UseVisualStyleBackColor = true;
+            this._radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // _groupBox1
             // 
@@ -994,25 +1037,25 @@ namespace SpatialMapsCompare
             this._chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
-            chartArea3.Name = "ChartArea1";
-            this._chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this._chart1.Legends.Add(legend3);
+            chartArea1.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea1.Name = "ChartArea1";
+            this._chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this._chart1.Legends.Add(legend1);
             this._chart1.Location = new System.Drawing.Point(358, 0);
             this._chart1.Name = "_chart1";
-            series5.BorderWidth = 9;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            series6.BorderWidth = 9;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Legend = "Legend1";
-            series6.Name = "Series2";
-            this._chart1.Series.Add(series5);
-            this._chart1.Series.Add(series6);
+            series1.BorderWidth = 9;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series2.BorderWidth = 9;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            this._chart1.Series.Add(series1);
+            this._chart1.Series.Add(series2);
             this._chart1.Size = new System.Drawing.Size(576, 255);
             this._chart1.TabIndex = 4;
             this._chart1.Text = "chart1";
@@ -1130,45 +1173,31 @@ namespace SpatialMapsCompare
             // 
             this._timer1.Interval = 50;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 94);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(216, 95);
+            this.listBox1.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(147, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Open File";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // _form1BindingSource
             // 
             this._form1BindingSource.DataSource = typeof(SpatialMapsCompare.Form1);
-            // 
-            // _radioButton3
-            // 
-            this._radioButton3.AutoSize = true;
-            this._radioButton3.Location = new System.Drawing.Point(6, 65);
-            this._radioButton3.Name = "_radioButton3";
-            this._radioButton3.Size = new System.Drawing.Size(69, 17);
-            this._radioButton3.TabIndex = 2;
-            this._radioButton3.TabStop = true;
-            this._radioButton3.Text = "101_ET3";
-            this._radioButton3.UseVisualStyleBackColor = true;
-            this._radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // _radioButton2
-            // 
-            this._radioButton2.AutoSize = true;
-            this._radioButton2.Location = new System.Drawing.Point(6, 42);
-            this._radioButton2.Name = "_radioButton2";
-            this._radioButton2.Size = new System.Drawing.Size(69, 17);
-            this._radioButton2.TabIndex = 1;
-            this._radioButton2.TabStop = true;
-            this._radioButton2.Text = "101_ET2";
-            this._radioButton2.UseVisualStyleBackColor = true;
-            this._radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // _radioButton1
-            // 
-            this._radioButton1.AutoSize = true;
-            this._radioButton1.Location = new System.Drawing.Point(6, 19);
-            this._radioButton1.Name = "_radioButton1";
-            this._radioButton1.Size = new System.Drawing.Size(69, 17);
-            this._radioButton1.TabIndex = 0;
-            this._radioButton1.TabStop = true;
-            this._radioButton1.Text = "101_ET1";
-            this._radioButton1.UseVisualStyleBackColor = true;
-            this._radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Form1
             // 
@@ -1207,5 +1236,54 @@ namespace SpatialMapsCompare
         private RadioButton _radioButton1;
         private RadioButton _radioButton2;
         private RadioButton _radioButton3;
+        private Button button1;
+        private ListBox listBox1;
+        private OpenFileDialog openFileDialog1;
+
+        private Polygon ReadPolygonFromFile(string fileName)
+        {
+            Polygon tempPoly = null;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            if (string.IsNullOrWhiteSpace(fileNameWithoutExtension))
+            {
+                MessageBox.Show($"The path choosen (\"{fileName}\") does not contain valid file name", "File name empty",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (Polygons.ContainsKey(fileNameWithoutExtension))
+            {
+                MessageBox.Show($"File \"{fileNameWithoutExtension}\" or file with the same name already opened.", $"File \"{fileNameWithoutExtension}\" already open",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            else
+            {
+                try
+                {
+                    tempPoly = Helper.DeserializeFromXml<Polygon>(fileName);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message, $"Error opening file \"{fileNameWithoutExtension}\"",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (InvalidOperationException iop)
+                {
+                    MessageBox.Show($"The file \"{fileName}\" is not a valid xml file with polygon points data.", $"Error opening file \"{fileNameWithoutExtension}\"",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return tempPoly;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var tempPoly = ReadPolygonFromFile(openFileDialog1.FileName);
+                if (tempPoly == null) return;
+                Polygons.Add(Path.GetFileNameWithoutExtension(openFileDialog1.FileName), tempPoly);
+            }
+        }
+
     }
 }

@@ -14,7 +14,21 @@ namespace SpatialMapsCompareTests
     public class UnitTest1
     {
         private string testFileName = "testSerializationData.xml";
-        private readonly List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
+        //private readonly List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
+        //{
+        //    new C2DPoint(0.50001, 0.750001),
+        //    new C2DPoint(0.250001, 0.75001),
+        //    new C2DPoint(0.250001, 0.5001),
+        //    new C2DPoint(1E-05, 0.5001),
+        //    new C2DPoint(1E-05, 0.25001),
+        //    new C2DPoint(0.250001, 0.25001),
+        //    new C2DPoint(0.250001, 0.0001),
+        //    new C2DPoint(1.0001, 0.0001),
+        //    new C2DPoint(1.0001, 0.5001),
+        //    new C2DPoint(0.5001, 0.5001),
+        //    new C2DPoint(0.5001, 0.7501)
+        //};
+        private readonly Polygon _testPolygon = new Polygon("testPolygon", new List<C2DPoint>
         {
             new C2DPoint(0.50001, 0.750001),
             new C2DPoint(0.250001, 0.75001),
@@ -27,12 +41,11 @@ namespace SpatialMapsCompareTests
             new C2DPoint(1.0001, 0.5001),
             new C2DPoint(0.5001, 0.5001),
             new C2DPoint(0.5001, 0.7501)
-        };
-
+        });
         [TestMethod]
         public void TestSerialization()
         {
-            var serialized = _referencePolygonC2DPoints.SerializeToXDoc();
+            var serialized = _testPolygon.SerializeToXDoc();
             Console.WriteLine(serialized);
             serialized.Save(testFileName);
         }
@@ -42,11 +55,11 @@ namespace SpatialMapsCompareTests
         {
             if (!File.Exists(testFileName))
             {
-                _referencePolygonC2DPoints.SerializeToXDoc().Save(testFileName);
+                _testPolygon.SerializeToXDoc().Save(testFileName);
             }
 
-            var result = Helper.DeserializeFromXml<List<C2DPoint>>(testFileName);
-            Assert.AreEqual(_referencePolygonC2DPoints.Count, result.Count);
+            var result = Helper.DeserializeFromXml<Polygon>(testFileName);
+            Assert.AreEqual(_testPolygon.Points.Count, result.Points.Count);
         }
     }
 }
