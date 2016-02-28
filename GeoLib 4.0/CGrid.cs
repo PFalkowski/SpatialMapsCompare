@@ -54,7 +54,7 @@ namespace GeoLib
             // Find the furthest possible linear distance from the origin.
             C2DPoint pt = cRect.GetPointFurthestFromOrigin();
 
-            double dRes = Math.Abs(Math.Max(pt.X, pt.Y));
+            double dRes = Math.Abs(Math.Max(pt.x, pt.y));
             // Now multiply this by the eq tol. Now, 2 points which are this far apart from each other
             // (in x and y) and at the edge of the rect would be considered only just not equal.
             dRes *= Constants.conEqualityTolerance;

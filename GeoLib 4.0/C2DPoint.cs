@@ -19,8 +19,8 @@ namespace GeoLib
         /// <param name="context"></param>
         protected C2DPoint(SerializationInfo info, StreamingContext context)
         {
-            X = (double)info.GetValue("x", typeof(double));
-            Y = (double)info.GetValue("y", typeof(double));
+            x = (double)info.GetValue("x", typeof(double));
+            y = (double)info.GetValue("y", typeof(double));
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace GeoLib
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("x", X);
-            info.AddValue("y", Y);
+            info.AddValue("x", x);
+            info.AddValue("y", y);
         }
         /// <summary>
         /// GetObjectData for serialization.
@@ -45,8 +45,8 @@ namespace GeoLib
             if (info == null)
                 throw new ArgumentNullException(nameof(info));
 
-            info.AddValue("x", X);
-            info.AddValue("y", Y);
+            info.AddValue("x", x);
+            info.AddValue("y", y);
         }
         /// <summary>
         /// Constructor.
@@ -59,8 +59,8 @@ namespace GeoLib
         /// <param name="other">Point to which this will be assigned.</param>
         public C2DPoint(C2DPoint other) 
         { 
-            X = other.X; 
-            Y = other.Y; 
+            x = other.x; 
+            y = other.y; 
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace GeoLib
         /// <param name="dy">The y value of the point.</param>
 	    public C2DPoint(double dx, double dy) 
         { 
-            X = dx; 
-            Y = dy; 
+            x = dx; 
+            y = dy; 
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace GeoLib
         /// <param name="dy">The y value of the point.</param>
 	    public void Set(double dx, double dy) 
         { 
-            X = dx; 
-            Y = dy;
+            x = dx; 
+            y = dy;
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace GeoLib
         /// <param name="pt">The point to assign to.</param>
         public void Set(C2DPoint pt)
         {
-            X = pt.X;
-            Y = pt.Y;
+            x = pt.x;
+            y = pt.y;
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace GeoLib
         /// <param name="vector">Vector to assign to.</param>
         public C2DPoint( C2DVector vector) 
         { 
-            X = vector.i; 
-            Y = vector.j; 
+            x = vector.i; 
+            y = vector.j; 
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace GeoLib
         /// <param name="other">Another point.</param>
 	    public C2DPoint GetMidPoint(C2DPoint other)
         {
-            return new C2DPoint((X + other.X) / 2, (Y + other.Y) / 2);
+            return new C2DPoint((x + other.x) / 2, (y + other.y) / 2);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace GeoLib
         /// <param name="vector">The vector to project this on.</param>
 	    public double Project(C2DVector vector) 
         {
-	        C2DVector vecthis = new C2DVector(X, Y);
+	        C2DVector vecthis = new C2DVector(x, y);
 
 	        return (vecthis.Dot(vector)) / vector.GetLength();
         }
@@ -170,7 +170,7 @@ namespace GeoLib
 	    public bool ProjectsOnLine(C2DLine line,  C2DPoint ptOnLine , 
 		    ref bool bAbove)
         {
-            C2DVector vecthis = new C2DVector(X - line.point.X, Y - line.point.Y);
+            C2DVector vecthis = new C2DVector(x - line.point.x, y - line.point.y);
 	        double dProj = vecthis.Dot(line.vector);
 
 	        if (dProj < 0)
@@ -193,7 +193,7 @@ namespace GeoLib
     		
 	        C2DVector vProj = new C2DVector(line.vector);
 	        vProj.Multiply(dFactor);
-	        ptOnLine.Set(line.point.X + vProj.i, line.point.Y + vProj.j);
+	        ptOnLine.Set(line.point.x + vProj.i, line.point.y + vProj.j);
 	        return true;
 
         }
@@ -204,8 +204,8 @@ namespace GeoLib
         /// <param name="other">The point to return the distance to.</param>
         public override double Distance(C2DPoint other)
         {
-	        double dXd = X - other.X;
-	        double dYd = Y - other.Y;
+	        double dXd = x - other.x;
+	        double dYd = y - other.y;
 
             return Math.Sqrt( dXd * dXd + dYd * dYd );
         }
@@ -216,7 +216,7 @@ namespace GeoLib
         /// <param name="pointTo">The point that vector is to go to.</param>
 	    public C2DVector MakeVector(C2DPoint pointTo)
         {
-            return new C2DVector(pointTo.X - X, pointTo.Y - Y);
+            return new C2DVector(pointTo.x - x, pointTo.y - y);
         }
 
 
@@ -226,7 +226,7 @@ namespace GeoLib
         /// <param name="v1">The vector from this to the new point.</param>
 	    public C2DPoint GetPointTo(C2DVector v1)
         {
-            return new C2DPoint(X + v1.i, Y + v1.j);
+            return new C2DPoint(x + v1.i, y + v1.j);
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace GeoLib
         /// <param name="p2">The second point.</param>
         public static C2DPoint operator +(C2DPoint p1, C2DPoint p2) 
         {
-            C2DPoint result = new C2DPoint(p1.X + p2.X, p1.Y + p2.Y);
+            C2DPoint result = new C2DPoint(p1.x + p2.x, p1.y + p2.y);
             return result;
         }
 
@@ -247,7 +247,7 @@ namespace GeoLib
         /// <param name="p2">The second point.</param>
         public static C2DPoint operator -(C2DPoint p1, C2DPoint p2) 
         {
-            C2DPoint result = new C2DPoint(p1.X - p2.X, p1.Y - p2.Y);
+            C2DPoint result = new C2DPoint(p1.x - p2.x, p1.y - p2.y);
             return result;
         }
 
@@ -257,8 +257,8 @@ namespace GeoLib
         /// <param name="dFactor">The multiplication factor.</param>
 	    public void Multiply(double dFactor)
         {
-            X *= dFactor;
-            Y *= dFactor;
+            x *= dFactor;
+            y *= dFactor;
         }
 
         /// <summary>
@@ -267,8 +267,8 @@ namespace GeoLib
         /// <param name="dFactor">The divisor.</param>
 	    public void Divide(double dFactor)
         {
-            X /= dFactor;
-            Y /= dFactor;
+            x /= dFactor;
+            y /= dFactor;
         }
 
         /// <summary>
@@ -281,18 +281,18 @@ namespace GeoLib
 	        bool bxClose;
 	        bool byClose;
 
-	        if ( X == 0 )
-                bxClose = other.X == 0;
+	        if ( x == 0 )
+                bxClose = other.x == 0;
 	        else
-                bxClose = Math.Abs((other.X - X) / X) < Constants.conEqualityTolerance;
+                bxClose = Math.Abs((other.x - x) / x) < Constants.conEqualityTolerance;
 
 	        if (!bxClose)
 		        return false;		// Get out early if we can.
 
-	        if ( Y == 0 )
-                byClose = other.Y == 0;
+	        if ( y == 0 )
+                byClose = other.y == 0;
 	        else
-                byClose = Math.Abs((other.Y - Y) / Y) < Constants.conEqualityTolerance;
+                byClose = Math.Abs((other.y - y) / y) < Constants.conEqualityTolerance;
 
 	        return ( byClose );		// We know x is close.
         }
@@ -303,8 +303,8 @@ namespace GeoLib
         /// <param name="vector">The vector.</param>
         public override void Move(C2DVector vector)
         {
-            X += vector.i;
-            Y += vector.j;
+            x += vector.i;
+            y += vector.j;
         }
 
         /// <summary>
@@ -316,8 +316,8 @@ namespace GeoLib
         {
 	        C2DVector vector = new C2DVector(origin, this);
 	        vector.TurnRight(dAng);
-	        X = origin.X + vector.i;
-	        Y = origin.Y + vector.j;
+	        x = origin.x + vector.i;
+	        y = origin.y + vector.j;
         }
 
         /// <summary>
@@ -331,8 +331,8 @@ namespace GeoLib
         {
 	        C2DVector vector = new C2DVector(origin, this);
 	        vector.Multiply(dFactor);
-	        X = origin.X + vector.i;
-	        Y = origin.Y + vector.j;
+	        x = origin.x + vector.i;
+	        y = origin.y + vector.j;
 
         }
 
@@ -379,14 +379,14 @@ namespace GeoLib
         /// </summary>
 	    public void  ReflectY()
         {
-	        X = -X;
+	        x = -x;
         }
         /// <summary>
         /// Reflects through the x axis.
         /// </summary>
 	    public void  ReflectX()
         {
-            Y = -Y;
+            y = -y;
         }
 
         /// <summary>
@@ -405,23 +405,23 @@ namespace GeoLib
         /// <param name="grid">The grid to snap this to.</param>
         public override void SnapToGrid(CGrid grid)
         {
-            double dxMultiple = Math.Abs(X / grid.GridSize) + 0.5;
+            double dxMultiple = Math.Abs(x / grid.GridSize) + 0.5;
 
             dxMultiple = Math.Floor(dxMultiple);
 
-            if (X < 0)
-                X = -dxMultiple * grid.GridSize;
+            if (x < 0)
+                x = -dxMultiple * grid.GridSize;
             else
-                X = dxMultiple * grid.GridSize;
+                x = dxMultiple * grid.GridSize;
 
-            double dyMultiple = Math.Abs(Y / grid.GridSize) + 0.5;
+            double dyMultiple = Math.Abs(y / grid.GridSize) + 0.5;
 
 	        dyMultiple = Math.Floor(dyMultiple);
 
-            if (Y < 0) 
-                Y = -dyMultiple * grid.GridSize;
+            if (y < 0) 
+                y = -dyMultiple * grid.GridSize;
             else
-                Y = dyMultiple * grid.GridSize;
+                y = dyMultiple * grid.GridSize;
         }
 
         /// <summary>
@@ -439,18 +439,18 @@ namespace GeoLib
 	        C2DVector vProj = new C2DVector(line.vector);
 	        vProj.i *= dFactor;
             vProj.j *= dFactor;
-            this.Set(line.point.X + vProj.i, line.point.Y + vProj.j);
+            this.Set(line.point.x + vProj.i, line.point.y + vProj.j);
         }
 
 
         /// <summary>
         /// The x component of the point.
         /// </summary>
-        public double X;
+        public double x;
         /// <summary>
         /// The y component of the point.
         /// </summary>
-        public double Y;
+        public double y;
 
     }
 }

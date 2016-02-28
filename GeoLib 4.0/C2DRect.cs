@@ -51,11 +51,11 @@ namespace GeoLib
         /// <param name="dBottom">Bottom.</param>  
 	    public C2DRect(double dLeft, double dTop, double dRight, double dBottom)
         {
-            TopLeft.X = dLeft;
-            TopLeft.Y = dTop;
+            TopLeft.x = dLeft;
+            TopLeft.y = dTop;
 
-            BottomRight.X = dRight;
-            BottomRight.Y = dBottom;
+            BottomRight.x = dRight;
+            BottomRight.y = dBottom;
         }
 
         /// <summary>
@@ -98,11 +98,11 @@ namespace GeoLib
         /// <param name="dBottom">Bottom.</param>  
         public void Set(double dLeft, double dTop, double dRight, double dBottom)
         {
-            TopLeft.X = dLeft;
-            TopLeft.Y = dTop;
+            TopLeft.x = dLeft;
+            TopLeft.y = dTop;
 
-            BottomRight.X = dRight;
-            BottomRight.Y = dBottom;
+            BottomRight.x = dRight;
+            BottomRight.y = dBottom;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace GeoLib
         /// <param name="dTop">Top.</param>  
 	    public void SetTop(double dTop) 
         {
-            TopLeft.Y = dTop; 
+            TopLeft.y = dTop; 
         }
 
 
@@ -121,7 +121,7 @@ namespace GeoLib
         /// <param name="dLeft">Left.</param>  
 	    public void SetLeft(double dLeft) 
         {
-            TopLeft.X = dLeft; 
+            TopLeft.x = dLeft; 
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace GeoLib
         /// <param name="dBottom">Bottom.</param>  
 	    public void SetBottom(double dBottom) 
         {
-            BottomRight.Y = dBottom; 
+            BottomRight.y = dBottom; 
         }
 
 
@@ -140,7 +140,7 @@ namespace GeoLib
         /// <param name="dRight">Right.</param>  
 	    public void SetRight(double dRight) 
         {
-            BottomRight.X = dRight; 
+            BottomRight.x = dRight; 
         }
 
         /// <summary>
@@ -148,10 +148,10 @@ namespace GeoLib
         /// </summary>
         public void Clear()
         {
-            TopLeft.X = 0;
-            TopLeft.Y = 0;
-            BottomRight.X = 0;
-            BottomRight.Y = 0;
+            TopLeft.x = 0;
+            TopLeft.y = 0;
+            BottomRight.x = 0;
+            BottomRight.y = 0;
         }
 
         /// <summary>
@@ -160,14 +160,14 @@ namespace GeoLib
         /// <param name="NewPt">Point.</param> 
 	    public void ExpandToInclude(C2DPoint NewPt)
         {
-            if (NewPt.X > BottomRight.X) 
-                BottomRight.X = NewPt.X;
-            else if (NewPt.X < TopLeft.X) 
-                TopLeft.X = NewPt.X;
-            if (NewPt.Y > TopLeft.Y) 
-                TopLeft.Y = NewPt.Y;
-            else if (NewPt.Y < BottomRight.Y) 
-                BottomRight.Y = NewPt.Y;
+            if (NewPt.x > BottomRight.x) 
+                BottomRight.x = NewPt.x;
+            else if (NewPt.x < TopLeft.x) 
+                TopLeft.x = NewPt.x;
+            if (NewPt.y > TopLeft.y) 
+                TopLeft.y = NewPt.y;
+            else if (NewPt.y < BottomRight.y) 
+                BottomRight.y = NewPt.y;
         }
 
         /// <summary>
@@ -190,11 +190,11 @@ namespace GeoLib
             C2DPoint ptOvTL = new C2DPoint();
             C2DPoint ptOvBR = new C2DPoint();
 
-            ptOvTL.Y = Math.Min(TopLeft.Y, Other.TopLeft.Y);
-            ptOvBR.Y = Math.Max(BottomRight.Y, Other.BottomRight.Y);
+            ptOvTL.y = Math.Min(TopLeft.y, Other.TopLeft.y);
+            ptOvBR.y = Math.Max(BottomRight.y, Other.BottomRight.y);
 
-            ptOvTL.X = Math.Max(TopLeft.X, Other.TopLeft.X);
-            ptOvBR.X = Math.Min(BottomRight.X, Other.BottomRight.X);
+            ptOvTL.x = Math.Max(TopLeft.x, Other.TopLeft.x);
+            ptOvBR.x = Math.Min(BottomRight.x, Other.BottomRight.x);
 
             Overlap.Set(ptOvTL, ptOvBR);
 
@@ -207,8 +207,8 @@ namespace GeoLib
         /// <param name="Pt">Point.</param> 
 	    public bool Contains(C2DPoint Pt)
         {
-            return (Pt.X >= TopLeft.X && Pt.X <= BottomRight.X &&
-                     Pt.Y <= TopLeft.Y && Pt.Y >= BottomRight.Y);
+            return (Pt.x >= TopLeft.x && Pt.x <= BottomRight.x &&
+                     Pt.y <= TopLeft.y && Pt.y >= BottomRight.y);
         }
 
 
@@ -218,10 +218,10 @@ namespace GeoLib
         /// <param name="Other">Other rectangle.</param> 
 	    public bool Contains(C2DRect Other)
         {
-            return (Other.GetLeft() > TopLeft.X &&
-                      Other.GetRight() < BottomRight.X &&
-                      Other.GetBottom() > BottomRight.Y &&
-                      Other.GetTop() < TopLeft.Y);
+            return (Other.GetLeft() > TopLeft.x &&
+                      Other.GetRight() < BottomRight.x &&
+                      Other.GetBottom() > BottomRight.y &&
+                      Other.GetTop() < TopLeft.y);
         }
 
         /// <summary>
@@ -230,11 +230,11 @@ namespace GeoLib
         /// <param name="Other">Other rectangle.</param> 
 	    public bool Overlaps(C2DRect Other)
         {
-            bool bOvX = !(Other.GetLeft() >= BottomRight.X ||
-                          Other.GetRight() <= TopLeft.X);
+            bool bOvX = !(Other.GetLeft() >= BottomRight.x ||
+                          Other.GetRight() <= TopLeft.x);
 
-            bool bOvY = !(Other.GetBottom() >= TopLeft.Y ||
-                          Other.GetTop() <= BottomRight.Y);
+            bool bOvY = !(Other.GetBottom() >= TopLeft.y ||
+                          Other.GetTop() <= BottomRight.y);
 
             return bOvX && bOvY;
         }
@@ -244,7 +244,7 @@ namespace GeoLib
         /// </summary>
 	    public bool IsValid()
         {
-            return ((TopLeft.X < BottomRight.X) && (TopLeft.Y > BottomRight.Y));
+            return ((TopLeft.x < BottomRight.x) && (TopLeft.y > BottomRight.y));
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace GeoLib
         /// </summary>
         public double GetArea()
         {
-            return ((TopLeft.Y - BottomRight.Y) * (BottomRight.X - TopLeft.X));
+            return ((TopLeft.y - BottomRight.y) * (BottomRight.x - TopLeft.x));
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace GeoLib
         /// </summary>
 	    public double Width()
         {
-            return (BottomRight.X - TopLeft.X);
+            return (BottomRight.x - TopLeft.x);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace GeoLib
         /// </summary>
         public double Height()
         {
-            return (TopLeft.Y - BottomRight.Y);
+            return (TopLeft.y - BottomRight.y);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace GeoLib
         /// </summary>
 	    public double GetTop( ) 
         {
-            return  TopLeft.Y;
+            return  TopLeft.y;
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace GeoLib
         /// </summary>
 	    public double GetLeft( )   
         {
-            return  TopLeft.X ;
+            return  TopLeft.x ;
         }
 
 
@@ -293,7 +293,7 @@ namespace GeoLib
         /// </summary>
 	    public double GetBottom( )  
         {
-            return BottomRight.Y;
+            return BottomRight.y;
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace GeoLib
         /// </summary>
 	    public double GetRight( )  
         {
-            return BottomRight.X ;
+            return BottomRight.x ;
         }
 
         /// <summary>
@@ -310,10 +310,10 @@ namespace GeoLib
         /// <param name="Other">Other rectangle.</param> 
 	    public void Set(C2DRect Other)
         {
-            TopLeft.X = Other.TopLeft.X;
-            TopLeft.Y = Other.TopLeft.Y;
-            BottomRight.X = Other.BottomRight.X;
-            BottomRight.Y = Other.BottomRight.Y;
+            TopLeft.x = Other.TopLeft.x;
+            TopLeft.y = Other.TopLeft.y;
+            BottomRight.x = Other.BottomRight.x;
+            BottomRight.y = Other.BottomRight.y;
         }
 
         /// <summary>
@@ -324,11 +324,11 @@ namespace GeoLib
         {
             C2DPoint ptCentre = new C2DPoint(GetCentre());
 
-            BottomRight.X = (BottomRight.X - ptCentre.X) * dFactor + ptCentre.X;
-            BottomRight.Y = (BottomRight.Y - ptCentre.Y) * dFactor + ptCentre.Y;
+            BottomRight.x = (BottomRight.x - ptCentre.x) * dFactor + ptCentre.x;
+            BottomRight.y = (BottomRight.y - ptCentre.y) * dFactor + ptCentre.y;
 
-            TopLeft.X = (TopLeft.X - ptCentre.X) * dFactor + ptCentre.X;
-            TopLeft.Y = (TopLeft.Y - ptCentre.Y) * dFactor + ptCentre.Y;
+            TopLeft.x = (TopLeft.x - ptCentre.x) * dFactor + ptCentre.x;
+            TopLeft.y = (TopLeft.y - ptCentre.y) * dFactor + ptCentre.y;
 
         }
 
@@ -339,8 +339,8 @@ namespace GeoLib
         public void GrowHeight(double dFactor)
         {
             C2DPoint ptCentre = new C2DPoint(GetCentre());
-            BottomRight.Y = (BottomRight.Y - ptCentre.Y) * dFactor + ptCentre.Y;
-            TopLeft.Y = (TopLeft.Y - ptCentre.Y) * dFactor + ptCentre.Y;
+            BottomRight.y = (BottomRight.y - ptCentre.y) * dFactor + ptCentre.y;
+            TopLeft.y = (TopLeft.y - ptCentre.y) * dFactor + ptCentre.y;
 
         }
 
@@ -351,8 +351,8 @@ namespace GeoLib
         public void GrowWidth(double dFactor)
         {
             C2DPoint ptCentre = new C2DPoint(GetCentre());
-            BottomRight.X = (BottomRight.X - ptCentre.X) * dFactor + ptCentre.X;
-            TopLeft.X = (TopLeft.X - ptCentre.X) * dFactor + ptCentre.X;
+            BottomRight.x = (BottomRight.x - ptCentre.x) * dFactor + ptCentre.x;
+            TopLeft.x = (TopLeft.x - ptCentre.x) * dFactor + ptCentre.x;
 
         }
 
@@ -362,11 +362,11 @@ namespace GeoLib
         /// <param name="dRange">Amount to expand by.</param> 
         public void Expand(double dRange)
         {
-            BottomRight.X += dRange;
-            BottomRight.Y -= dRange;
+            BottomRight.x += dRange;
+            BottomRight.y -= dRange;
 
-            TopLeft.X -= dRange;
-            TopLeft.Y += dRange;
+            TopLeft.x -= dRange;
+            TopLeft.y += dRange;
         }
 
         /// <summary>
@@ -400,12 +400,12 @@ namespace GeoLib
             TopLeft.Reflect(Point);
             BottomRight.Reflect(Point);
 
-            double x = TopLeft.X;
-            double y = TopLeft.Y;
+            double x = TopLeft.x;
+            double y = TopLeft.y;
 
             TopLeft.Set( BottomRight);
-            BottomRight.X = x;
-            BottomRight.Y = y;
+            BottomRight.x = x;
+            BottomRight.y = y;
         }
 
         /// <summary>
@@ -438,10 +438,10 @@ namespace GeoLib
             C2DPoint ptCen = new C2DPoint(GetCentre());
             ptCen.RotateToRight(dAng, Origin);
 
-            TopLeft.X = ptCen.X - dHalfWidth;
-            TopLeft.Y = ptCen.Y + dHalfHeight;
-            BottomRight.X = ptCen.X + dHalfWidth;
-            BottomRight.Y = ptCen.Y - dHalfHeight;
+            TopLeft.x = ptCen.x - dHalfWidth;
+            TopLeft.y = ptCen.y + dHalfHeight;
+            BottomRight.x = ptCen.x + dHalfWidth;
+            BottomRight.y = ptCen.y - dHalfHeight;
         }
 
         /// <summary>
@@ -450,30 +450,30 @@ namespace GeoLib
         /// <param name="TestPoint">Test Point.</param> 
         public override double Distance(C2DPoint TestPoint)
         {
-            if (TestPoint.X > BottomRight.X) // To the east half
+            if (TestPoint.x > BottomRight.x) // To the east half
             {
-                if (TestPoint.Y > TopLeft.Y)			// To the north east
-                    return TestPoint.Distance(new C2DPoint(BottomRight.X, TopLeft.Y));
-                else if (TestPoint.Y < BottomRight.Y)		// To the south east
+                if (TestPoint.y > TopLeft.y)			// To the north east
+                    return TestPoint.Distance(new C2DPoint(BottomRight.x, TopLeft.y));
+                else if (TestPoint.y < BottomRight.y)		// To the south east
                     return TestPoint.Distance(BottomRight);
                 else
-                    return (TestPoint.X - BottomRight.X);	// To the east
+                    return (TestPoint.x - BottomRight.x);	// To the east
             }
-            else if (TestPoint.X < TopLeft.X)	// To the west half
+            else if (TestPoint.x < TopLeft.x)	// To the west half
             {
-                if (TestPoint.Y > TopLeft.Y)			// To the north west
+                if (TestPoint.y > TopLeft.y)			// To the north west
                     return TestPoint.Distance(TopLeft);
-                else if (TestPoint.Y < BottomRight.Y)		// To the south west
-                    return TestPoint.Distance(new C2DPoint(TopLeft.X, BottomRight.Y));
+                else if (TestPoint.y < BottomRight.y)		// To the south west
+                    return TestPoint.Distance(new C2DPoint(TopLeft.x, BottomRight.y));
                 else
-                    return (TopLeft.X - TestPoint.X);	// To the west
+                    return (TopLeft.x - TestPoint.x);	// To the west
             }
             else
             {
-                if (TestPoint.Y > TopLeft.Y)		//To the north
-                    return (TestPoint.Y - TopLeft.Y);
-                else if (TestPoint.Y < BottomRight.Y)	// To the south
-                    return (BottomRight.Y - TestPoint.Y);
+                if (TestPoint.y > TopLeft.y)		//To the north
+                    return (TestPoint.y - TopLeft.y);
+                else if (TestPoint.y < BottomRight.y)	// To the south
+                    return (BottomRight.y - TestPoint.y);
             }
 
           //  assert(Contains(TestPoint));
@@ -489,16 +489,16 @@ namespace GeoLib
 	        if (this.Overlaps(Other))
 		        return 0;
 
-	        if (Other.GetLeft() > this.BottomRight.X)
+	        if (Other.GetLeft() > this.BottomRight.x)
 	        {
 		        // Other is to the right
-		        if (Other.GetBottom() > this.TopLeft.Y)
+		        if (Other.GetBottom() > this.TopLeft.y)
 		        {
 			        // Other is to the top right
-			        C2DPoint ptTopRight = new C2DPoint(BottomRight.X,  TopLeft.Y);
+			        C2DPoint ptTopRight = new C2DPoint(BottomRight.x,  TopLeft.y);
 			        return ptTopRight.Distance(new C2DPoint(Other.GetLeft(), Other.GetBottom()));
 		        }
-		        else if (Other.GetTop() < this.BottomRight.Y)
+		        else if (Other.GetTop() < this.BottomRight.y)
 		        {
 			        // Other to the bottom right
 			        return BottomRight.Distance( Other.TopLeft );
@@ -506,36 +506,36 @@ namespace GeoLib
 		        else
 		        {
 			        // to the right
-			        return Other.GetLeft() - this.BottomRight.X;
+			        return Other.GetLeft() - this.BottomRight.x;
 		        }
 	        }
-	        else if ( Other.GetRight() < this.TopLeft.X)
+	        else if ( Other.GetRight() < this.TopLeft.x)
 	        {
 		        // Other to the left
-		        if (Other.GetBottom() > this.TopLeft.Y)
+		        if (Other.GetBottom() > this.TopLeft.y)
 		        {
 			        // Other is to the top left
 			        return  TopLeft.Distance(Other.BottomRight);
 		        }
-		        else if (Other.GetTop() < this.BottomRight.Y)
+		        else if (Other.GetTop() < this.BottomRight.y)
 		        {
 			        // Other to the bottom left
-			        C2DPoint ptBottomLeft = new C2DPoint(TopLeft.X, BottomRight.Y);
+			        C2DPoint ptBottomLeft = new C2DPoint(TopLeft.x, BottomRight.y);
 			        return ptBottomLeft.Distance ( new C2DPoint( Other.GetRight(), Other.GetTop()));
 		        }
 		        else
 		        {
 			        //Just to the left
-			        return (this.TopLeft.X - Other.GetRight());
+			        return (this.TopLeft.x - Other.GetRight());
 		        }
 	        }
 	        else
 	        {
 		        // There is horizontal overlap;
-		        if (Other.GetBottom() >  TopLeft.Y)
-			        return Other.GetBottom() -  TopLeft.Y;
+		        if (Other.GetBottom() >  TopLeft.y)
+			        return Other.GetBottom() -  TopLeft.y;
 		        else
-			        return BottomRight.Y - Other.GetTop();
+			        return BottomRight.y - Other.GetTop();
 	        }		
 
         }
@@ -554,11 +554,11 @@ namespace GeoLib
         /// </summary>
 	    public void Scale(C2DPoint ptScale) 
         {
-            TopLeft.X =  TopLeft.X * ptScale.X;
-            TopLeft.Y = TopLeft.Y * ptScale.Y; 
+            TopLeft.x =  TopLeft.x * ptScale.x;
+            TopLeft.y = TopLeft.y * ptScale.y; 
 
-		    BottomRight.X = BottomRight.X * ptScale.X;
-            BottomRight.Y = BottomRight.Y * ptScale.Y;
+		    BottomRight.x = BottomRight.x * ptScale.x;
+            BottomRight.y = BottomRight.y * ptScale.y;
         }
 
         /// <summary>
@@ -575,26 +575,26 @@ namespace GeoLib
         public C2DPoint GetPointClosestToOrigin()
         {
             C2DPoint ptResult = new C2DPoint();
-            if (Math.Abs(TopLeft.X) < Math.Abs(BottomRight.X))
+            if (Math.Abs(TopLeft.x) < Math.Abs(BottomRight.x))
             {
                 // Left is closest to the origin.
-                ptResult.X = TopLeft.X;
+                ptResult.x = TopLeft.x;
             }
             else
             {
                 // Right is closest to the origin
-                ptResult.X = BottomRight.X;
+                ptResult.x = BottomRight.x;
             }
 
-            if (Math.Abs(TopLeft.Y) < Math.Abs(BottomRight.Y))
+            if (Math.Abs(TopLeft.y) < Math.Abs(BottomRight.y))
             {
                 // Top is closest to the origin.
-                ptResult.Y = TopLeft.Y;
+                ptResult.y = TopLeft.y;
             }
             else
             {
                 // Bottom is closest to the origin
-                ptResult.Y = BottomRight.Y;
+                ptResult.y = BottomRight.y;
             }
 
             return ptResult;
@@ -606,26 +606,26 @@ namespace GeoLib
         public C2DPoint GetPointFurthestFromOrigin()
         {
             C2DPoint ptResult = new C2DPoint();
-            if (Math.Abs(TopLeft.X) > Math.Abs(BottomRight.X))
+            if (Math.Abs(TopLeft.x) > Math.Abs(BottomRight.x))
             {
                 // Left is furthest to the origin.
-                ptResult.X = TopLeft.X;
+                ptResult.x = TopLeft.x;
             }
             else
             {
                 // Right is furthest to the origin
-                ptResult.X = BottomRight.X;
+                ptResult.x = BottomRight.x;
             }
 
-            if (Math.Abs(TopLeft.Y) > Math.Abs(BottomRight.Y))
+            if (Math.Abs(TopLeft.y) > Math.Abs(BottomRight.y))
             {
                 // Top is furthest to the origin.
-                ptResult.Y = TopLeft.Y;
+                ptResult.y = TopLeft.y;
             }
             else
             {
                 // Bottom is furthest to the origin
-                ptResult.Y = BottomRight.Y;
+                ptResult.y = BottomRight.y;
             }
 
             return ptResult;
@@ -640,8 +640,8 @@ namespace GeoLib
         {
 	        this.TopLeft.Project( Line,  Interval);
 	        Interval.ExpandToInclude( BottomRight.Project( Line));
-	        C2DPoint TR = new C2DPoint( BottomRight.X,   TopLeft.Y);
-            C2DPoint BL = new C2DPoint( TopLeft.X, BottomRight.Y);
+	        C2DPoint TR = new C2DPoint( BottomRight.x,   TopLeft.y);
+            C2DPoint BL = new C2DPoint( TopLeft.x, BottomRight.y);
 	        Interval.ExpandToInclude( TR.Project( Line));
 	        Interval.ExpandToInclude( BL.Project( Line));
 
@@ -656,8 +656,8 @@ namespace GeoLib
         {
 	        this.TopLeft.Project( Vector,  Interval);
 	        Interval.ExpandToInclude( BottomRight.Project( Vector));
-	        C2DPoint TR = new C2DPoint( BottomRight.X,   TopLeft.Y);
-            C2DPoint BL = new C2DPoint(TopLeft.X, BottomRight.Y);
+	        C2DPoint TR = new C2DPoint( BottomRight.x,   TopLeft.y);
+            C2DPoint BL = new C2DPoint(TopLeft.x, BottomRight.y);
 	        Interval.ExpandToInclude( TR.Project( Vector));
 	        Interval.ExpandToInclude( BL.Project( Vector));
 
@@ -683,8 +683,8 @@ namespace GeoLib
         /// <returns></returns>
         public bool OverlapsVertically( C2DRect Other)
         {
-	        return !(Other.GetLeft() >= BottomRight.X ||
-				          Other.GetRight() <=  TopLeft.X);
+	        return !(Other.GetLeft() >= BottomRight.x ||
+				          Other.GetRight() <=  TopLeft.x);
         }
 
 
@@ -695,14 +695,14 @@ namespace GeoLib
         /// <returns></returns>
         public bool OverlapsAbove( C2DRect Other)
         {
-	        if (Other.GetLeft() >= BottomRight.X ||
-				          Other.GetRight() <=  TopLeft.X)
+	        if (Other.GetLeft() >= BottomRight.x ||
+				          Other.GetRight() <=  TopLeft.x)
 	        {
 		        return false;
 	        }
 	        else 
 	        {
-		        return TopLeft.Y > Other.GetBottom();
+		        return TopLeft.y > Other.GetBottom();
 	        }
         }
 
@@ -714,14 +714,14 @@ namespace GeoLib
         /// <returns></returns>
         public bool OverlapsBelow( C2DRect Other)
         {
-	        if (Other.GetLeft() >= BottomRight.X ||
-				          Other.GetRight() <=  TopLeft.X)
+	        if (Other.GetLeft() >= BottomRight.x ||
+				          Other.GetRight() <=  TopLeft.x)
 	        {
 		        return false;
 	        }
 	        else 
 	        {
-		        return BottomRight.Y < Other.GetTop();
+		        return BottomRight.y < Other.GetTop();
 	        }
         }
 

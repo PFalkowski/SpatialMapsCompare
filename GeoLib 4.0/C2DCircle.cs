@@ -129,7 +129,7 @@ namespace GeoLib
         		
 	        C2DVector vProj = new C2DVector(Line.vector);
 	        vProj.Multiply(dFactor);
-	        C2DPoint ptOnLine = new C2DPoint(Line.point.X + vProj.i,Line.point.Y + vProj.j) ;
+	        C2DPoint ptOnLine = new C2DPoint(Line.point.x + vProj.i,Line.point.y + vProj.j) ;
 
 	        Set(InCen, InCen.Distance( ptOnLine));
         }
@@ -198,8 +198,8 @@ namespace GeoLib
         /// <param name="Rect">The rectangle to recieve the result.</param> 
         public override void GetBoundingRect( C2DRect Rect)
         {
-            Rect.Set(_Centre.X - Radius, _Centre.Y + Radius,
-                      _Centre.X + Radius, _Centre.Y - Radius);
+            Rect.Set(_Centre.x - Radius, _Centre.y + Radius,
+                      _Centre.x + Radius, _Centre.y - Radius);
         }
 
         /// <summary>
@@ -209,12 +209,12 @@ namespace GeoLib
         /// <param name="IntersectionPts">The point set to recieve the result.</param> 
         public bool Crosses(C2DCircle Other,  List<C2DPoint> IntersectionPts)
         {
-	        double x1 = _Centre.X;
-	        double y1 = _Centre.Y;
+	        double x1 = _Centre.x;
+	        double y1 = _Centre.y;
 	        double R1 = Radius;
 
-	        double x2 = Other.Centre.X;
-	        double y2 = Other.Centre.Y;
+	        double x2 = Other.Centre.x;
+	        double y2 = Other.Centre.y;
 	        double R2 = Other.Radius;
 
 	        double D = Other.Centre.Distance(_Centre);
@@ -263,13 +263,13 @@ namespace GeoLib
         /// <param name="IntersectionPts">The point set to recieve the result.</param> 
         public bool Crosses(C2DLine Line,  List<C2DPoint> IntersectionPts)
         {
-            double x1 = Line.point.X;
-            double x2 = Line.point.X + Line.vector.i;
-            double x3 = _Centre.X;
+            double x1 = Line.point.x;
+            double x2 = Line.point.x + Line.vector.i;
+            double x3 = _Centre.x;
 
-            double y1 = Line.point.Y;
-            double y2 = Line.point.Y + Line.vector.j;
-            double y3 = _Centre.Y;
+            double y1 = Line.point.y;
+            double y2 = Line.point.y + Line.vector.j;
+            double y3 = _Centre.y;
 
             double r = Radius;
 

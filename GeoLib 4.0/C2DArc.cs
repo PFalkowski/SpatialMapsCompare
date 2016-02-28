@@ -237,74 +237,74 @@ namespace GeoLib
 	        Line.GetBoundingRect( Rect);
         	
 	        // If the arc crosses the y axis..
-	        if (  ( (Line.point.X - CentrePoint.X) * (EndPoint.X - CentrePoint.X) ) < 0 )
+	        if (  ( (Line.point.x - CentrePoint.x) * (EndPoint.x - CentrePoint.x) ) < 0 )
 	        {
 		        // if the +ve y axis..
-		        if ( Line.GetMidPoint().Y > CentrePoint.Y)
+		        if ( Line.GetMidPoint().y > CentrePoint.y)
 		        {
 			        if (CentreOnRight ^ ArcOnRight) 
 			        {
-				        Rect.SetTop(CentrePoint.Y + Radius);
+				        Rect.SetTop(CentrePoint.y + Radius);
 
 			        }
 			        else
 			        {
 				        // If the segment is the "Big" bit....
-				        Rect.SetBottom(CentrePoint.Y - Radius);	
+				        Rect.SetBottom(CentrePoint.y - Radius);	
 			        }
 		        }
 		        else // if the -ve y axis...
 		        {
 			        if (CentreOnRight ^ ArcOnRight)
 			        {
-				        Rect.SetBottom(CentrePoint.Y - Radius);
+				        Rect.SetBottom(CentrePoint.y - Radius);
 			        }
 			        else
 			        {
 				        // If the segment is th "Big" bit then...
-				        Rect.SetTop(CentrePoint.Y + Radius);
+				        Rect.SetTop(CentrePoint.y + Radius);
 			        }
 		        }
 	        }
 	        else if (!(CentreOnRight ^ ArcOnRight))
 	        {
-		        Rect.SetBottom(CentrePoint.Y - Radius);	
-		        Rect.SetTop(CentrePoint.Y + Radius);
+		        Rect.SetBottom(CentrePoint.y - Radius);	
+		        Rect.SetTop(CentrePoint.y + Radius);
 	        }
 
 	        // If the arc crosses the x axis..
-	        if (  ( (Line.point.Y - CentrePoint.Y) * (EndPoint.Y - CentrePoint.Y) ) < 0 )
+	        if (  ( (Line.point.y - CentrePoint.y) * (EndPoint.y - CentrePoint.y) ) < 0 )
 	        {
 		        // if the +ve x axis..
-		        if ( Line.GetMidPoint().X > CentrePoint.X)
+		        if ( Line.GetMidPoint().x > CentrePoint.x)
 		        {
 			        if (CentreOnRight ^ ArcOnRight)
 			        {
-				        Rect.SetRight(CentrePoint.X + Radius);
+				        Rect.SetRight(CentrePoint.x + Radius);
 			        }
 			        else
 			        {
 				        // If the segment is th "Big" bit then...
-				        Rect.SetLeft (CentrePoint.X - Radius);
+				        Rect.SetLeft (CentrePoint.x - Radius);
 			        }
 		        }
 		        else // if the -ve x axis...
 		        {
 			        if (CentreOnRight ^ ArcOnRight)
 			        {
-				        Rect.SetLeft(CentrePoint.X - Radius);
+				        Rect.SetLeft(CentrePoint.x - Radius);
 			        }
 			        else
 			        {
 				        // If the segment is th "Big" bit then...
-				        Rect.SetRight(CentrePoint.X + Radius);
+				        Rect.SetRight(CentrePoint.x + Radius);
 			        }
 		        }
 	        }
 	        else if (!(CentreOnRight ^ ArcOnRight))
 	        {
-		        Rect.SetLeft(CentrePoint.X - Radius);
-		        Rect.SetRight(CentrePoint.X + Radius);
+		        Rect.SetLeft(CentrePoint.x - Radius);
+		        Rect.SetRight(CentrePoint.x + Radius);
 	        }
 
         }
@@ -722,10 +722,10 @@ namespace GeoLib
 	        C2DRect rect = new C2DRect();
 	        ThisCopy.GetBoundingRect( rect);
 
-            Interval.dMax = rect.GetTop() - LineCopy.point.Y;
+            Interval.dMax = rect.GetTop() - LineCopy.point.y;
 	        Interval.dMin = Interval.dMax;
 
-            Interval.ExpandToInclude(rect.GetBottom() - LineCopy.point.Y);
+            Interval.ExpandToInclude(rect.GetBottom() - LineCopy.point.y);
 
 
         }

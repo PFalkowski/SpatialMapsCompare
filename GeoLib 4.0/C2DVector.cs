@@ -48,8 +48,8 @@ namespace GeoLib
         /// <param name="PointTo">Point 2.</param>
         public C2DVector(C2DPoint PointFrom, C2DPoint PointTo)
         {
-            i = PointTo.X - PointFrom.X;
-            j = PointTo.Y - PointFrom.Y;
+            i = PointTo.x - PointFrom.x;
+            j = PointTo.y - PointFrom.y;
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace GeoLib
         /// <param name="Point">Point to assign to.</param>
         public C2DVector(C2DPoint Point)
         {
-            i = Point.X;
-            j = Point.Y;
+            i = Point.x;
+            j = Point.y;
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace GeoLib
         /// <param name="PointTo">Point 2.</param>
         public void Set(C2DPoint PointFrom, C2DPoint PointTo)
         {
-            i = PointTo.X - PointFrom.X;
-            j = PointTo.Y - PointFrom.Y;
+            i = PointTo.x - PointFrom.x;
+            j = PointTo.y - PointFrom.y;
         }
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace GeoLib
         /// </summary>
         public void Set(C2DPoint Other)
         {
-            i = Other.X;
-            j = Other.Y;
+            i = Other.x;
+            j = Other.y;
         }
 
         /// <summary>

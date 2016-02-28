@@ -281,10 +281,10 @@ namespace SpatialMapsCompare
             }
             for (int i = 0; i < polygon.Lines.Count; i++)
             {
-                _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().X;
-                _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().Y;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().X;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().Y;
+                _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().x;
+                _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().y;
+                _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().x;
+                _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().y;
             }
         }
 
@@ -293,8 +293,8 @@ namespace SpatialMapsCompare
             _chart1.Series[seriesName].Points.Clear();
             foreach (var t in polygon.Lines)
             {
-                _chart1.Series[seriesName].Points.AddXY(t.GetPointFrom().X, t.GetPointFrom().Y);
-                _chart1.Series[seriesName].Points.AddXY(t.GetPointTo().X, t.GetPointTo().Y);
+                _chart1.Series[seriesName].Points.AddXY(t.GetPointFrom().x, t.GetPointFrom().y);
+                _chart1.Series[seriesName].Points.AddXY(t.GetPointTo().x, t.GetPointTo().y);
             }
         }
 
@@ -310,8 +310,8 @@ namespace SpatialMapsCompare
             Series series = new Series();
             for (int i = 0; i < polygon.Lines.Count; i++)
             {
-                series.Points.AddXY(polygon.Lines[i].GetPointFrom().X, polygon.Lines[i].GetPointFrom().Y);
-                series.Points.AddXY(polygon.Lines[i].GetPointTo().X, polygon.Lines[i].GetPointTo().Y);
+                series.Points.AddXY(polygon.Lines[i].GetPointFrom().x, polygon.Lines[i].GetPointFrom().y);
+                series.Points.AddXY(polygon.Lines[i].GetPointTo().x, polygon.Lines[i].GetPointTo().y);
             }
             series.ChartArea = "ChartArea1";
             series.ChartType = SeriesChartType.Line;
@@ -521,12 +521,12 @@ namespace SpatialMapsCompare
         {
             List<C2DPoint> list = new List<C2DPoint>();
             polygon.GetPointsCopy(list);
-            double num = list.Min((C2DPoint item) => item.X);
-            double num2 = list.Min((C2DPoint item) => item.Y);
+            double num = list.Min((C2DPoint item) => item.x);
+            double num2 = list.Min((C2DPoint item) => item.y);
             foreach (C2DPoint current in list.ToList<C2DPoint>())
             {
-                current.X -= num;
-                current.Y -= num2;
+                current.x -= num;
+                current.y -= num2;
             }
             return new C2DPolygon(list, false);
         }
