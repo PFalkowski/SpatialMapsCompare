@@ -14,7 +14,7 @@ namespace SpatialMapsCompareTests
     public class UnitTest1
     {
         private string testFileName = "testSerializationData.xml";
-        private List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
+        private readonly List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
         {
             new C2DPoint(0.50001, 0.750001),
             new C2DPoint(0.250001, 0.75001),
@@ -28,6 +28,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(0.5001, 0.5001),
             new C2DPoint(0.5001, 0.7501)
         };
+
         [TestMethod]
         public void TestSerialization()
         {
@@ -45,6 +46,7 @@ namespace SpatialMapsCompareTests
             }
 
             var result = Helper.DeserializeFromXml<List<C2DPoint>>(testFileName);
+            Assert.AreEqual(_referencePolygonC2DPoints.Count, result.Count);
         }
     }
 }

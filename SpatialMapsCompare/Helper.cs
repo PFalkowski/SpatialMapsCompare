@@ -22,18 +22,15 @@ namespace SpatialMapsCompare
             }
             return result;
         }
-
-
+        
         public static T DeserializeFromXml<T>(string xmlFileName)
             where T : new()
         {
-            T result = new T();
-            var serializer = new XmlSerializer(result.GetType());
-            using (var reader = new FileStream(xmlFileName, FileMode.Open))
+            using (TextReader reader = new StreamReader(xmlFileName))
             {
-                serializer.Deserialize(reader);
+                var deserializer = new XmlSerializer(typeof(T));
+                return (T)deserializer.Deserialize(reader);
             }
-            return result;
         }
     }
 }
