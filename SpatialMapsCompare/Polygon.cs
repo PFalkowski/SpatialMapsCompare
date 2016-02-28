@@ -24,5 +24,9 @@ namespace SpatialMapsCompare
         {
             return polygon.Points;
         }
+        public static implicit operator C2DPolygon(Polygon polygon)
+        {
+            return new C2DPolygon(polygon.Points, true);
+        }
     }
 }

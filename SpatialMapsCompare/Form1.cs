@@ -16,110 +16,7 @@ namespace SpatialMapsCompare
     public class Form1 : Form
     {
         private Dictionary<string, Polygon> Polygons = new Dictionary<string, Polygon>();
-        private List<C2DPoint> _referencePolygonC2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(0.50001, 0.750001),
-            new C2DPoint(0.250001, 0.75001),
-            new C2DPoint(0.250001, 0.5001),
-            new C2DPoint(1E-05, 0.5001),
-            new C2DPoint(1E-05, 0.25001),
-            new C2DPoint(0.250001, 0.25001),
-            new C2DPoint(0.250001, 0.0001),
-            new C2DPoint(1.0001, 0.0001),
-            new C2DPoint(1.0001, 0.5001),
-            new C2DPoint(0.5001, 0.5001),
-            new C2DPoint(0.5001, 0.7501)
-        };
 
-        private List<C2DPoint> _oryginalPolygonC2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(0.50001, 0.750001),
-            new C2DPoint(0.250001, 0.750001),
-            new C2DPoint(0.250001, 0.50001),
-            new C2DPoint(1E-05, 0.50001),
-            new C2DPoint(1E-05, 0.250001),
-            new C2DPoint(0.250001, 0.250001),
-            new C2DPoint(0.250001, 1E-05),
-            new C2DPoint(1.00001, 1E-05),
-            new C2DPoint(1.00001, 0.50001),
-            new C2DPoint(0.50001, 0.50001),
-            new C2DPoint(0.5001, 0.75001)
-        };
-
-        private List<C2DPoint> _userPolygonC2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(0.9060227713, 0.7615049749),
-            new C2DPoint(0.9077990317, 0.6170206608),
-            new C2DPoint(0.9503555075, 0.6028332772),
-            new C2DPoint(0.9982237396, 0.5124085694),
-            new C2DPoint(1.0, 0.4042553071),
-            new C2DPoint(0.9716252329, 0.2109890933),
-            new C2DPoint(0.7482250164, 0.1968073847),
-            new C2DPoint(0.4485806658, 0.2003542306),
-            new C2DPoint(0.4202127086, 0.1294286627),
-            new C2DPoint(0.4343955522, 0.0549619239),
-            new C2DPoint(0.4680809407, 0.0177285545),
-            new C2DPoint(0.390070761, 0.0),
-            new C2DPoint(0.2659561247, 0.0230459859),
-            new C2DPoint(0.2180850551, 0.0248222463),
-            new C2DPoint(0.1524825935, 0.0709198929),
-            new C2DPoint(0.1187943675, 0.1577977549),
-            new C2DPoint(0.06914874, 0.2145359392),
-            new C2DPoint(0.0354599465, 0.2340407541),
-            new C2DPoint(0.0, 0.3120543388),
-            new C2DPoint(0.0035462784, 0.5531887847),
-            new C2DPoint(0.0301419476, 0.645384078),
-            new C2DPoint(0.406027595, 0.6950285706),
-            new C2DPoint(0.4627657793, 0.6666651533),
-            new C2DPoint(0.5177311082, 0.5549593702),
-            new C2DPoint(0.5567350631, 0.526595953),
-            new C2DPoint(0.6046089702, 0.5319133843),
-            new C2DPoint(0.7074448011, 0.6152444004),
-            new C2DPoint(0.6985805239, 0.744678738)
-        };
-
-        private List<C2DPoint> _polygon101Et1C2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(0.6105029523, 0.4965778411),
-            new C2DPoint(0.6105029523, 0.3566753218),
-            new C2DPoint(0.2975934225, 0.3566753218),
-            new C2DPoint(0.2975934225, 0.4967174783),
-            new C2DPoint(0.0, 0.4967174783),
-            new C2DPoint(0.0, 0.0),
-            new C2DPoint(1.0, 0.0),
-            new C2DPoint(1.0, 0.4979393039),
-            new C2DPoint(0.6105029523, 0.4965778411)
-        };
-
-        private List<C2DPoint> _polygon101Et2C2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(1.0, 0.0),
-            new C2DPoint(1.0, 0.4076410106),
-            new C2DPoint(0.3009, 0.4076410106),
-            new C2DPoint(0.300954817, 0.5541427993),
-            new C2DPoint(0.047771, 0.5541427),
-            new C2DPoint(0.0477711657, 0.4060508864),
-            new C2DPoint(0.0, 0.40605),
-            new C2DPoint(0.0, 0.0),
-            new C2DPoint(1.0, 0.0)
-        };
-
-        private List<C2DPoint> _polygon101Et3C2DPoints = new List<C2DPoint>
-        {
-            new C2DPoint(1.0, 0.0669970844),
-            new C2DPoint(1.0, 0.3921625343),
-            new C2DPoint(0.3284303375, 0.3921625343),
-            new C2DPoint(0.3284303375, 0.4411756199),
-            new C2DPoint(0.1209150941, 0.4411756199),
-            new C2DPoint(0.1209150941, 0.2908533975),
-            new C2DPoint(0.0408490588, 0.2908533975),
-            new C2DPoint(0.0408490588, 0.1029433884),
-            new C2DPoint(0.0, 0.1029433884),
-            new C2DPoint(0.0, 0.0),
-            new C2DPoint(0.1617641529, 0.0),
-            new C2DPoint(0.1617641529, 0.0669970844),
-            new C2DPoint(1.0, 0.0669970844)
-        };
 
         private C2DPointSet _chartTempBlue = new C2DPointSet();
 
@@ -262,17 +159,13 @@ namespace SpatialMapsCompare
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _oryginalPolygonC2DPoints = _referencePolygonC2DPoints;
-            _oryginalPolygon = new C2DPolygon(_oryginalPolygonC2DPoints, true);
-            _comparedPolygon = new C2DPolygon(_userPolygonC2DPoints, true);
-            _polygon101Et1 = new C2DPolygon(_polygon101Et1C2DPoints, true);
-            _polygon101Et2 = new C2DPolygon(_polygon101Et2C2DPoints, true);
-            _polygon101Et3 = new C2DPolygon(_polygon101Et3C2DPoints, true);
-            _area = _oryginalPolygon.GetArea();
-            fill_grid(_comparedPolygon, 0);
-            fill_grid(_oryginalPolygon, 2);
-            _tempSeries1 = _chart1.Series[0];
-            _tempSeries2 = _chart1.Series[1];
+            //_oryginalPolygon = new C2DPolygon(_oryginalPolygonC2DPoints, true);
+            //_comparedPolygon = new C2DPolygon(_userPolygonC2DPoints, true);
+            //_area = _oryginalPolygon.GetArea();
+            //fill_grid(_comparedPolygon, 0);
+            //fill_grid(_oryginalPolygon, 2);
+            //_tempSeries1 = _chart1.Series[0];
+            //_tempSeries2 = _chart1.Series[1];
         }
 
         private void fill_grid(C2DPolygon polygon, int cellIndex = 0)
@@ -337,15 +230,15 @@ namespace SpatialMapsCompare
 
         private void read_from_rows(string seriesName, int firstRowIndex = 0)
         {
-            _userPolygonC2DPoints.Clear();
+            List<C2DPoint> tempPoints = new C2DPointSet();;
             for (int i = 0; i < _dataGridView1.Rows.Count; i++)
             {
                 if (_dataGridView1.Rows[i].Cells[0].Value != null)
                 {
-                    _userPolygonC2DPoints.Add(new C2DPoint((double)_dataGridView1.Rows[i].Cells[firstRowIndex].Value, (double)_dataGridView1.Rows[i].Cells[firstRowIndex + 1].Value));
+                    tempPoints.Add(new C2DPoint((double)_dataGridView1.Rows[i].Cells[firstRowIndex].Value, (double)_dataGridView1.Rows[i].Cells[firstRowIndex + 1].Value));
                 }
             }
-            _comparedPolygon = new C2DPolygon(_userPolygonC2DPoints, true);
+            _comparedPolygon = new C2DPolygon(tempPoints, true);
         }
 
         private void Calculate(C2DPolygon comparedPolygon)
@@ -545,10 +438,10 @@ namespace SpatialMapsCompare
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this._label1 = new System.Windows.Forms.Label();
             this._label2 = new System.Windows.Forms.Label();
             this._button1 = new System.Windows.Forms.Button();
@@ -599,10 +492,11 @@ namespace SpatialMapsCompare
             this._label27 = new System.Windows.Forms.Label();
             this._button2 = new System.Windows.Forms.Button();
             this._timer1 = new System.Windows.Forms.Timer(this.components);
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this._form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button2 = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).BeginInit();
             this._panel1.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -708,8 +602,9 @@ namespace SpatialMapsCompare
             // _groupBox2
             // 
             this._groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._groupBox2.Controls.Add(this.checkedListBox1);
+            this._groupBox2.Controls.Add(this.button2);
             this._groupBox2.Controls.Add(this.button1);
-            this._groupBox2.Controls.Add(this.listBox1);
             this._groupBox2.Controls.Add(this._radioButton3);
             this._groupBox2.Controls.Add(this._radioButton2);
             this._groupBox2.Controls.Add(this._radioButton1);
@@ -1037,25 +932,25 @@ namespace SpatialMapsCompare
             this._chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
-            chartArea1.Name = "ChartArea1";
-            this._chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this._chart1.Legends.Add(legend1);
+            chartArea3.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea3.Name = "ChartArea1";
+            this._chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this._chart1.Legends.Add(legend3);
             this._chart1.Location = new System.Drawing.Point(358, 0);
             this._chart1.Name = "_chart1";
-            series1.BorderWidth = 9;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series2.BorderWidth = 9;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            this._chart1.Series.Add(series1);
-            this._chart1.Series.Add(series2);
+            series5.BorderWidth = 9;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            series6.BorderWidth = 9;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Legend = "Legend1";
+            series6.Name = "Series2";
+            this._chart1.Series.Add(series5);
+            this._chart1.Series.Add(series6);
             this._chart1.Size = new System.Drawing.Size(576, 255);
             this._chart1.TabIndex = 4;
             this._chart1.Text = "chart1";
@@ -1173,21 +1068,13 @@ namespace SpatialMapsCompare
             // 
             this._timer1.Interval = 50;
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 94);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(216, 95);
-            this.listBox1.TabIndex = 3;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(147, 42);
+            this.button1.Location = new System.Drawing.Point(99, 16);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(123, 23);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Open File";
+            this.button1.Text = "Open Polygon 1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
@@ -1198,6 +1085,24 @@ namespace SpatialMapsCompare
             // _form1BindingSource
             // 
             this._form1BindingSource.DataSource = typeof(SpatialMapsCompare.Form1);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(99, 45);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Open Polygon 2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(9, 91);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(213, 109);
+            this.checkedListBox1.TabIndex = 6;
             // 
             // Form1
             // 
@@ -1237,7 +1142,7 @@ namespace SpatialMapsCompare
         private RadioButton _radioButton2;
         private RadioButton _radioButton3;
         private Button button1;
-        private ListBox listBox1;
+        private Button button2;
         private OpenFileDialog openFileDialog1;
 
         private Polygon ReadPolygonFromFile(string fileName)
@@ -1282,8 +1187,22 @@ namespace SpatialMapsCompare
                 var tempPoly = ReadPolygonFromFile(openFileDialog1.FileName);
                 if (tempPoly == null) return;
                 Polygons.Add(Path.GetFileNameWithoutExtension(openFileDialog1.FileName), tempPoly);
+                _oryginalPolygon = tempPoly;
             }
         }
 
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var tempPoly = ReadPolygonFromFile(openFileDialog1.FileName);
+                if (tempPoly == null) return;
+                Polygons.Add(Path.GetFileNameWithoutExtension(openFileDialog1.FileName), tempPoly);
+                _comparedPolygon = tempPoly;
+            }
+        }
+
+        private CheckedListBox checkedListBox1;
     }
 }
