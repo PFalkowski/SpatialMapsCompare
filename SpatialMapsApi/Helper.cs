@@ -11,6 +11,7 @@ namespace SpatialMaps
 {
     public static class Helper
     {
+
         public static XDocument SerializeToXDoc<T>(this T source)
         {
             var result = new XDocument();
@@ -30,5 +31,7 @@ namespace SpatialMaps
                 return (T)deserializer.Deserialize(reader);
             }
         }
+
+
     }
 }

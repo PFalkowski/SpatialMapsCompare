@@ -16,7 +16,7 @@ namespace SpatialMapsCompare
 {
     public class Form1 : Form
     {
-        private Dictionary<string, Polygon> Polygons = new Dictionary<string, Polygon>();
+        private MapsApplicationModel model = new MapsApplicationModel();
 
         private C2DPointSet _chartTempBlue = new C2DPointSet();
 
@@ -31,7 +31,7 @@ namespace SpatialMapsCompare
         private C2DPolygon _oryginalPolygon;
 
         private C2DPolygon _comparedPolygon;
-        
+
         private List<C2DHoledPolygon> _bluePolys = new List<C2DHoledPolygon>();
 
         private List<C2DHoledPolygon> _yellowPolys = new List<C2DHoledPolygon>();
@@ -154,22 +154,28 @@ namespace SpatialMapsCompare
             //_tempSeries2 = _chart1.Series[1];
             dataGridView1.DataSource = _comparedPolygon;
             dataGridView1.DataSource = _oryginalPolygon;
+            try
+            {
+                _oryginalPolygon = model.ReadPolygonFromFile(Settings.Default.OryginalPolygonXmlFileName);
+                _comparedPolygon = model.ReadPolygonFromFile(Settings.Default.ComparedPolygonXmlFileName);
+            }
+            catch  (Exception ex) when(ex is ArgumentException || ex is IOException || ex is InvalidOperationException) { }
         }
 
-        private void fill_grid(C2DPolygon polygon, int cellIndex = 0)
-        {
-            if (_dataGridView1.Rows.Count <= polygon.Lines.Count)
-            {
-                _dataGridView1.Rows.Add(polygon.Lines.Count * 2 - _dataGridView1.Rows.Count + 1);
-            }
-            for (int i = 0; i < polygon.Lines.Count; i++)
-            {
-                _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().x;
-                _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().y;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().x;
-                _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().y;
-            }
-        }
+        //private void fill_grid(C2DPolygon polygon, int cellIndex = 0)
+        //{
+        //    if (_dataGridView1.Rows.Count <= polygon.Lines.Count)
+        //    {
+        //        _dataGridView1.Rows.Add(polygon.Lines.Count * 2 - _dataGridView1.Rows.Count + 1);
+        //    }
+        //    for (int i = 0; i < polygon.Lines.Count; i++)
+        //    {
+        //        _dataGridView1.Rows[i].Cells[cellIndex].Value = polygon.Lines[i].GetPointFrom().x;
+        //        _dataGridView1.Rows[i].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointFrom().y;
+        //        _dataGridView1.Rows[i + 1].Cells[cellIndex].Value = polygon.Lines[i].GetPointTo().x;
+        //        _dataGridView1.Rows[i + 1].Cells[cellIndex + 1].Value = polygon.Lines[i].GetPointTo().y;
+        //    }
+        //}
 
         private void draw_series_chart1(C2DPolygon polygon, string seriesName)
         {
@@ -218,7 +224,7 @@ namespace SpatialMapsCompare
 
         private void read_from_rows(string seriesName, int firstRowIndex = 0)
         {
-            List<C2DPoint> tempPoints = new C2DPointSet();;
+            List<C2DPoint> tempPoints = new C2DPointSet(); ;
             for (int i = 0; i < _dataGridView1.Rows.Count; i++)
             {
                 if (_dataGridView1.Rows[i].Cells[0].Value != null)
@@ -287,7 +293,7 @@ namespace SpatialMapsCompare
             _checkBox2.Checked = false;
             _checkBox1.Show();
             _checkBox2.Show();
-            update_figures_grid();
+            //update_figures_grid();
             base.Refresh();
         }
 
@@ -329,12 +335,12 @@ namespace SpatialMapsCompare
             }
         }
 
-        private void update_figures_grid()
-        {
-            _dataGridView1.Rows.Clear();
-            fill_grid(_comparedPolygon, 0);
-            fill_grid(_oryginalPolygon, 2);
-        }
+        //private void update_figures_grid()
+        //{
+        //    _dataGridView1.Rows.Clear();
+        //    fill_grid(_comparedPolygon, 0);
+        //    fill_grid(_oryginalPolygon, 2);
+        //}
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -509,7 +515,7 @@ namespace SpatialMapsCompare
             // 
             // _dataGridView1
             // 
-            this._dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this._dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this._dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this._dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -525,8 +531,8 @@ namespace SpatialMapsCompare
             // 
             // _panel1
             // 
-            this._panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this._panel1.Controls.Add(this.dataGridView1);
             this._panel1.Controls.Add(this._groupBox2);
@@ -857,8 +863,8 @@ namespace SpatialMapsCompare
             // 
             // _chart1
             // 
-            this._chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this._chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
             chartArea1.Name = "ChartArea1";
@@ -1006,7 +1012,7 @@ namespace SpatialMapsCompare
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1083,36 +1089,18 @@ namespace SpatialMapsCompare
         private OpenFileDialog openFileDialog1;
         private CheckedListBox checkedListBox1;
 
-        private Polygon ReadPolygonFromFile(string fileName)
+        private Polygon GetPolygonFromXmlFile()
         {
             Polygon tempPoly = null;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            if (string.IsNullOrWhiteSpace(fileNameWithoutExtension))
-            {
-                MessageBox.Show($"The path choosen (\"{fileName}\") does not contain valid file name", "File name empty",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (Polygons.ContainsKey(fileNameWithoutExtension))
-            {
-                MessageBox.Show($"File \"{fileNameWithoutExtension}\" or file with the same name already opened.", $"File \"{fileNameWithoutExtension}\" already open",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-            else
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    tempPoly = Helper.DeserializeFromXml<Polygon>(fileName);
+                    tempPoly = model.ReadPolygonFromFile(openFileDialog1.FileName);
                 }
-                catch (IOException ex)
+                catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
                 {
-                    MessageBox.Show(ex.Message, $"Error opening file \"{fileNameWithoutExtension}\"",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (InvalidOperationException iop)
-                {
-                    MessageBox.Show($"The file \"{fileName}\" is not a valid xml file with polygon points data.", $"Error opening file \"{fileNameWithoutExtension}\"",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message);
                 }
             }
             return tempPoly;
@@ -1120,13 +1108,10 @@ namespace SpatialMapsCompare
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            var tempPoly = GetPolygonFromXmlFile();
+            if (tempPoly != null)
             {
-                var tempPoly = ReadPolygonFromFile(openFileDialog1.FileName);
-                if (tempPoly == null) return;
-                Polygons.Add(Path.GetFileNameWithoutExtension(openFileDialog1.FileName), tempPoly);
                 _oryginalPolygon = tempPoly;
-
                 Refresh();
             }
         }
@@ -1134,13 +1119,10 @@ namespace SpatialMapsCompare
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            var tempPoly = GetPolygonFromXmlFile();
+            if (tempPoly != null)
             {
-                var tempPoly = ReadPolygonFromFile(openFileDialog1.FileName);
-                if (tempPoly == null) return;
-                Polygons.Add(Path.GetFileNameWithoutExtension(openFileDialog1.FileName), tempPoly);
                 _comparedPolygon = tempPoly;
-                
                 Refresh();
             }
         }

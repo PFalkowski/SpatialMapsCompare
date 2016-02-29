@@ -22,5 +22,29 @@ namespace SpatialMapsCompare.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("oryginal.xml")]
+        public string OryginalPolygonXmlFileName {
+            get {
+                return ((string)(this["OryginalPolygonXmlFileName"]));
+            }
+            set {
+                this["OryginalPolygonXmlFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("compared.xml")]
+        public string ComparedPolygonXmlFileName {
+            get {
+                return ((string)(this["ComparedPolygonXmlFileName"]));
+            }
+            set {
+                this["ComparedPolygonXmlFileName"] = value;
+            }
+        }
     }
 }
