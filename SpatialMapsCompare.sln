@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMapsCompareTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMaps", "SpatialMapsApi\SpatialMaps.csproj", "{68153858-5E7C-4167-A97D-9586F64A34FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMapsWpfUi", "SpatialMapsWpfUi\SpatialMapsWpfUi.csproj", "{C86EA733-BE65-4798-A97D-5373E7DC4AA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,12 @@ Global
 		{68153858-5E7C-4167-A97D-9586F64A34FF}.Evaluation|Any CPU.Build.0 = Release|Any CPU
 		{68153858-5E7C-4167-A97D-9586F64A34FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68153858-5E7C-4167-A97D-9586F64A34FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Evaluation|Any CPU.ActiveCfg = Release|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Evaluation|Any CPU.Build.0 = Release|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C86EA733-BE65-4798-A97D-5373E7DC4AA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
