@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPolygons", "GeoPolygons 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMapsCompareTests", "SpatialMapsCompareTests\SpatialMapsCompareTests.csproj", "{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpatialMaps", "SpatialMapsApi\SpatialMaps.csproj", "{68153858-5E7C-4167-A97D-9586F64A34FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,12 @@ Global
 		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Evaluation|Any CPU.Build.0 = Release|Any CPU
 		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C7DA6FE-1333-43E7-8B54-A7F936A3E82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Evaluation|Any CPU.ActiveCfg = Release|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Evaluation|Any CPU.Build.0 = Release|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68153858-5E7C-4167-A97D-9586F64A34FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

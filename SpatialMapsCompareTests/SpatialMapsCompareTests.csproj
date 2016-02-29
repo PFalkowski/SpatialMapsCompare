@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpatialMapsCompareTests</RootNamespace>
     <AssemblyName>SpatialMapsCompareTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\GeoPolygons 4.0\GeoPolygons.csproj">
       <Project>{a13aa7e0-06c4-4401-9006-c7eb506b3479}</Project>
       <Name>GeoPolygons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpatialMapsApi\SpatialMaps.csproj">
+      <Project>{68153858-5e7c-4167-a97d-9586f64a34ff}</Project>
+      <Name>SpatialMaps</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpatialMapsCompare\SpatialMapsCompare.csproj">
       <Project>{a042c959-fc03-41a4-b176-7c2975f61838}</Project>

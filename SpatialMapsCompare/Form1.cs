@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using GeoLib;
 using SpatialMapsCompare.Properties;
+using SpatialMaps;
 
 namespace SpatialMapsCompare
 {
@@ -89,14 +90,6 @@ namespace SpatialMapsCompare
 
         private Label _label10;
 
-        private DataGridViewTextBoxColumn _x;
-
-        private DataGridViewTextBoxColumn _y;
-
-        private DataGridViewTextBoxColumn _oryginalX;
-
-        private DataGridViewTextBoxColumn _oryginalY;
-
         private GroupBox _groupBox1;
 
         private Label _label11;
@@ -159,6 +152,8 @@ namespace SpatialMapsCompare
             //fill_grid(_oryginalPolygon, 2);
             //_tempSeries1 = _chart1.Series[0];
             //_tempSeries2 = _chart1.Series[1];
+            dataGridView1.DataSource = _comparedPolygon;
+            dataGridView1.DataSource = _oryginalPolygon;
         }
 
         private void fill_grid(C2DPolygon polygon, int cellIndex = 0)
@@ -418,10 +413,6 @@ namespace SpatialMapsCompare
             this._label2 = new System.Windows.Forms.Label();
             this._button1 = new System.Windows.Forms.Button();
             this._dataGridView1 = new System.Windows.Forms.DataGridView();
-            this._x = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._oryginalX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._oryginalY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._panel1 = new System.Windows.Forms.Panel();
             this._groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
@@ -466,6 +457,11 @@ namespace SpatialMapsCompare
             this._timer1 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this._form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this._x = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).BeginInit();
             this._panel1.SuspendLayout();
             this._groupBox2.SuspendLayout();
@@ -476,6 +472,7 @@ namespace SpatialMapsCompare
             this._contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._form1BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // _label1
@@ -518,47 +515,20 @@ namespace SpatialMapsCompare
             this._dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._x,
-            this._y,
-            this._oryginalX,
-            this._oryginalY});
+            this._y});
             this._dataGridView1.Location = new System.Drawing.Point(0, 0);
             this._dataGridView1.Name = "_dataGridView1";
             this._dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this._dataGridView1.Size = new System.Drawing.Size(352, 483);
+            this._dataGridView1.Size = new System.Drawing.Size(171, 483);
             this._dataGridView1.TabIndex = 3;
             this._dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // _x
-            // 
-            this._x.FillWeight = 48.89976F;
-            this._x.HeaderText = "Your X";
-            this._x.Name = "_x";
-            this._x.Width = 64;
-            // 
-            // _y
-            // 
-            this._y.FillWeight = 151.1003F;
-            this._y.HeaderText = "Your Y";
-            this._y.Name = "_y";
-            this._y.Width = 64;
-            // 
-            // _oryginalX
-            // 
-            this._oryginalX.HeaderText = "Oryginal X";
-            this._oryginalX.Name = "_oryginalX";
-            this._oryginalX.Width = 80;
-            // 
-            // _oryginalY
-            // 
-            this._oryginalY.HeaderText = "Oryginal Y";
-            this._oryginalY.Name = "_oryginalY";
-            this._oryginalY.Width = 80;
             // 
             // _panel1
             // 
             this._panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._panel1.Controls.Add(this.dataGridView1);
             this._panel1.Controls.Add(this._groupBox2);
             this._panel1.Controls.Add(this._groupBox1);
             this._panel1.Controls.Add(this._chart1);
@@ -1034,6 +1004,47 @@ namespace SpatialMapsCompare
             // 
             this._form1BindingSource.DataSource = typeof(SpatialMapsCompare.Form1);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dataGridView1.Location = new System.Drawing.Point(177, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(203, 483);
+            this.dataGridView1.TabIndex = 31;
+            // 
+            // _x
+            // 
+            this._x.FillWeight = 48.89976F;
+            this._x.HeaderText = "Your X";
+            this._x.Name = "_x";
+            this._x.Width = 64;
+            // 
+            // _y
+            // 
+            this._y.FillWeight = 151.1003F;
+            this._y.HeaderText = "Your Y";
+            this._y.Name = "_y";
+            this._y.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Oryginal X";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Oryginal Y";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 80;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1062,6 +1073,7 @@ namespace SpatialMapsCompare
             this._contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._form1BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1133,5 +1145,10 @@ namespace SpatialMapsCompare
             }
         }
 
+        private DataGridViewTextBoxColumn _x;
+        private DataGridViewTextBoxColumn _y;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }

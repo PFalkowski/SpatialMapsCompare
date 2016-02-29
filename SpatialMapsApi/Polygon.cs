@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GeoLib;
 
-namespace SpatialMapsCompare
+namespace SpatialMaps
 {
     [Serializable]
     public class Polygon

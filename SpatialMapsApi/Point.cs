@@ -1,6 +1,6 @@
 using System;
 
-namespace WindowsFormsApplication4
+namespace SpatialMaps
 {
 	public class Point
 	{
