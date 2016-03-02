@@ -23,6 +23,7 @@ namespace SpatialMapsWpfUi
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new SpatialMapsViewModel();
         }
     }
 }

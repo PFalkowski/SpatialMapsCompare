@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 
 namespace SpatialMaps
 {
-    public class MapsApplicationModel
+    public class MapsApplicationModel : IMapsApplicationModel
     {
+        public MapsApplicationModel(IOService ioService)
+        {
+            InputOutputService = ioService;
+        }
+        public IOService InputOutputService { get; }
+        public Polygon LeftFile;
+        public Polygon RightFile;
 
-        public Dictionary<string, Polygon> Polygons { get; set; } =  new Dictionary<string, Polygon>();
+
+        private Dictionary<string, Polygon> Polygons { get; set; } =  new Dictionary<string, Polygon>();
 
         public Polygon ReadPolygonFromFile(string fileName)
         {
@@ -60,6 +68,15 @@ namespace SpatialMaps
             }
             Polygons.Add(fileNameWithoutExtension, tempPoly);
             return tempPoly;
+        }
+
+        public void OpenLeftFile()
+        {
+            LeftFile = ReadPolygonFromFile(InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory));
+        }
+        public void OpenRightFile()
+        {
+            RightFile = ReadPolygonFromFile(InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory));
         }
     }
 }
