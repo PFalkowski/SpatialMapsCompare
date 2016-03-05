@@ -14,8 +14,8 @@ namespace SpatialMaps
             InputOutputService = ioService;
         }
         public IOService InputOutputService { get; }
-        public Polygon LeftFile;
-        public Polygon RightFile;
+        public Polygon LeftPoly { get; private set; }
+        public Polygon RightPoly { get; private set; }
 
 
         private Dictionary<string, Polygon> Polygons { get; set; } =  new Dictionary<string, Polygon>();
@@ -72,11 +72,15 @@ namespace SpatialMaps
 
         public void OpenLeftFile()
         {
-            LeftFile = ReadPolygonFromFile(InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory));
+            var fileName = InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory);
+            if (fileName != null)
+                LeftPoly = ReadPolygonFromFile(fileName);
         }
         public void OpenRightFile()
         {
-            RightFile = ReadPolygonFromFile(InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory));
+            var fileName = InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory);
+            if (fileName != null)
+                RightPoly = ReadPolygonFromFile(fileName);
         }
     }
 }

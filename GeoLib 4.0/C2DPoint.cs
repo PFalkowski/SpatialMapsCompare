@@ -51,16 +51,16 @@ namespace GeoLib
         /// <summary>
         /// Constructor.
         /// </summary>
-        public C2DPoint() {}
+        public C2DPoint() { }
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="other">Point to which this will be assigned.</param>
-        public C2DPoint(C2DPoint other) 
-        { 
-            x = other.x; 
-            y = other.y; 
+        public C2DPoint(C2DPoint other)
+        {
+            x = other.x;
+            y = other.y;
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace GeoLib
         /// </summary>
         /// <param name="dx">The x value of the point.</param>
         /// <param name="dy">The y value of the point.</param>
-	    public C2DPoint(double dx, double dy) 
-        { 
-            x = dx; 
-            y = dy; 
+	    public C2DPoint(double dx, double dy)
+        {
+            x = dx;
+            y = dy;
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace GeoLib
         /// </summary>
         /// <param name="dx">The x value of the point.</param>
         /// <param name="dy">The y value of the point.</param>
-	    public void Set(double dx, double dy) 
-        { 
-            x = dx; 
+	    public void Set(double dx, double dy)
+        {
+            x = dx;
             y = dy;
         }
 
@@ -99,10 +99,10 @@ namespace GeoLib
         /// Construction from a vector which can be thought of as a point (and vice versa).
         /// </summary>
         /// <param name="vector">Vector to assign to.</param>
-        public C2DPoint( C2DVector vector) 
-        { 
-            x = vector.i; 
-            y = vector.j; 
+        public C2DPoint(C2DVector vector)
+        {
+            x = vector.i;
+            y = vector.j;
         }
 
         /// <summary>
@@ -118,11 +118,11 @@ namespace GeoLib
         /// Projects the point on the vector given returning a distance along the vector.
         /// </summary>
         /// <param name="vector">The vector to project this on.</param>
-	    public double Project(C2DVector vector) 
+	    public double Project(C2DVector vector)
         {
-	        C2DVector vecthis = new C2DVector(x, y);
+            C2DVector vecthis = new C2DVector(x, y);
 
-	        return (vecthis.Dot(vector)) / vector.GetLength();
+            return (vecthis.Dot(vector)) / vector.GetLength();
         }
 
         /// <summary>
@@ -131,9 +131,9 @@ namespace GeoLib
         /// <param name="line">The line to project this on.</param>
         public double Project(C2DLine line)
         {
-	        C2DVector vecthis = new C2DVector(line.point, this );
+            C2DVector vecthis = new C2DVector(line.point, this);
 
-	        return (vecthis.Dot(line.vector)) / line.vector.GetLength();
+            return (vecthis.Dot(line.vector)) / line.vector.GetLength();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace GeoLib
         /// <param name="vector">The vector to project this on.</param>
         /// <param name="interval">The interval to recieve the result. 
         /// Both the min and max of the interval will be set to the result.</param>
-        public override void Project(C2DVector vector,  CInterval interval)
+        public override void Project(C2DVector vector, CInterval interval)
         {
             interval.dMax = Project(vector);
             interval.dMin = interval.dMax;
@@ -154,7 +154,7 @@ namespace GeoLib
         /// <param name="line">The vector to project this on.</param>
         /// <param name="interval">The interval to recieve the result. 
         /// Both the min and max of the interval will be set to the result.</param>
-	    public override void Project(C2DLine line,  CInterval interval)
+	    public override void Project(C2DLine line, CInterval interval)
         {
             interval.dMax = Project(line);
             interval.dMin = interval.dMax;
@@ -167,34 +167,34 @@ namespace GeoLib
         /// <param name="line">The line to project this on.</param>
         /// <param name="ptOnLine">The point to recieve the result.</param>
         /// <param name="bAbove">The flag to indicate whether it projects above or below.</param>
-	    public bool ProjectsOnLine(C2DLine line,  C2DPoint ptOnLine , 
-		    ref bool bAbove)
+	    public bool ProjectsOnLine(C2DLine line, C2DPoint ptOnLine,
+            ref bool bAbove)
         {
             C2DVector vecthis = new C2DVector(x - line.point.x, y - line.point.y);
-	        double dProj = vecthis.Dot(line.vector);
+            double dProj = vecthis.Dot(line.vector);
 
-	        if (dProj < 0)
-	        {
-		        bAbove = false;
-		        return false;
-	        }
+            if (dProj < 0)
+            {
+                bAbove = false;
+                return false;
+            }
 
-	        double dLength = line.vector.GetLength();
+            double dLength = line.vector.GetLength();
 
-	        dProj /= dLength;
+            dProj /= dLength;
 
-	        if (dProj > dLength)
-	        {
-		        bAbove = true;
-		        return false;
-	        }
+            if (dProj > dLength)
+            {
+                bAbove = true;
+                return false;
+            }
 
-	        double dFactor = dProj / dLength;
-    		
-	        C2DVector vProj = new C2DVector(line.vector);
-	        vProj.Multiply(dFactor);
-	        ptOnLine.Set(line.point.x + vProj.i, line.point.y + vProj.j);
-	        return true;
+            double dFactor = dProj / dLength;
+
+            C2DVector vProj = new C2DVector(line.vector);
+            vProj.Multiply(dFactor);
+            ptOnLine.Set(line.point.x + vProj.i, line.point.y + vProj.j);
+            return true;
 
         }
 
@@ -204,10 +204,10 @@ namespace GeoLib
         /// <param name="other">The point to return the distance to.</param>
         public override double Distance(C2DPoint other)
         {
-	        double dXd = x - other.x;
-	        double dYd = y - other.y;
+            double dXd = x - other.x;
+            double dYd = y - other.y;
 
-            return Math.Sqrt( dXd * dXd + dYd * dYd );
+            return Math.Sqrt(dXd * dXd + dYd * dYd);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace GeoLib
         /// </summary>
         /// <param name="p1">The first point.</param>
         /// <param name="p2">The second point.</param>
-        public static C2DPoint operator +(C2DPoint p1, C2DPoint p2) 
+        public static C2DPoint operator +(C2DPoint p1, C2DPoint p2)
         {
             C2DPoint result = new C2DPoint(p1.x + p2.x, p1.y + p2.y);
             return result;
@@ -245,7 +245,7 @@ namespace GeoLib
         /// </summary>
         /// <param name="p1">The first point.</param>
         /// <param name="p2">The second point.</param>
-        public static C2DPoint operator -(C2DPoint p1, C2DPoint p2) 
+        public static C2DPoint operator -(C2DPoint p1, C2DPoint p2)
         {
             C2DPoint result = new C2DPoint(p1.x - p2.x, p1.y - p2.y);
             return result;
@@ -276,25 +276,25 @@ namespace GeoLib
         /// <seealso cref="Constants.conEqualityTolerance"/> 
         /// </summary>
         /// <param name="other">The other point.</param>
-	    public bool PointEqualTo( C2DPoint other)
+	    public bool PointEqualTo(C2DPoint other)
         {
-	        bool bxClose;
-	        bool byClose;
+            bool bxClose;
+            bool byClose;
 
-	        if ( x == 0 )
+            if (x == 0)
                 bxClose = other.x == 0;
-	        else
+            else
                 bxClose = Math.Abs((other.x - x) / x) < Constants.conEqualityTolerance;
 
-	        if (!bxClose)
-		        return false;		// Get out early if we can.
+            if (!bxClose)
+                return false;       // Get out early if we can.
 
-	        if ( y == 0 )
+            if (y == 0)
                 byClose = other.y == 0;
-	        else
+            else
                 byClose = Math.Abs((other.y - y) / y) < Constants.conEqualityTolerance;
 
-	        return ( byClose );		// We know x is close.
+            return (byClose);		// We know x is close.
         }
 
         /// <summary>
@@ -314,10 +314,10 @@ namespace GeoLib
         /// <param name="origin">The origin about which to rotate.</param>
         public override void RotateToRight(double dAng, C2DPoint origin)
         {
-	        C2DVector vector = new C2DVector(origin, this);
-	        vector.TurnRight(dAng);
-	        x = origin.x + vector.i;
-	        y = origin.y + vector.j;
+            C2DVector vector = new C2DVector(origin, this);
+            vector.TurnRight(dAng);
+            x = origin.x + vector.i;
+            y = origin.y + vector.j;
         }
 
         /// <summary>
@@ -329,10 +329,10 @@ namespace GeoLib
         /// <param name="origin">The origin about which to rotate.</param>
         public override void Grow(double dFactor, C2DPoint origin)
         {
-	        C2DVector vector = new C2DVector(origin, this);
-	        vector.Multiply(dFactor);
-	        x = origin.x + vector.i;
-	        y = origin.y + vector.j;
+            C2DVector vector = new C2DVector(origin, this);
+            vector.Multiply(dFactor);
+            x = origin.x + vector.i;
+            y = origin.y + vector.j;
 
         }
 
@@ -342,49 +342,49 @@ namespace GeoLib
         /// <param name="other">The point to reflect this through.</param>
         public override void Reflect(C2DPoint other)
         {
-	        // Set up a vector from this to the other
-	        C2DVector vec = new C2DVector(this, other);
-	        // Now use the vector to find the reflection by continuing along it from the point given.
-	        this.Set(  other.GetPointTo(vec) );
+            // Set up a vector from this to the other
+            C2DVector vec = new C2DVector(this, other);
+            // Now use the vector to find the reflection by continuing along it from the point given.
+            this.Set(other.GetPointTo(vec));
         }
 
         /// <summary>
         /// Reflects this through the line given.
         /// </summary>
         /// <param name="line">The line to reflect this through.</param>
-	    public override  void Reflect(C2DLine line)
+	    public override void Reflect(C2DLine line)
         {
-	        // First find the point along the line that this projects onto.
-	        // Make a vector from the point on the line given to this point.
-	        C2DVector vecthis = new C2DVector(line.point, this );
-	        // Find the length of the line given.
-	        double dLength = line.vector.GetLength();
-	        // Now make the projection of this point on the line.
-	        double dProj = vecthis.Dot(line.vector);
-	        dProj /= dLength;
-	        // Find the factor along the line that the projection is.
-	        double dFactor = dProj / dLength;
-	        // Now set up a copy of the vector of the line given.
-	        C2DVector vProj = new C2DVector(line.vector);
-	        // Multiply that by that factor calculated.
-	        vProj.Multiply(dFactor);
-	        // Use the vector to find the point on the line.
-	        C2DPoint ptOnLine = new C2DPoint(line.point.GetPointTo(vProj) );
-	        // Noe simply reflect this in the point.
-	        this.Reflect(ptOnLine);
+            // First find the point along the line that this projects onto.
+            // Make a vector from the point on the line given to this point.
+            C2DVector vecthis = new C2DVector(line.point, this);
+            // Find the length of the line given.
+            double dLength = line.vector.GetLength();
+            // Now make the projection of this point on the line.
+            double dProj = vecthis.Dot(line.vector);
+            dProj /= dLength;
+            // Find the factor along the line that the projection is.
+            double dFactor = dProj / dLength;
+            // Now set up a copy of the vector of the line given.
+            C2DVector vProj = new C2DVector(line.vector);
+            // Multiply that by that factor calculated.
+            vProj.Multiply(dFactor);
+            // Use the vector to find the point on the line.
+            C2DPoint ptOnLine = new C2DPoint(line.point.GetPointTo(vProj));
+            // Noe simply reflect this in the point.
+            this.Reflect(ptOnLine);
         }
 
         /// <summary>
         /// Reflects through the y axis.
         /// </summary>
-	    public void  ReflectY()
+	    public void ReflectY()
         {
-	        x = -x;
+            x = -x;
         }
         /// <summary>
         /// Reflects through the x axis.
         /// </summary>
-	    public void  ReflectX()
+	    public void ReflectX()
         {
             y = -y;
         }
@@ -393,7 +393,7 @@ namespace GeoLib
         /// Returns the bounding rectangle which will be set to this point.
         /// </summary>
         /// <param name="rect">The rectangle to recieve the result.</param>
-        public override void GetBoundingRect( C2DRect rect) 
+        public override void GetBoundingRect(C2DRect rect)
         {
             rect.Set(this);
         }
@@ -416,9 +416,9 @@ namespace GeoLib
 
             double dyMultiple = Math.Abs(y / grid.GridSize) + 0.5;
 
-	        dyMultiple = Math.Floor(dyMultiple);
+            dyMultiple = Math.Floor(dyMultiple);
 
-            if (y < 0) 
+            if (y < 0)
                 y = -dyMultiple * grid.GridSize;
             else
                 y = dyMultiple * grid.GridSize;
@@ -431,13 +431,13 @@ namespace GeoLib
         /// <param name="line"></param>
         public void ProjectOnRay(C2DLine line)
         {
-	        C2DVector vecthis = new C2DVector(line.point, this );
-	        double dProj = vecthis.Dot(line.vector);
+            C2DVector vecthis = new C2DVector(line.point, this);
+            double dProj = vecthis.Dot(line.vector);
 
-	        double dFactor = dProj / (line.vector.i * line.vector.i + line.vector.j * line.vector.j );
-        	
-	        C2DVector vProj = new C2DVector(line.vector);
-	        vProj.i *= dFactor;
+            double dFactor = dProj / (line.vector.i * line.vector.i + line.vector.j * line.vector.j);
+
+            C2DVector vProj = new C2DVector(line.vector);
+            vProj.i *= dFactor;
             vProj.j *= dFactor;
             this.Set(line.point.x + vProj.i, line.point.y + vProj.j);
         }
@@ -446,11 +446,11 @@ namespace GeoLib
         /// <summary>
         /// The x component of the point.
         /// </summary>
-        public double x;
+        public double x { get; set; }
         /// <summary>
         /// The y component of the point.
         /// </summary>
-        public double y;
+        public double y { get; set; }
 
     }
 }

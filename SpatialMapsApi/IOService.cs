@@ -11,7 +11,7 @@ namespace SpatialMaps
     {
         string GetFileNameForOpen(string defaultPath);
         Stream OpenFile(string path);
-        void PrintMessage(string message, MessageSeverity severity);
-        void PrintMessage(string message, string caption, MessageSeverity severity);
+        void PrintToScreen(string message, MessageSeverity severity);
+        void PrintToScreen(string message, string caption, MessageSeverity severity);
     }
 }

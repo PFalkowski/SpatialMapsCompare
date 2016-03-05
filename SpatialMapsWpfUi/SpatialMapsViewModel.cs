@@ -4,6 +4,7 @@ using Microsoft.Practices.Unity;
 using SpatialMaps;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace SpatialMapsWpfUi
         public IMapsApplicationModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
+        public ObservableCollection<double[]> pointsLeft { get; set; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -39,7 +41,7 @@ namespace SpatialMapsWpfUi
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
-                Model.InputOutputService.PrintMessage(ex.Message, MessageSeverity.Error);
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
 
@@ -51,12 +53,14 @@ namespace SpatialMapsWpfUi
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
-                Model.InputOutputService.PrintMessage(ex.Message, MessageSeverity.Error);
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
         public SpatialMapsViewModel()
         {
-            IUnityContainer ioc = new UnityContainer();
+            pointsLeft = new ObservableCollection<double[]>();
+            pointsLeft.Add(new double[] { 1.0, 2.0 });
+            IUnityContainer ioc = new UnityContainer();//temporary solution, later move to this constructor argument
             ioc.Bootstrap();
             Model = ioc.Resolve<IMapsApplicationModel>();
             OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);

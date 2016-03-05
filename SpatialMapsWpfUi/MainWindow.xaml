@@ -19,8 +19,13 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGridOriginal" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1"/>
-        <DataGrid x:Name="dataGridCompared" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1"/>
+        <DataGrid x:Name="dataGridOriginal" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" ItemsSource="{Binding pointsLeft}"/>
+        <DataGrid x:Name="dataGridCompared" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" ItemsSource="{Binding Model.RightPoly.Points, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="X" Binding="{Binding Path=Model.RightPoly.Points}"/>
+                <DataGridTextColumn Header="Y" Binding="{Binding Path=Date}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="LoadOriginalFromXml" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0"/>
         <Button x:Name="LoadComparedFromXml" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0"/>
 

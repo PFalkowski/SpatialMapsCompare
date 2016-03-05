@@ -15,64 +15,6 @@ namespace SpatialMapsCompareTests
     [TestClass]
     public class UnitTest1
     {
-        //public string ToBase36(uint value)
-        //{
-        //    char[] base36 = { '0','1','2','3','4','5','6','7','8','9','A',
-        //              'B','C','D','E','F','G','H','I','J','K','L',
-        //              'M','N','O','P','Q','R','S','T','U','V','W',
-        //              'X','Y','Z'};
-        //    string result = "";
-
-        //    do
-        //    {
-        //        result = base36[value % 36] + result;
-        //    } while ((value /= 36) > 0);
-
-        //    return result;
-        //}
-
-        //public string ToBase36(string value)
-        //{
-        //    var stb = new StringBuilder();
-        //    foreach (var ch in value)
-        //    {
-        //        stb.Append(ToBase36(ch));
-        //    }
-        //    return stb.ToString();
-        //}
-
-        //public ushort ToAsciiNumber(char value)
-        //{
-        //    return (ushort)value;
-        //}
-
-        //public string ToAsciiNumber(string value)
-        //{
-        //    var stb = new StringBuilder();
-        //    foreach (var ch in value)
-        //    {
-        //        stb.AppendFormat("{0},",ToAsciiNumber(ch));
-        //    }
-        //    return stb.ToString();
-        //}
-
-        //public uint SumAsciiNumbers(string value)
-        //{
-        //    uint sum = 0;
-        //    foreach (var ch in value)
-        //    {
-        //        sum += ch;
-        //    }
-        //    return sum;
-        //}
-        //[TestMethod]
-        //public void MyTestMethod()
-        //{
-        //    var result = SumAsciiNumbers("keep");
-        //    Console.WriteLine(ToBase36(result));
-        //}
-
-
         private string testFileName = "testSerializationData.xml";
         private static readonly Polygon _referencePolygon = new Polygon("referencePolygon", new List<C2DPoint>
         {

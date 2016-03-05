@@ -27,12 +27,12 @@ namespace SpatialMaps
             else return null;
         }
 
-        public void PrintMessage(string message, MessageSeverity severity)
+        public void PrintToScreen(string message, MessageSeverity severity)
         {
             string caption = severity == MessageSeverity.None ? MessageSeverity.Information.ToString() : severity.ToString();
-            PrintMessage(message, caption, severity);
+            PrintToScreen(message, caption, severity);
         }
-        public void PrintMessage(string message, string caption, MessageSeverity severity)
+        public void PrintToScreen(string message, string caption, MessageSeverity severity)
         {
             MessageBoxIcon icon;
             switch (severity)
