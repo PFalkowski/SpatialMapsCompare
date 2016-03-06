@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SpatialMapsWpfUi
 {
-    public class SpatialMapsViewModel : BindableBase
+    public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {
         public IMapsApplicationModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
@@ -55,11 +55,10 @@ namespace SpatialMapsWpfUi
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
-        public SpatialMapsViewModel()
+
+        public SpatialMapsViewModel(IMapsApplicationModel model)
         {
-            IUnityContainer ioc = new UnityContainer();//temporary solution, later move to this constructor argument
-            ioc.Bootstrap();
-            Model = ioc.Resolve<IMapsApplicationModel>();
+            Model = model;
             OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
             OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
         }

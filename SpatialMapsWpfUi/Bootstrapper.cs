@@ -14,6 +14,7 @@ namespace SpatialMapsWpfUi
         {
             ioc.RegisterType<IOService, DesktopIOService>(new ContainerControlledLifetimeManager());
             ioc.RegisterType<IMapsApplicationModel, MapsApplicationModel>(new ContainerControlledLifetimeManager());
+            ioc.RegisterType<ISpatialMapsViewModel, SpatialMapsViewModel>(new ContainerControlledLifetimeManager());
         }
     }
 }

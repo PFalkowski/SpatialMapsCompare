@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,11 @@ namespace SpatialMapsWpfUi
     {
         public MainWindow()
         {
+            IUnityContainer ioc = new UnityContainer();
+            ioc.Bootstrap();
+            var viewModel = ioc.Resolve<ISpatialMapsViewModel>();
+
             InitializeComponent();
-            var viewModel = new SpatialMapsViewModel();
             DataContext = viewModel;
 
             CollectionViewSource leftCollectionViewSource = (CollectionViewSource)(FindResource("LeftCollectionViewSource"));

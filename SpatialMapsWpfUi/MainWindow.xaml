@@ -36,6 +36,7 @@
 		ItemsSource="{Binding}"
 		CanUserAddRows="False">
         </DataGrid>
+        
         <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" 		
         DataContext="{StaticResource LeftCollectionViewSource}"
 		ItemsSource="{Binding}"
