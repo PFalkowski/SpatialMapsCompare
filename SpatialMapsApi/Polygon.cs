@@ -10,16 +10,16 @@ using Prism.Mvvm;
 namespace SpatialMaps
 {
     [Serializable]
-    public class Polygon : BindableBase
+    public class Polygon
     {
         public string Name { get; set; }
-        public ObservableCollection<C2DPoint> Points { get; set; }
+        public List<C2DPoint> Points { get; set; }
 
         public Polygon() {}
         public Polygon(string name, IEnumerable<C2DPoint> points)
         {
             Name = name;
-            Points = new ObservableCollection<C2DPoint>(points);
+            Points = new List<C2DPoint>(points);
         }
 
         public static implicit operator List<C2DPoint>(Polygon polygon)

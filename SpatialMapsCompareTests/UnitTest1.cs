@@ -6,9 +6,9 @@ using System.Text;
 using System.Xml.Serialization;
 using GeoLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpatialMapsCompare;
 using SpatialMaps;
 using System.Linq;
+
 
 namespace SpatialMapsCompareTests
 {

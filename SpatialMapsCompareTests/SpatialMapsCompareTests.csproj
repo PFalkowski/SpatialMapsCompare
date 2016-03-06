@@ -69,10 +69,6 @@
       <Project>{68153858-5e7c-4167-a97d-9586f64a34ff}</Project>
       <Name>SpatialMaps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SpatialMapsCompare\SpatialMapsCompare.csproj">
-      <Project>{a042c959-fc03-41a4-b176-7c2975f61838}</Project>
-      <Name>SpatialMapsCompare</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
