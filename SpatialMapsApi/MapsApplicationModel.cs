@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GeoLib;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,8 +16,8 @@ namespace SpatialMaps
             InputOutputService = ioService;
         }
         public IOService InputOutputService { get; }
-        public Polygon LeftPoly { get; private set; }
-        public Polygon RightPoly { get; private set; }
+        public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
+        public ObservableCollection<C2DPoint> RightPoly { get;  set; } = new ObservableCollection<C2DPoint>();
 
 
         private Dictionary<string, Polygon> Polygons { get; set; } =  new Dictionary<string, Polygon>();
@@ -29,12 +31,12 @@ namespace SpatialMaps
             {
                 throw new ArgumentException($"The path choosen (\"{fileName}\") does not contain valid file name");
             }
-            else if (Polygons.ContainsKey(fileNameWithoutExtension))
-            {
-                flagSameName = true;
-            }
             else
             {
+                if (Polygons.ContainsKey(fileNameWithoutExtension))
+                {
+                    flagSameName = true;
+                }
                 try
                 {
                     tempPoly = Helper.DeserializeFromXml<Polygon>(fileName);
@@ -59,7 +61,10 @@ namespace SpatialMaps
                     {
                         while(poly1Iter.MoveNext() && poly2Iter.MoveNext())
                         {
-                            areIdentical = false;
+                            if (!poly1Iter.Current.PointEqualTo(poly2Iter.Current))
+                            {
+                                areIdentical = false;
+                            }
                         }
                     }
                     if (areIdentical) return polyRetreived;
@@ -74,13 +79,30 @@ namespace SpatialMaps
         {
             var fileName = InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory);
             if (fileName != null)
-                LeftPoly = ReadPolygonFromFile(fileName);
+            {
+                var tempPoly = ReadPolygonFromFile(fileName);
+                LeftPoly.Clear();
+                foreach (var point in tempPoly.Points)
+                {
+                    LeftPoly.Add(point);
+                }
+            }
         }
         public void OpenRightFile()
         {
             var fileName = InputOutputService.GetFileNameForOpen(Environment.CurrentDirectory);
             if (fileName != null)
-                RightPoly = ReadPolygonFromFile(fileName);
+            {
+                var tempPoly = ReadPolygonFromFile(fileName);
+                RightPoly.Clear();
+                foreach (var point in tempPoly.Points)
+                {
+                    RightPoly.Add(point);
+                }
+            }
+
+            //if (fileName != null) //assigning doesnt work with binding because of static resource
+            //    RightPoly = new ObservableCollection<C2DPoint>(ReadPolygonFromFile(fileName));
         }
     }
 }

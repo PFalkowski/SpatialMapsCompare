@@ -17,7 +17,6 @@ namespace SpatialMapsWpfUi
         public IMapsApplicationModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
-        public ObservableCollection<double[]> pointsLeft { get; set; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -58,8 +57,6 @@ namespace SpatialMapsWpfUi
         }
         public SpatialMapsViewModel()
         {
-            pointsLeft = new ObservableCollection<double[]>();
-            pointsLeft.Add(new double[] { 1.0, 2.0 });
             IUnityContainer ioc = new UnityContainer();//temporary solution, later move to this constructor argument
             ioc.Bootstrap();
             Model = ioc.Resolve<IMapsApplicationModel>();

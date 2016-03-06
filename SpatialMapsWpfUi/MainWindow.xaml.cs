@@ -23,7 +23,14 @@ namespace SpatialMapsWpfUi
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new SpatialMapsViewModel();
+            var viewModel = new SpatialMapsViewModel();
+            DataContext = viewModel;
+
+            CollectionViewSource leftCollectionViewSource = (CollectionViewSource)(FindResource("LeftCollectionViewSource"));
+            leftCollectionViewSource.Source = viewModel.Model.LeftPoly;
+
+            CollectionViewSource rightCollectionViewSource = (CollectionViewSource)(FindResource("RightCollectionViewSource"));
+            rightCollectionViewSource.Source = viewModel.Model.RightPoly;
         }
     }
 }

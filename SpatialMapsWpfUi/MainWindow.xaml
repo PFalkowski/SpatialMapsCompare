@@ -6,28 +6,44 @@
         xmlns:local="clr-namespace:SpatialMapsWpfUi"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Window.DataContext>
+
+    <!--<Window.DataContext>
         <local:SpatialMapsViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
+
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="LeftCollectionViewSource" CollectionViewType="{x:Type ListCollectionView}"/>
+        <CollectionViewSource x:Key="RightCollectionViewSource" CollectionViewType="{x:Type ListCollectionView}"/>
+    </Window.Resources>
+
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="31*"/>
             <RowDefinition Height="288*"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGridOriginal" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" ItemsSource="{Binding pointsLeft}"/>
-        <DataGrid x:Name="dataGridCompared" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" ItemsSource="{Binding Model.RightPoly.Points, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="X" Binding="{Binding Path=Model.RightPoly.Points}"/>
-                <DataGridTextColumn Header="Y" Binding="{Binding Path=Date}"/>
-            </DataGrid.Columns>
+
+
+        <DataGrid x:Name="RightDataGrid" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1"
+        DataContext="{StaticResource RightCollectionViewSource}"
+		ItemsSource="{Binding}"
+		CanUserAddRows="False">
         </DataGrid>
-        <Button x:Name="LoadOriginalFromXml" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0"/>
-        <Button x:Name="LoadComparedFromXml" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0"/>
+        <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" 		
+        DataContext="{StaticResource LeftCollectionViewSource}"
+		ItemsSource="{Binding}"
+		CanUserAddRows="False">
+        </DataGrid>
+        
+        <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0"/>
+        <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0"/>
 
     </Grid>
 </Window>

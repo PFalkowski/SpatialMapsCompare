@@ -1,10 +1,13 @@
-﻿namespace SpatialMaps
+﻿using GeoLib;
+using System.Collections.ObjectModel;
+
+namespace SpatialMaps
 {
     public interface IMapsApplicationModel
     {
         IOService InputOutputService { get; }
-        Polygon LeftPoly { get; }
-        Polygon RightPoly { get; }
+        ObservableCollection<C2DPoint> LeftPoly { get; set; }
+        ObservableCollection<C2DPoint> RightPoly { get; set; }
 
         void OpenLeftFile();
         void OpenRightFile();
