@@ -86,7 +86,6 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ISpatialMapsViewModel.cs" />
-    <Compile Include="Polygon.cs" />
     <Compile Include="SpatialMapsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

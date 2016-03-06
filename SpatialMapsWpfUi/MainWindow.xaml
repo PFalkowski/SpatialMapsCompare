@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpatialMapsWpfUi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" MinHeight="350" MinWidth="400">
 
     <!--<Window.DataContext>
         <local:SpatialMapsViewModel/>
@@ -31,20 +31,19 @@
         </Grid.ColumnDefinitions>
 
 
-        <DataGrid x:Name="RightDataGrid" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1"
+        <DataGrid x:Name="RightDataGrid" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" Margin="10"		
         DataContext="{StaticResource RightCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="False">
         </DataGrid>
         
-        <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Margin="10,1,0,10" Width="119" Grid.Row="1" 		
+        <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="1" Margin="10"		
         DataContext="{StaticResource LeftCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="False">
         </DataGrid>
         
-        <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0"/>
-        <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0"/>
-
+        <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0" Margin="10,6,0,5"/>
+        <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0" Margin="10,6,44,5"/>
     </Grid>
 </Window>
