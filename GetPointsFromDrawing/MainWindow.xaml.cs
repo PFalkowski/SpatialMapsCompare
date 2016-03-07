@@ -21,8 +21,6 @@ namespace DravingCanvas
     public partial class MainWindow : Window
     {
         private DravingCanvasViewModel viewModel;
-        //private Polygon selectedPolygon { get; set; } = new Polygon { Stroke = Brushes.Gray, StrokeThickness = 1, StrokeDashArray = new DoubleCollection { 3, 3 } };
-        //public bool containerEmpty => selectedPolygon.Points.Count == 0;
         public Point startPoint { get; set; }
         private bool firstPoint = true;
         public MainWindow()
@@ -32,20 +30,10 @@ namespace DravingCanvas
             DataContext = viewModel;
         }
         
-
-        private void canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-
-        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-        }
+        
 
         private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //selectedPolygon.Points.Add(e.GetPosition(canvas));
             if (firstPoint)
             {
                 startPoint = e.GetPosition(canvas);
@@ -68,11 +56,9 @@ namespace DravingCanvas
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            //selectedPolygon = new Polygon { Stroke = Brushes.Gray, StrokeThickness = 1, StrokeDashArray = new DoubleCollection { 3, 3 } };
             firstPoint = true;
             canvas.Children.Clear();
             viewModel.Points.Clear();
-            //canvas.Children.Add(selectedPolygon);
         }
     }
 }
