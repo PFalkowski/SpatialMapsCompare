@@ -1,7 +1,7 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Practices.Prism.Commands;
 using SpatialMaps;
 
-namespace SpatialMaps
+namespace SpatialMapsWpfUi
 {
     public interface ISpatialMapsViewModel
     {

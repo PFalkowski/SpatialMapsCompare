@@ -11,16 +11,12 @@ using System.Windows.Forms.DataVisualization.Charting;
 using GeoLib;
 using SpatialMapsCompare.Properties;
 using SpatialMaps;
-using Microsoft.Practices.Unity;
-using SpatialMaps;
 
 namespace SpatialMapsCompare
 {
     public class Form1 : Form
     {
-        private IUnityContainer ioc = new UnityContainer();
-        private ISpatialMapsModel model;
-        private ISpatialMapsViewModel viewModel;
+        private MapsApplicationModel model = new MapsApplicationModel(new DesktopIOService());
 
         private C2DPointSet _chartTempBlue = new C2DPointSet();
 
@@ -149,8 +145,6 @@ namespace SpatialMapsCompare
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ioc.Bootstrap();
-            model = ioc.Resolve<ISpatialMapsModel>();
             //_oryginalPolygon = new C2DPolygon(_oryginalPolygonC2DPoints, true);
             //_comparedPolygon = new C2DPolygon(_userPolygonC2DPoints, true);
             //_area = _oryginalPolygon.GetArea();

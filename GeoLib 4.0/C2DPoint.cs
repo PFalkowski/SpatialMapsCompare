@@ -446,11 +446,11 @@ namespace GeoLib
         /// <summary>
         /// The x component of the point.
         /// </summary>
-        public double x;
+        public double x { get; set; }
         /// <summary>
         /// The y component of the point.
         /// </summary>
-        public double y;
+        public double y { get; set; }
 
     }
 }
