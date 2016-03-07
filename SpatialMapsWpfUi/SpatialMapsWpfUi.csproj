@@ -134,6 +134,10 @@
       <Project>{a13aa7e0-06c4-4401-9006-c7eb506b3479}</Project>
       <Name>GeoPolygons</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GetPointsFromDrawing\DrawingCanvasUI.csproj">
+      <Project>{fed27b00-e624-4b81-bee6-0a7484a5dde4}</Project>
+      <Name>DrawingCanvasUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpatialMapsApi\SpatialMaps.csproj">
       <Project>{68153858-5e7c-4167-a97d-9586f64a34ff}</Project>
       <Name>SpatialMaps</Name>

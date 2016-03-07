@@ -19,6 +19,8 @@ namespace SpatialMaps
         public DelegateCommand OpenRightFileCommand { get; }
         public DelegateCommand SaveLeftFileCommand { get; }
         public DelegateCommand SaveRightFileCommand { get; }
+        public DelegateCommand DrawLeftFileCommand { get; }
+        public DelegateCommand DrawRightFileCommand { get; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -81,6 +83,30 @@ namespace SpatialMaps
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
+        private void drawLeftFileSafe()
+        {
+            try
+            {
+                //var window = new DrawingCanvas();
+                //Model.LeftPoly.Clear();
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+        }
+
+        private void drawRightFileSafe()
+        {
+            try
+            {
+                //Model.DrawRightFile();
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+        }
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;
@@ -88,6 +114,8 @@ namespace SpatialMaps
             OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
             SaveLeftFileCommand = new DelegateCommand(saveLeftFileSafe);
             SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
+            DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
+            DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
         }
     }
 }

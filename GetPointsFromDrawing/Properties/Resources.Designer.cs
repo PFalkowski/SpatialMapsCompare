@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DravingCanvas.Properties {
+namespace DrawingCanvas.Properties {
     using System;
     
     

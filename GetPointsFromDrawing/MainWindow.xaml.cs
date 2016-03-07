@@ -13,21 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DravingCanvas
+namespace DrawingCanvas
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DravingCanvasViewModel viewModel;
+        public DrawingCanvasViewModel viewModel { get; set; }
         private Point startPoint { get; set; }
         private bool firstPoint = true;
 
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new DravingCanvasViewModel();
+            viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
         }    
         

@@ -1,13 +1,13 @@
-﻿<Window x:Class="DravingCanvas.MainWindow"
+﻿<Window x:Class="DrawingCanvas.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DravingCanvas"
+        xmlns:local="clr-namespace:DrawingCanvas"
         mc:Ignorable="d"
-        Title="Draving Canvas" Height="350" Width="525">
+        Title="Drawing Canvas" Height="350" Width="525">
     <!--<Window.DataContext>
-        <local:DravingCanvasViewModel></local:DravingCanvasViewModel>
+        <local:DrawingCanvasViewModel></local:DrawingCanvasViewModel>
     </Window.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>

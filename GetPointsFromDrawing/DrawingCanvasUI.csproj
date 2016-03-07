@@ -119,10 +119,6 @@
       <Project>{a13aa7e0-06c4-4401-9006-c7eb506b3479}</Project>
       <Name>GeoPolygons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SpatialMapsApi\SpatialMaps.csproj">
-      <Project>{68153858-5e7c-4167-a97d-9586f64a34ff}</Project>
-      <Name>SpatialMaps</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

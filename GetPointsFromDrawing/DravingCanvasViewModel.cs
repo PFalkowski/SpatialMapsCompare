@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shapes;
 
-namespace DravingCanvas
+namespace DrawingCanvas
 {
-    public class DravingCanvasViewModel : BindableBase
+    public class DrawingCanvasViewModel : BindableBase
     {
         public List<C2DPoint> Points { get; set; } = new List<C2DPoint>();
     }
