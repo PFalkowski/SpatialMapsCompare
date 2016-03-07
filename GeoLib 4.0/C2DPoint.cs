@@ -447,10 +447,12 @@ namespace GeoLib
         /// The x component of the point.
         /// </summary>
         public double x;
+        public double X { get { return x; } set { x = value; } }
         /// <summary>
         /// The y component of the point.
         /// </summary>
         public double y;
+        public double Y { get { return y; } set { y = value; } }
 
     }
 }
