@@ -101,7 +101,7 @@ namespace SpatialMaps
                 }
             }
 
-            //if (fileName != null) //assigning doesnt work with binding because of static resource
+            //if (fileName != null) //assigning doesnt work with binding because collection reports it's changes, but property is not itself reporting PropertyChanged event
             //    RightPoly = new ObservableCollection<C2DPoint>(ReadPolygonFromFile(fileName));
         }
     }
