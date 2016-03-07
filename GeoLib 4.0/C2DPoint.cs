@@ -446,12 +446,20 @@ namespace GeoLib
         /// <summary>
         /// The x component of the point.
         /// </summary>
+        [NonSerialized]
         public double x;
+        /// <summary>
+        /// The x component of the point.
+        /// </summary>
         public double X { get { return x; } set { x = value; } }
         /// <summary>
         /// The y component of the point.
         /// </summary>
+        [NonSerialized]
         public double y;
+        /// <summary>
+        /// The y component of the point.
+        /// </summary>
         public double Y { get { return y; } set { y = value; } }
 
     }

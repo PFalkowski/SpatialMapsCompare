@@ -79,7 +79,7 @@ namespace SpatialMaps
 
         public void WritePolygonToFile(Polygon poly, string fileName)
         {
-            poly.SerializeToXDoc().Save(Path.ChangeExtension(poly.Name, "xml"));
+            poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
         }
 
         public void OpenLeftFile()
