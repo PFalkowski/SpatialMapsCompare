@@ -16,7 +16,7 @@ namespace SpatialMapsCompareTests
     public class UnitTest1
     {
         private string testFileName = "testSerializationData.xml";
-        private static readonly Polygon _referencePolygon = new Polygon("referencePolygon", new List<C2DPoint>
+        private static readonly List<C2DPoint> _referencePolygon = new List<C2DPoint>(new List<C2DPoint>
         {
             new C2DPoint(0.50001, 0.750001),
             new C2DPoint(0.250001, 0.75001),
@@ -31,7 +31,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(0.5001, 0.7501)
         });
 
-        private static readonly Polygon _oryginalPolygon = new Polygon("oryginalPolygon", new List<C2DPoint>
+        private static readonly List<C2DPoint> _oryginalPolygon = new List<C2DPoint>(new List<C2DPoint>
         {
             new C2DPoint(0.50001, 0.750001),
             new C2DPoint(0.250001, 0.750001),
@@ -46,7 +46,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(0.5001, 0.75001)
         });
 
-        private static readonly Polygon _userPolygon = new Polygon("oryginalPolygon", new List<C2DPoint>
+        private static readonly List<C2DPoint> _userPolygon = new List<C2DPoint>(new List<C2DPoint>
         {
             new C2DPoint(0.9060227713, 0.7615049749),
             new C2DPoint(0.9077990317, 0.6170206608),
@@ -77,7 +77,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(0.7074448011, 0.6152444004),
             new C2DPoint(0.6985805239, 0.744678738)
         });
-        private static readonly Polygon _polygon101Et1 = new Polygon("polygon101Et1", new List<C2DPoint>
+        private static readonly List<C2DPoint> _polygon101Et1 = new List<C2DPoint>(new List<C2DPoint>
         {
             new C2DPoint(0.6105029523, 0.4965778411),
             new C2DPoint(0.6105029523, 0.3566753218),
@@ -89,7 +89,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(1.0, 0.4979393039),
             new C2DPoint(0.6105029523, 0.4965778411)
         });
-        private static readonly Polygon _polygon101Et2 = new Polygon("polygon101Et2", new List<C2DPoint>
+        private static readonly List<C2DPoint> _polygon101Et2 = new List<C2DPoint>(new List<C2DPoint>
         {
             new C2DPoint(1.0, 0.0),
             new C2DPoint(1.0, 0.4076410106),
@@ -101,7 +101,7 @@ namespace SpatialMapsCompareTests
             new C2DPoint(0.0, 0.0),
             new C2DPoint(1.0, 0.0)
         });
-        private static readonly Polygon _polygon101Et3 = new Polygon("polygon101Et3", new List<C2DPoint>
+        private static readonly List<C2DPoint> _polygon101Et3 = new List<C2DPoint>(new List<C2DPoint>
         {
                 new C2DPoint(1.0, 0.0669970844),
                 new C2DPoint(1.0, 0.3921625343),
@@ -134,17 +134,18 @@ namespace SpatialMapsCompareTests
                 _referencePolygon.SerializeToXDoc().Save(testFileName);
             }
 
-            var result = Helper.DeserializeFromXml<Polygon>(testFileName);
-            Assert.AreEqual(_referencePolygon.Points.Count, result.Points.Count);
+            var result = Helper.DeserializeFromXml<List<C2DPoint>>(testFileName);
+            Assert.AreEqual(_referencePolygon.Count, result.Count);
         }
 
         [TestMethod]
         public void SerializeAllPolygons()
         {
-            List<Polygon> polygons = new List<Polygon> { _referencePolygon, _oryginalPolygon, _userPolygon, _polygon101Et1, _polygon101Et2, _polygon101Et3 };
+            List<List<C2DPoint>> polygons = new List<List<C2DPoint>> { _referencePolygon, _oryginalPolygon, _userPolygon, _polygon101Et1, _polygon101Et2, _polygon101Et3 };
+            int i = 0;
             foreach (var poly in polygons)
             {
-                poly.SerializeToXDoc().Save(Path.ChangeExtension(poly.Name, "xml"));
+                poly.SerializeToXDoc().Save(Path.ChangeExtension($"polygon{++i}", "xml"));
             }
         }
     }

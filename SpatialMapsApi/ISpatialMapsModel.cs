@@ -1,4 +1,5 @@
 ﻿using GeoLib;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SpatialMaps
@@ -13,6 +14,6 @@ namespace SpatialMaps
         void OpenRightFile();
         void SaveLeftFile();
         void SaveRightFile();
-        Polygon ReadPolygonFromFile(string fileName);
+        IList<C2DPoint> ReadPolygonFromFile(string fileName);
     }
 }

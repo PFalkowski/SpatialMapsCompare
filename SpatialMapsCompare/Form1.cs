@@ -162,8 +162,8 @@ namespace SpatialMapsCompare
             dataGridView1.DataSource = _oryginalPolygon;
             try
             {
-                _oryginalPolygon = model.ReadPolygonFromFile(Settings.Default.OryginalPolygonXmlFileName);
-                _comparedPolygon = model.ReadPolygonFromFile(Settings.Default.ComparedPolygonXmlFileName);
+                _oryginalPolygon = new C2DPolygon(model.ReadPolygonFromFile(Settings.Default.OryginalPolygonXmlFileName).ToList(), true);
+                _comparedPolygon = new C2DPolygon(model.ReadPolygonFromFile(Settings.Default.ComparedPolygonXmlFileName).ToList(), true);
             }
             catch  (Exception ex) when(ex is ArgumentException || ex is IOException || ex is InvalidOperationException) { }
         }
@@ -1096,9 +1096,9 @@ namespace SpatialMapsCompare
         private OpenFileDialog openFileDialog1;
         private CheckedListBox checkedListBox1;
 
-        private Polygon GetPolygonFromXmlFile()
+        private IList<C2DPoint> GetPolygonFromXmlFile()
         {
-            Polygon tempPoly = null;
+            IList<C2DPoint> tempPoly = null;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1118,7 +1118,7 @@ namespace SpatialMapsCompare
             var tempPoly = GetPolygonFromXmlFile();
             if (tempPoly != null)
             {
-                _oryginalPolygon = tempPoly;
+                _oryginalPolygon = new C2DPolygon(tempPoly.ToList(), true);
                 Refresh();
             }
         }
@@ -1129,7 +1129,7 @@ namespace SpatialMapsCompare
             var tempPoly = GetPolygonFromXmlFile();
             if (tempPoly != null)
             {
-                _comparedPolygon = tempPoly;
+                _comparedPolygon = new C2DPolygon(tempPoly.ToList(), true);
                 Refresh();
             }
         }

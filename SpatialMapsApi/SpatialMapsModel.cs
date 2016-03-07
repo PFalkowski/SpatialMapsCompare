@@ -18,15 +18,12 @@ namespace SpatialMaps
         public IOService InputOutputService { get; }
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
-        public string LeftPolyName { get; set; }
-        public string RightPolyName { get; set; }
 
+        private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
-        private Dictionary<string, Polygon> Polygons { get; set; } = new Dictionary<string, Polygon>();
-
-        public Polygon ReadPolygonFromFile(string fileName)
+        public IList<C2DPoint> ReadPolygonFromFile(string fileName)
         {
-            Polygon tempPoly = null;
+            List<C2DPoint> tempPoly = null;
             bool flagSameName = false;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
             if (string.IsNullOrWhiteSpace(fileNameWithoutExtension))
@@ -41,7 +38,7 @@ namespace SpatialMaps
                 }
                 try
                 {
-                    tempPoly = Helper.DeserializeFromXml<Polygon>(fileName);
+                    tempPoly = Helper.DeserializeFromXml<List<C2DPoint>>(fileName);
                 }
                 catch (IOException ex)
                 {
@@ -56,10 +53,10 @@ namespace SpatialMaps
             {
                 var areIdentical = true;
                 var polyRetreived = Polygons[fileNameWithoutExtension];
-                if (tempPoly.Points.Count == polyRetreived.Points.Count)
+                if (tempPoly.Count == polyRetreived.Count)
                 {
-                    using (var poly1Iter = tempPoly.Points.GetEnumerator())
-                    using (var poly2Iter = polyRetreived.Points.GetEnumerator())
+                    using (var poly1Iter = tempPoly.GetEnumerator())
+                    using (var poly2Iter = polyRetreived.GetEnumerator())
                     {
                         while (poly1Iter.MoveNext() && poly2Iter.MoveNext())
                         {
@@ -77,7 +74,7 @@ namespace SpatialMaps
             return tempPoly;
         }
 
-        public void WritePolygonToFile(Polygon poly, string fileName)
+        public void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
         }
@@ -89,11 +86,10 @@ namespace SpatialMaps
             {
                 var tempPoly = ReadPolygonFromFile(fileName);
                 LeftPoly.Clear();
-                foreach (var point in tempPoly.Points)
+                foreach (var point in tempPoly)
                 {
                     LeftPoly.Add(point);
                 }
-                LeftPolyName = tempPoly.Name;
             }
         }
         public void OpenRightFile()
@@ -103,11 +99,10 @@ namespace SpatialMaps
             {
                 var tempPoly = ReadPolygonFromFile(fileName);
                 RightPoly.Clear();
-                foreach (var point in tempPoly.Points)
+                foreach (var point in tempPoly)
                 {
                     RightPoly.Add(point);
                 }
-                RightPolyName = tempPoly.Name;
             }
 
             //if (fileName != null) //assigning doesnt work with binding because collection reports it's changes, but property is not itself reporting PropertyChanged event
@@ -119,7 +114,7 @@ namespace SpatialMaps
             var fileName = InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
             if (fileName != null)
             {
-                WritePolygonToFile(Polygons[LeftPolyName], fileName);
+                WritePolygonToFile(LeftPoly, fileName);
             }
         }
 
@@ -128,7 +123,7 @@ namespace SpatialMaps
             var fileName = InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
             if (fileName != null)
             {
-                WritePolygonToFile(Polygons[RightPolyName], fileName);
+                WritePolygonToFile(RightPoly, fileName);
             }
         }
     }

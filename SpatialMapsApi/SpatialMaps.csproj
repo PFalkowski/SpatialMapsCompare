@@ -79,8 +79,6 @@
     <Compile Include="SpatialMapsModel.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MessageSeverity.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpatialMapsViewModel.cs" />
   </ItemGroup>
