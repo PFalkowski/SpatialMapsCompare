@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpatialMapsWpfUi.Properties {
+namespace SpatialMaps.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

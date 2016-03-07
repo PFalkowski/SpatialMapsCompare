@@ -1,7 +1,7 @@
-﻿<Application x:Class="SpatialMapsWpfUi.App"
+﻿<Application x:Class="SpatialMaps.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SpatialMapsWpfUi"
+             xmlns:local="clr-namespace:SpatialMaps"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

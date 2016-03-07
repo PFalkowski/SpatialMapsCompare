@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SpatialMapsWpfUi
+namespace SpatialMaps
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

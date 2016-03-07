@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpatialMapsWpfUi.Properties {
+namespace SpatialMaps.Properties {
     using System;
     
     
