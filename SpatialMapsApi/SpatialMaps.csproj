@@ -56,9 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesktopIOService.cs" />
-    <Compile Include="IMapsApplicationModel.cs" />
+    <Compile Include="ISpatialMapsModel.cs" />
     <Compile Include="IOService.cs" />
-    <Compile Include="MapsApplicationModel.cs" />
+    <Compile Include="SpatialMapsModel.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MessageSeverity.cs" />
     <Compile Include="Point.cs" />

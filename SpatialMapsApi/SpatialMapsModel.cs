@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SpatialMaps
 {
-    public class MapsApplicationModel : IMapsApplicationModel
+    public class SpatialMapsModel : ISpatialMapsModel
     {
-        public MapsApplicationModel(IOService ioService)
+        public SpatialMapsModel(IOService ioService)
         {
             InputOutputService = ioService;
         }

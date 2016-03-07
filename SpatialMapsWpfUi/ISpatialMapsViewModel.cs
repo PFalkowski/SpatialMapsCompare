@@ -5,7 +5,7 @@ namespace SpatialMapsWpfUi
 {
     public interface ISpatialMapsViewModel
     {
-        IMapsApplicationModel Model { get; set; }
+        ISpatialMapsModel Model { get; set; }
         DelegateCommand OpenLeftFileCommand { get; }
         DelegateCommand OpenRightFileCommand { get; }
         string SelectedPath { get; set; }

@@ -14,7 +14,7 @@ namespace SpatialMapsWpfUi
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {
-        public IMapsApplicationModel Model { get; set; }
+        public ISpatialMapsModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
 
@@ -56,7 +56,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        public SpatialMapsViewModel(IMapsApplicationModel model)
+        public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;
             OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);

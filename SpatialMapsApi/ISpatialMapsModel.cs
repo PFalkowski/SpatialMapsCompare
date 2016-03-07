@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace SpatialMaps
 {
-    public interface IMapsApplicationModel
+    public interface ISpatialMapsModel
     {
         IOService InputOutputService { get; }
         ObservableCollection<C2DPoint> LeftPoly { get; set; }
