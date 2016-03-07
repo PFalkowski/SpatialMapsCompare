@@ -11,6 +11,8 @@ namespace SpatialMaps
 
         void OpenLeftFile();
         void OpenRightFile();
+        void SaveLeftFile();
+        void SaveRightFile();
         Polygon ReadPolygonFromFile(string fileName);
     }
 }

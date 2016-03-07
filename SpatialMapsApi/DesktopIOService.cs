@@ -11,12 +11,14 @@ namespace SpatialMaps
     public class DesktopIOService : IOService
     {
         private OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        private SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
         public Stream OpenFile(string path)
         {
             throw new NotImplementedException();
         }
 
-        public string GetFileNameForOpen(string defaultPath = null)
+        public string GetFileNameForRead(string defaultPath = null)
         {
             if (!string.IsNullOrWhiteSpace(defaultPath))
                 openFileDialog1.FileName = defaultPath;
@@ -27,11 +29,23 @@ namespace SpatialMaps
             else return null;
         }
 
+        public string GetFileNameForWrite(string defaultPath = null)
+        {
+            if (!string.IsNullOrWhiteSpace(defaultPath))
+                saveFileDialog1.FileName = defaultPath;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                return saveFileDialog1.FileName;
+            }
+            else return null;
+        }
+
         public void PrintToScreen(string message, MessageSeverity severity)
         {
             string caption = severity == MessageSeverity.None ? MessageSeverity.Information.ToString() : severity.ToString();
             PrintToScreen(message, caption, severity);
         }
+
         public void PrintToScreen(string message, string caption, MessageSeverity severity)
         {
             MessageBoxIcon icon;

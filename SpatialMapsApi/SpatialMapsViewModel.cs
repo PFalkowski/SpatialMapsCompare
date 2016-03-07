@@ -17,6 +17,8 @@ namespace SpatialMaps
         public ISpatialMapsModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
+        public DelegateCommand SaveLeftFileCommand { get; }
+        public DelegateCommand SaveRightFileCommand { get; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -56,11 +58,36 @@ namespace SpatialMaps
             }
         }
 
+        private void saveLeftFileSafe()
+        {
+            try
+            {
+                Model.SaveLeftFile();
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+        }
+
+        private void saveRightFileSafe()
+        {
+            try
+            {
+                Model.SaveRightFile();
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+        }
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;
             OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
             OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
+            SaveLeftFileCommand = new DelegateCommand(saveLeftFileSafe);
+            SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
         }
     }
 }

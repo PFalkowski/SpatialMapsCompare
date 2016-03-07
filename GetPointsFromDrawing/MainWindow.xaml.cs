@@ -21,8 +21,9 @@ namespace DravingCanvas
     public partial class MainWindow : Window
     {
         private DravingCanvasViewModel viewModel;
-        public Point startPoint { get; set; }
+        private Point startPoint { get; set; }
         private bool firstPoint = true;
+
         public MainWindow()
         {
             InitializeComponent();

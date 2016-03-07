@@ -9,7 +9,8 @@ namespace SpatialMaps
 {
     public interface IOService
     {
-        string GetFileNameForOpen(string defaultPath);
+        string GetFileNameForRead(string defaultPath);
+        string GetFileNameForWrite(string defaultPath);
         Stream OpenFile(string path);
         void PrintToScreen(string message, MessageSeverity severity);
         void PrintToScreen(string message, string caption, MessageSeverity severity);
