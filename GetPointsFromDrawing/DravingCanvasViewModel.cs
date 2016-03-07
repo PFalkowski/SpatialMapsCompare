@@ -13,9 +13,6 @@ namespace DravingCanvas
 {
     public class DravingCanvasViewModel : BindableBase
     {
-        public bool drawingIsOn { get; set; }
-        public Point startPoint { get; set; }
-        public ObservableCollection<C2DPoint> Points { get; set; } = new ObservableCollection<C2DPoint>();
-
+        public List<C2DPoint> Points { get; set; } = new List<C2DPoint>();
     }
 }

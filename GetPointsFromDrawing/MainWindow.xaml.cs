@@ -28,11 +28,10 @@ namespace DravingCanvas
             InitializeComponent();
             viewModel = new DravingCanvasViewModel();
             DataContext = viewModel;
-        }
-        
+        }    
         
 
-        private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
+        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (firstPoint)
             {
