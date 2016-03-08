@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace GeoLib
 {
@@ -19,8 +20,8 @@ namespace GeoLib
         /// <param name="context"></param>
         protected C2DPoint(SerializationInfo info, StreamingContext context)
         {
-            x = (double)info.GetValue("x", typeof(double));
-            y = (double)info.GetValue("y", typeof(double));
+            X = (double)info.GetValue("X", typeof(double));
+            Y = (double)info.GetValue("Y", typeof(double));
         }
 
         /// <summary>
@@ -31,8 +32,8 @@ namespace GeoLib
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("x", x);
-            info.AddValue("y", y);
+            info.AddValue("X", X);
+            info.AddValue("Y", Y);
         }
         /// <summary>
         /// GetObjectData for serialization.
@@ -45,8 +46,8 @@ namespace GeoLib
             if (info == null)
                 throw new ArgumentNullException(nameof(info));
 
-            info.AddValue("x", x);
-            info.AddValue("y", y);
+            info.AddValue("X", X);
+            info.AddValue("Y", Y);
         }
         /// <summary>
         /// Constructor.
@@ -444,18 +445,20 @@ namespace GeoLib
 
 
         /// <summary>
-        /// The x component of the point.
+        /// The x component of the point. It's for the internal (though cannot be declared internal) use of GeoLib and GeoPolygon libraries. Use property 'X' instead.
         /// </summary>
         [NonSerialized]
+        [XmlIgnoreAttribute]
         public double x;
         /// <summary>
         /// The x component of the point.
         /// </summary>
         public double X { get { return x; } set { x = value; } }
         /// <summary>
-        /// The y component of the point.
+        /// The y component of the point. It's for the internal (though cannot be declared internal) use of GeoLib and GeoPolygon libraries. Use property 'Y' instead.
         /// </summary>
         [NonSerialized]
+        [XmlIgnoreAttribute]
         public double y;
         /// <summary>
         /// The y component of the point.
