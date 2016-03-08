@@ -29,7 +29,7 @@ namespace DrawingCanvas
             InitializeComponent();
             viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
-        }    
+        }
         
 
         private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -59,6 +59,12 @@ namespace DrawingCanvas
             firstPoint = true;
             canvas.Children.Clear();
             viewModel.Points.Clear();
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
         }
     }
 }

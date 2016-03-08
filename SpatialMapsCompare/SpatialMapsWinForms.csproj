@@ -116,6 +116,10 @@
       <Project>{68153858-5e7c-4167-a97d-9586f64a34ff}</Project>
       <Name>SpatialMaps</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SpatialMapsWpfUi\SpatialMapsWpfUi.csproj">
+      <Project>{c86ea733-be65-4798-a97d-5373e7dc4aa1}</Project>
+      <Name>SpatialMapsWpfUi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,14 +1,7 @@
-﻿using Microsoft.Practices.Unity;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
-using SpatialMaps;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpatialMaps
 {
@@ -83,12 +76,21 @@ namespace SpatialMaps
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
+
         private void drawLeftFileSafe()
         {
             try
             {
-                //var window = new DrawingCanvas();
-                //Model.LeftPoly.Clear();
+                var canvas = new DrawingCanvas.MainWindow();
+                var dialogResult = canvas.ShowDialog();
+                if ((bool)dialogResult)
+                {
+                    Model.LeftPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+                    foreach (var point in canvas.viewModel.Points)
+                    {
+                        Model.LeftPoly.Add(point);
+                    }
+                }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -100,13 +102,23 @@ namespace SpatialMaps
         {
             try
             {
-                //Model.DrawRightFile();
+                var canvas = new DrawingCanvas.MainWindow();
+                var dialogResult = canvas.ShowDialog();
+                if ((bool)dialogResult)
+                {
+                    Model.RightPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+                    foreach (var point in canvas.viewModel.Points)
+                    {
+                        Model.RightPoly.Add(point);
+                    }
+                }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
+
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;
