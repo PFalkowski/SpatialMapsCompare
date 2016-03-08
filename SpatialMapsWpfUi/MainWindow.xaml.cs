@@ -31,10 +31,10 @@ namespace SpatialMaps
             DataContext = viewModel;
 
             CollectionViewSource leftCollectionViewSource = (CollectionViewSource)(FindResource("LeftCollectionViewSource"));
-            leftCollectionViewSource.Source = viewModel.Model.LeftPoly;
+            leftCollectionViewSource.Source = viewModel.LeftPoly;
 
             CollectionViewSource rightCollectionViewSource = (CollectionViewSource)(FindResource("RightCollectionViewSource"));
-            rightCollectionViewSource.Source = viewModel.Model.RightPoly;
+            rightCollectionViewSource.Source = viewModel.RightPoly;
         }
     }
 }

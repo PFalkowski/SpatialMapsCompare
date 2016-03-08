@@ -1,12 +1,16 @@
-﻿using Prism.Commands;
+﻿using GeoLib;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace SpatialMaps
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {
+        public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
+        public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ISpatialMapsModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
@@ -33,7 +37,7 @@ namespace SpatialMaps
         {
             try
             {
-                Model.OpenLeftFile();
+                OpenLeftFile();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -45,7 +49,7 @@ namespace SpatialMaps
         {
             try
             {
-                Model.OpenRightFile();
+                OpenRightFile();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -57,7 +61,7 @@ namespace SpatialMaps
         {
             try
             {
-                Model.SaveLeftFile();
+                SaveLeftFile();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -69,7 +73,7 @@ namespace SpatialMaps
         {
             try
             {
-                Model.SaveRightFile();
+                SaveRightFile();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -77,6 +81,53 @@ namespace SpatialMaps
             }
         }
 
+        public void OpenLeftFile()
+        {
+            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
+            if (fileName != null)
+            {
+                var tempPoly = Model.ReadPolygonFromFile(fileName);
+                LeftPoly.Clear();
+                foreach (var point in tempPoly)
+                {
+                    LeftPoly.Add(point);
+                }
+            }
+        }
+        public void OpenRightFile()
+        {
+            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
+            if (fileName != null)
+            {
+                var tempPoly = Model.ReadPolygonFromFile(fileName);
+                RightPoly.Clear();
+                foreach (var point in tempPoly)
+                {
+                    RightPoly.Add(point);
+                }
+            }
+
+            //if (fileName != null) //assigning doesnt work with binding because collection reports it's changes, but property is not itself reporting PropertyChanged event
+            //    RightPoly = new ObservableCollection<C2DPoint>(ReadPolygonFromFile(fileName));
+        }
+
+        public void SaveLeftFile()
+        {
+            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
+            if (fileName != null)
+            {
+                Model.WritePolygonToFile(LeftPoly, fileName);
+            }
+        }
+
+        public void SaveRightFile()
+        {
+            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
+            if (fileName != null)
+            {
+                Model.WritePolygonToFile(RightPoly, fileName);
+            }
+        }
         private void drawLeftFileSafe()
         {
             try
@@ -85,10 +136,10 @@ namespace SpatialMaps
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
-                    Model.LeftPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+                    LeftPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
                     foreach (var point in canvas.viewModel.Points)
                     {
-                        Model.LeftPoly.Add(point);
+                        LeftPoly.Add(point);
                     }
                 }
             }
@@ -106,10 +157,10 @@ namespace SpatialMaps
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
-                    Model.RightPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+                    RightPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
                     foreach (var point in canvas.viewModel.Points)
                     {
-                        Model.RightPoly.Add(point);
+                        RightPoly.Add(point);
                     }
                 }
             }

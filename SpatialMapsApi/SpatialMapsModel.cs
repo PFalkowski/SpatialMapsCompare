@@ -16,8 +16,6 @@ namespace SpatialMaps
             InputOutputService = ioService;
         }
         public IOService InputOutputService { get; }
-        public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
-        public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
 
         private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
@@ -79,52 +77,5 @@ namespace SpatialMaps
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
         }
 
-        public void OpenLeftFile()
-        {
-            var fileName = InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
-            if (fileName != null)
-            {
-                var tempPoly = ReadPolygonFromFile(fileName);
-                LeftPoly.Clear();
-                foreach (var point in tempPoly)
-                {
-                    LeftPoly.Add(point);
-                }
-            }
-        }
-        public void OpenRightFile()
-        {
-            var fileName = InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
-            if (fileName != null)
-            {
-                var tempPoly = ReadPolygonFromFile(fileName);
-                RightPoly.Clear();
-                foreach (var point in tempPoly)
-                {
-                    RightPoly.Add(point);
-                }
-            }
-
-            //if (fileName != null) //assigning doesnt work with binding because collection reports it's changes, but property is not itself reporting PropertyChanged event
-            //    RightPoly = new ObservableCollection<C2DPoint>(ReadPolygonFromFile(fileName));
-        }
-
-        public void SaveLeftFile()
-        {
-            var fileName = InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
-            if (fileName != null)
-            {
-                WritePolygonToFile(LeftPoly, fileName);
-            }
-        }
-
-        public void SaveRightFile()
-        {
-            var fileName = InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
-            if (fileName != null)
-            {
-                WritePolygonToFile(RightPoly, fileName);
-            }
-        }
     }
 }
