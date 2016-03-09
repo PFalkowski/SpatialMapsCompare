@@ -20,8 +20,8 @@ namespace GeoLib
         /// <param name="context"></param>
         protected C2DPoint(SerializationInfo info, StreamingContext context)
         {
-            X = (double)info.GetValue("X", typeof(double));
-            Y = (double)info.GetValue("Y", typeof(double));
+            X = (double)info.GetValue("x", typeof(double));
+            Y = (double)info.GetValue("y", typeof(double));
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace GeoLib
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         protected virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("X", X);
-            info.AddValue("Y", Y);
+            info.AddValue("x", X);
+            info.AddValue("y", Y);
         }
         /// <summary>
         /// GetObjectData for serialization.
@@ -46,8 +46,8 @@ namespace GeoLib
             if (info == null)
                 throw new ArgumentNullException(nameof(info));
 
-            info.AddValue("X", X);
-            info.AddValue("Y", Y);
+            info.AddValue("x", X);
+            info.AddValue("y", Y);
         }
         /// <summary>
         /// Constructor.
@@ -447,22 +447,20 @@ namespace GeoLib
         /// <summary>
         /// The x component of the point. It's for the internal (though cannot be declared internal) use of GeoLib and GeoPolygon libraries. Use property 'X' instead.
         /// </summary>
-        [NonSerialized]
-        [XmlIgnoreAttribute]
         public double x;
         /// <summary>
         /// The x component of the point.
         /// </summary>
+        [XmlIgnoreAttribute]
         public double X { get { return x; } set { x = value; } }
         /// <summary>
         /// The y component of the point. It's for the internal (though cannot be declared internal) use of GeoLib and GeoPolygon libraries. Use property 'Y' instead.
         /// </summary>
-        [NonSerialized]
-        [XmlIgnoreAttribute]
         public double y;
         /// <summary>
         /// The y component of the point.
         /// </summary>
+        [XmlIgnoreAttribute]
         public double Y { get { return y; } set { y = value; } }
 
     }

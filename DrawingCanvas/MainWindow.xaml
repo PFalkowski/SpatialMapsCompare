@@ -14,7 +14,7 @@
             <RowDefinition Height="288*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Right" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" IsDefault="True"/>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Right" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="saveButton_Click"/>
         <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="clearButton_Click"/>
         <Canvas x:Name="canvas" Background="Transparent" Grid.Row="0" MouseDown="canvas_MouseDown"/>
 
