@@ -132,7 +132,7 @@ namespace SpatialMaps
         {
             try
             {
-                var canvas = new DrawingCanvas.MainWindow();
+                var canvas = new DrawingCanvas.MainWindow(LeftPoly);
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
@@ -153,7 +153,7 @@ namespace SpatialMaps
         {
             try
             {
-                var canvas = new DrawingCanvas.MainWindow();
+                var canvas = new DrawingCanvas.MainWindow(RightPoly);
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeoLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,32 @@ namespace DrawingCanvas
             viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
         }
-        
+        public MainWindow(IList<C2DPoint> points)
+        {
+            InitializeComponent();
+            viewModel = new DrawingCanvasViewModel();
+            DataContext = viewModel;
+            drawPathFromPoints(points);
+        }
+
+        public void drawPathFromPoints(IList<C2DPoint> points)
+        {
+            if (points?.Count < 2) return;
+            C2DPoint previous = points[0];
+            for (int i = 1; i < points.Count; ++i)
+            {
+                Line temp = new Line();
+                temp.Stroke = Brushes.Black;
+                temp.StrokeThickness = 2;
+                temp.X1 = previous.X;
+                temp.Y1 = previous.Y;
+                temp.X2 = points[i].X;
+                temp.Y2 = points[i].Y;
+                previous = points[i];
+                canvas.Children.Add(temp);
+            }
+            viewModel.Points = points.ToList();
+        }
 
         private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
