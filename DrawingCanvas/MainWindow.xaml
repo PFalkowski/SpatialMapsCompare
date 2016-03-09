@@ -10,13 +10,32 @@
         <local:DrawingCanvasViewModel></local:DrawingCanvasViewModel>
     </Window.DataContext>-->
     <Grid>
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="288*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Right" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" IsDefault="True"/>
-        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="clearButton_Click"/>
-        <Canvas x:Name="canvas" Background="Transparent" Grid.Row="0" MouseDown="canvas_MouseDown"/>
+        <ItemsControl ItemsSource="{Binding Path=Points}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="White" Width="500" Height="500"  />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Fill="Black"  Width="5" Height="5" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Top" Value="{Binding Path=Y}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Path=X}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
 
     </Grid>
+
 </Window>
