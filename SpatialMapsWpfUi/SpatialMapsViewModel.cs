@@ -4,7 +4,6 @@ using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 
 namespace SpatialMaps
 {
@@ -134,7 +133,6 @@ namespace SpatialMaps
             try
             {
                 var canvas = new DrawingCanvas.MainWindow();
-                canvas.viewModel.Points = LeftPoly.ToList();
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
@@ -156,7 +154,6 @@ namespace SpatialMaps
             try
             {
                 var canvas = new DrawingCanvas.MainWindow();
-                canvas.viewModel.Points = RightPoly.ToList();
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
