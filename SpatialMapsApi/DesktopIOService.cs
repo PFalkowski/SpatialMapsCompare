@@ -18,10 +18,12 @@ namespace SpatialMaps
             throw new NotImplementedException();
         }
 
-        public string GetFileNameForRead(string defaultPath = null)
+        public string GetFileNameForRead(string initialDirectory = null, string filter = null)
         {
-            if (!string.IsNullOrWhiteSpace(defaultPath))
-                openFileDialog1.FileName = defaultPath;
+            if (!string.IsNullOrWhiteSpace(initialDirectory))
+                openFileDialog1.InitialDirectory = initialDirectory;
+            if (!string.IsNullOrWhiteSpace(filter))
+                openFileDialog1.Filter = filter;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 return openFileDialog1.FileName;
@@ -29,7 +31,7 @@ namespace SpatialMaps
             else return null;
         }
 
-        public string GetFileNameForWrite(string defaultPath = null)
+        public string GetFileNameForWrite(string defaultPath = null, string filter = null)
         {
             if (!string.IsNullOrWhiteSpace(defaultPath))
                 saveFileDialog1.FileName = defaultPath;

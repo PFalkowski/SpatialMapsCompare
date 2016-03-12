@@ -11,13 +11,14 @@ namespace SpatialMaps
 {
     public class SpatialMapsModel : ISpatialMapsModel
     {
+        private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
+        public IOService InputOutputService { get; }
+
         public SpatialMapsModel(IOService ioService)
         {
             InputOutputService = ioService;
         }
-        public IOService InputOutputService { get; }
 
-        private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
         public IList<C2DPoint> ReadPolygonFromFile(string fileName)
         {

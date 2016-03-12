@@ -9,6 +9,7 @@ namespace SpatialMaps
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {
+        private const string filterString = "XML Files|*.xml;";
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ISpatialMapsModel Model { get; set; }
@@ -83,7 +84,7 @@ namespace SpatialMaps
 
         public void OpenLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
+            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -97,7 +98,7 @@ namespace SpatialMaps
 
         public void OpenRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
+            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -114,7 +115,7 @@ namespace SpatialMaps
 
         public void SaveLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
+            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory, filterString);
             if (fileName != null)
             {
                 Model.WritePolygonToFile(LeftPoly, fileName);
@@ -123,7 +124,7 @@ namespace SpatialMaps
 
         public void SaveRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory);
+            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory, filterString);
             if (fileName != null)
             {
                 Model.WritePolygonToFile(RightPoly, fileName);
