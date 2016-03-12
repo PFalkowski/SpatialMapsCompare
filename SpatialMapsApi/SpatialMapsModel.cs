@@ -71,11 +71,33 @@ namespace SpatialMaps
             Polygons.Add(fileNameWithoutExtension, tempPoly);
             return tempPoly;
         }
-
+        // TODO change to accept polygon name and select from dictionary
         public void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
         }
 
+        // TODO change to accept polygon name and select from dictionary
+        public double GetOverlappingArea(IList<C2DPoint> poly1, IList<C2DPoint> poly2)
+        {
+            var holedPolys = new List<C2DHoledPolygon>();
+            throw new NotImplementedException();
+        }
+        // TODO change to accept polygon name and select from dictionary
+        public double GetNonOverlappingArea(IList<C2DPoint> poly1, IList<C2DPoint> poly2)
+        {
+            var holedPolys = new List<C2DHoledPolygon>();
+            throw new NotImplementedException();
+        }
+        // TODO change to accept polygon name and select from dictionary
+        public double GetPolyArea(IList<C2DPoint> poly)
+        {
+            throw new NotImplementedException();
+        }
+        // TODO change to accept polygon name and select from dictionary
+        public double GetPerimeter(IList<C2DPoint> poly)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

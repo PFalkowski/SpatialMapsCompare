@@ -94,6 +94,7 @@ namespace SpatialMaps
                 }
             }
         }
+
         public void OpenRightFile()
         {
             var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory);
@@ -128,6 +129,7 @@ namespace SpatialMaps
                 Model.WritePolygonToFile(RightPoly, fileName);
             }
         }
+
         private void drawLeftFileSafe()
         {
             try
