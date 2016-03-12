@@ -84,7 +84,7 @@ namespace SpatialMaps
 
         public void OpenLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -98,7 +98,7 @@ namespace SpatialMaps
 
         public void OpenRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(Environment.CurrentDirectory, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -108,9 +108,6 @@ namespace SpatialMaps
                     RightPoly.Add(point);
                 }
             }
-
-            //if (fileName != null) //assigning doesnt work with binding because collection reports it's changes, but property is not itself reporting PropertyChanged event
-            //    RightPoly = new ObservableCollection<C2DPoint>(ReadPolygonFromFile(fileName));
         }
 
         public void SaveLeftFile()
