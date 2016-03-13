@@ -394,9 +394,9 @@ namespace SpatialMapsCompare
         {
             List<C2DPoint> list = new List<C2DPoint>();
             polygon.GetPointsCopy(list);
-            double num = list.Min((C2DPoint item) => item.x);
-            double num2 = list.Min((C2DPoint item) => item.y);
-            foreach (C2DPoint current in list.ToList<C2DPoint>())
+            double num = list.Min((item) => item.x);
+            double num2 = list.Min((item) => item.y);
+            foreach (C2DPoint current in list.ToList())
             {
                 current.x -= num;
                 current.y -= num2;

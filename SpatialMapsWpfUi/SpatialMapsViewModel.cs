@@ -169,7 +169,6 @@ namespace SpatialMaps
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
-
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;

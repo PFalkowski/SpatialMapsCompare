@@ -29,7 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -49,11 +49,15 @@
         <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0" Margin="10,6,0,5"/>
         <Button x:Name="DrawLeftFile" Content="Draw" Command="{Binding DrawLeftFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="1" Margin="10,6,0,5"/>
         <Button x:Name="DrawRightFile" Content="Draw" Command="{Binding DrawRightFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" Margin="10,6,0,5"/>
-        
-        <Canvas Name="ChartingCanvas" Grid.Column="2" Margin="10" Grid.Row="2" Height="100"  Width="100" MinWidth="100" MinHeight="100"/>
+
+        <Canvas Name="ChartingCanvas" Grid.Column="2" Margin="10" Grid.Row="2"/>
 
         <Button x:Name="SaveLeftFile" Content="Save" Command="{Binding SaveLeftFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="3" Margin="10,6,0,5"/>
         <Button x:Name="SaveRightFile" Content="Save" Command="{Binding SaveRightFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="3" Margin="10,6,0,5"/>
+        <Button x:Name="Refresh" Content="Refresh" Command="{Binding PrintLeftFileToCanvas}" VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="3" Margin="10,6,10,5" HorizontalAlignment="Right" Click="Refresh_Click"/>
 
     </Grid>
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding PrintLeftFileToCanvas}" />
+    </Window.InputBindings>
 </Window>
