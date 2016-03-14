@@ -62,8 +62,8 @@ namespace SpatialMapsCompareTests
             var tested = new FileNameValidator();
             var result = tested.Validate("qwertyuiop|", culture);
             Assert.IsFalse(result.IsValid);
-            Assert.IsTrue(result.ErrorContent.ToString().Contains(tested.valueName));
-            tested.valueName = "custom value name";
+            Assert.IsTrue(result.ErrorContent.ToString().Contains(tested.ValueName));
+            tested.ValueName = "custom value name";
             result = tested.Validate("qwertyuiop|", culture);
             Assert.IsFalse(result.IsValid);
             Assert.IsTrue(result.ErrorContent.ToString().Contains("custom value name"));

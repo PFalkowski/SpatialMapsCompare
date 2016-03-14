@@ -14,14 +14,14 @@ namespace DrawingCanvas
         public string InvalidCharsRegexString { get; } = $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]";
         public string CustomExcludingRegexString { get; set; }
 
-        public string valueName { get; set; } = "File name";
+        public string ValueName { get; set; } = "File name";
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
             string casted = (string)value;
             if (string.IsNullOrWhiteSpace(casted?.ToString()))
             {
-                return new ValidationResult(false, $"{valueName} cannot be empty.");
+                return new ValidationResult(false, $"{ValueName} cannot be empty.");
             }
             if (!string.IsNullOrWhiteSpace(InvalidCharsRegexString))
             {
@@ -30,7 +30,7 @@ namespace DrawingCanvas
 
                 if (matches?.Count > 0)
                 {
-                    return new ValidationResult(false, $"{valueName} cannot contain {string.Join(",", matches)}");
+                    return new ValidationResult(false, $"{ValueName} cannot contain {string.Join(",", matches)}");
                 }
             }
             if (!string.IsNullOrWhiteSpace(CustomExcludingRegexString))
@@ -40,7 +40,7 @@ namespace DrawingCanvas
 
                 if (matches?.Count > 0)
                 {
-                    return new ValidationResult(false, $"{valueName} cannot contain {string.Join(",", matches)}");
+                    return new ValidationResult(false, $"{ValueName} cannot contain {string.Join(",", matches)}");
                 }
             }
             return ValidationResult.ValidResult;

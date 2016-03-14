@@ -1,17 +1,9 @@
 ﻿using GeoLib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace DrawingCanvas
@@ -86,7 +78,7 @@ namespace DrawingCanvas
             canvas.Children.Add(pathTravelled);
             var tempPoint2 = e.GetPosition(canvas);
             viewModel.StartingPoint = new C2DPoint(tempPoint2.X, tempPoint2.Y);
-            viewModel.Points.Add(new GeoLib.C2DPoint(finishingPoint.X, finishingPoint.Y));
+            viewModel.Points.Add(new C2DPoint(finishingPoint.X, finishingPoint.Y));
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
