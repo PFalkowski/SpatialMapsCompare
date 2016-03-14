@@ -22,8 +22,6 @@ namespace DrawingCanvas
     public partial class MainWindow : Window
     {
         public DrawingCanvasViewModel viewModel { get; set; }
-        private Point startPoint { get; set; }
-        private bool firstPoint = true;
 
         public MainWindow()
         {
@@ -41,8 +39,16 @@ namespace DrawingCanvas
 
         public void drawPathFromPoints(IList<C2DPoint> points)
         {
+            C2DPoint previous = null;
             if (points?.Count < 2) return;
-            C2DPoint previous = points[0];
+            if (viewModel.IsFirstPoint && viewModel.StartingPoint != null)
+            {
+                previous = viewModel.StartingPoint;
+            }
+            else
+            {
+                previous = points[0];
+            }
             for (int i = 1; i < points.Count; ++i)
             {
                 Line temp = new Line();
@@ -60,29 +66,31 @@ namespace DrawingCanvas
 
         private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (firstPoint)
+            if (viewModel.IsFirstPoint)
             {
-                startPoint = e.GetPosition(canvas);
-                firstPoint = false;
-                viewModel.Points.Add(new GeoLib.C2DPoint(startPoint.X, startPoint.Y));
+                var tempPoint1 = e.GetPosition(canvas);
+                viewModel.StartingPoint = new C2DPoint(tempPoint1.X, tempPoint1.Y);
+                viewModel.IsFirstPoint = false;
+                viewModel.Points.Add(new C2DPoint(viewModel.StartingPoint.X, viewModel.StartingPoint.Y));
                 return;
             }
             var pathTravelled = new Line();
             pathTravelled.Stroke = Brushes.Black;
             pathTravelled.StrokeThickness = 2;
             var finishingPoint = e.GetPosition(canvas);
-            pathTravelled.X1 = startPoint.X;
-            pathTravelled.Y1 = startPoint.Y;
+            pathTravelled.X1 = viewModel.StartingPoint.X;
+            pathTravelled.Y1 = viewModel.StartingPoint.Y;
             pathTravelled.X2 = finishingPoint.X;
             pathTravelled.Y2 = finishingPoint.Y;
             canvas.Children.Add(pathTravelled);
-            startPoint = e.GetPosition(canvas);
+            var tempPoint2 = e.GetPosition(canvas);
+            viewModel.StartingPoint = new C2DPoint(tempPoint2.X, tempPoint2.Y);
             viewModel.Points.Add(new GeoLib.C2DPoint(finishingPoint.X, finishingPoint.Y));
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            firstPoint = true;
+            viewModel.IsFirstPoint = true;
             canvas.Children.Clear();
             viewModel.Points.Clear();
         }
