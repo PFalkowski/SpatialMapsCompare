@@ -13,7 +13,7 @@ using System.Linq;
 namespace SpatialMapsCompareTests
 {
     [TestClass]
-    public class UnitTest1
+    public class C2DPointListSerializationTests
     {
         private string testFileName = "testSerializationData.xml";
         private static readonly List<C2DPoint> _referencePolygon = new List<C2DPoint>(new List<C2DPoint>

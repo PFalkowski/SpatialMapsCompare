@@ -12,6 +12,35 @@ namespace SpatialMaps
         private const string filterString = "XML Files|*.xml;";
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
+
+        private string _leftPolyName;
+        public string LeftPolyName
+        {
+            get
+            { return _leftPolyName; }
+            set
+            {
+                if (_leftPolyName != value)
+                {
+                    _leftPolyName = value;
+                    OnPropertyChanged(nameof(LeftPolyName));
+                }
+            }
+        }
+        private string _rightPolyName;
+        public string RightPolyName
+        {
+            get
+            { return _rightPolyName; }
+            set
+            {
+                if (_rightPolyName != value)
+                {
+                    _rightPolyName = value;
+                    OnPropertyChanged(nameof(RightPolyName));
+                }
+            }
+        }
         public ISpatialMapsModel Model { get; set; }
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
@@ -84,7 +113,7 @@ namespace SpatialMaps
 
         public void OpenLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -93,12 +122,13 @@ namespace SpatialMaps
                 {
                     LeftPoly.Add(point);
                 }
+                LeftPolyName = Path.GetFileNameWithoutExtension(fileName);
             }
         }
 
         public void OpenRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyName, filterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -107,12 +137,13 @@ namespace SpatialMaps
                 {
                     RightPoly.Add(point);
                 }
+                RightPolyName = Path.GetFileNameWithoutExtension(fileName);
             }
         }
 
         public void SaveLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForWrite(null, LeftPolyName, filterString);
             if (fileName != null)
             {
                 Model.WritePolygonToFile(LeftPoly, fileName);
@@ -121,7 +152,7 @@ namespace SpatialMaps
 
         public void SaveRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(Environment.CurrentDirectory, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForWrite(null, RightPolyName, filterString);
             if (fileName != null)
             {
                 Model.WritePolygonToFile(RightPoly, fileName);
@@ -132,7 +163,7 @@ namespace SpatialMaps
         {
             try
             {
-                var canvas = new DrawingCanvas.MainWindow(LeftPoly);
+                var canvas = new DrawingCanvas.MainWindow(LeftPolyName, LeftPoly);
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
@@ -141,6 +172,7 @@ namespace SpatialMaps
                     {
                         LeftPoly.Add(point);
                     }
+                    LeftPolyName = canvas.viewModel.FileName;
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -153,7 +185,7 @@ namespace SpatialMaps
         {
             try
             {
-                var canvas = new DrawingCanvas.MainWindow(RightPoly);
+                var canvas = new DrawingCanvas.MainWindow(RightPolyName, RightPoly);
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult)
                 {
@@ -162,6 +194,7 @@ namespace SpatialMaps
                     {
                         RightPoly.Add(point);
                     }
+                    RightPolyName = canvas.viewModel.FileName;
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)

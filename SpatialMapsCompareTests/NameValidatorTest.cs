@@ -12,11 +12,11 @@ namespace SpatialMapsCompareTests
         [TestMethod]
         public void NameValidatorCreateTest()
         {
-            var tested = new NameValidator();
+            var tested = new FileNameValidator();
             var expectedRegex = new Regex($"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]");
             var testString = new string(Path.GetInvalidFileNameChars());
             var expectedMatches = expectedRegex.Matches(testString);
-            var receivedMatches = tested.InvalidCharsRegex.Matches(testString);
+            var receivedMatches = new Regex(tested.InvalidCharsRegexString).Matches(testString);
             var expected = expectedMatches[0];
             var received = receivedMatches[0];
             Assert.AreEqual(expected.Value, received.Value);
@@ -26,7 +26,7 @@ namespace SpatialMapsCompareTests
         public void NameValidatorValidateTestInvariantCulture()
         {
             var culture = System.Globalization.CultureInfo.InvariantCulture;
-            var tested = new NameValidator();
+            var tested = new FileNameValidator();
             var result = tested.Validate(null, culture);
             Assert.IsFalse(result.IsValid);
             result = tested.Validate("", culture);
@@ -46,7 +46,7 @@ namespace SpatialMapsCompareTests
         {
             var invalid = new string(Path.GetInvalidFileNameChars());
             var culture = System.Globalization.CultureInfo.InvariantCulture;
-            var tested = new NameValidator();
+            var tested = new FileNameValidator();
             var result = tested.Validate("qwertyuiop|", culture);
             Assert.IsFalse(result.IsValid);
             result = tested.Validate("abc?2 ", culture);
@@ -59,7 +59,7 @@ namespace SpatialMapsCompareTests
         public void NameValidatorValueNameTest()
         {
             var culture = System.Globalization.CultureInfo.GetCultureInfoByIetfLanguageTag("EN");
-            var tested = new NameValidator();
+            var tested = new FileNameValidator();
             var result = tested.Validate("qwertyuiop|", culture);
             Assert.IsFalse(result.IsValid);
             Assert.IsTrue(result.ErrorContent.ToString().Contains(tested.valueName));

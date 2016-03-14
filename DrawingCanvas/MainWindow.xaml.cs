@@ -29,11 +29,12 @@ namespace DrawingCanvas
             viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
         }
-        public MainWindow(IList<C2DPoint> points)
+        public MainWindow(string polygonName, IList<C2DPoint> points)
         {
             InitializeComponent();
             viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
+            viewModel.FileName = polygonName;
             drawPathFromPoints(points);
         }
 

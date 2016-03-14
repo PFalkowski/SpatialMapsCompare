@@ -5,19 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DrawingCanvas"
         mc:Ignorable="d"
-        Title="Drawing Canvas" Height="350" Width="525">
+        Title="Drawing Canvas" Height="550" Width="725" MinHeight="350" MinWidth="525">
     <!--<Window.DataContext>
         <local:DrawingCanvasViewModel></local:DrawingCanvasViewModel>
     </Window.DataContext>-->
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="95"/>
+            <ColumnDefinition Width="328*"/>
+            <ColumnDefinition Width="95"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="288*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name="saveButton" Content="Done" HorizontalAlignment="Right" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="saveButton_Click"/>
-        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="clearButton_Click"/>
-        <Canvas x:Name="canvas" Background="Transparent" Grid.Row="0" MouseDown="canvas_MouseDown"/>
-        <TextBox x:Name="nameBox" HorizontalAlignment="Center" Height="23" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="Polygon Name" VerticalAlignment="Top" Width="169"/>
+        <Button x:Name="saveButton" Content="Done" HorizontalAlignment="Right" Margin="0,0,10,10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="saveButton_Click" Grid.Column="2" Height="20"/>
+        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="10,0,0,10"  Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="clearButton_Click" Height="20"/>
+        <Canvas x:Name="canvas" Background="Transparent" Grid.Row="0" MouseDown="canvas_MouseDown" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="nameBox" Height="23" Margin="10" Grid.Row="1"
+                 TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="1">
+            <TextBox.Text>
+                <Binding Path="FileName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:FileNameValidator/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
     </Grid>
 </Window>
