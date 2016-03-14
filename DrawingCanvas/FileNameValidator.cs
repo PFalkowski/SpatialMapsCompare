@@ -14,7 +14,7 @@ namespace DrawingCanvas
         public string InvalidCharsRegexString { get; } = $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]";
         public string CustomExcludingRegexString { get; set; }
 
-        public string valueName { get; set; } = "file name";
+        public string valueName { get; set; } = "File name";
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {

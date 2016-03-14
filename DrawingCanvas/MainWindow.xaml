@@ -28,7 +28,7 @@
             <TextBox.Text>
                 <Binding Path="FileName" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <local:FileNameValidator/>
+                        <local:FileNameValidator CustomExcludingRegexString="File Name"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
