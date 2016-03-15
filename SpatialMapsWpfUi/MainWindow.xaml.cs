@@ -1,11 +1,12 @@
 ﻿using GeoLib;
 using Microsoft.Practices.Unity;
+using SpatialMaps;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SpatialMaps
+namespace SpatialMapsWpfUi
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -44,7 +45,7 @@ namespace SpatialMaps
                     for (int i = 1; i < viewModel.LeftPoly.Count; ++i)
                     {
                         Line temp = new Line();
-                        temp.Stroke = Brushes.BlueViolet;
+                        temp.Stroke = new SolidColorBrush(Properties.Settings.Default.LeftPolygonColor);
                         temp.StrokeThickness = 2;
                         temp.X1 = previous.X;
                         temp.Y1 = previous.Y;
@@ -60,7 +61,7 @@ namespace SpatialMaps
                     for (int i = 1; i < viewModel.RightPoly.Count; ++i)
                     {
                         Line temp = new Line();
-                        temp.Stroke = Brushes.LawnGreen;
+                        temp.Stroke = new SolidColorBrush(Properties.Settings.Default.RightPolygonColor);
                         temp.StrokeThickness = 2;
                         temp.X1 = previous.X;
                         temp.Y1 = previous.Y;

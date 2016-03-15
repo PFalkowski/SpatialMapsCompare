@@ -25,10 +25,10 @@ namespace SpatialMapsWpfUi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 192")]
-        public global::System.Drawing.Color LeftPolygonColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF8A2BE2")]
+        public global::System.Windows.Media.Color LeftPolygonColor {
             get {
-                return ((global::System.Drawing.Color)(this["LeftPolygonColor"]));
+                return ((global::System.Windows.Media.Color)(this["LeftPolygonColor"]));
             }
             set {
                 this["LeftPolygonColor"] = value;
@@ -37,10 +37,10 @@ namespace SpatialMapsWpfUi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 192, 0")]
-        public global::System.Drawing.Color RightPolygonColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF7CFC00")]
+        public global::System.Windows.Media.Color RightPolygonColor {
             get {
-                return ((global::System.Drawing.Color)(this["RightPolygonColor"]));
+                return ((global::System.Windows.Media.Color)(this["RightPolygonColor"]));
             }
             set {
                 this["RightPolygonColor"] = value;

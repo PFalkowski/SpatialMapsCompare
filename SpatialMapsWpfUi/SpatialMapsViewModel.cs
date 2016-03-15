@@ -5,8 +5,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using Prism.Events;
+using SpatialMaps;
 
-namespace SpatialMaps
+namespace SpatialMapsWpfUi
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {

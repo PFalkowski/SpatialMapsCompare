@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
+using SpatialMaps;
 
-namespace SpatialMaps
+namespace SpatialMapsWpfUi
 {
     public static class Bootstrapper
     {

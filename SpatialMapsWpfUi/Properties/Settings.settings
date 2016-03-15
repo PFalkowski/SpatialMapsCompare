@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpatialMapsWpfUi.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LeftPolygonColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">0, 0, 192</Value>
+    <Setting Name="LeftPolygonColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF8A2BE2</Value>
     </Setting>
-    <Setting Name="RightPolygonColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">0, 192, 0</Value>
+    <Setting Name="RightPolygonColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF7CFC00</Value>
     </Setting>
   </Settings>
 </SettingsFile>
