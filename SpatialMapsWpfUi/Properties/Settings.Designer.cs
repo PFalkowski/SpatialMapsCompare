@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpatialMaps.Properties {
+namespace SpatialMapsWpfUi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,30 @@ namespace SpatialMaps.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 192")]
+        public global::System.Drawing.Color LeftPolygonColor {
+            get {
+                return ((global::System.Drawing.Color)(this["LeftPolygonColor"]));
+            }
+            set {
+                this["LeftPolygonColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 192, 0")]
+        public global::System.Drawing.Color RightPolygonColor {
+            get {
+                return ((global::System.Drawing.Color)(this["RightPolygonColor"]));
+            }
+            set {
+                this["RightPolygonColor"] = value;
             }
         }
     }

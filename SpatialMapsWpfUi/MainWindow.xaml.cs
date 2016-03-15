@@ -14,13 +14,13 @@ namespace SpatialMaps
     {
         private IUnityContainer ioc;
         private ISpatialMapsViewModel viewModel;
-
+        //public Brush LeftPolyColor 
         public MainWindow()
         {
             ioc = new UnityContainer();
             ioc.Bootstrap();
             viewModel = ioc.Resolve<ISpatialMapsViewModel>();
-
+            viewModel.Events.GetEvent<RefreshEvent>().Subscribe(RefreshAction, Prism.Events.ThreadOption.UIThread);
             InitializeComponent();
             DataContext = viewModel;
 
@@ -31,42 +31,51 @@ namespace SpatialMaps
             rightCollectionViewSource.Source = viewModel.RightPoly;
         }
 
+
+        private void RefreshAction(bool shouldProceed)
+        {
+            if (shouldProceed)
+            {
+                ChartingCanvas.Children.Clear();
+
+                if (viewModel.LeftPoly?.Count > 2)
+                {
+                    C2DPoint previous = viewModel.LeftPoly[0];
+                    for (int i = 1; i < viewModel.LeftPoly.Count; ++i)
+                    {
+                        Line temp = new Line();
+                        temp.Stroke = Brushes.BlueViolet;
+                        temp.StrokeThickness = 2;
+                        temp.X1 = previous.X;
+                        temp.Y1 = previous.Y;
+                        temp.X2 = viewModel.LeftPoly[i].X;
+                        temp.Y2 = viewModel.LeftPoly[i].Y;
+                        previous = viewModel.LeftPoly[i];
+                        ChartingCanvas.Children.Add(temp);
+                    }
+                }
+                if (viewModel.RightPoly?.Count > 2)
+                {
+                    C2DPoint previous = viewModel.RightPoly[0];
+                    for (int i = 1; i < viewModel.RightPoly.Count; ++i)
+                    {
+                        Line temp = new Line();
+                        temp.Stroke = Brushes.LawnGreen;
+                        temp.StrokeThickness = 2;
+                        temp.X1 = previous.X;
+                        temp.Y1 = previous.Y;
+                        temp.X2 = viewModel.RightPoly[i].X;
+                        temp.Y2 = viewModel.RightPoly[i].Y;
+                        previous = viewModel.RightPoly[i];
+                        ChartingCanvas.Children.Add(temp);
+                    }
+                }
+            }
+        }
+
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            ChartingCanvas.Children.Clear();
-
-            if (viewModel.LeftPoly?.Count > 2)
-            {
-                C2DPoint previous = viewModel.LeftPoly[0];
-                for (int i = 1; i < viewModel.LeftPoly.Count; ++i)
-                {
-                    Line temp = new Line();
-                    temp.Stroke = Brushes.Black;
-                    temp.StrokeThickness = 2;
-                    temp.X1 = previous.X;
-                    temp.Y1 = previous.Y;
-                    temp.X2 = viewModel.LeftPoly[i].X;
-                    temp.Y2 = viewModel.LeftPoly[i].Y;
-                    previous = viewModel.LeftPoly[i];
-                    ChartingCanvas.Children.Add(temp);
-                }
-            }
-            if (viewModel.RightPoly?.Count > 2)
-            {
-                C2DPoint previous = viewModel.RightPoly[0];
-                for (int i = 1; i < viewModel.RightPoly.Count; ++i)
-                {
-                    Line temp = new Line();
-                    temp.Stroke = Brushes.Black;
-                    temp.StrokeThickness = 2;
-                    temp.X1 = previous.X;
-                    temp.Y1 = previous.Y;
-                    temp.X2 = viewModel.RightPoly[i].X;
-                    temp.Y2 = viewModel.RightPoly[i].Y;
-                    previous = viewModel.RightPoly[i];
-                    ChartingCanvas.Children.Add(temp);
-                }
-            }
+            RefreshAction(true);
         }
     }
 }

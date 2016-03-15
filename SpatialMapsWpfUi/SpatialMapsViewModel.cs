@@ -4,12 +4,15 @@ using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using Prism.Events;
 
 namespace SpatialMaps
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
     {
-        private const string filterString = "XML Files|*.xml;";
+        public ISpatialMapsModel Model { get; set; }
+        public IEventAggregator Events { get; }
+        public string filterString => "XML Files|*.xml;";
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
 
@@ -27,6 +30,7 @@ namespace SpatialMaps
                 }
             }
         }
+
         private string _rightPolyName;
         public string RightPolyName
         {
@@ -41,13 +45,6 @@ namespace SpatialMaps
                 }
             }
         }
-        public ISpatialMapsModel Model { get; set; }
-        public DelegateCommand OpenLeftFileCommand { get; }
-        public DelegateCommand OpenRightFileCommand { get; }
-        public DelegateCommand SaveLeftFileCommand { get; }
-        public DelegateCommand SaveRightFileCommand { get; }
-        public DelegateCommand DrawLeftFileCommand { get; }
-        public DelegateCommand DrawRightFileCommand { get; }
 
         private string _selectedPath;
         public string SelectedPath
@@ -63,11 +60,36 @@ namespace SpatialMaps
             }
         }
 
+        public DelegateCommand OpenLeftFileCommand { get; }
+        public DelegateCommand OpenRightFileCommand { get; }
+        public DelegateCommand SaveLeftFileCommand { get; }
+        public DelegateCommand SaveRightFileCommand { get; }
+        public DelegateCommand DrawLeftFileCommand { get; }
+        public DelegateCommand DrawRightFileCommand { get; }
+
+        public SpatialMapsViewModel(ISpatialMapsModel model)
+        {
+            Model = model;
+            Events = new EventAggregator();
+            OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
+            OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
+            SaveLeftFileCommand = new DelegateCommand(saveLeftFileSafe);
+            SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
+            DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
+            DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
+        }
+        private void Refresh()
+        {
+            var refreshEvents = Events.GetEvent<RefreshEvent>();
+            refreshEvents?.Publish(true);
+        }
+
         private void openLeftFileSafe()
         {
             try
             {
                 OpenLeftFile();
+                Refresh();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -80,6 +102,7 @@ namespace SpatialMaps
             try
             {
                 OpenRightFile();
+                Refresh();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -123,6 +146,7 @@ namespace SpatialMaps
                     LeftPoly.Add(point);
                 }
                 LeftPolyName = Path.GetFileNameWithoutExtension(fileName);
+                Refresh();
             }
         }
 
@@ -138,6 +162,7 @@ namespace SpatialMaps
                     RightPoly.Add(point);
                 }
                 RightPolyName = Path.GetFileNameWithoutExtension(fileName);
+                Refresh();
             }
         }
 
@@ -179,6 +204,7 @@ namespace SpatialMaps
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
+            Refresh();
         }
 
         private void drawRightFileSafe()
@@ -201,16 +227,7 @@ namespace SpatialMaps
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
-        }
-        public SpatialMapsViewModel(ISpatialMapsModel model)
-        {
-            Model = model;
-            OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
-            OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
-            SaveLeftFileCommand = new DelegateCommand(saveLeftFileSafe);
-            SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
-            DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
-            DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
+            Refresh();
         }
     }
 }
