@@ -54,6 +54,15 @@ namespace SpatialMapsWpfUi
         public DelegateCommand DrawLeftFileCommand { get; }
         public DelegateCommand DrawRightFileCommand { get; }
 
+        public double? LeftPolyArea => Model.GetArea(LeftPolyName);
+        public double? RightPolyArea => Model.GetArea(LeftPolyName);
+        public double LeftPolyPerimeter => 0;
+        public double RightPolyPerimeter => 0;
+        public double LeftPolyOverlappingArea => 0;
+        public double RightPolyOverlappingArea => 0;
+        public double LeftPolyNonOverlappingArea => 0;
+        public double RightPolyNonOverlappingArea => 0;
+
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
             Model = model;
@@ -69,6 +78,25 @@ namespace SpatialMapsWpfUi
         {
             var refreshEvents = Events.GetEvent<RefreshEvent>();
             refreshEvents?.Publish(true);
+            var leftIsValid = Model.IsPolygonValid(LeftPolyName);
+            var rightIsValid = Model.IsPolygonValid(RightPolyName);
+            if (leftIsValid)
+            {
+                OnPropertyChanged(nameof(LeftPolyArea));
+                OnPropertyChanged(nameof(LeftPolyPerimeter));
+            }
+            if (rightIsValid)
+            {
+                OnPropertyChanged(nameof(RightPolyArea));
+                OnPropertyChanged(nameof(RightPolyPerimeter));
+            }
+            if (leftIsValid && rightIsValid)
+            {
+                OnPropertyChanged(nameof(LeftPolyOverlappingArea));
+                OnPropertyChanged(nameof(LeftPolyNonOverlappingArea));
+                OnPropertyChanged(nameof(RightPolyOverlappingArea));
+                OnPropertyChanged(nameof(RightPolyNonOverlappingArea));
+            }
         }
 
         private void openLeftFileSafe()
@@ -185,6 +213,7 @@ namespace SpatialMapsWpfUi
                         LeftPoly.Add(point);
                     }
                     LeftPolyName = canvas.viewModel.FileName;
+                    Model.AddPolygonToDictionary(canvas.viewModel.Points, canvas.viewModel.FileName);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -208,6 +237,7 @@ namespace SpatialMapsWpfUi
                         RightPoly.Add(point);
                     }
                     RightPolyName = canvas.viewModel.FileName;
+                    Model.AddPolygonToDictionary(canvas.viewModel.Points, canvas.viewModel.FileName);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)

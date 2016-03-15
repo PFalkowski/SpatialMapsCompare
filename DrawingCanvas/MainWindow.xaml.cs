@@ -26,7 +26,7 @@ namespace DrawingCanvas
             InitializeComponent();
             viewModel = new DrawingCanvasViewModel();
             DataContext = viewModel;
-            viewModel.FileName = polygonName;
+            viewModel.FileName = polygonName ?? viewModel.FileNamePlaceholder;
             drawPathFromPoints(points);
         }
 

@@ -17,5 +17,14 @@ namespace SpatialMaps
         DelegateCommand SaveRightFileCommand { get; }
         DelegateCommand DrawLeftFileCommand { get; }
         DelegateCommand DrawRightFileCommand { get; }
+        double? LeftPolyArea { get; }
+        double? RightPolyArea { get; }
+        double LeftPolyPerimeter { get; }
+        double RightPolyPerimeter { get; }
+        double LeftPolyOverlappingArea { get; }
+        double RightPolyOverlappingArea { get; }
+        double LeftPolyNonOverlappingArea { get; }
+        double RightPolyNonOverlappingArea { get; }
+
     }
 }
