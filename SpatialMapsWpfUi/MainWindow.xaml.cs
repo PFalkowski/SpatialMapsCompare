@@ -15,7 +15,7 @@ namespace SpatialMapsWpfUi
     {
         private IUnityContainer ioc;
         private ISpatialMapsViewModel viewModel;
-        //public Brush LeftPolyColor 
+
         public MainWindow()
         {
             ioc = new UnityContainer();
