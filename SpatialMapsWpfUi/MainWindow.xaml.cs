@@ -72,10 +72,5 @@ namespace SpatialMaps
                 }
             }
         }
-
-        private void Refresh_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshAction(true);
-        }
     }
 }
