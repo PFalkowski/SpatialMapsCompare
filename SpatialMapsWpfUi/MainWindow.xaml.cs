@@ -32,7 +32,7 @@ namespace SpatialMaps
         }
 
 
-        private void RefreshAction(bool shouldProceed)
+        private void RefreshAction(bool shouldProceed = true)
         {
             if (shouldProceed)
             {
@@ -71,6 +71,17 @@ namespace SpatialMaps
                     }
                 }
             }
+        }
+
+
+        private void RightDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            RefreshAction();
+        }
+
+        private void LeftDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            RefreshAction();
         }
     }
 }
