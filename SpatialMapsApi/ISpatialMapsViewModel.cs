@@ -17,6 +17,5 @@ namespace SpatialMaps
         DelegateCommand SaveRightFileCommand { get; }
         DelegateCommand DrawLeftFileCommand { get; }
         DelegateCommand DrawRightFileCommand { get; }
-        string SelectedPath { get; set; }
     }
 }

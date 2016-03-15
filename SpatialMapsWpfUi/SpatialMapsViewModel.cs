@@ -46,20 +46,6 @@ namespace SpatialMaps
             }
         }
 
-        private string _selectedPath;
-        public string SelectedPath
-        {
-            get { return _selectedPath; }
-            set
-            {
-                if (_selectedPath != value)
-                {
-                    _selectedPath = value;
-                    OnPropertyChanged(nameof(SelectedPath));
-                }
-            }
-        }
-
         public DelegateCommand OpenLeftFileCommand { get; }
         public DelegateCommand OpenRightFileCommand { get; }
         public DelegateCommand SaveLeftFileCommand { get; }
