@@ -12,6 +12,7 @@ using GeoLib;
 using SpatialMapsCompare.Properties;
 using SpatialMaps;
 using Microsoft.Practices.Unity;
+using SpatialMapsWpfUi;
 
 namespace SpatialMapsCompare
 {

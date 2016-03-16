@@ -52,38 +52,39 @@ namespace SpatialMaps
             var tempPoly = TryGetPolyByKeySafe(polygonKey);
             return IsPolygonValid(tempPoly);
         }
-
-        private bool AreIdentical(List<C2DPoint> polygon1, List<C2DPoint> polygon2)
+        public bool IsNameUnique(string name)
         {
-            if (polygon1.Count != polygon2.Count) return false;
-            var areIdentical = true;
-
-            using (var poly1Iter = polygon1.GetEnumerator())
-            using (var poly2Iter = polygon2.GetEnumerator())
-            {
-                while (poly1Iter.MoveNext() && poly2Iter.MoveNext())
-                {
-                    if (!poly1Iter.Current.PointEqualTo(poly2Iter.Current))
-                    {
-                        areIdentical = false;
-                    }
-                }
-            }
-
-            return areIdentical;
+            return Polygons.ContainsKey(name);
         }
-
+        public string GetUniqueNameForPolygon(string basedOnName)
+        {
+            if (Polygons.ContainsKey(basedOnName))
+            {
+                return GetUniqueNameForPolygon(basedOnName + "'");
+            }
+            else return basedOnName;
+        }
+        public bool IsPolygonNew(List<C2DPoint> polygon, string name)
+        {
+            if (Polygons.ContainsKey(name))
+            {
+                var polyRetreived = Polygons[name];
+                if (Enumerable.SequenceEqual(polygon, polyRetreived))
+                    return false;
+            }
+            return true;
+        }
         public void AddPolygonToDictionary(List<C2DPoint> polygon, string name)
         {
             if (Polygons.ContainsKey(name))
             {
                 var polyRetreived = Polygons[name];
-                var areIdentical = AreIdentical(polygon, polyRetreived);
-                if (!areIdentical)
-                    AddPolygonToDictionary(polygon, name + "'");
-                    //throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
+                if (Enumerable.SequenceEqual(polygon, polyRetreived))
+                {
+                    throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
+                }
             }
-            else Polygons.Add(name, polygon);
+            Polygons.Add(name, polygon);
         }
 
         public IList<C2DPoint> ReadPolygonFromFile(string fileName)

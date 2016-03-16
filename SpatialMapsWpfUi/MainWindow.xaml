@@ -68,6 +68,7 @@
 
             <TextBlock x:Name="areaBlock" Text="Area" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"/>
             <TextBlock x:Name="leftAreaBlock" Text="{Binding LeftPolyArea}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"/>
+            <TextBlock x:Name="rightAreaBlock" Text="{Binding RightPolyArea}" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center"/>
 
         </Grid>
 

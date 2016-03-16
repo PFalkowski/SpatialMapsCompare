@@ -55,7 +55,7 @@ namespace SpatialMapsWpfUi
         public DelegateCommand DrawRightFileCommand { get; }
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
-        public double? RightPolyArea => Model.GetArea(LeftPolyName);
+        public double? RightPolyArea => Model.GetArea(RightPolyName);
         public double LeftPolyPerimeter => 0;
         public double RightPolyPerimeter => 0;
         public double LeftPolyOverlappingArea => 0;
@@ -205,15 +205,16 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(LeftPolyName, LeftPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult)
+                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
                     LeftPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
                     foreach (var point in canvas.viewModel.Points)
                     {
                         LeftPoly.Add(point);
                     }
-                    LeftPolyName = canvas.viewModel.FileName;
-                    Model.AddPolygonToDictionary(canvas.viewModel.Points, canvas.viewModel.FileName);
+                    var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
+                    LeftPolyName = uniqeName;
+                    Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -229,15 +230,16 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(RightPolyName, RightPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult)
+                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
                     RightPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
                     foreach (var point in canvas.viewModel.Points)
                     {
                         RightPoly.Add(point);
                     }
-                    RightPolyName = canvas.viewModel.FileName;
-                    Model.AddPolygonToDictionary(canvas.viewModel.Points, canvas.viewModel.FileName);
+                    var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
+                    RightPolyName = uniqeName;
+                    Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
