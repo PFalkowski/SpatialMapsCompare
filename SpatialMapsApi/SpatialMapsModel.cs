@@ -86,10 +86,10 @@ namespace SpatialMaps
                     throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
                 }
             }
-            Polygons.Add(name, polygon);
+            else Polygons.Add(name, polygon);
         }
 
-        public IList<C2DPoint> ReadPolygonFromFile(string fileName)
+        public string ReadPolygonFromFile(string fileName)
         {
             List<C2DPoint> tempPoly = null;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
@@ -113,7 +113,7 @@ namespace SpatialMaps
                 }
             }
             AddPolygonToDictionary(tempPoly, fileNameWithoutExtension);
-            return tempPoly;
+            return fileNameWithoutExtension;
         }
         
         private void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
