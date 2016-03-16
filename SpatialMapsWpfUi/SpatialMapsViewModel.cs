@@ -13,7 +13,6 @@ namespace SpatialMapsWpfUi
     {
         public ISpatialMapsModel Model { get; set; }
         public IEventAggregator Events { get; }
-        public string filterString => "XML Files|*.xml;";
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
 
@@ -151,7 +150,7 @@ namespace SpatialMapsWpfUi
 
         public void OpenLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, Model.FilterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -167,7 +166,7 @@ namespace SpatialMapsWpfUi
 
         public void OpenRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyName, filterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyName, Model.FilterString);
             if (fileName != null)
             {
                 var tempPoly = Model.ReadPolygonFromFile(fileName);
@@ -183,20 +182,12 @@ namespace SpatialMapsWpfUi
 
         public void SaveLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(null, LeftPolyName, filterString);
-            if (fileName != null)
-            {
-                Model.WritePolygonToFile(LeftPoly, fileName);
-            }
+            Model.WritePolygonToFile(LeftPolyName);
         }
 
         public void SaveRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForWrite(null, RightPolyName, filterString);
-            if (fileName != null)
-            {
-                Model.WritePolygonToFile(RightPoly, fileName);
-            }
+            Model.WritePolygonToFile(RightPolyName);
         }
 
         private void drawLeftFileSafe()

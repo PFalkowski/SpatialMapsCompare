@@ -11,6 +11,8 @@ namespace SpatialMaps
 {
     public class SpatialMapsModel : ISpatialMapsModel
     {
+        public string FileType { get; set; } = "xml";
+        public string FilterString => $"{FileType.ToUpper()} Files|*.{FileType.ToLower()};";
         private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
         public IOService InputOutputService { get; }
@@ -113,11 +115,19 @@ namespace SpatialMaps
             AddPolygonToDictionary(tempPoly, fileNameWithoutExtension);
             return tempPoly;
         }
-
-        // TODO change to accept polygon name and select from dictionary
-        public void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
+        
+        private void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
+        }
+        public void WritePolygonToFile(string polyName)
+        {
+            var poly = GetPolyByKey(polyName);
+            var fileName = InputOutputService.GetFileNameForWrite(null, polyName, FilterString);
+            if (fileName != null)
+            {
+                WritePolygonToFile(poly, fileName);
+            }
         }
 
         public double? GetArea(string polygonKey)
