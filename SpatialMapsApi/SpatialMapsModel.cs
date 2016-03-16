@@ -22,7 +22,7 @@ namespace SpatialMaps
             InputOutputService = ioService;
         }
 
-        private List<C2DPoint> GetPolyByKey(string polygonKey)
+        public List<C2DPoint> GetPolyByKey(string polygonKey)
         {
             if (string.IsNullOrEmpty(polygonKey)) return null;
             List<C2DPoint> tempPoly;
@@ -36,7 +36,7 @@ namespace SpatialMaps
             }
         }
 
-        private List<C2DPoint> TryGetPolyByKeySafe(string polygonKey)
+        public List<C2DPoint> TryGetPolyByKeySafe(string polygonKey)
         {
             List<C2DPoint> tempPoly = null;
             Polygons.TryGetValue(polygonKey, out tempPoly);

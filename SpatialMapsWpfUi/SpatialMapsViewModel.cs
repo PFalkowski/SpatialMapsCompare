@@ -153,13 +153,12 @@ namespace SpatialMapsWpfUi
             var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, Model.FilterString);
             if (fileName != null)
             {
-                var tempPoly = Model.ReadPolygonFromFile(fileName);
+                LeftPolyName = Model.ReadPolygonFromFile(fileName);
                 LeftPoly.Clear();
-                foreach (var point in tempPoly)
+                foreach (var point in Model.TryGetPolyByKeySafe(LeftPolyName))
                 {
                     LeftPoly.Add(point);
                 }
-                LeftPolyName = Path.GetFileNameWithoutExtension(fileName);
                 Refresh();
             }
         }
@@ -169,13 +168,12 @@ namespace SpatialMapsWpfUi
             var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyName, Model.FilterString);
             if (fileName != null)
             {
-                var tempPoly = Model.ReadPolygonFromFile(fileName);
+                RightPolyName = Model.ReadPolygonFromFile(fileName);
                 RightPoly.Clear();
-                foreach (var point in tempPoly)
+                foreach (var point in Model.TryGetPolyByKeySafe(RightPolyName))
                 {
                     RightPoly.Add(point);
                 }
-                RightPolyName = Path.GetFileNameWithoutExtension(fileName);
                 Refresh();
             }
         }
