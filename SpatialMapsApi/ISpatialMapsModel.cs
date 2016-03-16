@@ -11,7 +11,8 @@ namespace SpatialMaps
         string FileType { get; set; }
         string FilterString { get; }
         IOService InputOutputService { get; }
-        string ReadPolygonFromFile(string fileName);
+        KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName);
+        KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService();
         void WritePolygonToFile(string polyName);
         bool IsPolygonValid(string polygonKey);
         double? GetArea(string polygonKey);

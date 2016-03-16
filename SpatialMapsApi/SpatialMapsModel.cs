@@ -76,6 +76,7 @@ namespace SpatialMaps
             }
             return true;
         }
+
         public void AddPolygonToDictionary(List<C2DPoint> polygon, string name)
         {
             if (Polygons.ContainsKey(name))
@@ -89,7 +90,12 @@ namespace SpatialMaps
             else Polygons.Add(name, polygon);
         }
 
-        public string ReadPolygonFromFile(string fileName)
+        public void AddPolygonToDictionary(KeyValuePair<string, List<C2DPoint>> polygon)
+        {
+            AddPolygonToDictionary(polygon.Value, polygon.Key);
+        }
+
+        public KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName)
         {
             List<C2DPoint> tempPoly = null;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
@@ -113,9 +119,19 @@ namespace SpatialMaps
                 }
             }
             AddPolygonToDictionary(tempPoly, fileNameWithoutExtension);
-            return fileNameWithoutExtension;
+            return new KeyValuePair<string, List<C2DPoint>>(fileNameWithoutExtension, tempPoly);
         }
-        
+        public KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService()
+        {
+            var fileName = InputOutputService.GetFileNameForRead(null, null, FilterString);
+            var temp = new KeyValuePair<string, List<C2DPoint>>();
+            if (fileName != null)
+            {
+                temp = GetPolygonFromFile(fileName);
+            }
+            return temp;
+        }
+
         private void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));

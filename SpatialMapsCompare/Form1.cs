@@ -162,8 +162,8 @@ namespace SpatialMapsCompare
             dataGridView1.DataSource = _oryginalPolygon;
             try
             {
-                _oryginalPolygon = new C2DPolygon(model.ReadPolygonFromFile(Settings.Default.OryginalPolygonXmlFileName).ToList(), true);
-                _comparedPolygon = new C2DPolygon(model.ReadPolygonFromFile(Settings.Default.ComparedPolygonXmlFileName).ToList(), true);
+                _oryginalPolygon = new C2DPolygon(model.GetPolygonFromFile(Settings.Default.OryginalPolygonXmlFileName).Value.ToList(), true);
+                _comparedPolygon = new C2DPolygon(model.GetPolygonFromFile(Settings.Default.ComparedPolygonXmlFileName).Value.ToList(), true);
             }
             catch  (Exception ex) when(ex is ArgumentException || ex is IOException || ex is InvalidOperationException) { }
         }
@@ -1103,7 +1103,7 @@ namespace SpatialMapsCompare
             {
                 try
                 {
-                    tempPoly = model.ReadPolygonFromFile(openFileDialog1.FileName);
+                    tempPoly = model.GetPolygonFromFile(openFileDialog1.FileName).Value;
                 }
                 catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
                 {
