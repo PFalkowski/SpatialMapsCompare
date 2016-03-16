@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Prism.Events;
 using SpatialMaps;
+using System.Collections.Generic;
 
 namespace SpatialMapsWpfUi
 {
@@ -124,11 +125,12 @@ namespace SpatialMapsWpfUi
             }
         }
 
+
         private void saveLeftFileSafe()
         {
             try
             {
-                SaveLeftFile();
+                Model.WritePolygonToFile(LeftPolyName);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -140,7 +142,7 @@ namespace SpatialMapsWpfUi
         {
             try
             {
-                SaveRightFile();
+                Model.WritePolygonToFile(RightPolyName);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -155,11 +157,7 @@ namespace SpatialMapsWpfUi
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
                 LeftPolyName = dataLoaded.Key;
-                LeftPoly.Clear();
-                foreach (var point in dataLoaded.Value)
-                {
-                    LeftPoly.Add(point);
-                }
+                RedrawPoly(LeftPoly, dataLoaded.Value);
                 Refresh();
             }
         }
@@ -171,23 +169,27 @@ namespace SpatialMapsWpfUi
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
                 RightPolyName = dataLoaded.Key;
-                RightPoly.Clear();
-                foreach (var point in dataLoaded.Value)
-                {
-                    RightPoly.Add(point);
-                }
+                RedrawPoly(RightPoly, dataLoaded.Value);
                 Refresh();
             }
         }
 
-        public void SaveLeftFile()
+        private void RedrawPoly(ObservableCollection<C2DPoint> polygon, IList<C2DPoint> points)
         {
-            Model.WritePolygonToFile(LeftPolyName);
+            polygon.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+            foreach (var point in points)
+            {
+                polygon.Add(point);
+            }
         }
 
-        public void SaveRightFile()
+        private void RedrawLeftPoly(IList<C2DPoint> points)
         {
-            Model.WritePolygonToFile(RightPolyName);
+            RedrawPoly(LeftPoly, points);
+        }
+        private void RedrawRightPoly(IList<C2DPoint> points)
+        {
+            RedrawPoly(RightPoly, points);
         }
 
         private void drawLeftFileSafe()
@@ -198,11 +200,7 @@ namespace SpatialMapsWpfUi
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
-                    LeftPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
-                    foreach (var point in canvas.viewModel.Points)
-                    {
-                        LeftPoly.Add(point);
-                    }
+                    RedrawLeftPoly(canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     LeftPolyName = uniqeName;
                     Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
@@ -223,11 +221,7 @@ namespace SpatialMapsWpfUi
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
-                    RightPoly.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
-                    foreach (var point in canvas.viewModel.Points)
-                    {
-                        RightPoly.Add(point);
-                    }
+                    RedrawRightPoly(canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     RightPolyName = uniqeName;
                     Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
