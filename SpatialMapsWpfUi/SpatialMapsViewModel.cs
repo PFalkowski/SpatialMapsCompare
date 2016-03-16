@@ -183,15 +183,6 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void RedrawLeftPoly(IList<C2DPoint> points)
-        {
-            RedrawPoly(LeftPoly, points);
-        }
-        private void RedrawRightPoly(IList<C2DPoint> points)
-        {
-            RedrawPoly(RightPoly, points);
-        }
-
         private void drawLeftFileSafe()
         {
             try
@@ -200,7 +191,7 @@ namespace SpatialMapsWpfUi
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
-                    RedrawLeftPoly(canvas.viewModel.Points);
+                    RedrawPoly(LeftPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     LeftPolyName = uniqeName;
                     Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
@@ -221,7 +212,7 @@ namespace SpatialMapsWpfUi
                 var dialogResult = canvas.ShowDialog();
                 if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
                 {
-                    RedrawRightPoly(canvas.viewModel.Points);
+                    RedrawPoly(RightPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     RightPolyName = uniqeName;
                     Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
