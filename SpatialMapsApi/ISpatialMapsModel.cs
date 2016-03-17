@@ -15,10 +15,11 @@ namespace SpatialMaps
         KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService();
         void WritePolygonToFile(string polyName);
         bool IsPolygonValid(string polygonKey);
-        void AddPolygonToDictionary(List<C2DPoint> polygon, string name);
+        void AddPolygonToDictionary(string name, List<C2DPoint> polygon);
         string GetUniqueNameForPolygon(string basedOnName);
         bool IsPolygonNew(List<C2DPoint> polygon, string name);
         double? GetArea(string polygonKey);
         double? GetPerimeter(string rightPolyName);
+        void Update(string name, List<C2DPoint> list);
     }
 }

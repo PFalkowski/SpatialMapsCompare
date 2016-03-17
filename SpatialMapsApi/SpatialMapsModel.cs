@@ -82,7 +82,20 @@ namespace SpatialMaps
             return true;
         }
 
-        public void AddPolygonToDictionary(List<C2DPoint> polygon, string name)
+
+        public void Update(string name, List<C2DPoint> polygon)
+        {
+            if(Polygons.ContainsKey(name))
+            {
+                Polygons[name] = polygon;
+            }
+            else
+            {
+                Polygons.Add(name, polygon);
+            }
+        }
+
+        public void AddPolygonToDictionary(string name, List<C2DPoint> polygon)
         {
             if (Polygons.ContainsKey(name))
             {
@@ -97,7 +110,7 @@ namespace SpatialMaps
 
         public void AddPolygonToDictionary(KeyValuePair<string, List<C2DPoint>> polygon)
         {
-            AddPolygonToDictionary(polygon.Value, polygon.Key);
+            AddPolygonToDictionary(polygon.Key, polygon.Value);
         }
 
         public KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName)
@@ -123,7 +136,7 @@ namespace SpatialMaps
                     throw new IOException($"The file \"{fileName}\" is not a valid xml file with polygon points data.", iop);
                 }
             }
-            AddPolygonToDictionary(tempPoly, fileNameWithoutExtension);
+            AddPolygonToDictionary(fileNameWithoutExtension, tempPoly);
             return new KeyValuePair<string, List<C2DPoint>>(fileNameWithoutExtension, tempPoly);
         }
 

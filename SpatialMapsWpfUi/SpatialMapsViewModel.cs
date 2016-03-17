@@ -7,6 +7,7 @@ using System.IO;
 using Prism.Events;
 using SpatialMaps;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SpatialMapsWpfUi
 {
@@ -14,9 +15,32 @@ namespace SpatialMapsWpfUi
     {
         public ISpatialMapsModel Model { get; set; }
         public IEventAggregator Events { get; }
-        public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
-        public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
-
+        private ObservableCollection<C2DPoint> _leftPoly = new ObservableCollection<C2DPoint>();
+        public ObservableCollection<C2DPoint> LeftPoly
+        {
+            get
+            {
+                return _leftPoly;
+            }
+            set
+            {
+                _leftPoly = value;
+            }
+        }
+        private ObservableCollection<C2DPoint> _rightPoly = new ObservableCollection<C2DPoint>();
+        public ObservableCollection<C2DPoint> RightPoly
+        {
+            get
+            {
+                return _rightPoly;
+            }
+            set
+            {
+                _rightPoly = value;
+            }
+        }
+        private string LeftPolyDefaultName => "Left Polygon";
+        private string RightPolyDefaultName => "Right Polygon";
 
         private string _leftPolyName;
         public string LeftPolyName
@@ -66,6 +90,8 @@ namespace SpatialMapsWpfUi
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
+            LeftPolyName = LeftPolyDefaultName;
+            RightPolyName = RightPolyDefaultName;
             Model = model;
             Events = new EventAggregator();
             OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
@@ -74,9 +100,13 @@ namespace SpatialMapsWpfUi
             SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
+            Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
+            Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
         }
         public void Refresh()
         {
+            Model.Update(LeftPolyName, LeftPoly.ToList());
+            Model.Update(RightPolyName, RightPoly.ToList());
             var refreshEvents = Events.GetEvent<RefreshEvent>();
             refreshEvents?.Publish(true);
 
@@ -185,7 +215,7 @@ namespace SpatialMapsWpfUi
                     RedrawPoly(LeftPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     LeftPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
+                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -206,7 +236,7 @@ namespace SpatialMapsWpfUi
                     RedrawPoly(RightPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     RightPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(canvas.viewModel.Points, uniqeName);
+                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
