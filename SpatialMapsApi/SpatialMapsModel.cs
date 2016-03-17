@@ -13,6 +13,7 @@ namespace SpatialMaps
     {
         public string FileType { get; set; } = "xml";
         public string FilterString => $"{FileType.ToUpper()} Files|*.{FileType.ToLower()};";
+        public int RoundDigits { get; set; } = 1;
         private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
         public IOService InputOutputService { get; }
@@ -41,23 +42,26 @@ namespace SpatialMaps
             List<C2DPoint> tempPoly = null;
             Polygons.TryGetValue(polygonKey, out tempPoly);
             return tempPoly;
-
         }
+
         private bool IsPolygonValid(IList<C2DPoint> polygon)
         {
             if (polygon?.Count > 2) return true;
             return false;
         }
+
         public bool IsPolygonValid(string polygonKey)
         {
             if (string.IsNullOrEmpty(polygonKey)) return false;
             var tempPoly = TryGetPolyByKeySafe(polygonKey);
             return IsPolygonValid(tempPoly);
         }
+
         public bool IsNameUnique(string name)
         {
             return Polygons.ContainsKey(name);
         }
+
         public string GetUniqueNameForPolygon(string basedOnName)
         {
             if (Polygons.ContainsKey(basedOnName))
@@ -66,6 +70,7 @@ namespace SpatialMaps
             }
             else return basedOnName;
         }
+
         public bool IsPolygonNew(List<C2DPoint> polygon, string name)
         {
             if (Polygons.ContainsKey(name))
@@ -121,6 +126,7 @@ namespace SpatialMaps
             AddPolygonToDictionary(tempPoly, fileNameWithoutExtension);
             return new KeyValuePair<string, List<C2DPoint>>(fileNameWithoutExtension, tempPoly);
         }
+
         public KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService()
         {
             var fileName = InputOutputService.GetFileNameForRead(null, null, FilterString);
@@ -134,8 +140,9 @@ namespace SpatialMaps
 
         private void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
-            poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, "xml"));
+            poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, FileType));
         }
+
         public void WritePolygonToFile(string polyName)
         {
             var poly = GetPolyByKey(polyName);
@@ -153,7 +160,19 @@ namespace SpatialMaps
             {
                 var poly = new C2DPolygon(points, true);
                 var area = poly.GetArea();
-                return Math.Round(area, 3);
+                return Math.Round(area, RoundDigits);
+            }
+            return null;
+        }
+
+        public double? GetPerimeter(string polygonKey)
+        {
+            var points = GetPolyByKey(polygonKey);
+            if (IsPolygonValid(points))
+            {
+                var poly = new C2DPolygon(points, true);
+                var area = poly.GetPerimeter();
+                return Math.Round(area, RoundDigits);
             }
             return null;
         }

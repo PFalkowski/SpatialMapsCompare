@@ -56,12 +56,12 @@ namespace SpatialMapsWpfUi
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
         public double? RightPolyArea => Model.GetArea(RightPolyName);
-        public double LeftPolyPerimeter => 0;
-        public double RightPolyPerimeter => 0;
-        public double LeftPolyOverlappingArea => 0;
-        public double RightPolyOverlappingArea => 0;
-        public double LeftPolyNonOverlappingArea => 0;
-        public double RightPolyNonOverlappingArea => 0;
+        public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
+        public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
+        public double? LeftPolyOverlappingArea => 0;
+        public double? RightPolyOverlappingArea => 0;
+        public double? LeftPolyNonOverlappingArea => 0;
+        public double? RightPolyNonOverlappingArea => 0;
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
