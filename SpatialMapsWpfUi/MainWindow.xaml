@@ -16,24 +16,24 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
             <RowDefinition Height="250*"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="620*"/>
         </Grid.ColumnDefinitions>
 
 
-        <DataGrid x:Name="RightDataGrid" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="2" Margin="10,4,0,10"		
+        <DataGrid x:Name="RightDataGrid" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" Margin="10,4,0,10"		
         DataContext="{StaticResource RightCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="True" SelectionChanged="RightDataGrid_SelectionChanged"/>
 
-        <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="2" Margin="10,4,0,10"		
+        <DataGrid x:Name="LeftDataGrid" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="1" Margin="10,4,0,10"		
         DataContext="{StaticResource LeftCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="True" SelectionChanged="LeftDataGrid_SelectionChanged">
@@ -48,30 +48,26 @@
 
         <Button x:Name="SaveLeftFile" Content="Save" Command="{Binding SaveLeftFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="3" Margin="10,6,0,5"/>
         <Button x:Name="SaveRightFile" Content="Save" Command="{Binding SaveRightFileCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="3" Margin="10,6,0,5"/>
-        <Grid Name="LeftStatusGrid" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid Name="StatusGrid" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="areaName" Margin="10,0,0,0" Text="Area" Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBlock x:Name="perimeterName" Margin="10,0,0,0" Text="Perimeter" Grid.Row="1" Grid.Column="0"></TextBlock>
+            <TextBlock x:Name="leftAreaBlock" Margin="10,0,0,0" Text="{Binding LeftPolyArea}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right"/>
+            <TextBlock x:Name="leftPerimeterBlock" Margin="10,0,0,0" Text="{Binding LeftPolyPerimeter}" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right"/>
+            <TextBlock x:Name="rightAreaBlock" Margin="10,0,0,0" Text="{Binding RightPolyArea}" Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right"/>
+            <TextBlock x:Name="rightPerimeterBlock" Margin="10,0,0,0" Text="{Binding RightPolyPerimeter}" Grid.Column="2" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right"/>
 
-            <TextBlock x:Name="leftAreaBlock" Margin="10,0,0,0" Text="{Binding LeftPolyArea}" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"/>
-            <TextBlock x:Name="leftPerimeterBlock" Margin="10,0,0,0" Text="{Binding LeftPolyPerimeter}" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"/>
-         
         </Grid>
-        <Grid Name="RightStatusGrid" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock x:Name="rightAreaBlock" Margin="10,0,0,0" Text="{Binding RightPolyArea}"  Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"/>
-            <TextBlock x:Name="rightPerimeterBlock" Margin="10,0,0,0" Text="{Binding RightPolyPerimeter}" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"/>
-        </Grid>
-
     </Grid>
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding RefreshCommand}" />
