@@ -21,7 +21,7 @@ namespace SpatialMapsWpfUi
             ioc = new UnityContainer();
             ioc.Bootstrap();
             viewModel = ioc.Resolve<ISpatialMapsViewModel>();
-            viewModel.Events.GetEvent<RefreshEvent>().Subscribe(RefreshAction, Prism.Events.ThreadOption.UIThread);
+            viewModel.Events.GetEvent<RefreshEvent>().Subscribe(RefreshView, Prism.Events.ThreadOption.UIThread);
             InitializeComponent();
             DataContext = viewModel;
 
@@ -33,7 +33,7 @@ namespace SpatialMapsWpfUi
         }
 
 
-        private void RefreshAction(bool shouldProceed = true)
+        private void RefreshView(bool shouldProceed = true)
         {
             if (shouldProceed)
             {
@@ -77,12 +77,12 @@ namespace SpatialMapsWpfUi
 
         private void RightDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            RefreshAction();
+            viewModel.Refresh();
         }
 
         private void LeftDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            RefreshAction();
+            viewModel.Refresh();
         }
     }
 }

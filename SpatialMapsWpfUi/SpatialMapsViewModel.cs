@@ -17,6 +17,7 @@ namespace SpatialMapsWpfUi
         public ObservableCollection<C2DPoint> LeftPoly { get; set; } = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> RightPoly { get; set; } = new ObservableCollection<C2DPoint>();
 
+
         private string _leftPolyName;
         public string LeftPolyName
         {
@@ -74,29 +75,19 @@ namespace SpatialMapsWpfUi
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
         }
-        private void Refresh()
+        public void Refresh()
         {
             var refreshEvents = Events.GetEvent<RefreshEvent>();
             refreshEvents?.Publish(true);
-            var leftIsValid = Model.IsPolygonValid(LeftPolyName);
-            var rightIsValid = Model.IsPolygonValid(RightPolyName);
-            if (leftIsValid)
-            {
-                OnPropertyChanged(nameof(LeftPolyArea));
-                OnPropertyChanged(nameof(LeftPolyPerimeter));
-            }
-            if (rightIsValid)
-            {
-                OnPropertyChanged(nameof(RightPolyArea));
-                OnPropertyChanged(nameof(RightPolyPerimeter));
-            }
-            if (leftIsValid && rightIsValid)
-            {
-                OnPropertyChanged(nameof(LeftPolyOverlappingArea));
-                OnPropertyChanged(nameof(LeftPolyNonOverlappingArea));
-                OnPropertyChanged(nameof(RightPolyOverlappingArea));
-                OnPropertyChanged(nameof(RightPolyNonOverlappingArea));
-            }
+
+            OnPropertyChanged(nameof(LeftPolyArea));
+            OnPropertyChanged(nameof(LeftPolyPerimeter));
+            OnPropertyChanged(nameof(RightPolyArea));
+            OnPropertyChanged(nameof(RightPolyPerimeter));
+            OnPropertyChanged(nameof(LeftPolyOverlappingArea));
+            OnPropertyChanged(nameof(LeftPolyNonOverlappingArea));
+            OnPropertyChanged(nameof(RightPolyOverlappingArea));
+            OnPropertyChanged(nameof(RightPolyNonOverlappingArea));
         }
 
         private void openLeftFileSafe()

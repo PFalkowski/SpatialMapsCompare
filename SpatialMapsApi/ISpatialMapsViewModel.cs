@@ -25,6 +25,7 @@ namespace SpatialMaps
         double? RightPolyOverlappingArea { get; }
         double? LeftPolyNonOverlappingArea { get; }
         double? RightPolyNonOverlappingArea { get; }
+        void Refresh();
 
     }
 }
