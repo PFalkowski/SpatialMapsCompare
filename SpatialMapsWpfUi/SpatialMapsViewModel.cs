@@ -78,15 +78,16 @@ namespace SpatialMapsWpfUi
         public DelegateCommand SaveRightFileCommand { get; }
         public DelegateCommand DrawLeftFileCommand { get; }
         public DelegateCommand DrawRightFileCommand { get; }
+        public DelegateCommand RefreshCommand { get; }
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
         public double? RightPolyArea => Model.GetArea(RightPolyName);
         public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
         public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
-        public double? LeftPolyOverlappingArea => 0;
-        public double? RightPolyOverlappingArea => 0;
-        public double? LeftPolyNonOverlappingArea => 0;
-        public double? RightPolyNonOverlappingArea => 0;
+        public double? LeftPolyOverlappingArea => 0;//todo
+        public double? RightPolyOverlappingArea => 0;//todo
+        public double? LeftPolyNonOverlappingArea => 0;//todo
+        public double? RightPolyNonOverlappingArea => 0;//todo
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
@@ -100,9 +101,11 @@ namespace SpatialMapsWpfUi
             SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
+            RefreshCommand = new DelegateCommand(Refresh);
             Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
             Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
         }
+
         public void Refresh()
         {
             Model.Update(LeftPolyName, LeftPoly.ToList());
@@ -204,7 +207,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void drawLeftFileSafe()
+        private void drawLeftFileSafe()//todo move to model
         {
             try
             {
