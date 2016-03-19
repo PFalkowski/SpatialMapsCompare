@@ -8,6 +8,7 @@ using Prism.Events;
 using SpatialMaps;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 
 namespace SpatialMapsWpfUi
 {
@@ -86,10 +87,12 @@ namespace SpatialMapsWpfUi
         public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
         public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
         public double? PerimeterDifference => LeftPolyPerimeter - RightPolyPerimeter;
-        public double? LeftPolyOverlappingArea => 0;// Model.GetOverlappingArea();//todo
-        public double? RightPolyOverlappingArea => 0;//todo
-        public double? LeftPolyNonOverlappingArea => 0;//todo
-        public double? RightPolyNonOverlappingArea => 0;//todo
+        public double? LeftPolyOverlappingArea => 1;// Model.GetOverlappingArea();//todo
+        public double? RightPolyOverlappingArea => 2;//todo
+        public double? LeftPolyNonOverlappingArea => 3;//todo
+        public double? RightPolyNonOverlappingArea => 4;//todo
+        public double? OverlappingAreasSum => 5;//todo
+        public double? NonOverlappingAreasSum => 6;//todo
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
@@ -125,6 +128,8 @@ namespace SpatialMapsWpfUi
             OnPropertyChanged(nameof(LeftPolyNonOverlappingArea));
             OnPropertyChanged(nameof(RightPolyOverlappingArea));
             OnPropertyChanged(nameof(RightPolyNonOverlappingArea));
+            OnPropertyChanged(nameof(OverlappingAreasSum));
+            OnPropertyChanged(nameof(NonOverlappingAreasSum));
         }
 
         private void openLeftFileSafe()
