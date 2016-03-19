@@ -87,12 +87,21 @@ namespace SpatialMapsWpfUi
         public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
         public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
         public double? PerimeterDifference => LeftPolyPerimeter - RightPolyPerimeter;
-        public double? LeftPolyOverlappingArea => 1;// Model.GetOverlappingArea();//todo
-        public double? RightPolyOverlappingArea => 2;//todo
-        public double? LeftPolyNonOverlappingArea => 3;//todo
-        public double? RightPolyNonOverlappingArea => 4;//todo
-        public double? OverlappingAreasSum => 5;//todo
-        public double? NonOverlappingAreasSum => 6;//todo
+        public double? LeftPolyOverlappingArea => Model.GetOverlappingArea(LeftPolyName, RightPolyName);
+        public double? RightPolyOverlappingArea => Model.GetOverlappingArea(RightPolyName, LeftPolyName);
+        public double? LeftPolyNonOverlappingArea => Model.GetNonOverlappingArea(LeftPolyName, RightPolyName);
+        public double? RightPolyNonOverlappingArea => Model.GetNonOverlappingArea(RightPolyName, LeftPolyName);
+        public double? OverlappingAreasSum => LeftPolyOverlappingArea + RightPolyOverlappingArea;
+        public double? NonOverlappingAreasSum => LeftPolyNonOverlappingArea + RightPolyNonOverlappingArea;
+        public double? ResemblenceIndex
+        {
+            get
+            {
+                if (!(LeftPolyOverlappingArea.HasValue && LeftPolyArea.HasValue && RightPolyArea.HasValue)) return null;
+                var index = (LeftPolyOverlappingArea.Value / ((LeftPolyArea.Value + RightPolyArea.Value) / 2)) * 100;
+                return Math.Round(index, 1);
+            }
+        }
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
@@ -130,6 +139,7 @@ namespace SpatialMapsWpfUi
             OnPropertyChanged(nameof(RightPolyNonOverlappingArea));
             OnPropertyChanged(nameof(OverlappingAreasSum));
             OnPropertyChanged(nameof(NonOverlappingAreasSum));
+            OnPropertyChanged(nameof(ResemblenceIndex));
         }
 
         private void openLeftFileSafe()
@@ -182,7 +192,7 @@ namespace SpatialMapsWpfUi
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
         }
-        
+
         public void OpenLeftFile()
         {
             var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, Model.FilterString);
@@ -209,7 +219,7 @@ namespace SpatialMapsWpfUi
 
         private void RedrawPoly(ObservableCollection<C2DPoint> polygon, IList<C2DPoint> points)
         {
-            polygon.Clear();// ugly hack, other hack would be to wrap Obseravable collection into NotifyPropertyChanged
+            polygon.Clear();// ugly hack
             foreach (var point in points)
             {
                 polygon.Add(point);

@@ -189,5 +189,46 @@ namespace SpatialMaps
             }
             return null;
         }
+
+        public enum PolygonsType
+        {
+            Common,
+            Different
+        }
+        public List<C2DHoledPolygon> GetPolygons(string firstPolygonName, string secondPolygonName, PolygonsType whichPolygons)
+        {
+            var tempLeftPoints = GetPolyByKey(firstPolygonName);
+            var tempRightPoints = GetPolyByKey(secondPolygonName);
+            var leftPoly = new C2DPolygon(tempLeftPoints, true);
+            var rightPoly = new C2DPolygon(tempRightPoints, true);
+            var someGrid = new CGrid();
+            var smallPolygons = new List<C2DHoledPolygon>();
+            switch (whichPolygons)
+            {
+                case PolygonsType.Common:
+                    leftPoly.GetOverlaps(rightPoly, smallPolygons, someGrid);
+                    break;
+                case PolygonsType.Different:
+                    leftPoly.GetNonOverlaps(rightPoly, smallPolygons, someGrid);
+                    break;
+                default:
+                    throw new ArgumentException(nameof(whichPolygons));
+            }
+            return smallPolygons;
+        }
+
+        public double? GetOverlappingArea(string firstPolygonName, string secondPolygonName)
+        {
+            var polygons = GetPolygons(firstPolygonName, secondPolygonName, PolygonsType.Common);
+            var area = polygons.Sum(p => p.GetArea());
+            return Math.Round(area, RoundDigits);
+        }
+
+        public double? GetNonOverlappingArea(string firstPolygonName, string secondPolygonName)
+        {
+            var polygons = GetPolygons(firstPolygonName, secondPolygonName, PolygonsType.Different);
+            var area = polygons.Sum(p => p.GetArea());
+            return Math.Round(area, RoundDigits);
+        }
     }
 }

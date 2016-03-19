@@ -46,5 +46,29 @@ namespace SpatialMapsWpfUi.Properties {
                 this["RightPolygonColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Teal")]
+        public global::System.Drawing.Color LeftPolygonColour {
+            get {
+                return ((global::System.Drawing.Color)(this["LeftPolygonColour"]));
+            }
+            set {
+                this["LeftPolygonColour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Left Figure Area")]
+        public string LeftAreaName {
+            get {
+                return ((string)(this["LeftAreaName"]));
+            }
+            set {
+                this["LeftAreaName"] = value;
+            }
+        }
     }
 }

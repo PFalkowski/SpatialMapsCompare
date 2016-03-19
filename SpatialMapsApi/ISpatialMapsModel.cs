@@ -18,8 +18,10 @@ namespace SpatialMaps
         void AddPolygonToDictionary(string name, List<C2DPoint> polygon);
         string GetUniqueNameForPolygon(string basedOnName);
         bool IsPolygonNew(List<C2DPoint> polygon, string name);
+        void Update(string name, List<C2DPoint> list);
         double? GetArea(string polygonKey);
         double? GetPerimeter(string rightPolyName);
-        void Update(string name, List<C2DPoint> list);
+        double? GetOverlappingArea(string leftPolygonName, string rightPolygonName);
+        double? GetNonOverlappingArea(string leftPolygonName, string rightPolygonName);
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="ISpatialMapsModel.cs" />
     <Compile Include="IOService.cs" />
     <Compile Include="ISpatialMapsViewModel.cs" />
+    <Compile Include="PolygonAdapter.cs" />
     <Compile Include="RefreshEvent.cs" />
     <Compile Include="SpatialMapsModel.cs" />
     <Compile Include="Helper.cs" />

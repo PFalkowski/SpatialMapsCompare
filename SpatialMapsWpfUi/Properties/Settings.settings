@@ -8,5 +8,11 @@
     <Setting Name="RightPolygonColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FF7CFC00</Value>
     </Setting>
+    <Setting Name="LeftPolygonColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Teal</Value>
+    </Setting>
+    <Setting Name="LeftAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Left Figure Area</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
