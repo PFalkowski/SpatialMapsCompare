@@ -117,7 +117,35 @@ namespace SpatialMapsCompareTests
                 new C2DPoint(0.1617641529, 0.0669970844),
                 new C2DPoint(1.0, 0.0669970844)
         });
-        
+
+        private static List<C2DPoint> GetCircle(double a, double radius, int numberOfPoints = 100)
+        {
+            var temp = new List<C2DPoint>();
+            for (int i = 0; i < numberOfPoints; ++i)
+            {
+                double angle;
+                if (i == 0)
+                {
+                    angle  = double.Epsilon;
+                }
+                else
+                {
+                    angle = (double)numberOfPoints / i;
+                }
+                var x = a + Math.Cos(angle) * radius;
+                var y = a + Math.Sin(angle) * radius;
+                temp.Add(new C2DPoint(x, y));
+            }
+            return temp;
+        }
+
+        [TestMethod]
+        public void Circle()
+        {
+            var serialized = GetCircle(350, 250, 300).SerializeToXDoc();
+            //Console.WriteLine(serialized);
+            serialized.Save(testFileName);
+        }
         [TestMethod]
         public void TestSerialization()
         {

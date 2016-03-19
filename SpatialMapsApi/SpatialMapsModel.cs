@@ -190,12 +190,12 @@ namespace SpatialMaps
             return null;
         }
 
-        public enum PolygonsType
+        public enum IntersectionType
         {
-            Common,
-            Different
+            Overlapping,
+            NonOverlapping
         }
-        public List<C2DHoledPolygon> GetPolygons(string firstPolygonName, string secondPolygonName, PolygonsType whichPolygons)
+        public List<C2DHoledPolygon> GetIntersectingPolygons(string firstPolygonName, string secondPolygonName, IntersectionType whichPolygons)
         {
             var tempLeftPoints = GetPolyByKey(firstPolygonName);
             var tempRightPoints = GetPolyByKey(secondPolygonName);
@@ -205,10 +205,10 @@ namespace SpatialMaps
             var smallPolygons = new List<C2DHoledPolygon>();
             switch (whichPolygons)
             {
-                case PolygonsType.Common:
+                case IntersectionType.Overlapping:
                     leftPoly.GetOverlaps(rightPoly, smallPolygons, someGrid);
                     break;
-                case PolygonsType.Different:
+                case IntersectionType.NonOverlapping:
                     leftPoly.GetNonOverlaps(rightPoly, smallPolygons, someGrid);
                     break;
                 default:
@@ -219,14 +219,14 @@ namespace SpatialMaps
 
         public double? GetOverlappingArea(string firstPolygonName, string secondPolygonName)
         {
-            var polygons = GetPolygons(firstPolygonName, secondPolygonName, PolygonsType.Common);
+            var polygons = GetIntersectingPolygons(firstPolygonName, secondPolygonName, IntersectionType.Overlapping);
             var area = polygons.Sum(p => p.GetArea());
             return Math.Round(area, RoundDigits);
         }
 
         public double? GetNonOverlappingArea(string firstPolygonName, string secondPolygonName)
         {
-            var polygons = GetPolygons(firstPolygonName, secondPolygonName, PolygonsType.Different);
+            var polygons = GetIntersectingPolygons(firstPolygonName, secondPolygonName, IntersectionType.NonOverlapping);
             var area = polygons.Sum(p => p.GetArea());
             return Math.Round(area, RoundDigits);
         }
