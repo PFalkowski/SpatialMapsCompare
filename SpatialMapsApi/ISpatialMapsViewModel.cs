@@ -20,8 +20,10 @@ namespace SpatialMaps
         DelegateCommand RefreshCommand { get; }
         double? LeftPolyArea { get; }
         double? RightPolyArea { get; }
+        double? AreaDifference { get; }
         double? LeftPolyPerimeter { get; }
         double? RightPolyPerimeter { get; }
+        double? PerimeterDifference { get; }
         double? LeftPolyOverlappingArea { get; }
         double? RightPolyOverlappingArea { get; }
         double? LeftPolyNonOverlappingArea { get; }

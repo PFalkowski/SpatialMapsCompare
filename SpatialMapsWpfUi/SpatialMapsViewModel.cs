@@ -82,9 +82,11 @@ namespace SpatialMapsWpfUi
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
         public double? RightPolyArea => Model.GetArea(RightPolyName);
+        public double? AreaDifference => LeftPolyArea - RightPolyArea;
         public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
         public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
-        public double? LeftPolyOverlappingArea => 0;//todo
+        public double? PerimeterDifference => LeftPolyPerimeter - RightPolyPerimeter;
+        public double? LeftPolyOverlappingArea => 0;// Model.GetOverlappingArea();//todo
         public double? RightPolyOverlappingArea => 0;//todo
         public double? LeftPolyNonOverlappingArea => 0;//todo
         public double? RightPolyNonOverlappingArea => 0;//todo
@@ -115,8 +117,10 @@ namespace SpatialMapsWpfUi
 
             OnPropertyChanged(nameof(LeftPolyArea));
             OnPropertyChanged(nameof(LeftPolyPerimeter));
+            OnPropertyChanged(nameof(AreaDifference));
             OnPropertyChanged(nameof(RightPolyArea));
             OnPropertyChanged(nameof(RightPolyPerimeter));
+            OnPropertyChanged(nameof(PerimeterDifference));
             OnPropertyChanged(nameof(LeftPolyOverlappingArea));
             OnPropertyChanged(nameof(LeftPolyNonOverlappingArea));
             OnPropertyChanged(nameof(RightPolyOverlappingArea));

@@ -55,10 +55,21 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="leftAreaBlock" Margin="10,0,0,0" Text="{Binding LeftPolyArea}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
             <TextBlock x:Name="leftPerimeterBlock" Margin="10,0,0,0" Text="{Binding LeftPolyPerimeter}" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
+            <TextBlock x:Name="areaDifferenceName" Text="Area Difference" Grid.Row="2" Grid.Column="0" TextAlignment="Center"></TextBlock>
+            <TextBlock x:Name="perimeterDifferenceName" Margin="10,0,0,0" Text="Perimeter Difference" Grid.Row="3" Grid.Column="0" TextAlignment="Center"></TextBlock>
+            <TextBlock x:Name="OverlappingAreaName" Margin="10,0,0,0" Text="Overlapping Area" Grid.Row="4" Grid.Column="0" TextAlignment="Center"></TextBlock>
+            <TextBlock x:Name="NonOverlappingAreaName" Margin="10,0,0,0" Text="Non-Overlapping Area" Grid.Row="5" Grid.Column="0" TextAlignment="Center"></TextBlock>
+            <TextBlock x:Name="OverlappingAreasSumName" Margin="10,0,0,0" Text="Overlapping Areas Sum" Grid.Row="6" Grid.Column="0" TextAlignment="Center"></TextBlock>
+            <TextBlock x:Name="NonOverlappingAreasSumName" Margin="10,0,0,0" Text="Non-Overlapping Areas Sum" Grid.Row="7" Grid.Column="0" TextAlignment="Center"></TextBlock>
             
         </Grid>
         <Grid Name="RightStatusGrid" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -67,10 +78,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="rightAreaBlock" Margin="10,0,0,0" Text="{Binding RightPolyArea}" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
             <TextBlock x:Name="rightPerimeterBlock" Margin="10,0,0,0" Text="{Binding RightPolyPerimeter}" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
+            <TextBlock x:Name="areaDifferenceBlock" Margin="10,0,0,0" Text="{Binding AreaDifference}" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
+            <TextBlock x:Name="perimeterDifferenceBlock" Margin="10,0,0,0" Text="{Binding PerimeterDifference}" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify"/>
 
         </Grid>
 
@@ -79,10 +93,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="areaName" Text="Area" Grid.Row="0" Grid.Column="0" TextAlignment="Center"></TextBlock>
-            <TextBlock x:Name="perimeterName" Text="Perimeter" Grid.Row="1" Grid.Column="0" TextAlignment="Center"></TextBlock> 
+            <TextBlock x:Name="perimeterName" Text="Perimeter" Grid.Row="1" Grid.Column="0" TextAlignment="Center"></TextBlock>
         </Grid>
     </Grid>
     <Window.InputBindings>

@@ -74,15 +74,15 @@ namespace SpatialMapsCompare
 
         private Label _label3;
 
-        private Label _label4;
+        private Label yellowFigureAreaLabel;
 
         private Label _label5;
 
-        private Label _label6;
+        private Label differenceBetweenAreas;
 
         private Label _label7;
 
-        private Label _label8;
+        private Label blueOverlappingAreaLabel;
 
         private ContextMenuStrip _contextMenuStrip1;
 
@@ -92,35 +92,35 @@ namespace SpatialMapsCompare
 
         private Label _label9;
 
-        private Label _label10;
+        private Label yellowNonOverlappingAreaLabel;
 
         private GroupBox _groupBox1;
 
-        private Label _label11;
+        private Label blueFigurePerimeterLabel;
 
         private Label _label12;
 
-        private Label _label13;
+        private Label yellowFigurePerimeterLabel;
 
         private Label _label14;
 
         private Label _label15;
 
-        private Label _label16;
+        private Label yellowOverlappingAreaLabel;
 
         private Label _label17;
 
-        private Label _label18;
+        private Label blueNonOverlappingAreaLabel;
 
         private Label _label19;
 
-        private Label _label20;
+        private Label MatchIndexLabel;
 
         private Label _label21;
 
         private Label _label24;
 
-        private Label _label25;
+        private Label nonOverlappingAreasSumLabel;
 
         private Label _label22;
 
@@ -138,7 +138,7 @@ namespace SpatialMapsCompare
 
         private Label _label27;
 
-        private Button _button2;
+        private Button scaleToAreaButton;
 
         private Timer _timer1;
 
@@ -268,26 +268,26 @@ namespace SpatialMapsCompare
             _comparedPolygon.GetOverlaps(_oryginalPolygon, _yellowPolys, _someGrid);
             _oryginalPolygon.GetNonOverlaps(_comparedPolygon, _bluePolysNoOverlap, _someGrid);
             _comparedPolygon.GetNonOverlaps(_oryginalPolygon, _yellowPolysNoOverlap, _someGrid);
-            double num = _bluePolys.Sum(current => current.GetArea());
-            double num2 = _yellowPolys.Sum(current2 => current2.GetArea());
-            double num3 = _bluePolysNoOverlap.Sum(current3 => current3.GetArea());
-            double num4 = _yellowPolysNoOverlap.Sum(current4 => current4.GetArea());
-            double num5 = num3 + num4;
+            double bluePolysSum = _bluePolys.Sum(current => current.GetArea());
+            double yellowPolysSum = _yellowPolys.Sum(current2 => current2.GetArea());
+            double bluePolysNoOverlapSum = _bluePolysNoOverlap.Sum(current3 => current3.GetArea());
+            double yellowPolysNoOverlapSum = _yellowPolysNoOverlap.Sum(current4 => current4.GetArea());
+            double noOverlapSum = bluePolysNoOverlapSum + yellowPolysNoOverlapSum;
             _label2.Text = Math.Round(_area, 3).ToString(CultureInfo.InvariantCulture);
             _label3.Text = Math.Round(_comparedArea, 3).ToString(CultureInfo.InvariantCulture);
             _label5.Text = Math.Round(_area - _comparedArea, 3).ToString(CultureInfo.InvariantCulture);
             _label12.Text = Math.Round(_oryginalPolygon.GetPerimeter(), 3).ToString(CultureInfo.InvariantCulture);
             _label14.Text = Math.Round(_comparedPolygon.GetPerimeter(), 3).ToString(CultureInfo.InvariantCulture);
-            _label7.Text = Math.Round(num, 3).ToString(CultureInfo.InvariantCulture);
-            _label15.Text = Math.Round(num2, 3).ToString(CultureInfo.InvariantCulture);
-            _label17.Text = Math.Round(num3, 3).ToString(CultureInfo.InvariantCulture);
-            _label9.Text = Math.Round(num4, 3).ToString(CultureInfo.InvariantCulture);
-            _label22.Text = Math.Round(num + num2, 3).ToString(CultureInfo.InvariantCulture);
-            _label24.Text = Math.Round(num5, 3).ToString(CultureInfo.InvariantCulture);
+            _label7.Text = Math.Round(bluePolysSum, 3).ToString(CultureInfo.InvariantCulture);
+            _label15.Text = Math.Round(yellowPolysSum, 3).ToString(CultureInfo.InvariantCulture);
+            _label17.Text = Math.Round(bluePolysNoOverlapSum, 3).ToString(CultureInfo.InvariantCulture);
+            _label9.Text = Math.Round(yellowPolysNoOverlapSum, 3).ToString(CultureInfo.InvariantCulture);
+            _label22.Text = Math.Round(bluePolysSum + yellowPolysSum, 3).ToString(CultureInfo.InvariantCulture);
+            _label24.Text = Math.Round(noOverlapSum, 3).ToString(CultureInfo.InvariantCulture);
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (_comparedArea != 0.0)
             {
-                _label19.Text = Math.Round((_area - num5) / _area * 100.0, 5).ToString(CultureInfo.InvariantCulture);
+                _label19.Text = Math.Round((_area - noOverlapSum) / _area * 100.0, 5).ToString(CultureInfo.InvariantCulture);
             }
             else
             {
@@ -425,36 +425,40 @@ namespace SpatialMapsCompare
             this._label2 = new System.Windows.Forms.Label();
             this._button1 = new System.Windows.Forms.Button();
             this._dataGridView1 = new System.Windows.Forms.DataGridView();
+            this._x = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
             this._groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this._groupBox1 = new System.Windows.Forms.GroupBox();
             this._label24 = new System.Windows.Forms.Label();
-            this._label25 = new System.Windows.Forms.Label();
+            this.nonOverlappingAreasSumLabel = new System.Windows.Forms.Label();
             this._label22 = new System.Windows.Forms.Label();
             this._label23 = new System.Windows.Forms.Label();
             this._label21 = new System.Windows.Forms.Label();
             this._label19 = new System.Windows.Forms.Label();
-            this._label20 = new System.Windows.Forms.Label();
+            this.MatchIndexLabel = new System.Windows.Forms.Label();
             this._label17 = new System.Windows.Forms.Label();
-            this._label18 = new System.Windows.Forms.Label();
+            this.blueNonOverlappingAreaLabel = new System.Windows.Forms.Label();
             this._label15 = new System.Windows.Forms.Label();
-            this._label16 = new System.Windows.Forms.Label();
-            this._label11 = new System.Windows.Forms.Label();
+            this.yellowOverlappingAreaLabel = new System.Windows.Forms.Label();
+            this.blueFigurePerimeterLabel = new System.Windows.Forms.Label();
             this._label12 = new System.Windows.Forms.Label();
-            this._label13 = new System.Windows.Forms.Label();
+            this.yellowFigurePerimeterLabel = new System.Windows.Forms.Label();
             this._label14 = new System.Windows.Forms.Label();
-            this._label4 = new System.Windows.Forms.Label();
+            this.yellowFigureAreaLabel = new System.Windows.Forms.Label();
             this._label3 = new System.Windows.Forms.Label();
             this._label9 = new System.Windows.Forms.Label();
-            this._label6 = new System.Windows.Forms.Label();
-            this._label10 = new System.Windows.Forms.Label();
+            this.differenceBetweenAreas = new System.Windows.Forms.Label();
+            this.yellowNonOverlappingAreaLabel = new System.Windows.Forms.Label();
             this._label5 = new System.Windows.Forms.Label();
             this._label7 = new System.Windows.Forms.Label();
-            this._label8 = new System.Windows.Forms.Label();
+            this.blueOverlappingAreaLabel = new System.Windows.Forms.Label();
             this._chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this._dataSet1 = new System.Data.DataSet();
             this._dataTable1 = new System.Data.DataTable();
@@ -466,14 +470,10 @@ namespace SpatialMapsCompare
             this._trackBar1 = new System.Windows.Forms.TrackBar();
             this._label26 = new System.Windows.Forms.Label();
             this._label27 = new System.Windows.Forms.Label();
-            this._button2 = new System.Windows.Forms.Button();
+            this.scaleToAreaButton = new System.Windows.Forms.Button();
             this._timer1 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this._form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this._x = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridView1)).BeginInit();
             this._panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -535,6 +535,20 @@ namespace SpatialMapsCompare
             this._dataGridView1.TabIndex = 3;
             this._dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // _x
+            // 
+            this._x.FillWeight = 48.89976F;
+            this._x.HeaderText = "x";
+            this._x.Name = "_x";
+            this._x.Width = 37;
+            // 
+            // _y
+            // 
+            this._y.FillWeight = 151.1003F;
+            this._y.HeaderText = "y";
+            this._y.Name = "_y";
+            this._y.Width = 37;
+            // 
             // _panel1
             // 
             this._panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -567,6 +581,28 @@ namespace SpatialMapsCompare
             this.dataGridView1.Size = new System.Drawing.Size(123, 451);
             this.dataGridView1.TabIndex = 31;
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "x";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 37;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "x";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 37;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(177, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Open Polygon 2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // _groupBox2
             // 
             this._groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -587,16 +623,6 @@ namespace SpatialMapsCompare
             this.checkedListBox1.TabIndex = 6;
             this.checkedListBox1.Visible = false;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(177, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Open Polygon 2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(0, 3);
@@ -612,30 +638,30 @@ namespace SpatialMapsCompare
             this._groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._groupBox1.BackColor = System.Drawing.Color.Transparent;
             this._groupBox1.Controls.Add(this._label24);
-            this._groupBox1.Controls.Add(this._label25);
+            this._groupBox1.Controls.Add(this.nonOverlappingAreasSumLabel);
             this._groupBox1.Controls.Add(this._label22);
             this._groupBox1.Controls.Add(this._label23);
             this._groupBox1.Controls.Add(this._label21);
             this._groupBox1.Controls.Add(this._label19);
-            this._groupBox1.Controls.Add(this._label20);
+            this._groupBox1.Controls.Add(this.MatchIndexLabel);
             this._groupBox1.Controls.Add(this._label17);
-            this._groupBox1.Controls.Add(this._label18);
+            this._groupBox1.Controls.Add(this.blueNonOverlappingAreaLabel);
             this._groupBox1.Controls.Add(this._label15);
-            this._groupBox1.Controls.Add(this._label16);
-            this._groupBox1.Controls.Add(this._label11);
+            this._groupBox1.Controls.Add(this.yellowOverlappingAreaLabel);
+            this._groupBox1.Controls.Add(this.blueFigurePerimeterLabel);
             this._groupBox1.Controls.Add(this._label12);
-            this._groupBox1.Controls.Add(this._label13);
+            this._groupBox1.Controls.Add(this.yellowFigurePerimeterLabel);
             this._groupBox1.Controls.Add(this._label14);
             this._groupBox1.Controls.Add(this._label1);
             this._groupBox1.Controls.Add(this._label2);
-            this._groupBox1.Controls.Add(this._label4);
+            this._groupBox1.Controls.Add(this.yellowFigureAreaLabel);
             this._groupBox1.Controls.Add(this._label3);
             this._groupBox1.Controls.Add(this._label9);
-            this._groupBox1.Controls.Add(this._label6);
-            this._groupBox1.Controls.Add(this._label10);
+            this._groupBox1.Controls.Add(this.differenceBetweenAreas);
+            this._groupBox1.Controls.Add(this.yellowNonOverlappingAreaLabel);
             this._groupBox1.Controls.Add(this._label5);
             this._groupBox1.Controls.Add(this._label7);
-            this._groupBox1.Controls.Add(this._label8);
+            this._groupBox1.Controls.Add(this.blueOverlappingAreaLabel);
             this._groupBox1.Location = new System.Drawing.Point(614, 280);
             this._groupBox1.Name = "_groupBox1";
             this._groupBox1.Size = new System.Drawing.Size(320, 203);
@@ -652,16 +678,16 @@ namespace SpatialMapsCompare
             this._label24.TabIndex = 29;
             this._label24.Text = "0";
             // 
-            // _label25
+            // nonOverlappingAreasSumLabel
             // 
-            this._label25.AutoSize = true;
-            this._label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label25.ForeColor = System.Drawing.SystemColors.ControlText;
-            this._label25.Location = new System.Drawing.Point(8, 146);
-            this._label25.Name = "_label25";
-            this._label25.Size = new System.Drawing.Size(196, 13);
-            this._label25.TabIndex = 28;
-            this._label25.Text = "Non-overlapping areas raw sum =";
+            this.nonOverlappingAreasSumLabel.AutoSize = true;
+            this.nonOverlappingAreasSumLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.nonOverlappingAreasSumLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.nonOverlappingAreasSumLabel.Location = new System.Drawing.Point(8, 146);
+            this.nonOverlappingAreasSumLabel.Name = "nonOverlappingAreasSumLabel";
+            this.nonOverlappingAreasSumLabel.Size = new System.Drawing.Size(196, 13);
+            this.nonOverlappingAreasSumLabel.TabIndex = 28;
+            this.nonOverlappingAreasSumLabel.Text = "Non-overlapping areas raw sum =";
             // 
             // _label22
             // 
@@ -704,16 +730,16 @@ namespace SpatialMapsCompare
             this._label19.TabIndex = 24;
             this._label19.Text = "0";
             // 
-            // _label20
+            // MatchIndexLabel
             // 
-            this._label20.AutoSize = true;
-            this._label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label20.ForeColor = System.Drawing.Color.DarkRed;
-            this._label20.Location = new System.Drawing.Point(152, 172);
-            this._label20.Name = "_label20";
-            this._label20.Size = new System.Drawing.Size(87, 13);
-            this._label20.TabIndex = 23;
-            this._label20.Text = "Match index =";
+            this.MatchIndexLabel.AutoSize = true;
+            this.MatchIndexLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.MatchIndexLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.MatchIndexLabel.Location = new System.Drawing.Point(152, 172);
+            this.MatchIndexLabel.Name = "MatchIndexLabel";
+            this.MatchIndexLabel.Size = new System.Drawing.Size(87, 13);
+            this.MatchIndexLabel.TabIndex = 23;
+            this.MatchIndexLabel.Text = "Match index =";
             // 
             // _label17
             // 
@@ -725,16 +751,16 @@ namespace SpatialMapsCompare
             this._label17.TabIndex = 22;
             this._label17.Text = "0";
             // 
-            // _label18
+            // blueNonOverlappingAreaLabel
             // 
-            this._label18.AutoSize = true;
-            this._label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this._label18.Location = new System.Drawing.Point(8, 107);
-            this._label18.Name = "_label18";
-            this._label18.Size = new System.Drawing.Size(140, 13);
-            this._label18.TabIndex = 21;
-            this._label18.Text = "Blue non-overlapping area =";
+            this.blueNonOverlappingAreaLabel.AutoSize = true;
+            this.blueNonOverlappingAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.blueNonOverlappingAreaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.blueNonOverlappingAreaLabel.Location = new System.Drawing.Point(8, 107);
+            this.blueNonOverlappingAreaLabel.Name = "blueNonOverlappingAreaLabel";
+            this.blueNonOverlappingAreaLabel.Size = new System.Drawing.Size(140, 13);
+            this.blueNonOverlappingAreaLabel.TabIndex = 21;
+            this.blueNonOverlappingAreaLabel.Text = "Blue non-overlapping area =";
             // 
             // _label15
             // 
@@ -746,27 +772,27 @@ namespace SpatialMapsCompare
             this._label15.TabIndex = 20;
             this._label15.Text = "0";
             // 
-            // _label16
+            // yellowOverlappingAreaLabel
             // 
-            this._label16.AutoSize = true;
-            this._label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this._label16.Location = new System.Drawing.Point(8, 94);
-            this._label16.Name = "_label16";
-            this._label16.Size = new System.Drawing.Size(129, 13);
-            this._label16.TabIndex = 19;
-            this._label16.Text = "Yellow overlapping area =";
+            this.yellowOverlappingAreaLabel.AutoSize = true;
+            this.yellowOverlappingAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.yellowOverlappingAreaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.yellowOverlappingAreaLabel.Location = new System.Drawing.Point(8, 94);
+            this.yellowOverlappingAreaLabel.Name = "yellowOverlappingAreaLabel";
+            this.yellowOverlappingAreaLabel.Size = new System.Drawing.Size(129, 13);
+            this.yellowOverlappingAreaLabel.TabIndex = 19;
+            this.yellowOverlappingAreaLabel.Text = "Yellow overlapping area =";
             // 
-            // _label11
+            // blueFigurePerimeterLabel
             // 
-            this._label11.AutoSize = true;
-            this._label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label11.ForeColor = System.Drawing.Color.RoyalBlue;
-            this._label11.Location = new System.Drawing.Point(8, 42);
-            this._label11.Name = "_label11";
-            this._label11.Size = new System.Drawing.Size(139, 13);
-            this._label11.TabIndex = 15;
-            this._label11.Text = "Blue Figure Perimeter =";
+            this.blueFigurePerimeterLabel.AutoSize = true;
+            this.blueFigurePerimeterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.blueFigurePerimeterLabel.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.blueFigurePerimeterLabel.Location = new System.Drawing.Point(8, 42);
+            this.blueFigurePerimeterLabel.Name = "blueFigurePerimeterLabel";
+            this.blueFigurePerimeterLabel.Size = new System.Drawing.Size(139, 13);
+            this.blueFigurePerimeterLabel.TabIndex = 15;
+            this.blueFigurePerimeterLabel.Text = "Blue Figure Perimeter =";
             // 
             // _label12
             // 
@@ -778,16 +804,16 @@ namespace SpatialMapsCompare
             this._label12.TabIndex = 16;
             this._label12.Text = "0";
             // 
-            // _label13
+            // yellowFigurePerimeterLabel
             // 
-            this._label13.AutoSize = true;
-            this._label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label13.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this._label13.Location = new System.Drawing.Point(8, 55);
-            this._label13.Name = "_label13";
-            this._label13.Size = new System.Drawing.Size(148, 13);
-            this._label13.TabIndex = 17;
-            this._label13.Text = "Yellow figure Perimeter =";
+            this.yellowFigurePerimeterLabel.AutoSize = true;
+            this.yellowFigurePerimeterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.yellowFigurePerimeterLabel.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.yellowFigurePerimeterLabel.Location = new System.Drawing.Point(8, 55);
+            this.yellowFigurePerimeterLabel.Name = "yellowFigurePerimeterLabel";
+            this.yellowFigurePerimeterLabel.Size = new System.Drawing.Size(148, 13);
+            this.yellowFigurePerimeterLabel.TabIndex = 17;
+            this.yellowFigurePerimeterLabel.Text = "Yellow figure Perimeter =";
             // 
             // _label14
             // 
@@ -799,16 +825,16 @@ namespace SpatialMapsCompare
             this._label14.TabIndex = 18;
             this._label14.Text = "0";
             // 
-            // _label4
+            // yellowFigureAreaLabel
             // 
-            this._label4.AutoSize = true;
-            this._label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label4.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this._label4.Location = new System.Drawing.Point(8, 29);
-            this._label4.Name = "_label4";
-            this._label4.Size = new System.Drawing.Size(121, 13);
-            this._label4.TabIndex = 6;
-            this._label4.Text = "Yellow figure Area =";
+            this.yellowFigureAreaLabel.AutoSize = true;
+            this.yellowFigureAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.yellowFigureAreaLabel.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.yellowFigureAreaLabel.Location = new System.Drawing.Point(8, 29);
+            this.yellowFigureAreaLabel.Name = "yellowFigureAreaLabel";
+            this.yellowFigureAreaLabel.Size = new System.Drawing.Size(121, 13);
+            this.yellowFigureAreaLabel.TabIndex = 6;
+            this.yellowFigureAreaLabel.Text = "Yellow figure Area =";
             // 
             // _label3
             // 
@@ -830,27 +856,27 @@ namespace SpatialMapsCompare
             this._label9.TabIndex = 14;
             this._label9.Text = "0";
             // 
-            // _label6
+            // differenceBetweenAreas
             // 
-            this._label6.AutoSize = true;
-            this._label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this._label6.Location = new System.Drawing.Point(8, 68);
-            this._label6.Name = "_label6";
-            this._label6.Size = new System.Drawing.Size(138, 13);
-            this._label6.TabIndex = 8;
-            this._label6.Text = "Difference between areas =";
+            this.differenceBetweenAreas.AutoSize = true;
+            this.differenceBetweenAreas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.differenceBetweenAreas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.differenceBetweenAreas.Location = new System.Drawing.Point(8, 68);
+            this.differenceBetweenAreas.Name = "differenceBetweenAreas";
+            this.differenceBetweenAreas.Size = new System.Drawing.Size(138, 13);
+            this.differenceBetweenAreas.TabIndex = 8;
+            this.differenceBetweenAreas.Text = "Difference between areas =";
             // 
-            // _label10
+            // yellowNonOverlappingAreaLabel
             // 
-            this._label10.AutoSize = true;
-            this._label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this._label10.Location = new System.Drawing.Point(8, 120);
-            this._label10.Name = "_label10";
-            this._label10.Size = new System.Drawing.Size(150, 13);
-            this._label10.TabIndex = 13;
-            this._label10.Text = "Yellow non-overlapping area =";
+            this.yellowNonOverlappingAreaLabel.AutoSize = true;
+            this.yellowNonOverlappingAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.yellowNonOverlappingAreaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.yellowNonOverlappingAreaLabel.Location = new System.Drawing.Point(8, 120);
+            this.yellowNonOverlappingAreaLabel.Name = "yellowNonOverlappingAreaLabel";
+            this.yellowNonOverlappingAreaLabel.Size = new System.Drawing.Size(150, 13);
+            this.yellowNonOverlappingAreaLabel.TabIndex = 13;
+            this.yellowNonOverlappingAreaLabel.Text = "Yellow non-overlapping area =";
             // 
             // _label5
             // 
@@ -872,16 +898,16 @@ namespace SpatialMapsCompare
             this._label7.TabIndex = 11;
             this._label7.Text = "0";
             // 
-            // _label8
+            // blueOverlappingAreaLabel
             // 
-            this._label8.AutoSize = true;
-            this._label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this._label8.Location = new System.Drawing.Point(8, 81);
-            this._label8.Name = "_label8";
-            this._label8.Size = new System.Drawing.Size(119, 13);
-            this._label8.TabIndex = 10;
-            this._label8.Text = "Blue overlapping area =";
+            this.blueOverlappingAreaLabel.AutoSize = true;
+            this.blueOverlappingAreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.blueOverlappingAreaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.blueOverlappingAreaLabel.Location = new System.Drawing.Point(8, 81);
+            this.blueOverlappingAreaLabel.Name = "blueOverlappingAreaLabel";
+            this.blueOverlappingAreaLabel.Size = new System.Drawing.Size(119, 13);
+            this.blueOverlappingAreaLabel.TabIndex = 10;
+            this.blueOverlappingAreaLabel.Text = "Blue overlapping area =";
             // 
             // _chart1
             // 
@@ -1009,16 +1035,16 @@ namespace SpatialMapsCompare
             this._label27.Text = "Shrink";
             this._label27.Visible = false;
             // 
-            // _button2
+            // scaleToAreaButton
             // 
-            this._button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._button2.Location = new System.Drawing.Point(415, 523);
-            this._button2.Name = "_button2";
-            this._button2.Size = new System.Drawing.Size(91, 23);
-            this._button2.TabIndex = 34;
-            this._button2.Text = "Scale To Area";
-            this._button2.UseVisualStyleBackColor = true;
-            this._button2.Click += new System.EventHandler(this.button2_Click);
+            this.scaleToAreaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.scaleToAreaButton.Location = new System.Drawing.Point(415, 523);
+            this.scaleToAreaButton.Name = "scaleToAreaButton";
+            this.scaleToAreaButton.Size = new System.Drawing.Size(91, 23);
+            this.scaleToAreaButton.TabIndex = 34;
+            this.scaleToAreaButton.Text = "Scale To Area";
+            this.scaleToAreaButton.UseVisualStyleBackColor = true;
+            this.scaleToAreaButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // _timer1
             // 
@@ -1032,39 +1058,13 @@ namespace SpatialMapsCompare
             // 
             this._form1BindingSource.DataSource = typeof(SpatialMapsCompare.Form1);
             // 
-            // _x
-            // 
-            this._x.FillWeight = 48.89976F;
-            this._x.HeaderText = "x";
-            this._x.Name = "_x";
-            this._x.Width = 37;
-            // 
-            // _y
-            // 
-            this._y.FillWeight = 151.1003F;
-            this._y.HeaderText = "y";
-            this._y.Name = "_y";
-            this._y.Width = 37;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "x";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 37;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "x";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 37;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 558);
             this.ContextMenuStrip = this._contextMenuStrip1;
-            this.Controls.Add(this._button2);
+            this.Controls.Add(this.scaleToAreaButton);
             this.Controls.Add(this._label27);
             this.Controls.Add(this._label26);
             this.Controls.Add(this._trackBar1);
