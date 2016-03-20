@@ -4,21 +4,22 @@ using System.Collections.ObjectModel;
 
 namespace SpatialMaps
 {
+    using Polygon = PolygonAdapter;
     public interface ISpatialMapsModel
     {
-        List<C2DPoint> GetPolyByKey(string polygonKey);
-        List<C2DPoint> TryGetPolyByKeySafe(string polygonKey);
+        Polygon GetPolyByKey(string polygonKey);
+        Polygon TryGetPolyByKeySafe(string polygonKey);
         string FileType { get; set; }
         string FilterString { get; }
         IOService InputOutputService { get; }
-        KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName);
-        KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService();
+        KeyValuePair<string, Polygon> GetPolygonFromFile(string fileName);
+        KeyValuePair<string, Polygon> GetPolygonUsingIOService();
         void WritePolygonToFile(string polyName);
         bool IsPolygonValid(string polygonKey);
-        void AddPolygonToDictionary(string name, List<C2DPoint> polygon);
+        void AddPolygonToDictionary(string name, Polygon polygon);
         string GetUniqueNameForPolygon(string basedOnName);
-        bool IsPolygonNew(List<C2DPoint> polygon, string name);
-        void Update(string name, List<C2DPoint> list);
+        bool IsPolygonNew(Polygon polygon, string name);
+        void Update(string name, Polygon list);
         double? GetArea(string polygonKey);
         double? GetPerimeter(string rightPolyName);
         double? GetOverlappingArea(string leftPolygonName, string rightPolygonName);

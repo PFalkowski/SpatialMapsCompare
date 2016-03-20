@@ -116,14 +116,14 @@ namespace SpatialMapsWpfUi
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
             RefreshCommand = new DelegateCommand(Refresh);
-            Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
-            Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
+            Model.AddPolygonToDictionary(LeftPolyName, new PolygonAdapter(LeftPoly));
+            Model.AddPolygonToDictionary(RightPolyName, new PolygonAdapter(RightPoly));
         }
 
         public void Refresh()
         {
-            Model.Update(LeftPolyName, LeftPoly.ToList());
-            Model.Update(RightPolyName, RightPoly.ToList());
+            Model.Update(LeftPolyName, new PolygonAdapter(LeftPoly));
+            Model.Update(RightPolyName, new PolygonAdapter(RightPoly));
             var refreshEvents = Events.GetEvent<RefreshEvent>();
             refreshEvents?.Publish(true);
 
@@ -200,7 +200,7 @@ namespace SpatialMapsWpfUi
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
                 LeftPolyName = dataLoaded.Key;
-                RedrawPoly(LeftPoly, dataLoaded.Value);
+                RedrawPoly(LeftPoly, dataLoaded.Value.Points);
                 Refresh();
             }
         }
@@ -212,7 +212,7 @@ namespace SpatialMapsWpfUi
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
                 RightPolyName = dataLoaded.Key;
-                RedrawPoly(RightPoly, dataLoaded.Value);
+                RedrawPoly(RightPoly, dataLoaded.Value.Points);
                 Refresh();
             }
         }
@@ -232,12 +232,12 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(LeftPolyName, LeftPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
+                if ((bool)dialogResult && Model.IsPolygonNew(new PolygonAdapter(canvas.viewModel.Points), canvas.viewModel.FileName))
                 {
                     RedrawPoly(LeftPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     LeftPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
+                    Model.AddPolygonToDictionary(uniqeName, new PolygonAdapter(canvas.viewModel.Points));
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -253,12 +253,12 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(RightPolyName, RightPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
+                if ((bool)dialogResult && Model.IsPolygonNew(new PolygonAdapter(canvas.viewModel.Points), canvas.viewModel.FileName))
                 {
                     RedrawPoly(RightPoly, canvas.viewModel.Points);
                     var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
                     RightPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
+                    Model.AddPolygonToDictionary(uniqeName, new PolygonAdapter(canvas.viewModel.Points));
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
