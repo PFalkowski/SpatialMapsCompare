@@ -10,6 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 
+//todo: scaling
+//todo: coloring of legend
+//todo: remove right overlapping - it's same as left
+//todo: highlight area when mouse over the legend
+//todo: make drawn lines in drawingCanvas movable via points
+//todo: read and save to svg
+//todo: make proper setup
+//todo: read from .jpg
+
 namespace SpatialMapsWpfUi
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
