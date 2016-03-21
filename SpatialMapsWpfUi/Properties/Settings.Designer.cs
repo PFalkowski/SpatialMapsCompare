@@ -49,18 +49,6 @@ namespace SpatialMapsWpfUi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Teal")]
-        public global::System.Drawing.Color LeftPolygonColour {
-            get {
-                return ((global::System.Drawing.Color)(this["LeftPolygonColour"]));
-            }
-            set {
-                this["LeftPolygonColour"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Left Figure Area")]
         public string LeftAreaName {
             get {
@@ -68,6 +56,18 @@ namespace SpatialMapsWpfUi.Properties {
             }
             set {
                 this["LeftAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Made by Piotr Falkowski 2016")]
+        public string AboutString {
+            get {
+                return ((string)(this["AboutString"]));
+            }
+            set {
+                this["AboutString"] = value;
             }
         }
     }

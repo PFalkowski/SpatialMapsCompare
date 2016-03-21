@@ -10,15 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 
-//todo: scaling
-//todo: coloring of legend
-//todo: remove right overlapping - it's same as left
-//todo: highlight area when mouse over the legend
-//todo: make drawn lines in drawingCanvas movable via points
-//todo: read and save to svg
-//todo: make proper setup
-//todo: read from .jpg
-
 namespace SpatialMapsWpfUi
 {
     public class SpatialMapsViewModel : BindableBase, ISpatialMapsViewModel
@@ -89,6 +80,8 @@ namespace SpatialMapsWpfUi
         public DelegateCommand DrawLeftFileCommand { get; }
         public DelegateCommand DrawRightFileCommand { get; }
         public DelegateCommand RefreshCommand { get; }
+        public DelegateCommand AboutCommand { get; }
+        
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
         public double? RightPolyArea => Model.GetArea(RightPolyName);
@@ -125,8 +118,14 @@ namespace SpatialMapsWpfUi
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
             RefreshCommand = new DelegateCommand(Refresh);
+            AboutCommand = new DelegateCommand(About);
             Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
             Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
+        }
+
+        private void About()
+        {
+            Model.InputOutputService.PrintToScreen(Properties.Settings.Default.AboutString, "About", MessageSeverity.None);
         }
 
         public void Refresh()
