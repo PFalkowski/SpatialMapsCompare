@@ -201,6 +201,7 @@ namespace SpatialMaps
             var tempRightPoints = GetPolyByKey(secondPolygonName);
             var leftPoly = new C2DPolygon(tempLeftPoints, true);
             var rightPoly = new C2DPolygon(tempRightPoints, true);
+            rightPoly.RandomPerturb();
             var someGrid = new CGrid();
             var smallPolygons = new List<C2DHoledPolygon>();
             switch (whichPolygons)
