@@ -25,14 +25,7 @@ namespace SpatialMapsWpfUi
             }
             set
             {
-                var temp = new C2DPolygon(value.ToList(), true);
-                var listTemp = new List<C2DPoint>();
-                temp.GetPointsCopy(listTemp);
-                _leftPoly.Clear();
-                foreach (var item in listTemp)
-                {
-                    _leftPoly.Add(item);
-                }
+                _leftPoly = value;
             }
         }
         private ObservableCollection<C2DPoint> _rightPoly = new ObservableCollection<C2DPoint>();
@@ -44,14 +37,7 @@ namespace SpatialMapsWpfUi
             }
             set
             {
-                var temp = new C2DPolygon(value.ToList(), true);
-                var listTemp = new List<C2DPoint>();
-                temp.GetPointsCopy(listTemp);
-                _rightPoly.Clear();
-                foreach (var item in listTemp)
-                {
-                    _rightPoly.Add(item);
-                }
+                _rightPoly = value;
             }
         }
         private string LeftPolyDefaultName => "Left Polygon";
