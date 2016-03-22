@@ -71,14 +71,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesktopIOService.cs" />
     <Compile Include="ISpatialMapsModel.cs" />
-    <Compile Include="IOService.cs" />
     <Compile Include="ISpatialMapsViewModel.cs" />
     <Compile Include="RefreshEvent.cs" />
     <Compile Include="SpatialMapsModel.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="MessageSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +90,10 @@
     <ProjectReference Include="..\DrawingCanvas\DrawingCanvas.csproj">
       <Project>{fed27b00-e624-4b81-bee6-0a7484a5dde4}</Project>
       <Name>DrawingCanvas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IOService\IOService.csproj">
+      <Project>{b9dbcc45-0821-431c-939c-cca3573971b8}</Project>
+      <Name>IOService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
