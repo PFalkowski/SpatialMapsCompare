@@ -126,11 +126,11 @@ namespace SpatialMapsCompareTests
                 double angle;
                 if (i == 0)
                 {
-                    angle  = double.Epsilon;
+                    angle  = 0;
                 }
                 else
                 {
-                    angle = (double)numberOfPoints / i;
+                    angle = (2 * Math.PI) * (i / (double)numberOfPoints);
                 }
                 var x = a + Math.Cos(angle) * radius;
                 var y = a + Math.Sin(angle) * radius;
@@ -142,7 +142,7 @@ namespace SpatialMapsCompareTests
         [TestMethod]
         public void Circle()
         {
-            var serialized = GetCircle(350, 250, 300).SerializeToXDoc();
+            var serialized = GetCircle(300, 200, 200).SerializeToXDoc();
             //Console.WriteLine(serialized);
             serialized.Save(testFileName);
         }
