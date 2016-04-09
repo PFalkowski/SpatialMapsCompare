@@ -1,11 +1,8 @@
 ﻿using GeoLib;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpatialMaps
 {
@@ -39,7 +36,7 @@ namespace SpatialMaps
 
         public List<C2DPoint> TryGetPolyByKeySafe(string polygonKey)
         {
-            List<C2DPoint> tempPoly = null;
+            List<C2DPoint> tempPoly;
             Polygons.TryGetValue(polygonKey, out tempPoly);
             return tempPoly;
         }
@@ -76,7 +73,7 @@ namespace SpatialMaps
             if (Polygons.ContainsKey(name))
             {
                 var polyRetreived = Polygons[name];
-                if (Enumerable.SequenceEqual(polygon, polyRetreived))
+                if (polygon.SequenceEqual(polyRetreived))
                     return false;
             }
             return true;
@@ -100,7 +97,7 @@ namespace SpatialMaps
             if (Polygons.ContainsKey(name))
             {
                 var polyRetreived = Polygons[name];
-                if (Enumerable.SequenceEqual(polygon, polyRetreived))
+                if (polygon.SequenceEqual(polyRetreived))
                 {
                     throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
                 }
@@ -115,7 +112,7 @@ namespace SpatialMaps
 
         public KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName)
         {
-            List<C2DPoint> tempPoly = null;
+            List<C2DPoint> tempPoly;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
             if (string.IsNullOrWhiteSpace(fileNameWithoutExtension))
             {
