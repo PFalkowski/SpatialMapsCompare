@@ -27,10 +27,10 @@ namespace SpatialMapsWpfUi
             InitializeComponent();
             DataContext = viewModel;
 
-            CollectionViewSource leftCollectionViewSource = (CollectionViewSource)(FindResource("LeftCollectionViewSource"));
+            var leftCollectionViewSource = (CollectionViewSource)(FindResource("LeftCollectionViewSource"));
             leftCollectionViewSource.Source = viewModel.LeftPoly;
 
-            CollectionViewSource rightCollectionViewSource = (CollectionViewSource)(FindResource("RightCollectionViewSource"));
+            var rightCollectionViewSource = (CollectionViewSource)(FindResource("RightCollectionViewSource"));
             rightCollectionViewSource.Source = viewModel.RightPoly;
         }
 
@@ -43,10 +43,10 @@ namespace SpatialMapsWpfUi
 
                 if (viewModel.LeftPoly?.Count > 2)
                 {
-                    C2DPoint previous = viewModel.LeftPoly[0];
-                    for (int i = 1; i < viewModel.LeftPoly.Count; ++i)
+                    var previous = viewModel.LeftPoly[0];
+                    for (var i = 1; i < viewModel.LeftPoly.Count; ++i)
                     {
-                        Line temp = new Line();
+                        var temp = new Line();
                         temp.Stroke = new SolidColorBrush(Properties.Settings.Default.LeftPolygonColor);
                         temp.StrokeThickness = 2;
                         temp.X1 = previous.X;
@@ -59,10 +59,10 @@ namespace SpatialMapsWpfUi
                 }
                 if (viewModel.RightPoly?.Count > 2)
                 {
-                    C2DPoint previous = viewModel.RightPoly[0];
-                    for (int i = 1; i < viewModel.RightPoly.Count; ++i)
+                    var previous = viewModel.RightPoly[0];
+                    for (var i = 1; i < viewModel.RightPoly.Count; ++i)
                     {
-                        Line temp = new Line();
+                        var temp = new Line();
                         temp.Stroke = new SolidColorBrush(Properties.Settings.Default.RightPolygonColor);
                         temp.StrokeThickness = 2;
                         temp.X1 = previous.X;

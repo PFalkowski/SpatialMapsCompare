@@ -55,7 +55,7 @@ namespace GeoLib
 	        if (Lines.Count == 0)
 		        return;
 
-	        C2DArc pLine = new C2DArc( Lines[Lines.Count - 1].GetPointTo(), Point, 
+	        var pLine = new C2DArc( Lines[Lines.Count - 1].GetPointTo(), Point, 
 								        dRadius, bCentreOnRight, bArcOnRight);
 
 	        if (Lines.Count == 1 && Lines[0] is C2DLine &&
@@ -78,7 +78,7 @@ namespace GeoLib
 	        if (Lines.Count == 0)
 		        return;
 
-	        C2DLine pLine = new C2DLine( Lines[Lines.Count - 1].GetPointTo(), Point );
+	        var pLine = new C2DLine( Lines[Lines.Count - 1].GetPointTo(), Point );
 
 	        if (Lines.Count == 1 && Lines[0] is C2DLine &&
                 Lines[0].GetPointTo().PointEqualTo(Lines[0].GetPointFrom()))  // CR 19-1-09
@@ -132,24 +132,24 @@ namespace GeoLib
         /// <param name="nMaxPoints">The maximum points.</param> 
 	    public bool CreateRandom(C2DRect cBoundary, int nMinPoints, int nMaxPoints)
         {
-	        C2DPolygon Poly = new C2DPolygon();
+	        var Poly = new C2DPolygon();
 	        if (!Poly.CreateRandom(cBoundary, nMinPoints, nMaxPoints))
 		        return false;
 
-	        CRandomNumber rCenOnRight = new CRandomNumber(0, 1);
+	        var rCenOnRight = new CRandomNumber(0, 1);
 
 	        this.Set( Poly );
 
-	        for (int i = 0 ; i < Lines.Count; i ++)
+	        for (var i = 0 ; i < Lines.Count; i ++)
 	        {
 		        C2DLineBase pLine = Lines[i];
 
-		        bool bCenOnRight = (rCenOnRight.GetInt() > 0 );
-		        double dLength = pLine.GetLength();
-		        CRandomNumber Radius = new CRandomNumber(dLength , dLength * 3);
+		        var bCenOnRight = (rCenOnRight.GetInt() > 0 );
+		        var dLength = pLine.GetLength();
+		        var Radius = new CRandomNumber(dLength , dLength * 3);
 
 
-		        C2DArc pNew = new C2DArc( pLine.GetPointFrom(), pLine.GetPointTo(), 
+		        var pNew = new C2DArc( pLine.GetPointFrom(), pLine.GetPointTo(), 
 							        Radius.Get(), bCenOnRight, !bCenOnRight);
 
 		        if (!this.Crosses( pNew ))
@@ -176,11 +176,11 @@ namespace GeoLib
         public void GetNonOverlaps(C2DPolyArc Other, List<C2DHoledPolyArc> Polygons, 
 										    CGrid grid) 
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetNonOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 
@@ -193,11 +193,11 @@ namespace GeoLib
         public void GetUnion(C2DPolyArc Other, List<C2DHoledPolyArc> Polygons,
 										    CGrid grid) 
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetUnion(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 
@@ -211,11 +211,11 @@ namespace GeoLib
         public void GetOverlaps(C2DPolyArc Other, List<C2DHoledPolyArc> Polygons,
 										    CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 
@@ -226,7 +226,7 @@ namespace GeoLib
         {
 	        double dArea = 0;
 
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
                 C2DPoint pt1 = _Lines[i].GetPointFrom();
                 C2DPoint pt2 = _Lines[i].GetPointTo();
@@ -235,13 +235,13 @@ namespace GeoLib
 	        }
 	        dArea = dArea / 2.0;
 
-	        for (int i = 0; i < Lines.Count; i++)	
+	        for (var i = 0; i < Lines.Count; i++)	
 	        {
 		        if (_Lines[i] is C2DArc)
 		        {
-			        C2DArc Arc = _Lines[i] as C2DArc;
+			        var Arc = _Lines[i] as C2DArc;
 
-			        C2DSegment Seg = new C2DSegment( Arc );
+			        var Seg = new C2DSegment( Arc );
 
 			        dArea += Seg.GetAreaSigned();
 		        }
@@ -257,12 +257,12 @@ namespace GeoLib
 	    public C2DPoint GetCentroid() 
         {
 	        // Find the centroid and area of the straight line polygon.
-	        C2DPoint Centroid = new C2DPoint(0, 0);
+	        var Centroid = new C2DPoint(0, 0);
 	     //   C2DPoint pti = new C2DPoint();
 	     //   C2DPoint ptii;
 	        double dArea = 0;
 
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
 		        C2DPoint pti = Lines[i].GetPointFrom();
 		        C2DPoint ptii = Lines[i].GetPointTo();
@@ -277,16 +277,16 @@ namespace GeoLib
 	        Centroid.x = Centroid.x / (6.0 * dArea);
 	        Centroid.y = Centroid.y / (6.0 * dArea);
 
-	        List<double> dSegAreas = new List<double>();
-	        double dTotalArea = dArea;
-	        List<C2DPoint> SegCentroids = new List<C2DPoint>();
+	        var dSegAreas = new List<double>();
+	        var dTotalArea = dArea;
+	        var SegCentroids = new List<C2DPoint>();
 
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
 		        if (Lines[i] is C2DArc)
 		        {
-			        C2DSegment Seg = new C2DSegment( Lines[i] as C2DArc );
-			        double dSegArea = Seg.GetAreaSigned();
+			        var Seg = new C2DSegment( Lines[i] as C2DArc );
+			        var dSegArea = Seg.GetAreaSigned();
 			        dTotalArea += dSegArea;
 			        dSegAreas.Add( dSegArea );
 			        SegCentroids.Add( Seg.GetCentroid() );
@@ -295,7 +295,7 @@ namespace GeoLib
 
 	        Centroid.Multiply( dArea);
 
-	        for (int i = 0; i < dSegAreas.Count; i++)
+	        for (var i = 0; i < dSegAreas.Count; i++)
 	        {
 		        Centroid.x += SegCentroids[i].x * dSegAreas[i];
                 Centroid.y += SegCentroids[i].y * dSegAreas[i];

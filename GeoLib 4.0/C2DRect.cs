@@ -185,8 +185,8 @@ namespace GeoLib
         /// <param name="Overlap">Output. The overlap.</param> 
         public bool Overlaps(C2DRect Other, C2DRect Overlap)
         {
-            C2DPoint ptOvTL = new C2DPoint();
-            C2DPoint ptOvBR = new C2DPoint();
+            var ptOvTL = new C2DPoint();
+            var ptOvBR = new C2DPoint();
 
             ptOvTL.y = Math.Min(TopLeft.y, Other.TopLeft.y);
             ptOvBR.y = Math.Max(BottomRight.y, Other.BottomRight.y);
@@ -228,10 +228,10 @@ namespace GeoLib
         /// <param name="Other">Other rectangle.</param> 
 	    public bool Overlaps(C2DRect Other)
         {
-            bool bOvX = !(Other.GetLeft() >= BottomRight.x ||
+            var bOvX = !(Other.GetLeft() >= BottomRight.x ||
                           Other.GetRight() <= TopLeft.x);
 
-            bool bOvY = !(Other.GetBottom() >= TopLeft.y ||
+            var bOvY = !(Other.GetBottom() >= TopLeft.y ||
                           Other.GetTop() <= BottomRight.y);
 
             return bOvX && bOvY;
@@ -320,7 +320,7 @@ namespace GeoLib
         /// <param name="dFactor">Factor to grow by.</param> 
         public void Grow(double dFactor)
         {
-            C2DPoint ptCentre = new C2DPoint(GetCentre());
+            var ptCentre = new C2DPoint(GetCentre());
 
             BottomRight.x = (BottomRight.x - ptCentre.x) * dFactor + ptCentre.x;
             BottomRight.y = (BottomRight.y - ptCentre.y) * dFactor + ptCentre.y;
@@ -336,7 +336,7 @@ namespace GeoLib
         /// <param name="dFactor">Factor to grow by.</param> 
         public void GrowHeight(double dFactor)
         {
-            C2DPoint ptCentre = new C2DPoint(GetCentre());
+            var ptCentre = new C2DPoint(GetCentre());
             BottomRight.y = (BottomRight.y - ptCentre.y) * dFactor + ptCentre.y;
             TopLeft.y = (TopLeft.y - ptCentre.y) * dFactor + ptCentre.y;
 
@@ -348,7 +348,7 @@ namespace GeoLib
         /// <param name="dFactor">Factor to grow by.</param> 
         public void GrowWidth(double dFactor)
         {
-            C2DPoint ptCentre = new C2DPoint(GetCentre());
+            var ptCentre = new C2DPoint(GetCentre());
             BottomRight.x = (BottomRight.x - ptCentre.x) * dFactor + ptCentre.x;
             TopLeft.x = (TopLeft.x - ptCentre.x) * dFactor + ptCentre.x;
 
@@ -398,8 +398,8 @@ namespace GeoLib
             TopLeft.Reflect(Point);
             BottomRight.Reflect(Point);
 
-            double x = TopLeft.x;
-            double y = TopLeft.y;
+            var x = TopLeft.x;
+            var y = TopLeft.y;
 
             TopLeft.Set( BottomRight);
             BottomRight.x = x;
@@ -413,10 +413,10 @@ namespace GeoLib
         /// <param name="Line">Reflection Line.</param> 
         public override void Reflect(C2DLine Line)
         {
-	        C2DPoint ptCen = new C2DPoint(this.GetCentre());
-	        C2DPoint ptNewCen = new C2DPoint(ptCen);
+	        var ptCen = new C2DPoint(this.GetCentre());
+	        var ptNewCen = new C2DPoint(ptCen);
 	        ptNewCen.Reflect(Line);
-	        C2DVector vec = new C2DVector(ptCen, ptNewCen);
+	        var vec = new C2DVector(ptCen, ptNewCen);
 	        Move(vec);
         }
 
@@ -430,10 +430,10 @@ namespace GeoLib
         /// <param name="Origin">The origin about which to rotate.</param>
         public override void RotateToRight(double dAng, C2DPoint Origin)
         {
-            double dHalfWidth = Width() / 2;
-            double dHalfHeight = Height() / 2;
+            var dHalfWidth = Width() / 2;
+            var dHalfHeight = Height() / 2;
 
-            C2DPoint ptCen = new C2DPoint(GetCentre());
+            var ptCen = new C2DPoint(GetCentre());
             ptCen.RotateToRight(dAng, Origin);
 
             TopLeft.x = ptCen.x - dHalfWidth;
@@ -493,7 +493,7 @@ namespace GeoLib
 		        if (Other.GetBottom() > this.TopLeft.y)
 		        {
 			        // Other is to the top right
-			        C2DPoint ptTopRight = new C2DPoint(BottomRight.x,  TopLeft.y);
+			        var ptTopRight = new C2DPoint(BottomRight.x,  TopLeft.y);
 			        return ptTopRight.Distance(new C2DPoint(Other.GetLeft(), Other.GetBottom()));
 		        }
 		        else if (Other.GetTop() < this.BottomRight.y)
@@ -518,7 +518,7 @@ namespace GeoLib
 		        else if (Other.GetTop() < this.BottomRight.y)
 		        {
 			        // Other to the bottom left
-			        C2DPoint ptBottomLeft = new C2DPoint(TopLeft.x, BottomRight.y);
+			        var ptBottomLeft = new C2DPoint(TopLeft.x, BottomRight.y);
 			        return ptBottomLeft.Distance ( new C2DPoint( Other.GetRight(), Other.GetTop()));
 		        }
 		        else
@@ -572,7 +572,7 @@ namespace GeoLib
         /// </summary>
         public C2DPoint GetPointClosestToOrigin()
         {
-            C2DPoint ptResult = new C2DPoint();
+            var ptResult = new C2DPoint();
             if (Math.Abs(TopLeft.x) < Math.Abs(BottomRight.x))
             {
                 // Left is closest to the origin.
@@ -603,7 +603,7 @@ namespace GeoLib
         /// </summary>
         public C2DPoint GetPointFurthestFromOrigin()
         {
-            C2DPoint ptResult = new C2DPoint();
+            var ptResult = new C2DPoint();
             if (Math.Abs(TopLeft.x) > Math.Abs(BottomRight.x))
             {
                 // Left is furthest to the origin.
@@ -638,8 +638,8 @@ namespace GeoLib
         {
 	        this.TopLeft.Project( Line,  Interval);
 	        Interval.ExpandToInclude( BottomRight.Project( Line));
-	        C2DPoint TR = new C2DPoint( BottomRight.x,   TopLeft.y);
-            C2DPoint BL = new C2DPoint( TopLeft.x, BottomRight.y);
+	        var TR = new C2DPoint( BottomRight.x,   TopLeft.y);
+            var BL = new C2DPoint( TopLeft.x, BottomRight.y);
 	        Interval.ExpandToInclude( TR.Project( Line));
 	        Interval.ExpandToInclude( BL.Project( Line));
 
@@ -654,8 +654,8 @@ namespace GeoLib
         {
 	        this.TopLeft.Project( Vector,  Interval);
 	        Interval.ExpandToInclude( BottomRight.Project( Vector));
-	        C2DPoint TR = new C2DPoint( BottomRight.x,   TopLeft.y);
-            C2DPoint BL = new C2DPoint(TopLeft.x, BottomRight.y);
+	        var TR = new C2DPoint( BottomRight.x,   TopLeft.y);
+            var BL = new C2DPoint(TopLeft.x, BottomRight.y);
 	        Interval.ExpandToInclude( TR.Project( Vector));
 	        Interval.ExpandToInclude( BL.Project( Vector));
 

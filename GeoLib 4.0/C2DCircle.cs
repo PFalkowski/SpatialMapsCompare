@@ -57,7 +57,7 @@ namespace GeoLib
         /// <param name="Point2">The second point to include.</param> 
 	    public void SetMinimum(C2DPoint Point1, C2DPoint Point2)
         {
-	        C2DVector Vec = new C2DVector(Point1, Point2);
+	        var Vec = new C2DVector(Point1, Point2);
 	        Vec.Multiply( 0.5);
 	        Radius = Vec.GetLength();
 	        _Centre.Set(Point1.GetPointTo(Vec));
@@ -71,9 +71,9 @@ namespace GeoLib
         /// <param name="Point3">The third point to include.</param> 
 	    public void SetMinimum(C2DPoint Point1, C2DPoint Point2, C2DPoint Point3)
         {
-            double dDist12 = Point1.Distance(Point2);
-            double dDist23 = Point2.Distance(Point3);
-            double dDist31 = Point3.Distance(Point1);
+            var dDist12 = Point1.Distance(Point2);
+            var dDist23 = Point2.Distance(Point3);
+            var dDist31 = Point3.Distance(Point1);
             if (dDist12 >= dDist23 && dDist12 >= dDist31)
             {
                 SetMinimum(Point1, Point2);
@@ -115,20 +115,20 @@ namespace GeoLib
         /// <param name="Triangle">The triangle to bound the circle.</param> 
         public void SetInscribed(C2DTriangle Triangle)
         {
-	        C2DPoint InCen = Triangle.GetInCentre();
+	        var InCen = Triangle.GetInCentre();
 
-	        C2DLine Line = new C2DLine( Triangle.P1, Triangle.P2  );
+	        var Line = new C2DLine( Triangle.P1, Triangle.P2  );
         	
-	        C2DVector vec = new C2DVector(Line.point, InCen );
-	        double dProj = vec.Dot(Line.vector);
-	        double dLength = Line.vector.GetLength();
+	        var vec = new C2DVector(Line.point, InCen );
+	        var dProj = vec.Dot(Line.vector);
+	        var dLength = Line.vector.GetLength();
 	        dProj /= dLength;
 
-	        double dFactor = dProj / dLength;
+	        var dFactor = dProj / dLength;
         		
-	        C2DVector vProj = new C2DVector(Line.vector);
+	        var vProj = new C2DVector(Line.vector);
 	        vProj.Multiply(dFactor);
-	        C2DPoint ptOnLine = new C2DPoint(Line.point.x + vProj.i,Line.point.y + vProj.j) ;
+	        var ptOnLine = new C2DPoint(Line.point.x + vProj.i,Line.point.y + vProj.j) ;
 
 	        Set(InCen, InCen.Distance( ptOnLine));
         }
@@ -208,24 +208,24 @@ namespace GeoLib
         /// <param name="IntersectionPts">The point set to recieve the result.</param> 
         public bool Crosses(C2DCircle Other,  List<C2DPoint> IntersectionPts)
         {
-	        double x1 = _Centre.x;
-	        double y1 = _Centre.y;
-	        double R1 = Radius;
+	        var x1 = _Centre.x;
+	        var y1 = _Centre.y;
+	        var R1 = Radius;
 
-	        double x2 = Other.Centre.x;
-	        double y2 = Other.Centre.y;
-	        double R2 = Other.Radius;
+	        var x2 = Other.Centre.x;
+	        var y2 = Other.Centre.y;
+	        var R2 = Other.Radius;
 
-	        double D = Other.Centre.Distance(_Centre);
+	        var D = Other.Centre.Distance(_Centre);
 
 	        if (D == 0)
 		        return false;
 
 	        if (D == (R1 + R2) )
 	        {
-		        C2DVector V = new C2DVector(_Centre, Other.Centre);
+		        var V = new C2DVector(_Centre, Other.Centre);
 		        V.SetLength(R1);
-		        C2DPoint P = new C2DPoint(_Centre.GetPointTo( V ));
+		        var P = new C2DPoint(_Centre.GetPointTo( V ));
 		        IntersectionPts.Add(P);
 
 		        return true;
@@ -234,17 +234,17 @@ namespace GeoLib
 	        if ( D > (R1 + R2) || D < Math.Abs(R1 - R2))
 		        return false;
 
-	        double A = (D + R1 + R2) * (D + R1 - R2) * (D - R1 + R2) * (-D + R1 + R2);
+	        var A = (D + R1 + R2) * (D + R1 - R2) * (D - R1 + R2) * (-D + R1 + R2);
 	        A = Math.Sqrt(A) / 4;
 
-	        double XE1 = (x1 + x2) / 2 - (x1 - x2) * (R1 * R1 - R2 * R2) / (2 * D * D);
-	        double XE2 = 2 * (y1 - y2) * A / (D * D);
+	        var XE1 = (x1 + x2) / 2 - (x1 - x2) * (R1 * R1 - R2 * R2) / (2 * D * D);
+	        var XE2 = 2 * (y1 - y2) * A / (D * D);
 
-	        double YE1 = (y1 + y2) / 2 - (y1 - y2) * (R1 * R1 - R2 * R2) / (2 * D * D);
-	        double YE2 = 2 * (x1 - x2) * A / (D * D);
+	        var YE1 = (y1 + y2) / 2 - (y1 - y2) * (R1 * R1 - R2 * R2) / (2 * D * D);
+	        var YE2 = 2 * (x1 - x2) * A / (D * D);
 
-	        C2DPoint pt1 = new C2DPoint( XE1 + XE2, YE1 - YE2);
-	        C2DPoint pt2 = new C2DPoint( XE1 - XE2, YE1 + YE2);
+	        var pt1 = new C2DPoint( XE1 + XE2, YE1 - YE2);
+	        var pt2 = new C2DPoint( XE1 - XE2, YE1 + YE2);
 
 	        IntersectionPts.Add(pt1);
 	        IntersectionPts.Add(pt2);
@@ -262,25 +262,25 @@ namespace GeoLib
         /// <param name="IntersectionPts">The point set to recieve the result.</param> 
         public bool Crosses(C2DLine Line,  List<C2DPoint> IntersectionPts)
         {
-            double x1 = Line.point.x;
-            double x2 = Line.point.x + Line.vector.i;
-            double x3 = _Centre.x;
+            var x1 = Line.point.x;
+            var x2 = Line.point.x + Line.vector.i;
+            var x3 = _Centre.x;
 
-            double y1 = Line.point.y;
-            double y2 = Line.point.y + Line.vector.j;
-            double y3 = _Centre.y;
+            var y1 = Line.point.y;
+            var y2 = Line.point.y + Line.vector.j;
+            var y3 = _Centre.y;
 
-            double r = Radius;
+            var r = Radius;
 
-            double a = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+            var a = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
 
-            double b = 2 * ((x2 - x1) * (x1 - x3) + (y2 - y1) * (y1 - y3));
+            var b = 2 * ((x2 - x1) * (x1 - x3) + (y2 - y1) * (y1 - y3));
 
-            double c = x3 * x3 + y3 * y3 + x1 * x1 + y1 * y1 - 2 * (x3 * x1 + y3 * y1) - r * r;
+            var c = x3 * x3 + y3 * y3 + x1 * x1 + y1 * y1 - 2 * (x3 * x1 + y3 * y1) - r * r;
 
-            double u = -b / (2 * a);
+            var u = -b / (2 * a);
 
-            C2DPoint ptClosestToCen = new C2DPoint();
+            var ptClosestToCen = new C2DPoint();
 
             if (u < 0)
             {
@@ -292,12 +292,12 @@ namespace GeoLib
             }
             else
             {
-                C2DVector V1 = new C2DVector(Line.vector);
+                var V1 = new C2DVector(Line.vector);
                 V1.Multiply(u);
                 ptClosestToCen = Line.point.GetPointTo(V1);
             }
 
-            double dDist = ptClosestToCen.Distance(_Centre);
+            var dDist = ptClosestToCen.Distance(_Centre);
 
             if (dDist > Radius)
             {
@@ -306,24 +306,24 @@ namespace GeoLib
             else
             {
                 // Calculate the points.
-                double d1 = b * b - 4 * a * c;
+                var d1 = b * b - 4 * a * c;
                 Debug.Assert(d1 >= 0);
 
                 if (d1 < 0)
                     return false;
                 else if (d1 == 0)
                 {
-                    double p1 = -b / (2 * a);
+                    var p1 = -b / (2 * a);
                     IntersectionPts.Add(Line.GetPointOn(p1));
                     return true;
                 }
                 else
                 {
                     d1 = Math.Sqrt(d1);
-                    double p1 = (-b + d1) / (2 * a);
-                    double p2 = (-b - d1) / (2 * a);
+                    var p1 = (-b + d1) / (2 * a);
+                    var p2 = (-b - d1) / (2 * a);
 
-                    bool bResult = false;
+                    var bResult = false;
                     if (p2 >= 0 && p2 <= 1)
                     {
                         bResult = true;
@@ -348,8 +348,8 @@ namespace GeoLib
         /// <param name="IntersectionPts">The point set to recieve the result.</param> 
         public bool CrossesRay(C2DLine Ray,  List<C2DPoint> IntersectionPts)
         {
-            double dDist = Ray.point.Distance(_Centre);
-            C2DLine RayCopy = new C2DLine(Ray);
+            var dDist = Ray.point.Distance(_Centre);
+            var RayCopy = new C2DLine(Ray);
             // Ensure the copy line will go through the circle if the ray would.
             RayCopy.vector.SetLength((dDist + Radius) * 2);
 
@@ -429,7 +429,7 @@ namespace GeoLib
         /// <param name="TestPoint">Point to calculate the distance to.</param> 
         public override double Distance(C2DPoint TestPoint)
         {
-            double dDist = _Centre.Distance(TestPoint);
+            var dDist = _Centre.Distance(TestPoint);
             return (dDist - Radius);  // -ve indicates inside.
         }
 
@@ -440,18 +440,18 @@ namespace GeoLib
         /// <param name="ptOnThis">Closest point on the circle to recieve the result.</param> 
         public double Distance(C2DPoint TestPoint,  C2DPoint ptOnThis)
         {
-	        double dDist = _Centre.Distance(TestPoint);
+	        var dDist = _Centre.Distance(TestPoint);
 
 	        if (dDist == 0)
 	        {
 		        // point is the centre so just arbitrary point to the circle
-                C2DVector V1 = new C2DVector( Radius, 0);
+                var V1 = new C2DVector( Radius, 0);
 		        ptOnThis.Set( _Centre.GetPointTo(V1));
 	        }
 	        else
 	        {
 		        // find the point on the circle.
-		        C2DLine LineCenToPt = new C2DLine (_Centre, TestPoint);
+		        var LineCenToPt = new C2DLine (_Centre, TestPoint);
 		        LineCenToPt.vector.SetLength(Radius);
 		        ptOnThis.Set(LineCenToPt.GetPointTo());
 	        }
@@ -467,7 +467,7 @@ namespace GeoLib
         /// <param name="ptOnOther">Closest point on the line to recieve the result.</param> 
         public double Distance(C2DLine Line,  C2DPoint ptOnThis,  C2DPoint ptOnOther)
         {
-            CInterval ProjInt = new CInterval();
+            var ProjInt = new CInterval();
             Project(Line,  ProjInt);
 
             if (ProjInt.dMax < 0)
@@ -479,19 +479,19 @@ namespace GeoLib
                 return Distance(Line.point,  ptOnThis);
             }
 
-            double dLength = Line.GetLength();
+            var dLength = Line.GetLength();
 
             if (ProjInt.dMin > dLength)
             {
                 // This means that the circle projects entirely "above" the line so the nearest point
                 // To this is the second point on the line and there are no interections.
-                C2DPoint ptClosest = new C2DPoint(Line.GetPointTo());
+                var ptClosest = new C2DPoint(Line.GetPointTo());
                 ptOnOther.Set( ptClosest );
                 return Distance(ptClosest,  ptOnThis);
             }
 
             // Now find out if there's an intersection.
-            List<C2DPoint> IntPts = new List<C2DPoint>();
+            var IntPts = new List<C2DPoint>();
             if (Crosses(Line,  IntPts))
             {
                 ptOnThis.Set( IntPts[0]);
@@ -503,9 +503,9 @@ namespace GeoLib
             // Now find out if the line is entirely inside
             if (ProjInt.dMin > 0 && ProjInt.dMax < dLength && this.Contains(Line.point))
             {
-                double d1 = Distance(Line.point,  ptOnThis);
-                C2DPoint ptThisTemp = new C2DPoint();
-                double d2 = Distance(Line.GetPointTo(),  ptThisTemp);
+                var d1 = Distance(Line.point,  ptOnThis);
+                var ptThisTemp = new C2DPoint();
+                var d2 = Distance(Line.GetPointTo(),  ptThisTemp);
                 Debug.Assert(d1 < 0 && d2 < 0);
                 if (d2 > d1) // NOTE USE OF > AS d2 and d1 are -ve.
                 {
@@ -522,18 +522,18 @@ namespace GeoLib
 
             // We now know the line is entirely outside.
             // Now find out if this is closest to a point on the line. 
-            double dCenOnLine = (ProjInt.dMax + ProjInt.dMin) / 2.0;
+            var dCenOnLine = (ProjInt.dMax + ProjInt.dMin) / 2.0;
 
             if (dCenOnLine > 0)
             {
                 if (dCenOnLine < dLength)
                 {
                     // The centre is projected on the line
-                    double dFactor = dCenOnLine / dLength;
+                    var dFactor = dCenOnLine / dLength;
 
-                    C2DVector vProj = new C2DVector(Line.vector);
+                    var vProj = new C2DVector(Line.vector);
                     vProj.Multiply( dFactor);
-                    C2DPoint ptOnLine = new C2DPoint( Line.point.GetPointTo(vProj));
+                    var ptOnLine = new C2DPoint( Line.point.GetPointTo(vProj));
 
                     ptOnOther.Set( ptOnLine );
 
@@ -542,7 +542,7 @@ namespace GeoLib
                 else
                 {
                     // The centre is projected above the line.
-                    C2DPoint ptClosest = new C2DPoint (Line.GetPointTo());
+                    var ptClosest = new C2DPoint (Line.GetPointTo());
                     ptOnOther.Set(ptClosest);
                     return Distance(ptClosest,  ptOnThis);
                 }
@@ -563,17 +563,17 @@ namespace GeoLib
         /// <param name="ptOnOther">Closest point on the other circle to recieve the result.</param> 
         public double Distance(C2DCircle Other,  C2DPoint ptOnThis,  C2DPoint ptOnOther)
         {
-            double dCenCenDist = _Centre.Distance(Other.Centre);
-	        double dOtherRadius = Other.Radius;
+            var dCenCenDist = _Centre.Distance(Other.Centre);
+	        var dOtherRadius = Other.Radius;
 
 	    //    C2DPoint ptThis;
 	     //   C2DPoint ptOther;
-	        double dDist = dCenCenDist - Radius - dOtherRadius;
+	        var dDist = dCenCenDist - Radius - dOtherRadius;
 
 	        if (dDist > 0 )
 	        {
 		        // they do not interect and they are outside each other.
-			        C2DLine Line = new C2DLine(_Centre, Other.Centre);
+			        var Line = new C2DLine(_Centre, Other.Centre);
 			        Line.vector.SetLength( Radius);
 			        ptOnThis.Set( Line.GetPointTo() );
 
@@ -588,7 +588,7 @@ namespace GeoLib
 		        {
 			        // This is inside the other
 			        dDist =  dCenCenDist + Radius  - dOtherRadius ; // -ve if inside
-				        C2DVector vec = new C2DVector( Other.Centre, Centre);
+				        var vec = new C2DVector( Other.Centre, Centre);
 				        vec.Multiply(   Radius   /dCenCenDist  ); // set the vector to be the length of my radius.
 				        ptOnThis.Set( _Centre.GetPointTo( vec));
 				        vec.Multiply(   dDist   /Radius  ); // set the vector to be the distance.
@@ -599,7 +599,7 @@ namespace GeoLib
 		        {
 			        // The other is inside this.
 			        dDist = dCenCenDist + dOtherRadius -  Radius; // -ve if inside
-				        C2DVector vec = new C2DVector( _Centre, Other.Centre);
+				        var vec = new C2DVector( _Centre, Other.Centre);
 				        vec.Multiply (   dOtherRadius   /dCenCenDist  ); // set the vector to be the length of my radius.
 				        ptOnOther.Set( Other.Centre.GetPointTo( vec));
 				        vec.Multiply(   dDist   /  dOtherRadius  ); // set the vector to be the distance.
@@ -610,7 +610,7 @@ namespace GeoLib
 		        {
 			        // there is an intersection
 			        dDist = 0;
-			        List<C2DPoint> Ints = new List<C2DPoint>();
+			        var Ints = new List<C2DPoint>();
 			        if (Crosses(Other,  Ints))
 			        {
 				        ptOnThis.Set(Ints[0]);
@@ -643,11 +643,11 @@ namespace GeoLib
         {
 	        // Create a line that goes through the circle from edge to edge and with the same vector as the
 	        // Line to project on.
-	        C2DLine LineCopy = new C2DLine (_Centre, Line.vector);
+	        var LineCopy = new C2DLine (_Centre, Line.vector);
         	
 	        LineCopy.vector.SetLength( Radius * 2 );
 
-            C2DVector V2 = new C2DVector(LineCopy.vector);
+            var V2 = new C2DVector(LineCopy.vector);
             V2.Multiply(-0.5);
 
             LineCopy.Move(V2);
@@ -664,11 +664,11 @@ namespace GeoLib
         public override void Project(C2DVector Vector,  CInterval Interval) 
         {
              // Create a line that goes through the circle from edge to edge and with the same vector.
-	        C2DLine Line = new C2DLine (_Centre, Vector);
+	        var Line = new C2DLine (_Centre, Vector);
         	
 	        Line.vector.SetLength( Radius * 2 );
 
-            C2DVector V2 = new C2DVector(Vector);
+            var V2 = new C2DVector(Vector);
             V2.Multiply(-0.5);
             Line.Move(V2);
 
@@ -684,7 +684,7 @@ namespace GeoLib
         {
 	        _Centre.SnapToGrid(grid);
 
-            double dMultiple = Math.Abs(Radius / grid.GridSize) + 0.5;
+            var dMultiple = Math.Abs(Radius / grid.GridSize) + 0.5;
 
 	        dMultiple = Math.Floor(dMultiple);
 

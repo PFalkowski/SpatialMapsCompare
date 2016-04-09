@@ -24,7 +24,7 @@ namespace GeoLib
         public C2DHoledPolygon(C2DHoledPolyBase Other)
         {
             _Rim = new C2DPolygon(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolygon(Other.GetHole(i) ));
             }
@@ -36,7 +36,7 @@ namespace GeoLib
         public C2DHoledPolygon(C2DHoledPolygon Other)
         {
             _Rim = new C2DPolygon(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolygon(Other.GetHole(i)));
             }
@@ -73,7 +73,7 @@ namespace GeoLib
         {
             _Holes.Clear();
             _Rim = new C2DPolygon(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolygon(Other.GetHole(i)));
             }
@@ -87,7 +87,7 @@ namespace GeoLib
         {
             _Holes.Clear();
             _Rim = new C2DPolygon(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolygon(Other.GetHole(i)));
             }
@@ -119,18 +119,18 @@ namespace GeoLib
         public C2DPoint GetCentroid()
         {
                  
-	        C2DPoint HoleCen = new C2DPoint(0, 0);
+	        var HoleCen = new C2DPoint(0, 0);
 
             if (_Holes.Count == 0)
                 return Rim.GetCentroid();
 
 
-            C2DPoint PolyCen = Rim.GetCentroid();
+            var PolyCen = Rim.GetCentroid();
 
-            double dPolyArea = Rim.GetArea();
+            var dPolyArea = Rim.GetArea();
 	        double dHoleArea = 0;
 
-	        for ( int i = 0 ; i < _Holes.Count; i++)
+	        for ( var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        dHoleArea += GetHole(i).GetArea();
 	        }
@@ -140,15 +140,15 @@ namespace GeoLib
 		        return Rim.GetCentroid();
 	        else
 	        {
-		        for (int i = 0 ; i < _Holes.Count; i++)
+		        for (var i = 0 ; i < _Holes.Count; i++)
 		        {
-                    C2DPoint pt = GetHole(i).GetCentroid();
+                    var pt = GetHole(i).GetCentroid();
                     pt.Multiply(GetHole(i).GetArea() / dHoleArea);
 			        HoleCen += pt;
 		        }
 	        }
 
-	        C2DVector Vec = new C2DVector(HoleCen, PolyCen);
+	        var Vec = new C2DVector(HoleCen, PolyCen);
 
 	        Vec.Multiply( dHoleArea / (dPolyArea - dHoleArea));
 
@@ -167,7 +167,7 @@ namespace GeoLib
 
             dResult += Rim.GetArea();
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
                 dResult -= GetHole(i).GetArea();
 	        }
@@ -184,7 +184,7 @@ namespace GeoLib
         {
             Rim.SimpleBuffer(dBuffer);
 
-            for (int i = 0; i < _Holes.Count; i++)
+            for (var i = 0; i < _Holes.Count; i++)
             {
                 GetHole(i).SimpleBuffer(-dBuffer);
             }
@@ -205,7 +205,7 @@ namespace GeoLib
                 }
             }
 
-            int i = 0;
+            var i = 0;
             while ( i < _Holes.Count)
             {
                 if (GetHole(i).RemoveNullAreas(dTolerance))
@@ -231,11 +231,11 @@ namespace GeoLib
         public void GetNonOverlaps(C2DHoledPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetNonOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 
@@ -248,11 +248,11 @@ namespace GeoLib
         public void GetUnion(C2DHoledPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetUnion(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 
@@ -266,11 +266,11 @@ namespace GeoLib
         public void GetOverlaps(C2DHoledPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 

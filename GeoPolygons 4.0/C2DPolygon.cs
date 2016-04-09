@@ -50,7 +50,7 @@ namespace GeoLib
         {
             Clear();
 
-            for (int i = 0; i < Other.Lines.Count; i++)
+            for (var i = 0; i < Other.Lines.Count; i++)
             {
                 if (Other.Lines[i] is C2DLine)
                 {
@@ -75,7 +75,7 @@ namespace GeoLib
         {
             Clear();
 
-            for (int i = 0; i < Other.Lines.Count; i++)
+            for (var i = 0; i < Other.Lines.Count; i++)
             {
                 if (Other.Lines[i] is C2DLine)
                 {
@@ -161,15 +161,15 @@ namespace GeoLib
 	        if (dDistanceToPoints == 0 || nNumberSides < 3) 
                 return false;
 
-	        double dAngle =  Constants.conTWOPI / nNumberSides ;
-	        C2DVector Vector = new C2DVector( 0 , dDistanceToPoints);
-	        C2DLine LineToEachPt = new C2DLine(Centre, Vector);
+	        var dAngle =  Constants.conTWOPI / nNumberSides ;
+	        var Vector = new C2DVector( 0 , dDistanceToPoints);
+	        var LineToEachPt = new C2DLine(Centre, Vector);
 
-	        C2DPointSet Points = new C2DPointSet();
+	        var Points = new C2DPointSet();
 
-	        for (int i = 0 ; i < nNumberSides; i ++)
+	        for (var i = 0 ; i < nNumberSides; i ++)
 	        {
-		        C2DPoint pNewPt = new C2DPoint();
+		        var pNewPt = new C2DPoint();
 		        pNewPt.Set(LineToEachPt.GetPointTo());
 		        Points.Add(pNewPt);
 		        LineToEachPt.vector.TurnRight(dAngle);
@@ -186,10 +186,10 @@ namespace GeoLib
         {
             Clear();
 
-            C2DPointSet Points = new C2DPointSet();
+            var Points = new C2DPointSet();
             Other.GetPointsCopy(Points);
 
-            C2DPointSet Hull = new C2DPointSet();
+            var Hull = new C2DPointSet();
             Hull.ExtractConvexHull(Points);
 
             return Create(Hull, false);
@@ -213,17 +213,17 @@ namespace GeoLib
 	        if (nMinPoints > nMaxPoints)
 		        return false;
 
-            CRandomNumber rnNumber = new CRandomNumber(nMinPoints, nMaxPoints);
+            var rnNumber = new CRandomNumber(nMinPoints, nMaxPoints);
 
-	        int nNumber = rnNumber.GetInt();
+	        var nNumber = rnNumber.GetInt();
 
-	        C2DPoint pt = new C2DPoint();
-	        CRandomNumber rnX = new CRandomNumber(cBoundary.TopLeft.x, cBoundary.BottomRight.x);
-	        CRandomNumber rnY = new CRandomNumber(cBoundary.BottomRight.y, cBoundary.TopLeft.y);
+	        var pt = new C2DPoint();
+	        var rnX = new CRandomNumber(cBoundary.TopLeft.x, cBoundary.BottomRight.x);
+	        var rnY = new CRandomNumber(cBoundary.BottomRight.y, cBoundary.TopLeft.y);
 
-	        C2DPointSet Points = new C2DPointSet();
+	        var Points = new C2DPointSet();
 
-	        for (int i = 0 ; i < nNumber; i++)
+	        for (var i = 0 ; i < nNumber; i++)
 	        {
 		        pt.x = rnX.Get();
 		        pt.y = rnY.Get();
@@ -243,8 +243,8 @@ namespace GeoLib
         /// <param name="dFactor">The factor between the 2 polygons.</param>
         public bool CreateMorph(C2DPolygon OtherFrom, C2DPolygon OtherTo, double dFactor)
         {
-	        int nOtherFromCount = OtherFrom._Lines.Count;
-	        int nOtherToCount = OtherTo._Lines.Count;
+	        var nOtherFromCount = OtherFrom._Lines.Count;
+	        var nOtherToCount = OtherTo._Lines.Count;
 
 	        if (nOtherToCount < 3 || nOtherFromCount < 3)
 		        return false;
@@ -256,28 +256,28 @@ namespace GeoLib
 	        else
 	        {
 		        // Going from poly with less points to poly with more.
-		        C2DPointSet Points = new C2DPointSet();
+		        var Points = new C2DPointSet();
 
-		        int nOtherFromLeft = OtherFrom.GetLeftMostPoint();
+		        var nOtherFromLeft = OtherFrom.GetLeftMostPoint();
 		        // Add the OtherFroms points starting from the left most.
-		        for (int i = 0; i < OtherFrom.Lines.Count; i++)
+		        for (var i = 0; i < OtherFrom.Lines.Count; i++)
 		        {
-			        C2DPoint pNewPoint = new C2DPoint();
+			        var pNewPoint = new C2DPoint();
 			        pNewPoint.Set(  OtherFrom.Lines[(i + nOtherFromLeft)% OtherFrom.Lines.Count].GetPointFrom());
 			        Points.Add(pNewPoint);
 		        }
 
-		        int nPointsToAdd = nOtherToCount - nOtherFromCount; // we know this is positive.
+		        var nPointsToAdd = nOtherToCount - nOtherFromCount; // we know this is positive.
 
-		        int nPointsAdded = 0;
-		        int nLine = 0;
+		        var nPointsAdded = 0;
+		        var nLine = 0;
         		
 		        // Add points to the list so that it is the same size as OtherTo.
 		        while (nPointsAdded < nPointsToAdd)
 		        {
-			        C2DLine TempLine = new C2DLine( Points[nLine], Points[nLine + 1]);
+			        var TempLine = new C2DLine( Points[nLine], Points[nLine + 1]);
 
-			        C2DPoint pNewPoint = new C2DPoint();
+			        var pNewPoint = new C2DPoint();
 			        pNewPoint = TempLine.GetMidPoint();
 			        Points.Insert(nLine + 1, pNewPoint);
 			        nLine +=2;
@@ -286,13 +286,13 @@ namespace GeoLib
 				        nLine = 0;
 		        }
 
-		        int nOtherToLeft = OtherTo.GetLeftMostPoint();
+		        var nOtherToLeft = OtherTo.GetLeftMostPoint();
 
 		        Debug.Assert(Points.Count == nOtherToCount);
 
-		        for ( int i = 0 ; i < nOtherToCount ; i++ )
+		        for ( var i = 0 ; i < nOtherToCount ; i++ )
 		        {
-			        C2DVector vMove = new C2DVector(Points[i] , OtherTo.Lines[(nOtherToLeft + i) % OtherTo.Lines.Count].GetPointFrom());
+			        var vMove = new C2DVector(Points[i] , OtherTo.Lines[(nOtherToLeft + i) % OtherTo.Lines.Count].GetPointFrom());
 			        vMove.Multiply( dFactor);
 
 			        Points[i].Move(vMove);
@@ -311,20 +311,20 @@ namespace GeoLib
 	        subArea1 = null;
 	        subArea2 = null;
 
-	        int nLineCount = Lines.Count;
+	        var nLineCount = Lines.Count;
 
 	        if ( nLineCount < 4 )
 		        return true;
 
-	        bool bInflection = false;
-	        for (int nStart = 0 ; nStart < nLineCount; nStart++)
+	        var bInflection = false;
+	        for (var nStart = 0 ; nStart < nLineCount; nStart++)
 	        {
 		        if (IsPointInflected(nStart))
 		        {
 			        bInflection = true;
 
-			        int nEnd = nStart + 2;
-			        bool bContinue = true;
+			        var nEnd = nStart + 2;
+			        var bContinue = true;
 			        while (bContinue)
 			        {
 				        if (C2DTriangle.IsClockwise(GetPoint(nEnd - 2),GetPoint(nEnd - 1),GetPoint(nEnd))
@@ -342,7 +342,7 @@ namespace GeoLib
 			        }
 			        if (nEnd >= nStart + 2)
 			        {
-                        bool bRes = CreateSubAreas(nStart, nEnd, ref subArea1,ref subArea2);
+                        var bRes = CreateSubAreas(nStart, nEnd, ref subArea1,ref subArea2);
                         bRes &= SubArea1.CreateConvexSubAreas();
                         bRes &= SubArea2.CreateConvexSubAreas();
 				        return bRes;
@@ -353,14 +353,14 @@ namespace GeoLib
 	        if (!bInflection)
 		        return true;
 
-	        for (int nStart = 2 * nLineCount - 1 ; nStart >= nLineCount; nStart--)
+	        for (var nStart = 2 * nLineCount - 1 ; nStart >= nLineCount; nStart--)
 	        {
 		        if (IsPointInflected(nStart))
 		        {
 			        bInflection = true;
 
-			        int nEnd = nStart - 2;
-			        bool bContinue = true;
+			        var nEnd = nStart - 2;
+			        var bContinue = true;
 			        while (bContinue)
 			        {
 				        if (!C2DTriangle.IsClockwise(GetPoint(nEnd + 2),GetPoint(nEnd + 1),GetPoint(nEnd)) 
@@ -378,7 +378,7 @@ namespace GeoLib
 			        }
 			        if (nEnd <= nStart - 2)
 			        {
-				        bool bRes = CreateSubAreas(nStart, nEnd, ref subArea1, ref subArea2);
+				        var bRes = CreateSubAreas(nStart, nEnd, ref subArea1, ref subArea2);
 				        bRes &= SubArea1.CreateConvexSubAreas();
 				        bRes &= SubArea2.CreateConvexSubAreas();
 				        return bRes;
@@ -409,7 +409,7 @@ namespace GeoLib
         {
 	        if (Lines.Count < 4) 
                     return true;
-	        int nTemp = 0;
+	        var nTemp = 0;
 	        return !FindFirstInflection(ref nTemp);
         }
 
@@ -517,9 +517,9 @@ namespace GeoLib
          /// </summary>
 	    bool HasRepeatedPoints()
         {
-            for ( int i = 0 ; i < Lines.Count; i++)
+            for ( var i = 0 ; i < Lines.Count; i++)
 	        {
-                for (int r = i + 1; r < Lines.Count; r++)
+                for (var r = i + 1; r < Lines.Count; r++)
 		        {
 			        if (Lines[i].GetPointFrom().PointEqualTo(  Lines[r].GetPointFrom()  )) 
 				        return true;
@@ -574,10 +574,10 @@ namespace GeoLib
 	        if (SubArea1 != null && SubArea2 != null)
 	        {
 
-		        C2DVector v1 = new C2DVector();
-		        C2DVector v2 = new C2DVector();
-		        bool b1 = SubArea1.Overlaps(Other, v1);
-		        bool b2 = SubArea2.Overlaps(Other, v2);
+		        var v1 = new C2DVector();
+		        var v2 = new C2DVector();
+		        var b1 = SubArea1.Overlaps(Other, v1);
+		        var b2 = SubArea2.Overlaps(Other, v2);
 		        if (b1 && b2) 
                     MinimumTranslationVector.Set( v1 + v2);
 		        else if (b1) 
@@ -588,21 +588,21 @@ namespace GeoLib
 	        }
 	        else if (Other.SubArea1 != null && Other.SubArea2 != null)
 	        {
-		        bool bRes = Other.Overlaps(this, MinimumTranslationVector);
+		        var bRes = Other.Overlaps(this, MinimumTranslationVector);
 		        if (bRes) 
                     MinimumTranslationVector.Reverse();
 		        return bRes;
 	        }
 	        else
 	        {
-		        CInterval ThisProj = new CInterval();
-		        CInterval OtherProj = new CInterval();
+		        var ThisProj = new CInterval();
+		        var OtherProj = new CInterval();
 
-		        C2DLine ProjLine = new C2DLine();
+		        var ProjLine = new C2DLine();
 
-		        bool bVecFound = false;
+		        var bVecFound = false;
 
-		        for (int i = 0 ; i < Lines.Count + Other.Lines.Count; i++)
+		        for (var i = 0 ; i < Lines.Count + Other.Lines.Count; i++)
 		        {
                     if (i < Lines.Count)
 				        ProjLine.Set(GetPoint(i),GetPoint(i+1));
@@ -657,7 +657,7 @@ namespace GeoLib
         /// <param name="Other">The other polygon.</param>
         public void Avoid(C2DPolygon Other)
         {
-            C2DVector vTrans = new C2DVector();
+            var vTrans = new C2DVector();
 
             if (this.Overlaps(Other, vTrans))
                 this.Move(vTrans);
@@ -669,10 +669,10 @@ namespace GeoLib
         /// </summary>
         public C2DPoint GetCentroid() 
         {
-	        C2DPoint Centroid = new C2DPoint(0, 0);
+	        var Centroid = new C2DPoint(0, 0);
 	        double dArea = 0;
 
-	        for ( int i = 0; i < Lines.Count; i++)
+	        for ( var i = 0; i < Lines.Count; i++)
 	        {
                 C2DPoint pti = Lines[i].GetPointFrom();
                 C2DPoint ptii = Lines[i].GetPointTo();
@@ -706,7 +706,7 @@ namespace GeoLib
         {
 	        double dArea = 0;
 
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
                 C2DPoint pt1 = Lines[i].GetPointFrom();
                 C2DPoint pt2 = Lines[i].GetPointTo();
@@ -737,7 +737,7 @@ namespace GeoLib
         /// <param name="PointCopy">The point set to recieve the result.</param>
 	    public void GetPointsCopy(List<C2DPoint> PointCopy)
         {
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
 		        PointCopy.Add(Lines[i].GetPointFrom());
 	        }
@@ -752,9 +752,9 @@ namespace GeoLib
 	        if (Lines.Count < 2) 
                 return 0;
         	
-	        int nRes = 0;
+	        var nRes = 0;
 
-	        for ( int i = 1 ; i < Lines.Count; i++)
+	        for ( var i = 1 ; i < Lines.Count; i++)
 	        {
 		        if (Lines[i].GetPointFrom().x < Lines[nRes].GetPointFrom().x)
 			        nRes = i;
@@ -770,27 +770,27 @@ namespace GeoLib
         /// <param name="dCropFactor">The factor to crop "sharp" lines by. Default is 0.8.</param>
 	    public void Smooth(double dMinAngleDegrees, double dCropFactor)
         {
-            double dMinAngle = dMinAngleDegrees * Constants.conRadiansPerDegree;
+            var dMinAngle = dMinAngleDegrees * Constants.conRadiansPerDegree;
 
-	        int i = 0;
+	        var i = 0;
 
 	        if (Lines.Count < 3)
 		        return;
 
 	        Debug.Assert(IsClockwise());
 
-	        int nCount = Lines.Count;
-	        int nIt = 0;
+	        var nCount = Lines.Count;
+	        var nIt = 0;
 
 	        while (nIt < nCount )
 	        {
 		        C2DLineBase LineBase1 = Lines[i % Lines.Count] ;
                 C2DLineBase LineBase2 = Lines[(i + 1) % Lines.Count];
 
-                C2DLine Line1 = new C2DLine(LineBase1.GetPointFrom(), LineBase1.GetPointTo());
-                C2DLine Line2 = new C2DLine(LineBase2.GetPointFrom(), LineBase2.GetPointTo());
+                var Line1 = new C2DLine(LineBase1.GetPointFrom(), LineBase1.GetPointTo());
+                var Line2 = new C2DLine(LineBase2.GetPointFrom(), LineBase2.GetPointTo());
 
-		        C2DVector Vec = new C2DVector(Line1.vector);
+		        var Vec = new C2DVector(Line1.vector);
 
 		        Vec.Reverse();
 
@@ -833,7 +833,7 @@ namespace GeoLib
         /// <param name="Circle">Output. The bounding circle.</param>
         public void GetBoundingCircle(C2DCircle Circle)
         {
-            C2DPointSet Points = new C2DPointSet();
+            var Points = new C2DPointSet();
             GetPointsCopy(Points);
 
             Points.GetBoundingCircle(Circle);
@@ -845,7 +845,7 @@ namespace GeoLib
         /// <param name="nFirstInflection">Output. Inflected point.</param>
         private bool FindFirstInflection(ref int nFirstInflection)
         {
-	        for ( int i = 0; i < Lines.Count; i++)
+	        for ( var i = 0; i < Lines.Count; i++)
 	        {
 		        if(IsPointInflected(i))
 		        {
@@ -869,7 +869,7 @@ namespace GeoLib
 	        else
 		        usBefore = nIndex - 1;
 
-	        C2DLine TestLine = new C2DLine(GetPoint(usBefore), GetPoint(nIndex));
+	        var TestLine = new C2DLine(GetPoint(usBefore), GetPoint(nIndex));
 
 	        Debug.Assert(IsClockwise());
 
@@ -884,16 +884,16 @@ namespace GeoLib
         /// <param name="nEnd">The second point index.</param>
 	    public bool CanPointsBeJoined(int nStart, int nEnd)
         {
-	        int usBefore = 0;
+	        var usBefore = 0;
 	        if (nStart == 0)
 		        usBefore = Lines.Count - 1;
 	        else
 		        usBefore = nStart - 1;
 
-	        C2DVector VecBefore = new C2DVector(GetPoint(nStart), GetPoint(usBefore)); 
-	        C2DVector VecAfter = new C2DVector(GetPoint(nStart), GetPoint(nStart + 1)); 
+	        var VecBefore = new C2DVector(GetPoint(nStart), GetPoint(usBefore)); 
+	        var VecAfter = new C2DVector(GetPoint(nStart), GetPoint(nStart + 1)); 
 
-	        C2DLine TestLine = new C2DLine( GetPoint(nStart), GetPoint(nEnd));
+	        var TestLine = new C2DLine( GetPoint(nStart), GetPoint(nEnd));
 
 	        Debug.Assert(IsClockwise());
 
@@ -925,22 +925,22 @@ namespace GeoLib
 	        while (nPt2 < nPt1) 
                 nPt2 += Lines.Count;
 
-	        C2DPointSet Points1 = new C2DPointSet();
-	        for (int i = nPt1; i <= nPt2; i++)
+	        var Points1 = new C2DPointSet();
+	        for (var i = nPt1; i <= nPt2; i++)
 	        {
 		        Points1.Add(GetPoint(i));
 	        }
-	        bool bRes1 = pNewArea1.Create(Points1, false);
+	        var bRes1 = pNewArea1.Create(Points1, false);
 
 	        while (nPt1 < nPt2) 
                 nPt1 += Lines.Count;
 
-	        C2DPointSet Points2 = new C2DPointSet();
-	        for ( int j = nPt2; j <= nPt1; j++)
+	        var Points2 = new C2DPointSet();
+	        for ( var j = nPt2; j <= nPt1; j++)
 	        {
 		        Points2.Add(GetPoint(j));
 	        }
-            bool bRes2 = pNewArea2.Create(Points2, false);
+            var bRes2 = pNewArea2.Create(Points2, false);
 
 	        return bRes1 && bRes2;
 
@@ -954,22 +954,22 @@ namespace GeoLib
             if (Lines.Count < 4)
                 return true;
             // Get a copy of the points.
-            C2DPointSet Points = new C2DPointSet();
+            var Points = new C2DPointSet();
             GetPointsCopy(Points);
 
             // Make a convex hull from them.
-            C2DPointSet Hull = new C2DPointSet();
+            var Hull = new C2DPointSet();
             Hull.ExtractConvexHull(Points);
             // Close the hull.
             Hull.AddCopy(Hull[0]);
             // Get the bounding rect for the hull and sort the rest by the distance from it.
-            C2DRect Rect = new C2DRect();
+            var Rect = new C2DRect();
             Hull.GetBoundingRect(Rect);
             Points.SortByDistance(Rect.GetCentre());
             Points.Reverse();
 
             // Set up the travelling saleman and give him the route i.e. the now closed hull.
-            CTravellingSalesman TS = new CTravellingSalesman();
+            var TS = new CTravellingSalesman();
             TS.SetPointsDirect(Hull);
 
             // Insert the rest starting with the closest (hopefully).
@@ -1006,18 +1006,18 @@ namespace GeoLib
         /// </summary>
         private bool EliminateCrossingLines()
         {
-	        bool bRepeat = true;
-	        int nIt = 0;
+	        var bRepeat = true;
+	        var nIt = 0;
 
-            List<C2DPoint> Temp = new List<C2DPoint>();
+            var Temp = new List<C2DPoint>();
 
 	        while (bRepeat && nIt < 30)
 	        {
 		        nIt++;
 		        bRepeat = false;
-		        for ( int nCross1 = 0; nCross1 < Lines.Count ; nCross1++)
+		        for ( var nCross1 = 0; nCross1 < Lines.Count ; nCross1++)
 		        {
-			        for (int nCross2 = nCross1 + 2; nCross2 < Lines.Count ; nCross2++)
+			        for (var nCross2 = nCross1 + 2; nCross2 < Lines.Count ; nCross2++)
 			        {
 				        if ( (nCross1 == 0) && (nCross2 == (Lines.Count - 1)) ) 
                                 continue;
@@ -1025,12 +1025,12 @@ namespace GeoLib
 				        if (this.LineRects[nCross1].Overlaps(LineRects[nCross2]) &&
                             Lines[nCross1].Crosses(Lines[nCross2], Temp))
 				        {
-					        int nSwapStart = nCross1 + 1; // end of first line
-					        int nSwapEnd = nCross2;
+					        var nSwapStart = nCross1 + 1; // end of first line
+					        var nSwapEnd = nCross2;
 					        Debug.Assert(nSwapEnd > nSwapStart);
-					        int nHalfway =	(nSwapEnd - nSwapStart) / 2;
+					        var nHalfway =	(nSwapEnd - nSwapStart) / 2;
 
-					        for (int nPoint = 0; nPoint <= nHalfway; nPoint++)
+					        for (var nPoint = 0; nPoint <= nHalfway; nPoint++)
 					        {
 						        SwapPositions( nSwapStart + nPoint, nSwapEnd - nPoint);
 					        }
@@ -1054,7 +1054,7 @@ namespace GeoLib
         /// <param name="Pos2">The second point index.</param>
         private void SwapPositions(int Pos1, int Pos2)
         {
-            C2DPoint temp = GetPoint(Pos1);
+            var temp = GetPoint(Pos1);
 
             SetPoint(GetPoint(Pos2), Pos1);
             SetPoint(temp, Pos2);
@@ -1086,14 +1086,14 @@ namespace GeoLib
 	        C2DLineBase pLineBase = Lines[nPointIndex];
 	        if (pLineBase is C2DLine)
 	        {
-		        C2DLine pLine = pLineBase as C2DLine;
+		        var pLine = pLineBase as C2DLine;
 		        pLine.Set(Point, Lines[nPointIndexAfter].GetPointFrom());
 		        pLine.GetBoundingRect(LineRects[nPointIndex]);
 
 		        C2DLineBase pLineBaseBefore = Lines[nPointIndexBefore];
 		        if (pLineBaseBefore is C2DLine)
 		        {
-                    C2DLine pLineBefore = pLineBaseBefore as C2DLine;
+                    var pLineBefore = pLineBaseBefore as C2DLine;
 			        pLineBefore.SetPointTo(Point);
 			        pLineBefore.GetBoundingRect(LineRects[nPointIndexBefore]);
 		        }
@@ -1111,20 +1111,20 @@ namespace GeoLib
         {
 	        nPointIndex  = nPointIndex % Lines.Count;
 
-	        int nPointIndexBefore = 0;
+	        var nPointIndexBefore = 0;
 	        if (nPointIndex == 0) 
                 nPointIndexBefore = Lines.Count - 1 ;
             else
                 nPointIndexBefore = nPointIndex - 1;
 
-	        int nPointIndexAfter = 0;
+	        var nPointIndexAfter = 0;
 	        if (nPointIndex == (Lines.Count - 1))
                 nPointIndexAfter = 0 ;
             else
                 nPointIndexAfter = nPointIndex + 1;
 
-	        C2DLine pInsert = new C2DLine(Point, Lines[nPointIndex].GetPointFrom());
-	        C2DRect pInsertRect = new C2DRect();
+	        var pInsert = new C2DLine(Point, Lines[nPointIndex].GetPointFrom());
+	        var pInsertRect = new C2DRect();
 
 	        pInsert.GetBoundingRect(pInsertRect);
 
@@ -1132,7 +1132,7 @@ namespace GeoLib
 	        C2DLineBase pLineBase = Lines[nPointIndexBefore];
             if (pLineBase is C2DLine)
 	        {
-		        C2DLine pLineBefore = pLineBase as C2DLine;
+		        var pLineBefore = pLineBase as C2DLine;
 		        pLineBefore.SetPointTo(Point);
 		        pLineBefore.GetBoundingRect(LineRects[nPointIndexBefore]);
 
@@ -1152,14 +1152,14 @@ namespace GeoLib
         {
             ClearConvexSubAreas();
 
-            bool bClockwise = this.IsClockwise();
+            var bClockwise = this.IsClockwise();
 
-            for (int i = 0; i < Lines.Count; i++)
+            for (var i = 0; i < Lines.Count; i++)
             {
                 if (Lines[i] is C2DLine)
                 {
-                    C2DLine Line = Lines[i] as C2DLine;
-                    C2DVector v = new C2DVector(Line.vector);
+                    var Line = Lines[i] as C2DLine;
+                    var v = new C2DVector(Line.vector);
                     if (bClockwise)
                         v.TurnLeft();
                     else
@@ -1174,10 +1174,10 @@ namespace GeoLib
                 }
             }
 
-            for (int i = 1; i < Lines.Count; i++)
+            for (var i = 1; i < Lines.Count; i++)
             {
-                C2DLine Line1 = Lines[i - 1] as C2DLine;
-                C2DLine Line2 = Lines[i] as C2DLine;
+                var Line1 = Lines[i - 1] as C2DLine;
+                var Line2 = Lines[i] as C2DLine;
 
                 Line1.Join(Line2);
             }
@@ -1198,12 +1198,12 @@ namespace GeoLib
         {
             ClearConvexSubAreas();
 
-            int i = 0;
-            bool bChanged = false;
+            var i = 0;
+            var bChanged = false;
             while (i < Lines.Count && Lines.Count > 2)
             {
-                int nNext = (i + 1) % Lines.Count;
-                double dArea = C2DTriangle.GetAreaSigned(Lines[i].GetPointFrom(),
+                var nNext = (i + 1) % Lines.Count;
+                var dArea = C2DTriangle.GetAreaSigned(Lines[i].GetPointFrom(),
                                                             Lines[i].GetPointTo(),
                                                             Lines[nNext].GetPointTo());
 
@@ -1251,9 +1251,9 @@ namespace GeoLib
         {
 	        Lines.Clear();
 
-	        for (int i = 0 ; i < Points.Count; i++)
+	        for (var i = 0 ; i < Points.Count; i++)
 	        {
-		        int nNext = i + 1;
+		        var nNext = i + 1;
                 if (nNext == Points.Count)
 			        nNext = 0;
 		        Lines.Add(new C2DLine(Points[i], Points[nNext]));
@@ -1270,11 +1270,11 @@ namespace GeoLib
         public void GetNonOverlaps(C2DPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetNonOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 
@@ -1287,11 +1287,11 @@ namespace GeoLib
         public void GetUnion(C2DPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetUnion(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 
@@ -1305,11 +1305,11 @@ namespace GeoLib
         public void GetOverlaps(C2DPolygon Other, List<C2DHoledPolygon> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolygon(NewPolys[i]));
         }
 
@@ -1347,17 +1347,17 @@ namespace GeoLib
         public bool OverlapsAbove( C2DPolygon Other, ref double dVerticalDistance,
 										        C2DPoint ptOnThis, C2DPoint ptOnOther)
         {
-	        C2DRect OtherBoundingRect = Other.BoundingRect;
+	        var OtherBoundingRect = Other.BoundingRect;
 
 	        if ( !BoundingRect.OverlapsAbove( OtherBoundingRect)  )
 		        return false;
 
-	        int nLineCount = Lines.Count;
+	        var nLineCount = Lines.Count;
 
 	        if ( nLineCount != LineRects.Count)
 		        return false;
 
-	        int nOtherLineCount = Other.Lines.Count;
+	        var nOtherLineCount = Other.Lines.Count;
 
 	        if ( nOtherLineCount != Other.LineRects.Count)
             {
@@ -1365,13 +1365,13 @@ namespace GeoLib
             }
 
 
-            List<CLineBaseRect> LineSet= new List<CLineBaseRect>();
+            var LineSet= new List<CLineBaseRect>();
 
-	        for (int i = 0 ; i < nLineCount; i++)
+	        for (var i = 0 ; i < nLineCount; i++)
 	        {
 		        if ( LineRects[i].OverlapsAbove( OtherBoundingRect ) )
 		        {
-			        CLineBaseRect pNewLine = new CLineBaseRect();
+			        var pNewLine = new CLineBaseRect();
 			        pNewLine.Line = Lines[i] as C2DLine;
 			        pNewLine.Rect = LineRects[i];
 			        pNewLine.bSetFlag = true;
@@ -1379,36 +1379,36 @@ namespace GeoLib
 		        }
 	        }
 
-	        for (int i = 0 ; i < nOtherLineCount; i++)
+	        for (var i = 0 ; i < nOtherLineCount; i++)
 	        {
 		        if ( Other.LineRects[i].OverlapsBelow( this.BoundingRect ) )
 		        {
-			        CLineBaseRect pNewLine = new CLineBaseRect();
+			        var pNewLine = new CLineBaseRect();
 			        pNewLine.Line = Other.Lines[i] as C2DLine;
 			        pNewLine.Rect = Other.LineRects[i];
 			        pNewLine.bSetFlag = false;
                     LineSet.Add(pNewLine);
 		        }
 	        }
-            CLineBaseRectLeftToRight Comparitor = new CLineBaseRectLeftToRight();
+            var Comparitor = new CLineBaseRectLeftToRight();
             LineSet.Sort(Comparitor);
 
-	        bool bResult = false;
+	        var bResult = false;
 
-	        int j = 0;
+	        var j = 0;
             while (j < LineSet.Count)
 	        {
-		        int r = j + 1;
+		        var r = j + 1;
 
-                double dXLimit = LineSet[j].Rect.GetRight();
+                var dXLimit = LineSet[j].Rect.GetRight();
 
                 while (r < LineSet.Count &&
                        LineSet[r].Rect.GetLeft() < dXLimit)
 		        {
 			        double dDistTemp = 0;
-			        C2DPoint ptOnThisTemp =  new C2DPoint();
-			        C2DPoint ptOnOtherTemp =  new C2DPoint();
-			        bool bOverlap = false;
+			        var ptOnThisTemp =  new C2DPoint();
+			        var ptOnOtherTemp =  new C2DPoint();
+			        var bOverlap = false;
                     if (LineSet[j].bSetFlag)
 			        {
                         if (!LineSet[r].bSetFlag &&
@@ -1465,29 +1465,29 @@ namespace GeoLib
         public bool OverlapsVertically( C2DPolygon Other, ref double dVerticalDistance,
 										        C2DPoint ptOnThis, C2DPoint ptOnOther)
         {
-	        C2DRect OtherBoundingRect = Other.BoundingRect;
+	        var OtherBoundingRect = Other.BoundingRect;
 
 	        if ( !BoundingRect.OverlapsVertically( OtherBoundingRect)  )
 		        return false;
 
-	        int nLineCount = Lines.Count;
+	        var nLineCount = Lines.Count;
 
 	        if ( nLineCount != LineRects.Count)
 		        return false;
 
-	        int nOtherLineCount = Other.Lines.Count;
+	        var nOtherLineCount = Other.Lines.Count;
 
 	        if ( nOtherLineCount != Other.LineRects.Count)
 		        return false;
 
 
-            List<CLineBaseRect> LineSet = new List<CLineBaseRect>();
+            var LineSet = new List<CLineBaseRect>();
 
-	        for (int i = 0 ; i < nLineCount; i++)
+	        for (var i = 0 ; i < nLineCount; i++)
 	        {
 		        if ( LineRects[i].OverlapsVertically( OtherBoundingRect ) )
 		        {
-			        CLineBaseRect pNewLine = new CLineBaseRect();
+			        var pNewLine = new CLineBaseRect();
 			        pNewLine.Line = Lines[i] as C2DLine;
 			        pNewLine.Rect = LineRects[i];
 			        pNewLine.bSetFlag = true;
@@ -1495,11 +1495,11 @@ namespace GeoLib
 		        }
 	        }
 
-	        for (int i = 0 ; i < nOtherLineCount; i++)
+	        for (var i = 0 ; i < nOtherLineCount; i++)
 	        {
 		        if ( Other.LineRects[i].OverlapsVertically( this.BoundingRect ) )
 		        {
-			        CLineBaseRect pNewLine = new CLineBaseRect();
+			        var pNewLine = new CLineBaseRect();
 			        pNewLine.Line = Other.Lines[i] as C2DLine;
 			        pNewLine.Rect = Other.LineRects[i];
 			        pNewLine.bSetFlag = false;
@@ -1507,25 +1507,25 @@ namespace GeoLib
 		        }
 	        }
 
-            CLineBaseRectLeftToRight Comparitor = new CLineBaseRectLeftToRight();
+            var Comparitor = new CLineBaseRectLeftToRight();
             LineSet.Sort(Comparitor);
 
-	        bool bResult = false;
+	        var bResult = false;
 
-	        int j = 0;
+	        var j = 0;
 	        while (j < LineSet.Count)
 	        {
-		        int r = j + 1;
+		        var r = j + 1;
 
-		        double dXLimit = LineSet[j].Rect.GetRight();
+		        var dXLimit = LineSet[j].Rect.GetRight();
 
 		        while (r < LineSet.Count && 
 			           LineSet[r].Rect.GetLeft() < dXLimit)
 		        {
 			        double dDistTemp = 0;
-			        C2DPoint ptOnThisTemp = new C2DPoint();
-			        C2DPoint ptOnOtherTemp = new C2DPoint();
-			        bool bOverlap = false;
+			        var ptOnThisTemp = new C2DPoint();
+			        var ptOnOtherTemp = new C2DPoint();
+			        var bOverlap = false;
 			        if (  LineSet[j].bSetFlag )
 			        {
 				        if ( !LineSet[r].bSetFlag && 
@@ -1577,32 +1577,32 @@ namespace GeoLib
         /// <param name="dWidthToRight"></param>
         public void GetMinBoundingBox( C2DLine Line, ref double dWidthToRight)
         {
-	        int nCount = Lines.Count;
+	        var nCount = Lines.Count;
 	        if (nCount == 0)
 		        return;
 
 	        if (!IsConvex())
 	        {
-		        C2DPolygon CH = new C2DPolygon();
+		        var CH = new C2DPolygon();
 		        CH.CreateConvexHull( this );
 		        CH.GetMinBoundingBox( Line, ref dWidthToRight);
                 return;
 	        }
 
 
-	        int nP1 = 0;//index of vertex with minimum y-coordinate;
-	        int nP2 = 0;//index of vertex with maximum y-coordinate;
+	        var nP1 = 0;//index of vertex with minimum y-coordinate;
+	        var nP2 = 0;//index of vertex with maximum y-coordinate;
 
- 	        int nP3 = 0;//index of vertex with minimum x-coordinate;
-	        int nP4 = 0;//index of vertex with maximum x-coordinate;
+ 	        var nP3 = 0;//index of vertex with minimum x-coordinate;
+	        var nP4 = 0;//index of vertex with maximum x-coordinate;
 
 	        double dMinY = Lines[0].GetPointFrom().y;
-	        double dMaxY = dMinY;
+	        var dMaxY = dMinY;
 
 	        double dMinX = Lines[0].GetPointFrom().x;
-	        double dMaxX = dMinX;
+	        var dMaxX = dMinX;
 
-	        for ( int i = 1 ; i < Lines.Count; i++)
+	        for ( var i = 1 ; i < Lines.Count; i++)
 	        {
 		        C2DPoint pt = Lines[i].GetPointFrom();
 		        if (pt.y < dMinY)
@@ -1630,7 +1630,7 @@ namespace GeoLib
 
 
 	        double dRotatedAngle = 0;
-	        double dMinArea = 1.7E+308;
+	        var dMinArea = 1.7E+308;
          
         // 222222
         // 3	4
@@ -1638,15 +1638,15 @@ namespace GeoLib
         // 3    4
         // 111111
 
-	        C2DLine Caliper1 = new C2DLine( Lines[nP1].GetPointFrom(), new C2DVector(-1,0) );    // Caliper 1 points along the negative x-axis
-            C2DLine Caliper2 = new C2DLine(Lines[nP2].GetPointFrom(), new C2DVector(1, 0));   // Caliper 2 points along the positive x-axis
+	        var Caliper1 = new C2DLine( Lines[nP1].GetPointFrom(), new C2DVector(-1,0) );    // Caliper 1 points along the negative x-axis
+            var Caliper2 = new C2DLine(Lines[nP2].GetPointFrom(), new C2DVector(1, 0));   // Caliper 2 points along the positive x-axis
 
-            C2DLine Caliper3 = new C2DLine(Lines[nP3].GetPointFrom(), new C2DVector(0, 1));    // Caliper 3 points along the positive y-axis
-            C2DLine Caliper4 = new C2DLine(Lines[nP4].GetPointFrom(), new C2DVector(0, -1));   // Caliper 4 points along the negative y-axis
+            var Caliper3 = new C2DLine(Lines[nP3].GetPointFrom(), new C2DVector(0, 1));    // Caliper 3 points along the positive y-axis
+            var Caliper4 = new C2DLine(Lines[nP4].GetPointFrom(), new C2DVector(0, -1));   // Caliper 4 points along the negative y-axis
 
 	        while( dRotatedAngle < Constants.conPI)
 	        {
-                int nMod = Lines.Count;
+                var nMod = Lines.Count;
    		        // Determine the angle between each caliper and the next adjacent edge in the polygon
 		        double dAngle1 = Caliper1.vector.AngleToRight( (Lines[ nP1%nMod] as C2DLine).vector);
                 double dAngle2 = Caliper2.vector.AngleToRight((Lines[ nP2%nMod] as C2DLine ).vector);
@@ -1689,10 +1689,10 @@ namespace GeoLib
 		        Caliper4.vector.TurnRight( dMinAngle);
 
 
-		        double dWidth1 = Caliper1.DistanceAsRay( Caliper2.point );		
-		        double dWidth2 = Caliper3.DistanceAsRay( Caliper4.point );	
+		        var dWidth1 = Caliper1.DistanceAsRay( Caliper2.point );		
+		        var dWidth2 = Caliper3.DistanceAsRay( Caliper4.point );	
         	
-		        double dArea = dWidth1 * dWidth2;
+		        var dArea = dWidth1 * dWidth2;
 
 		        if (dArea < dMinArea)
 		        {

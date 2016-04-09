@@ -24,7 +24,7 @@ namespace GeoLib
         {
             Clear();
 
-            for (int i = 0; i < Points.Count; i++)
+            for (var i = 0; i < Points.Count; i++)
             {
                 this.AddLast(Points[i]);
 
@@ -37,7 +37,7 @@ namespace GeoLib
         /// </summary>
         public void ExtractPoints(List<C2DPoint> Points)
         {
-            LinkedListNode<C2DPoint> Iter = First;
+            var Iter = First;
             while ( Iter != null)
             {
                 Points.Add(Iter.Value);
@@ -69,11 +69,11 @@ namespace GeoLib
             ptH1 = First.Value;
             ptH2 = First.Next.Value;
 
-            LinkedListNode<C2DPoint> IterInsert = First.Next;
-            LinkedListNode<C2DPoint> Iter = First.Next;
+            var IterInsert = First.Next;
+            var Iter = First.Next;
 	        // Find the assumed minimum distance expansion. i.e. if we insert the point
 	        // between the first and second points what is the increase in the route.
-	        double dMinExp = ptH1.Distance(pt) + pt.Distance(ptH2) - ptH1.Distance(ptH2);
+	        var dMinExp = ptH1.Distance(pt) + pt.Distance(ptH2) - ptH1.Distance(ptH2);
 
 	        // Now go through all the other positions and do the same test, recording the
 	        // optimal position.
@@ -84,7 +84,7 @@ namespace GeoLib
 		        ptH1 = ptH2;
 		        ptH2 = Iter.Value;
 
-		        double dExp = ptH1.Distance(pt) + pt.Distance(ptH2) - ptH1.Distance(ptH2);
+		        var dExp = ptH1.Distance(pt) + pt.Distance(ptH2) - ptH1.Distance(ptH2);
 		        if (dExp < dMinExp)
 		        {
 			        dMinExp = dExp;
@@ -106,18 +106,18 @@ namespace GeoLib
 	        if (Count < 2)
 		        return;
 
-	        bool bRepeat = true;
+	        var bRepeat = true;
 
-	        int nIt = 0;
+	        var nIt = 0;
 
 	        while (bRepeat && nIt < conMaxIterations)
 	        {
 		        nIt++;
-                LinkedListNode<C2DPoint> IterRemove = First;
+                var IterRemove = First;
 		   //     std::list<C2DPoint*>::iterator IterRemove = m_Points->begin(); // The item considered for removal.
 		        IterRemove = IterRemove.Next;
           //    IterRemove++; // We don't want to remove the first point
-                LinkedListNode<C2DPoint> IterRemoveLimit = Last;
+                var IterRemoveLimit = Last;
 		   //     std::list<C2DPoint*>::iterator IterRemoveLimit = m_Points->end(); // The last item considered for removal.
 		    //    IterRemoveLimit = IterRemoveLimit.Previous; // No Need
            //    IterRemoveLimit--; // We don't want to remove the end. (This IS the end but we won't go that far)
@@ -126,13 +126,13 @@ namespace GeoLib
 		        while (IterRemove != IterRemoveLimit)
 		        {
 
-                    LinkedListNode<C2DPoint> IterInsert = IterRemove;
+                    var IterInsert = IterRemove;
 			        // Move back along the list untill we find a better place. Only go so far.
 			     //   std::list<C2DPoint*>::iterator IterInsert = IterRemove; // The item considered for a new place.
                     IterInsert = IterInsert.Previous;
               //    IterInsert--;
-			        int nCountBack = 1;
-			        bool bFound = false;
+			        var nCountBack = 1;
+			        var bFound = false;
                     LinkedListNode<C2DPoint> IterRemoveBefore;
                     LinkedListNode<C2DPoint> IterRemoveAfter;
                     LinkedListNode<C2DPoint> IterInsertBefore;
@@ -153,15 +153,15 @@ namespace GeoLib
 
 	        //			assert((**IterRemove) != (**IterInsert));
 
-				        double dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) + 
+				        var dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) + 
 										        IterRemove.Value.Distance(IterRemoveAfter.Value) +
 										        IterInsertBefore.Value.Distance(IterInsert.Value);
-				        double dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
+				        var dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
 										        IterInsertBefore.Value.Distance(IterRemove.Value) +
 										        IterRemove.Value.Distance(IterInsert.Value);
 				        if (dNewPerimPart < dCurrentPerimPart)
 				        {
-					        C2DPoint ptRemove = IterRemove.Value;
+					        var ptRemove = IterRemove.Value;
                             this.Remove(IterRemove);
                             this.AddBefore(IterInsert, ptRemove);
 					   //     m_Points->erase(IterRemove);
@@ -175,7 +175,7 @@ namespace GeoLib
 			        }
         			
 			        // Now go forward along the list untill we find a better place. Only go so far.
-			        int nCountForward = 2;
+			        var nCountForward = 2;
 			        IterInsert = IterRemove; // The item considered for a new place.
                     IterInsert = IterInsert.Next;
 			        if (IterInsert != null)
@@ -194,15 +194,15 @@ namespace GeoLib
 
         //				assert((**IterRemove) != (**IterInsert));
 
-				        double dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) + 
+				        var dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) + 
 										        IterRemove.Value.Distance(IterRemoveAfter.Value) +
 										        IterInsertBefore.Value.Distance(IterInsert.Value);
-				        double dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
+				        var dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
 										       IterInsertBefore.Value.Distance(IterRemove.Value) +
 										        IterRemove.Value.Distance(IterInsert.Value);
 				        if (dNewPerimPart  < dCurrentPerimPart)
 				        {
-					        C2DPoint ptRemove = IterRemove.Value;
+					        var ptRemove = IterRemove.Value;
                             this.Remove( IterRemove );
                             this.AddBefore(  IterInsert, ptRemove );
 					   //     m_Points->erase(IterRemove);
@@ -231,11 +231,11 @@ namespace GeoLib
         /// </summary>
         public void Refine2()
         {
-	        int nSize = Count;
+	        var nSize = Count;
 	        if (nSize < 4)
 		        return;
 
-            LinkedListNode<C2DPoint> Iter = First;
+            var Iter = First;
             LinkedListNode<C2DPoint> Iter1;
             LinkedListNode<C2DPoint> Iter2;
             LinkedListNode<C2DPoint> Iter3;
@@ -244,12 +244,12 @@ namespace GeoLib
 	    //    std::list<C2DPoint*>::iterator Iter1;
 	    //    std::list<C2DPoint*>::iterator Iter2;
 	    //    std::list<C2DPoint*>::iterator Iter3;
-	        int nIndex = 0;
-	        int nIndexLimit = nSize - 3;
+	        var nIndex = 0;
+	        var nIndexLimit = nSize - 3;
 
-	        bool bRepeat = true;
+	        var bRepeat = true;
 
-	        int nIt = 0;
+	        var nIt = 0;
 
 	        while (bRepeat && nIt < conMaxIterations)
 	        {
@@ -267,17 +267,17 @@ namespace GeoLib
 			        Iter3 = Iter3.Next;
 			        Iter3 = Iter3.Next;
 
-			        double dCurrentPerimPart = Iter.Value.Distance(Iter1.Value) + 
+			        var dCurrentPerimPart = Iter.Value.Distance(Iter1.Value) + 
 										       Iter1.Value.Distance(Iter2.Value) +
 										       Iter2.Value.Distance(Iter3.Value);
 
-			        double dNewPerimPart = Iter.Value.Distance(Iter2.Value) +
+			        var dNewPerimPart = Iter.Value.Distance(Iter2.Value) +
 										        Iter2.Value.Distance(Iter1.Value) +
 										        Iter1.Value.Distance(Iter3.Value);
 
 			        if (dCurrentPerimPart > dNewPerimPart)
 			        {
-				        C2DPoint pRem = Iter2.Value;
+				        var pRem = Iter2.Value;
                         this.Remove(Iter2);
                         this.AddBefore(Iter1, pRem);
 				  //      m_Points->erase(Iter2);
@@ -302,9 +302,9 @@ namespace GeoLib
 	        if (Count < 2)
 		        return;
 
-            LinkedListNode<C2DPoint> IterRemove = First;
+            var IterRemove = First;
             IterRemove = IterRemove.Next;
-            LinkedListNode<C2DPoint> IterRemoveLimit = Last;
+            var IterRemoveLimit = Last;
 
 	   //     std::list<C2DPoint*>::iterator IterRemove = m_Points->begin(); // The item considered for removal.
 	   //     IterRemove++; // We don't want to remove the first point
@@ -314,7 +314,7 @@ namespace GeoLib
 
 	        while (IterRemove != IterRemoveLimit)
 	        {
-                LinkedListNode<C2DPoint> IterInsert = First;
+                var IterInsert = First;
                 IterInsert = IterInsert.Next;
             //    LinkedListNode<C2DPoint> IterInsertLimit = First;
 
@@ -331,11 +331,11 @@ namespace GeoLib
 				        continue; // No point removing it and putting back in the same place.
 			        }
 
-                    LinkedListNode<C2DPoint> IterRemoveBefore = IterRemove;
+                    var IterRemoveBefore = IterRemove;
                     IterRemoveBefore = IterRemoveBefore.Previous;
-                    LinkedListNode<C2DPoint> IterRemoveAfter = IterRemove;
+                    var IterRemoveAfter = IterRemove;
                     IterRemoveAfter = IterRemoveAfter.Next;
-                    LinkedListNode<C2DPoint> IterInsertBefore = IterInsert;
+                    var IterInsertBefore = IterInsert;
                     IterInsertBefore = IterInsertBefore.Previous;
 
 
@@ -346,15 +346,15 @@ namespace GeoLib
 			  //      std::list<C2DPoint*>::iterator IterInsertBefore = IterInsert;
 			//        IterInsertBefore -- ;// This is the point before the potential insertion point.
 
-                    double dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) +
+                    var dCurrentPerimPart = IterRemoveBefore.Value.Distance(IterRemove.Value) +
                                                IterRemove.Value.Distance(IterRemoveAfter.Value) +
                                                IterInsertBefore.Value.Distance(IterInsert.Value);
-                    double dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
+                    var dNewPerimPart = IterRemoveBefore.Value.Distance(IterRemoveAfter.Value) +
                                             IterInsertBefore.Value.Distance(IterRemove.Value) +
                                             IterRemove.Value.Distance(IterInsert.Value);
 			        if (dNewPerimPart < dCurrentPerimPart)
 			        {
-                        C2DPoint ptRemove = IterRemove.Value;
+                        var ptRemove = IterRemove.Value;
                         this.Remove(IterRemove);
                         this.AddBefore(IterInsert, ptRemove);
 
@@ -381,17 +381,17 @@ namespace GeoLib
                 return;
 
             // Take out the start.
-            C2DPoint pStart = First.Value;
+            var pStart = First.Value;
             this.RemoveFirst();
           //  m_Points->pop_front();
 
             // Take out the end.
-            C2DPoint pEnd = Last.Value;
+            var pEnd = Last.Value;
             this.RemoveLast();
         //    m_Points->pop_back();
 
             // Take all the rest out.
-            C2DPointSet Points = new C2DPointSet();
+            var Points = new C2DPointSet();
             this.ExtractPoints(Points);
 
             // Put the ends back in.

@@ -106,7 +106,7 @@ namespace GeoLib
         /// </summary>
         public void TurnRight()
         {
-            double tempi = i;
+            var tempi = i;
             i = j;
             j = -tempi;
         }
@@ -125,7 +125,7 @@ namespace GeoLib
         /// </summary>
         public void TurnLeft()
         {
-            double tempi = i;
+            var tempi = i;
             i = -j;
             j = tempi;
         }
@@ -136,7 +136,7 @@ namespace GeoLib
         /// <param name="dAng">Angle to turn through.</param>
         public void TurnLeft(double dAng)
         {
-            double temp = i;
+            var temp = i;
 
             i = Math.Cos(dAng) * i - Math.Sin(dAng) * j;
             j = Math.Sin(dAng) * temp + Math.Cos(dAng) * j;
@@ -166,7 +166,7 @@ namespace GeoLib
         /// </summary>
         public void MakeUnit()
         {
-            double dDistance = GetLength();
+            var dDistance = GetLength();
             if (dDistance == 0) 
                 return;
             i = i / dDistance;
@@ -178,7 +178,7 @@ namespace GeoLib
         /// </summary>
         public static C2DVector operator+(C2DVector V1, C2DVector V2)
         {
-            C2DVector V3 = new C2DVector(V1.i + V2.i, V1.j + V2.j);
+            var V3 = new C2DVector(V1.i + V2.i, V1.j + V2.j);
             return V3;
         }
 
@@ -187,7 +187,7 @@ namespace GeoLib
         /// </summary>
         public static C2DVector operator-(C2DVector V1, C2DVector V2)
         {
-            C2DVector V3 = new C2DVector(V1.i - V2.i, V1.j - V2.j);
+            var V3 = new C2DVector(V1.i - V2.i, V1.j - V2.j);
             return V3;
         }
 
@@ -265,7 +265,7 @@ namespace GeoLib
                     return Constants.conPI;
             }
 
-            double ang = Math.Atan(i / j);
+            var ang = Math.Atan(i / j);
 
             if (j < 0) ang += Constants.conPI;
             else if (i < 0) ang += 2 * Constants.conPI;
@@ -278,7 +278,7 @@ namespace GeoLib
         /// </summary>
 	    public double AngleToRight(C2DVector Other)
         {
-            double Result = Other.AngleFromNorth() - AngleFromNorth();
+            var Result = Other.AngleFromNorth() - AngleFromNorth();
             if (Result < 0) Result += Constants.conTWOPI;
 
             return Result;
@@ -297,7 +297,7 @@ namespace GeoLib
         /// </summary>
 	    public double AngleBetween(C2DVector Other)
         {
-            double dDot = this.Dot(Other);
+            var dDot = this.Dot(Other);
             dDot /= (this.GetLength() * Other.GetLength());
             return Math.Acos(dDot);
         }

@@ -155,9 +155,9 @@ namespace GeoLib
         public void Set(C2DLine ArcLine, C2DPoint ptOnArc)
         {
             Line.Set(ArcLine);
-	        C2DPoint ptTo = new C2DPoint(Line.GetPointTo());
+	        var ptTo = new C2DPoint(Line.GetPointTo());
 
-	        C2DCircle Circle = new C2DCircle();
+	        var Circle = new C2DCircle();
 	        Circle.SetCircumscribed( Line.point , ptTo,  ptOnArc) ;
 	        Radius = Line.point.Distance( Circle.Centre );
 	        ArcOnRight = Line.IsOnRight(ptOnArc);
@@ -189,12 +189,12 @@ namespace GeoLib
 	        if (!IsValid() ) 
 		        return new C2DPoint(0, 0);
 
-	        C2DPoint MidPoint = new C2DPoint(Line.GetMidPoint());
-	        double dMinToStart = MidPoint.Distance( Line.point);
+	        var MidPoint = new C2DPoint(Line.GetMidPoint());
+	        var dMinToStart = MidPoint.Distance( Line.point);
 
-	        double dMidToCentre = Math.Sqrt( Radius * Radius - dMinToStart * dMinToStart);
+	        var dMidToCentre = Math.Sqrt( Radius * Radius - dMinToStart * dMinToStart);
 
-	        C2DVector MidToCentre = new C2DVector(Line.vector);
+	        var MidToCentre = new C2DVector(Line.vector);
 	        if ( CentreOnRight) 
                 MidToCentre.TurnRight();
 	        else 
@@ -229,8 +229,8 @@ namespace GeoLib
 	        if (!IsValid()) 
                 return;
 
-	        C2DPoint CentrePoint = new C2DPoint( GetCircleCentre());
-	        C2DPoint EndPoint = new C2DPoint( Line.GetPointTo());
+	        var CentrePoint = new C2DPoint( GetCircleCentre());
+	        var EndPoint = new C2DPoint( Line.GetPointTo());
 
 	        // First set up the rect that bounds the 2 points then check for if the arc expands this.
 	        Line.GetBoundingRect( Rect);
@@ -367,11 +367,11 @@ namespace GeoLib
         /// <param name="IntersectionPts">The interection point list to recieve the result.</param>
         public bool Crosses(C2DLine TestLine,  List<C2DPoint> IntersectionPts)
         {
-	        List<C2DPoint> IntPtsTemp = new List<C2DPoint>();
-	        C2DCircle TestCircle = new C2DCircle(GetCircleCentre(), Radius);
+	        var IntPtsTemp = new List<C2DPoint>();
+	        var TestCircle = new C2DCircle(GetCircleCentre(), Radius);
             if (TestCircle.Crosses(TestLine,  IntPtsTemp))
 	        {
-		        for (int i = IntPtsTemp.Count - 1 ; i >= 0  ; i--)
+		        for (var i = IntPtsTemp.Count - 1 ; i >= 0  ; i--)
 		        {
                     if (Line.IsOnRight(IntPtsTemp[i]) ^ ArcOnRight ||
                         IntPtsTemp[i].PointEqualTo( Line.point) ||
@@ -406,15 +406,15 @@ namespace GeoLib
         /// <param name="IntersectionPts">The interection point list to recieve the result.</param>
         public bool Crosses(C2DArc Other,   List<C2DPoint> IntersectionPts) 
         {
-	        C2DCircle TestCircleThis = new C2DCircle (GetCircleCentre(), Radius);
-	        C2DCircle TestCircleOther= new C2DCircle (Other.GetCircleCentre(), Other.Radius);
+	        var TestCircleThis = new C2DCircle (GetCircleCentre(), Radius);
+	        var TestCircleOther= new C2DCircle (Other.GetCircleCentre(), Other.Radius);
 
-	        List<C2DPoint> IntPtsTemp = new List<C2DPoint>();
+	        var IntPtsTemp = new List<C2DPoint>();
 
 	        if (TestCircleThis.Crosses(TestCircleOther,  IntPtsTemp))
 	        {
 
-		        for (int i = IntPtsTemp.Count - 1; i >= 0 ; i--)
+		        for (var i = IntPtsTemp.Count - 1; i >= 0 ; i--)
 		        {
 			        if ((Line.IsOnRight(IntPtsTemp[i]) ^ ArcOnRight) ||
 				        Other.Line.IsOnRight(IntPtsTemp[i]) ^ Other.ArcOnRight ||
@@ -455,8 +455,8 @@ namespace GeoLib
         /// <param name="IntersectionPts">The interection point list to recieve the result.</param>
         public bool CrossesRay(C2DLine Ray,   List<C2DPoint> IntersectionPts) 
         {
-	        double dDist = Ray.point.Distance(GetCircleCentre());
-	        C2DLine RayCopy = new C2DLine(Ray);
+	        var dDist = Ray.point.Distance(GetCircleCentre());
+	        var RayCopy = new C2DLine(Ray);
 	        // Ensure the copy line will go through the circle if the ray would.
 	        RayCopy.vector.SetLength((dDist + Radius) * 2);
 
@@ -470,7 +470,7 @@ namespace GeoLib
         /// <param name="TestPoint">The test point.</param>
         public override double Distance(C2DPoint TestPoint) 
         {
-            C2DPoint pt = new C2DPoint();
+            var pt = new C2DPoint();
 	        return Distance(TestPoint,  pt);
         }
 
@@ -481,16 +481,16 @@ namespace GeoLib
         /// <param name="ptOnThis">The closest point on this to the given point as a returned value.</param>
         public override double Distance(C2DPoint TestPoint,  C2DPoint ptOnThis) 
         {
-	        C2DPoint ptCen = new C2DPoint( GetCircleCentre());
-	        C2DCircle Circle = new C2DCircle(ptCen, Radius);
-	        C2DPoint ptOnCircle = new C2DPoint();
-	        double dCircleDist = Circle.Distance(TestPoint,  ptOnCircle);
+	        var ptCen = new C2DPoint( GetCircleCentre());
+	        var Circle = new C2DCircle(ptCen, Radius);
+	        var ptOnCircle = new C2DPoint();
+	        var dCircleDist = Circle.Distance(TestPoint,  ptOnCircle);
 
 	        if (ArcOnRight ^ Line.IsOnRight(ptOnCircle))
 	        {
 		        // The closest point on the circle isn't on the curve
-		        double d1 = TestPoint.Distance(Line.point);
-		        double d2 = TestPoint.Distance(Line.GetPointTo());
+		        var d1 = TestPoint.Distance(Line.point);
+		        var d2 = TestPoint.Distance(Line.GetPointTo());
         		
 		        if (d1 < d2)
 		        {
@@ -521,18 +521,18 @@ namespace GeoLib
         /// <param name="ptOnOther">The closest point on the other to this as a returned value.</param>     
         public double Distance(C2DArc Other,  C2DPoint ptOnThis,  C2DPoint ptOnOther)
         {
-	        List<C2DPoint> IntPts1 = new List<C2DPoint>();
-	        List<C2DPoint> IntPts2 = new List<C2DPoint>();
+	        var IntPts1 = new List<C2DPoint>();
+	        var IntPts2 = new List<C2DPoint>();
 
-	        C2DPoint ptThisCen = new C2DPoint( GetCircleCentre() );
-	        C2DPoint ptOtherCen = new C2DPoint(Other.GetCircleCentre());
+	        var ptThisCen = new C2DPoint( GetCircleCentre() );
+	        var ptOtherCen = new C2DPoint(Other.GetCircleCentre());
 
-	        C2DCircle CircleThis = new C2DCircle( ptThisCen, Radius);
-	        C2DCircle CircleOther = new C2DCircle( ptOtherCen, Other.Radius );
+	        var CircleThis = new C2DCircle( ptThisCen, Radius);
+	        var CircleOther = new C2DCircle( ptOtherCen, Other.Radius );
 
 	        if (CircleThis.Crosses(  CircleOther ,  IntPts1 ) )
 	        {
-		        for (int i = 0; i < IntPts1.Count; i++)
+		        for (var i = 0; i < IntPts1.Count; i++)
 		        {
 			        if (  (Line.IsOnRight( IntPts1[i] ) == ArcOnRight ) &&
 				          (Other.Line.IsOnRight( IntPts1[i] ) == Other.ArcOnRight )     )
@@ -547,19 +547,19 @@ namespace GeoLib
 	        }
 
 
-	        C2DLine LineCenToOther = new C2DLine();
+	        var LineCenToOther = new C2DLine();
 	        LineCenToOther.point = new C2DPoint(ptThisCen);
 	        LineCenToOther.vector = new C2DVector(ptThisCen, ptOtherCen);
 	        LineCenToOther.GrowFromCentre( Math.Max(Radius, Other.Radius) * 10);
 
-	        double dMinDist = 1.7E308;
+	        var dMinDist = 1.7E308;
 	        double dDist = 0;
 
 	        if ( Crosses(LineCenToOther,  IntPts1) && Other.Crosses(LineCenToOther,  IntPts2))
 	        {
-		        for (int i = 0 ; i < IntPts1.Count; i++)
+		        for (var i = 0 ; i < IntPts1.Count; i++)
 		        {
-			        for (int j = 0 ; j < IntPts2.Count; j++)
+			        for (var j = 0 ; j < IntPts2.Count; j++)
 			        {
 				        dDist = IntPts1[i].Distance(IntPts2[j]);
 				        if (dDist < dMinDist)
@@ -573,7 +573,7 @@ namespace GeoLib
 		        }
 	        }
 
-	        C2DPoint ptOnThisTemp = new C2DPoint();
+	        var ptOnThisTemp = new C2DPoint();
 	        dDist = Distance(Other.GetPointFrom(),  ptOnThisTemp);
 	        if (dDist < dMinDist)
 	        {
@@ -592,7 +592,7 @@ namespace GeoLib
 		        dMinDist = dDist;
 	        }
 
-	        C2DPoint ptOnOtherTemp = new C2DPoint();
+	        var ptOnOtherTemp = new C2DPoint();
 	        dDist = Other.Distance(GetPointFrom(),  ptOnOtherTemp);
 	        if (dDist < dMinDist)
 	        {
@@ -621,9 +621,9 @@ namespace GeoLib
         /// <param name="ptOnOther">The closest point on the other to this as a returned value.</param>   
         public double Distance(C2DLine TestLine,  C2DPoint ptOnThis,  C2DPoint ptOnOther) 
         {
-	        C2DCircle Circle = new C2DCircle( GetCircleCentre(), Radius);
+	        var Circle = new C2DCircle( GetCircleCentre(), Radius);
 
-            double dCircDist = Circle.Distance(TestLine,  ptOnThis,  ptOnOther);
+            var dCircDist = Circle.Distance(TestLine,  ptOnThis,  ptOnOther);
 	        double dDist = 0;
 
             if (TestLine.IsOnRight(ptOnThis) ^ ArcOnRight)
@@ -634,9 +634,9 @@ namespace GeoLib
                 ptOnThis.Set(Line.point);
                 dDist = TestLine.Distance(ptOnThis,  ptOnOther);
 
-                C2DPoint ptThisTemp = new C2DPoint(Line.GetPointTo());
-		        C2DPoint ptOtherTemp = new C2DPoint();
-                double d2 = TestLine.Distance(ptThisTemp,  ptOtherTemp);
+                var ptThisTemp = new C2DPoint(Line.GetPointTo());
+		        var ptOtherTemp = new C2DPoint();
+                var d2 = TestLine.Distance(ptThisTemp,  ptOtherTemp);
 		        if (d2 < dDist)
 		        {
 			        dDist = d2;
@@ -647,14 +647,14 @@ namespace GeoLib
 		        // This is because the closest point on this must be one of the end points.
 		        if (dCircDist < 0)
 		        {
-                    double d3 = Distance(TestLine.point,  ptThisTemp);
+                    var d3 = Distance(TestLine.point,  ptThisTemp);
 			        if (d3 < dDist)
 			        {
 				        dDist = d3;
                         ptOnThis.Set(ptThisTemp);
                         ptOnOther.Set(Line.point);
 			        }
-                    double d4 = Distance(TestLine.GetPointTo(),  ptThisTemp);
+                    var d4 = Distance(TestLine.GetPointTo(),  ptThisTemp);
 			        if (d4 < dDist)
 			        {
 				        dDist = d4;
@@ -710,15 +710,15 @@ namespace GeoLib
        /// <param name="Interval">The interval to recieve the result.</param>
         public override void Project(C2DLine TestLine,  CInterval Interval) 
         {
-	        C2DArc ThisCopy = new C2DArc(this);
-            C2DLine LineCopy = new C2DLine(TestLine);
+	        var ThisCopy = new C2DArc(this);
+            var LineCopy = new C2DLine(TestLine);
 
-	        double dAng = LineCopy.vector.AngleFromNorth();
+	        var dAng = LineCopy.vector.AngleFromNorth();
 
 	        LineCopy.vector.TurnLeft(dAng);
 	        ThisCopy.RotateToRight( -dAng, LineCopy.point);
 
-	        C2DRect rect = new C2DRect();
+	        var rect = new C2DRect();
 	        ThisCopy.GetBoundingRect( rect);
 
             Interval.dMax = rect.GetTop() - LineCopy.point.y;
@@ -738,15 +738,15 @@ namespace GeoLib
         /// <param name="Interval">The interval to recieve the result.</param>
         public override void Project(C2DVector Vector,  CInterval Interval)
         {
-	        C2DArc ThisCopy = new C2DArc(this);
-	        C2DVector VecCopy = new C2DVector(Vector);
+	        var ThisCopy = new C2DArc(this);
+	        var VecCopy = new C2DVector(Vector);
 
-	        double dAng = VecCopy.AngleFromNorth();
+	        var dAng = VecCopy.AngleFromNorth();
 
 	        VecCopy.TurnLeft(dAng);
 	        ThisCopy.RotateToRight( -dAng, new C2DPoint(0, 0));
 
-	        C2DRect rect = new C2DRect();
+	        var rect = new C2DRect();
 	        ThisCopy.GetBoundingRect( rect);
 
 	        Interval.dMax = rect.GetTop() - VecCopy.j;
@@ -762,11 +762,11 @@ namespace GeoLib
         {
 	        Debug.Assert(IsValid(), "Invalid arc defined, cannot calculate midpoint");
 	        // Make a line from the circle centre to the middle of the line
-	        C2DPoint ptCentre = new C2DPoint(GetCircleCentre());
+	        var ptCentre = new C2DPoint(GetCircleCentre());
 
-	        C2DPoint ptLineCentre = new C2DPoint(Line.GetMidPoint());
+	        var ptLineCentre = new C2DPoint(Line.GetMidPoint());
 
-	        C2DLine CenToMid = new C2DLine(ptCentre, ptLineCentre);
+	        var CenToMid = new C2DLine(ptCentre, ptLineCentre);
 
 	        if ( CenToMid.vector.i == 0 && CenToMid.vector.j == 0)
 	        {
@@ -801,25 +801,25 @@ namespace GeoLib
         {
 	        Debug.Assert(IsValid(), "Invalid arc defined, function failure." );
 	        // make 2 lines from the centre to the ends of the line
-	        C2DPoint ptCentre = new C2DPoint(GetCircleCentre());
+	        var ptCentre = new C2DPoint(GetCircleCentre());
 
-	        C2DLine CenToStart = new C2DLine(ptCentre, Line.point);
+	        var CenToStart = new C2DLine(ptCentre, Line.point);
 
-	        C2DLine CenToEnd = new C2DLine(ptCentre, Line.GetPointTo());
+	        var CenToEnd = new C2DLine(ptCentre, Line.GetPointTo());
 
 	        if ( !ArcOnRight)	// clockwise
 	        {
 		        // Find the angle from one to the other and muliply it by the factor
 		        // before turning the line's vector by the result.
-		        double dAngleToRight = CenToStart.vector.AngleToRight( CenToEnd.vector );
-		        double dNewAngle = dAngleToRight* dFactorFromStart;
+		        var dAngleToRight = CenToStart.vector.AngleToRight( CenToEnd.vector );
+		        var dNewAngle = dAngleToRight* dFactorFromStart;
 		        CenToStart.vector.TurnRight( dNewAngle );
 		        return CenToStart.GetPointTo();
 	        }
 	        else	// anticlockwise
 	        {
-		        double dAngleToLeft = CenToStart.vector.AngleToLeft( CenToEnd.vector );
-		        double dNewAngle = dAngleToLeft* dFactorFromStart;
+		        var dAngleToLeft = CenToStart.vector.AngleToLeft( CenToEnd.vector );
+		        var dNewAngle = dAngleToLeft* dFactorFromStart;
 		        CenToStart.vector.TurnLeft( dNewAngle );
 		        return CenToStart.GetPointTo();
 	        }
@@ -895,7 +895,7 @@ namespace GeoLib
         {
             
 	        // if there are no points on the line to split on then add a copy of this and return.
-	        int usPointsCount = PtsOnLine.Count;
+	        var usPointsCount = PtsOnLine.Count;
 	        if (usPointsCount == 0 )
 	        {
 		        LineSet.Add(new C2DArc(this));
@@ -904,13 +904,13 @@ namespace GeoLib
 	        else
 	        {
 		        // Make a copy of the points for sorting.
-		        C2DPointSet TempPts = new C2DPointSet();
+		        var TempPts = new C2DPointSet();
 		        TempPts.MakeCopy(PtsOnLine);
 
 		        if (usPointsCount > 1) // They need sorting
 		        {
 			        // Make a line from the mid point of my line to the start
-			        C2DLine CenToStart = new C2DLine( Line.GetMidPoint(), Line.point );
+			        var CenToStart = new C2DLine( Line.GetMidPoint(), Line.point );
 			        // Now sort the points according to the order in which they will be encountered
 			        if (ArcOnRight)
 				        TempPts.SortByAngleToLeft( CenToStart );
@@ -918,15 +918,15 @@ namespace GeoLib
 				        TempPts.SortByAngleToRight( CenToStart );
 		        }
 
-		        C2DPoint ptCentre = new C2DPoint(GetCircleCentre());
+		        var ptCentre = new C2DPoint(GetCircleCentre());
 
 		        // Add the line from the start of this to the first.
-		        C2DLine NewLine = new C2DLine( Line.point, TempPts[0] );
+		        var NewLine = new C2DLine( Line.point, TempPts[0] );
                 LineSet.Add(new C2DArc(NewLine, Radius,
                                           NewLine.IsOnRight(ptCentre), ArcOnRight));
 
 		        // Add all the sub lines.
-		        for (int i = 1; i < usPointsCount; i++)
+		        for (var i = 1; i < usPointsCount; i++)
 		        {
                     NewLine.Set(TempPts[i - 1], TempPts[i]);
                     LineSet.Add(new C2DArc(NewLine, Radius,
@@ -948,7 +948,7 @@ namespace GeoLib
         {
             Line.SnapToGrid(grid);
 
-            double dLength = Line.vector.GetLength();
+            var dLength = Line.vector.GetLength();
 
             if (dLength > (2 * Radius))
             {

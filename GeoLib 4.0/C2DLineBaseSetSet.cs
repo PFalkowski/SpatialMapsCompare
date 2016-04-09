@@ -24,7 +24,7 @@ namespace GeoLib
         /// <param name="S2">The other set.</param>
         public void ExtractAllOf(List<C2DLineBaseSet> S2)
         {
-            for (int i = 0; i < S2.Count; i++)
+            for (var i = 0; i < S2.Count; i++)
             {
                 Add(S2[i]);
             }
@@ -37,7 +37,7 @@ namespace GeoLib
         /// <param name="nIndex">The index to extract at.</param>
         public C2DLineBaseSet ExtractAt(int nIndex)
         {
-            C2DLineBaseSet Result = this[nIndex];
+            var Result = this[nIndex];
             this.RemoveAt(nIndex);
             return Result;
         }
@@ -46,17 +46,17 @@ namespace GeoLib
         /// </summary>
 	    public void MergeJoining()
         {
-	        C2DLineBaseSetSet Temp = new C2DLineBaseSetSet();
+	        var Temp = new C2DLineBaseSetSet();
 
 	        while (Count > 0)
 	        {
 		        // pop the last one.
-		        C2DLineBaseSet pLast = this[Count - 1];
+		        var pLast = this[Count - 1];
                 this.RemoveAt(Count - 1);
 
 		        if (!pLast.IsClosed(true))
 		        {
-			        int i = 0 ;
+			        var i = 0 ;
 			        while ( i < Count )
 			        {
 				        if ( ! this[i].IsClosed(true))
@@ -117,13 +117,13 @@ namespace GeoLib
         /// <param name="Other">The other set.</param>
 	    public void AddJoining(  C2DLineBaseSetSet Other )
         {
-	        C2DLineBaseSetSet Temp = new C2DLineBaseSetSet();
+	        var Temp = new C2DLineBaseSetSet();
         	
 	        while (Other.Count > 0 )
 	        {
-		        C2DLineBaseSet pLast = Other.ExtractAt(Other.Count - 1);
+		        var pLast = Other.ExtractAt(Other.Count - 1);
 
-		        int i = 0;
+		        var i = 0;
 		        while ( i < Count)
 		        {
 			        if ( !this[i].IsClosed(true) && this[i].AddIfCommonEnd( pLast))
@@ -154,11 +154,11 @@ namespace GeoLib
         /// <param name="bEndsOnly">True if only the ends require checking.</param>
 	    public void AddClosed( C2DLineBaseSetSet Other , bool bEndsOnly)
         {
-            C2DLineBaseSetSet Temp = new C2DLineBaseSetSet();
+            var Temp = new C2DLineBaseSetSet();
 
             while (Other.Count > 0)
             {
-                C2DLineBaseSet pLast = Other.ExtractAt(Other.Count - 1);
+                var pLast = Other.ExtractAt(Other.Count - 1);
                 if (pLast.IsClosed(bEndsOnly))
                 {
                     this.Add(pLast);

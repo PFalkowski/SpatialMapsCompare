@@ -23,7 +23,7 @@ namespace GeoLib
         public void MakeCopy(List<C2DPoint> Other)
         {
             this.Clear();
-            for (int i = 0; i < Other.Count; i++)
+            for (var i = 0; i < Other.Count; i++)
             {
                 this.Add(new C2DPoint(Other[i]));
             }
@@ -34,7 +34,7 @@ namespace GeoLib
         /// <param name="S2">The other set.</param>
         public void ExtractAllOf(C2DPointSet S2)
         {
-            for (int i = 0; i < S2.Count; i++)
+            for (var i = 0; i < S2.Count; i++)
             {
                 Add(S2[i]);
             }
@@ -54,7 +54,7 @@ namespace GeoLib
         /// <param name="Other">The point set.</param>
         public void AddCopy(List<C2DPoint> Other)
         {
-            for (int i = 0 ; i < Other.Count ; i++)
+            for (var i = 0 ; i < Other.Count ; i++)
                 Add(new C2DPoint(Other[i]));
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace GeoLib
         /// <param name="nIndex">The index.</param>
         public C2DPoint ExtractAt(int nIndex)
         {
-            C2DPoint Result = this[nIndex];
+            var Result = this[nIndex];
             this.RemoveAt(nIndex);
             return Result;
         }
@@ -82,13 +82,13 @@ namespace GeoLib
 		        return;
 	        }
 
-	        C2DPoint ptLeftMost = Other[0];
-	        int nLeftMost = 0;
+	        var ptLeftMost = Other[0];
+	        var nLeftMost = 0;
         	
 	        // Find left most
-	        for (int i = 1 ; i < Other.Count; i++)
+	        for (var i = 1 ; i < Other.Count; i++)
 	        {
-		        C2DPoint pt = Other[i];
+		        var pt = Other[i];
 		        if (pt.x < ptLeftMost.x)
 		        {
 			        ptLeftMost = pt;
@@ -104,18 +104,18 @@ namespace GeoLib
 	        Add(Other.ExtractAt(0));
 
 	        // Add others if needed.
-	        int nIndx = 0;
+	        var nIndx = 0;
 
-	        C2DPointSet Unused = new C2DPointSet();
+	        var Unused = new C2DPointSet();
 
 	        while (nIndx < Other.Count)
 	        {
-			        int nLast = Count - 1;
-			        C2DLine LastLine = new C2DLine( this[nLast-1], this[nLast]);
+			        var nLast = Count - 1;
+			        var LastLine = new C2DLine( this[nLast-1], this[nLast]);
 
-			        C2DVector Test = new C2DVector( this[nLast], Other[nIndx]);
+			        var Test = new C2DVector( this[nLast], Other[nIndx]);
 
-			        double dAng = Test.AngleFromNorth();
+			        var dAng = Test.AngleFromNorth();
 
 			        if (dAng < LastLine.vector.AngleFromNorth())
 			        {
@@ -137,7 +137,7 @@ namespace GeoLib
         /// <param name="Origin">The origin.</param>
         public void SortByAngleFromNorth(C2DPoint Origin)
         {
-            AngleFromNorth Comparer = new AngleFromNorth();
+            var Comparer = new AngleFromNorth();
             Comparer.Origin = Origin;
             Sort(Comparer);
         }
@@ -147,7 +147,7 @@ namespace GeoLib
         /// <param name="Line">The Line.</param>
         public void SortByAngleToRight(C2DLine Line)
         {
-            AngleToRight Comparer = new AngleToRight();
+            var Comparer = new AngleToRight();
             Comparer.Line = Line;
             Sort(Comparer);
         }
@@ -158,7 +158,7 @@ namespace GeoLib
         /// <param name="Line">The Line.</param>
         public void SortByAngleToLeft(C2DLine Line)
         {
-            AngleToLeft Comparer = new AngleToLeft();
+            var Comparer = new AngleToLeft();
             Comparer.Line = Line;
             Sort(Comparer);
 
@@ -178,7 +178,7 @@ namespace GeoLib
 	        {
                 Rect.Set(this[0]);
 
-		        for (int i = 1 ; i < Count; i++)
+		        for (var i = 1 ; i < Count; i++)
 		        {
 			        Rect.ExpandToInclude( this[i]);
 		        }
@@ -207,9 +207,9 @@ namespace GeoLib
 		        return;
 	        }
 
-	        int nIndx1 = 0;
-            int nIndx2 = 0; ;
-            int nIndx3 = 0; ;
+	        var nIndx1 = 0;
+            var nIndx2 = 0; ;
+            var nIndx3 = 0; ;
             double dDist = 0; ;
 
 	        // First get the points that are furthest away from each other.
@@ -217,9 +217,9 @@ namespace GeoLib
 	        // Set the circle to bound these.
 	        Circle.SetMinimum( this[nIndx1], this[nIndx2]);
 	        // Set up a flag to show if we are circumscibed. (Once we are, we always will be).
-	        bool bCircum = false;
+	        var bCircum = false;
 	        // Cycle through and if any points aren't in the circle, then set the circle to be circumscribed.
-	        for (int i = 0 ; i < Count; i++)
+	        for (var i = 0 ; i < Count; i++)
 	        {
 		        if ( i != nIndx1 && i != nIndx2)
 		        {
@@ -237,15 +237,15 @@ namespace GeoLib
 	        // If we didn't succeed first time then go through again setting it to be circumscribed every time.
 	        if (bCircum)
 	        {
-		        for ( int i = 0 ; i < Count; i++)
+		        for ( var i = 0 ; i < Count; i++)
 		        {
 			        if ( i != nIndx1 && i != nIndx2 && i != nIndx3)
 			        {
 				        if (!Circle.Contains(  this[i] ))
 				        {
-					        double Dist1 = this[i].Distance(  this[nIndx1] );
-					        double Dist2 = this[i].Distance(  this[nIndx2] );
-                            double Dist3 = this[i].Distance( this[nIndx3]);
+					        var Dist1 = this[i].Distance(  this[nIndx1] );
+					        var Dist2 = this[i].Distance(  this[nIndx2] );
+                            var Dist3 = this[i].Distance( this[nIndx3]);
 					        if (Dist1 < Dist2 && Dist1 < Dist3)
 					        {
 						        // Closest to point 1 so elimitate this
@@ -304,7 +304,7 @@ namespace GeoLib
 	        // Index 2 is the furthest point from this.
 	        nIndx2 = GetFurthestPoint(nIndx1, ref dDist);
 
-	        int nIndx3 = ~(int)0;
+	        var nIndx3 = ~(int)0;
 
 	        while (true)
 	        {
@@ -333,20 +333,20 @@ namespace GeoLib
 	        GetExtremePointsEst(ref nIndx1, ref nIndx2, ref dDist, 0);
 
 	        // Set up a circle to bound the 2 guesses.
-	        C2DVector Vec = new C2DVector( this[nIndx1], this[nIndx2]);
+	        var Vec = new C2DVector( this[nIndx1], this[nIndx2]);
 	        Vec.Multiply( 0.5);
-	        C2DCircle Circle = new C2DCircle( this[nIndx1] + new C2DPoint(Vec), dDist / 2);
+	        var Circle = new C2DCircle( this[nIndx1] + new C2DPoint(Vec), dDist / 2);
 
 	        // Now, if the guess was wrong, there must be a point outside the circle which is part of
 	        // the right solution. Go through all these, check and reset the result each time.
-	        for (int i = 0 ; i < Count; i++)
+	        for (var i = 0 ; i < Count; i++)
 	        {
 		        if ( i != nIndx1 && i != nIndx2)
 		        {
 			        if ( !Circle.Contains( this[i] ))
 			        {
 				        double dDistCheck = 0;
-				        int nCheck1 = GetFurthestPoint(i,  ref dDistCheck);
+				        var nCheck1 = GetFurthestPoint(i,  ref dDistCheck);
 				        if (dDistCheck > dDist)
 				        {
 					        nIndx1 = i;
@@ -365,10 +365,10 @@ namespace GeoLib
 	        if (Count < 2)
 		        return;
 
-	        int i = 0;
+	        var i = 0;
 	        while (i < Count)
 	        {
-		        int r = i + 1;
+		        var r = i + 1;
                 while (r < Count)
 		        {
 			        if ( this[i].PointEqualTo(this[r]))
@@ -411,11 +411,11 @@ namespace GeoLib
 		        usResult = 0;
 	        }
 
-	        for (int i = 1 ; i < Count; i++)
+	        for (var i = 1 ; i < Count; i++)
 	        {
 		        if (i != nIndex)
 		        {
-			        double dD = this[i].Distance(this[nIndex]);
+			        var dD = this[i].Distance(this[nIndex]);
 			        if (dD > dDist)
 			        {
 				        dDist = dD;
@@ -432,7 +432,7 @@ namespace GeoLib
         /// <param name="pt">Input. The point.</param>
         public void SortByDistance(C2DPoint pt)
         {
-            SortByDistance Comparer = new SortByDistance();
+            var Comparer = new SortByDistance();
             Comparer.Point = pt;
             Sort(Comparer);
         }
@@ -441,7 +441,7 @@ namespace GeoLib
         /// </summary>
         public void SortLeftToRight()
         {
-            PointLeftToRight Comparer = new PointLeftToRight();
+            var Comparer = new PointLeftToRight();
             Sort(Comparer);
         }
         /// <summary>
@@ -464,8 +464,8 @@ namespace GeoLib
         /// <param name="hi0">Input. The sort end.</param>
         private void SortByIndex(List<int> Indexes, int lo0, int hi0)
         {
-            int lo = lo0;
-            int hi = hi0;
+            var lo = lo0;
+            var hi = hi0;
             if (lo >= hi) return;
 
             else if (lo == hi - 1)
@@ -473,11 +473,11 @@ namespace GeoLib
                 // sort a two element list by swapping if necessary 
                 if (Indexes[lo] > Indexes[hi])
                 {
-                    int T = Indexes[lo];
+                    var T = Indexes[lo];
                     Indexes[lo] = Indexes[hi];
                     Indexes[hi] = T;
 
-                    C2DPoint PAR = this[lo];
+                    var PAR = this[lo];
                     this[lo] = this[hi];
                     this[hi] = PAR;
                 }
@@ -486,11 +486,11 @@ namespace GeoLib
 
             //  Pick a pivot and move it out of the way
 
-            int pivot = Indexes[(lo + hi) / 2];
+            var pivot = Indexes[(lo + hi) / 2];
             Indexes[(lo + hi) / 2] = Indexes[hi];
             Indexes[hi] = pivot;
 
-            C2DPoint ParPivot = this[(lo + hi) / 2];
+            var ParPivot = this[(lo + hi) / 2];
             this[(lo + hi) / 2] = this[hi];
             this[hi] = ParPivot;
 
@@ -514,11 +514,11 @@ namespace GeoLib
                 //  Swap elements a[lo] and a[hi]
                 if (lo < hi)
                 {
-                    int T = Indexes[lo];
+                    var T = Indexes[lo];
                     Indexes[lo] = Indexes[hi];
                     Indexes[hi] = T;
 
-                    C2DPoint PAR = this[lo];
+                    var PAR = this[lo];
                     this[lo] = this[hi];
                     this[hi] = PAR;
 
@@ -582,11 +582,11 @@ namespace GeoLib
             if (P1 == P2)
                 return 0;
 
-            C2DVector Vec1 = new C2DVector(Origin, P1);
-            C2DVector Vec2 = new C2DVector(Origin, P2);
+            var Vec1 = new C2DVector(Origin, P1);
+            var Vec2 = new C2DVector(Origin, P2);
 
-            double dAng1 = Vec1.AngleFromNorth();
-            double dAng2 = Vec2.AngleFromNorth();
+            var dAng1 = Vec1.AngleFromNorth();
+            var dAng2 = Vec2.AngleFromNorth();
 
             if (dAng1 > dAng2)
                 return 1;
@@ -615,11 +615,11 @@ namespace GeoLib
             if (P1 == P2)
                 return 0;
 
-	        C2DVector Vec1 = new C2DVector(Line.point, P1);
-            C2DVector Vec2 = new C2DVector(Line.point, P2);
+	        var Vec1 = new C2DVector(Line.point, P1);
+            var Vec2 = new C2DVector(Line.point, P2);
 
-            double dAng1 = Line.vector.AngleToRight(Vec1);
-            double dAng2 = Line.vector.AngleToRight(Vec2);
+            var dAng1 = Line.vector.AngleToRight(Vec1);
+            var dAng2 = Line.vector.AngleToRight(Vec2);
 
             if (dAng1 > dAng2)
                 return 1;
@@ -648,11 +648,11 @@ namespace GeoLib
             if (P1 == P2)
                 return 0;
 
-            C2DVector Vec1 = new C2DVector(Line.point, P1);
-            C2DVector Vec2 = new C2DVector(Line.point, P2);
+            var Vec1 = new C2DVector(Line.point, P1);
+            var Vec2 = new C2DVector(Line.point, P2);
 
-            double dAng1 = Line.vector.AngleToLeft(Vec1);
-            double dAng2 = Line.vector.AngleToLeft(Vec2);
+            var dAng1 = Line.vector.AngleToLeft(Vec1);
+            var dAng2 = Line.vector.AngleToLeft(Vec2);
 
             if (dAng1 > dAng2)
                 return 1;
@@ -681,8 +681,8 @@ namespace GeoLib
             if (P1 == P2)
                 return 0;
 
-            double d1 = P1.Distance(Point);
-            double d2 = P2.Distance(Point);
+            var d1 = P1.Distance(Point);
+            var d2 = P2.Distance(Point);
 
             if (d1 > d2)
                 return 1;

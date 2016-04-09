@@ -24,7 +24,7 @@ namespace GeoLib
         public void MakeValueCopy(List<C2DLineBase> Other)
         {
             this.Clear();
-            for (int i = 0; i < Other.Count; i++)
+            for (var i = 0; i < Other.Count; i++)
             {
                 this.Add(Other[i].CreateCopy());
             }
@@ -37,7 +37,7 @@ namespace GeoLib
         public void MakeRefCopy(List<C2DLineBase> Other)
         {
             this.Clear();
-            for (int i = 0; i < Other.Count; i++)
+            for (var i = 0; i < Other.Count; i++)
             {
                 this.Add(Other[i]);
             }
@@ -65,7 +65,7 @@ namespace GeoLib
         /// <param name="S2">The other set.</param>
         public void ExtractAllOf(List<C2DLineBase> S2)
         {
-            for (int i = 0; i < S2.Count; i++)
+            for (var i = 0; i < S2.Count; i++)
             {
                 Add(S2[i]);
             }
@@ -78,7 +78,7 @@ namespace GeoLib
         /// <param name="nIndex">The index.</param>
         public C2DLineBase ExtractAt(int nIndex)
         {
-            C2DLineBase Result = this[nIndex];
+            var Result = this[nIndex];
             this.RemoveAt(nIndex);
             return Result;
         }
@@ -117,28 +117,28 @@ namespace GeoLib
 	    public void GetIntersections( List<C2DPoint> pPoints,  List<int> pIndexes1,
                              List<int> pIndexes2)
         {
-            List<CLineBaseRect> Lines = new List<CLineBaseRect>();
+            var Lines = new List<CLineBaseRect>();
 
-	        for (int i = 0 ; i < Count ; i++)
+	        for (var i = 0 ; i < Count ; i++)
 	        {
-		        CLineBaseRect LineRect = new CLineBaseRect();
+		        var LineRect = new CLineBaseRect();
                 LineRect.Line = this[i];
                 LineRect.Line.GetBoundingRect( LineRect.Rect);
                 LineRect.usIndex = i;
 		        Lines.Add(LineRect);
 	        }
 
-            CLineBaseRectLeftToRight Comparitor = new CLineBaseRectLeftToRight();
+            var Comparitor = new CLineBaseRectLeftToRight();
             Lines.Sort(Comparitor);
 
-            int j = 0;
-            List<C2DPoint> IntPt = new List<C2DPoint>();
+            var j = 0;
+            var IntPt = new List<C2DPoint>();
 	        // For each line...
 	        while (j < Lines.Count)
 	        {
-		        int r = j + 1;
+		        var r = j + 1;
 
-		        double dXLimit = Lines[j].Rect.GetRight();
+		        var dXLimit = Lines[j].Rect.GetRight();
 		        // ...search forward untill the end or a line whose rect starts after this ends
 		        while (r < Lines.Count && Lines[r].Rect.GetLeft() < dXLimit)
 		        {
@@ -178,11 +178,11 @@ namespace GeoLib
             C2DRect pBoundingRectThis, C2DRect pBoundingRectOther)
         {
 
-            List<CLineBaseRect> Lines = new List<CLineBaseRect>();
+            var Lines = new List<CLineBaseRect>();
 
-	        for (int i = 0 ; i <  Count ; i++)
+	        for (var i = 0 ; i <  Count ; i++)
 	        {
-		        CLineBaseRect LineRect = new CLineBaseRect();
+		        var LineRect = new CLineBaseRect();
                 LineRect.Line = this[i];
                 LineRect.Line.GetBoundingRect( LineRect.Rect);
                 LineRect.usIndex = i;
@@ -194,9 +194,9 @@ namespace GeoLib
 		        }
 	        }
 
-	        for (int d = 0 ; d <  Other.Count ; d++)
+	        for (var d = 0 ; d <  Other.Count ; d++)
 	        {
-		        CLineBaseRect LineRect = new CLineBaseRect();
+		        var LineRect = new CLineBaseRect();
 		        LineRect.Line = Other[d];
 		        LineRect.Line.GetBoundingRect( LineRect.Rect);
 		        LineRect.usIndex = d;
@@ -208,16 +208,16 @@ namespace GeoLib
 		        }
 	        }
 
-            CLineBaseRectLeftToRight Comparitor = new CLineBaseRectLeftToRight();
+            var Comparitor = new CLineBaseRectLeftToRight();
             Lines.Sort(Comparitor);
 
-            int j = 0;
-	        List<C2DPoint> IntPt = new List<C2DPoint>();
+            var j = 0;
+	        var IntPt = new List<C2DPoint>();
 	        while (j < Lines.Count)
 	        {
-		        int r = j + 1;
+		        var r = j + 1;
 
-		        double dXLimit = Lines[j].Rect.GetRight();
+		        var dXLimit = Lines[j].Rect.GetRight();
 
 		        while (r < Lines.Count && 
 			           Lines[r].Rect.GetLeft() < dXLimit)
@@ -259,29 +259,29 @@ namespace GeoLib
         {
 
 	        // Set up an array of these structures and the left most points of the line rects
-            List<CLineBaseRect> Lines = new List<CLineBaseRect>();
+            var Lines = new List<CLineBaseRect>();
 
 
-	        for (int i = 0 ; i <  Count ; i++)
+	        for (var i = 0 ; i <  Count ; i++)
 	        {
-		        CLineBaseRect LineRect = new CLineBaseRect();
+		        var LineRect = new CLineBaseRect();
                 LineRect.Line = this[i];
                 LineRect.Line.GetBoundingRect( LineRect.Rect);
 		        Lines.Add(LineRect);
 	        }
 
-            CLineBaseRectLeftToRight Comparitor = new CLineBaseRectLeftToRight();
+            var Comparitor = new CLineBaseRectLeftToRight();
             Lines.Sort(Comparitor);
 
-	        int j = 0;
-	        List<C2DPoint> IntPt = new List<C2DPoint>();
-	        bool bIntersect = false;
+	        var j = 0;
+	        var IntPt = new List<C2DPoint>();
+	        var bIntersect = false;
 	        // For each line...
 	        while (j < Lines.Count && !bIntersect)
 	        {
-		        int r = j + 1;
+		        var r = j + 1;
 
-		        double dXLimit = Lines[j].Rect.GetRight();
+		        var dXLimit = Lines[j].Rect.GetRight();
 		        // ...search forward untill the end or a line whose rect starts after this ends
 		        while ( !bIntersect && r < Lines.Count && Lines[r].Rect.GetLeft() < dXLimit )
 		        {
@@ -305,7 +305,7 @@ namespace GeoLib
         /// <param name="bEndsOnly">Input. True to only check the ends of the array.</param>
         public bool IsClosed(bool bEndsOnly)
         {
-	        int usSize = Count;
+	        var usSize = Count;
         	
 	        if (bEndsOnly)
 	        {
@@ -316,9 +316,9 @@ namespace GeoLib
 	        }
 	        else
 	        {
-		        for (int i = 0; i < usSize; i++)
+		        for (var i = 0; i < usSize; i++)
 		        {
-			        int usNext = (i + 1) % usSize;
+			        var usNext = (i + 1) % usSize;
 
 			        if (!this[i].GetPointTo().PointEqualTo(  this[usNext].GetPointFrom() ))
 				        return false;
@@ -337,11 +337,11 @@ namespace GeoLib
             Debug.Assert(!IsClosed(true));
             Debug.Assert(!Other.IsClosed(true));
 
-            int nThisCount = Count;
+            var nThisCount = Count;
             if (nThisCount < 1) 
                 return false;
 
-            int nOtherCount = Other.Count;
+            var nOtherCount = Other.Count;
             if (nOtherCount < 1) 
                 return false;
 
@@ -388,9 +388,9 @@ namespace GeoLib
         /// <param name="dTolerance">Input. The length defined to be null.</param>
         public void Remove0Lines(double dTolerance)
         {
-	        for (int i = 0 ; i < Count; i++)
+	        for (var i = 0 ; i < Count; i++)
 	        {
-		        double dLength = this[i].GetLength();
+		        var dLength = this[i].GetLength();
 
 		        if (dLength < dTolerance)
 		        {
@@ -405,7 +405,7 @@ namespace GeoLib
         {
 	        this.Reverse();
 
-	        for (int i = 0; i < Count ; i++)
+	        for (var i = 0; i < Count ; i++)
 	        {
 		        this[i].ReverseDirection();
 	        }	

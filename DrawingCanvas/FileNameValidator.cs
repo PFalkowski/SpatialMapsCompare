@@ -13,7 +13,7 @@ namespace DrawingCanvas
 
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            string casted = (string)value;
+            var casted = (string)value;
             if (string.IsNullOrWhiteSpace(casted?.ToString()))
             {
                 return new ValidationResult(false, $"{ValueName} cannot be empty.");

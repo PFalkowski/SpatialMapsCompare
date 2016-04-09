@@ -119,7 +119,7 @@ namespace GeoLib
         /// <param name="vector">The vector to project this on.</param>
 	    public double Project(C2DVector vector)
         {
-            C2DVector vecthis = new C2DVector(x, y);
+            var vecthis = new C2DVector(x, y);
 
             return (vecthis.Dot(vector)) / vector.GetLength();
         }
@@ -130,7 +130,7 @@ namespace GeoLib
         /// <param name="line">The line to project this on.</param>
         public double Project(C2DLine line)
         {
-            C2DVector vecthis = new C2DVector(line.point, this);
+            var vecthis = new C2DVector(line.point, this);
 
             return (vecthis.Dot(line.vector)) / line.vector.GetLength();
         }
@@ -169,8 +169,8 @@ namespace GeoLib
 	    public bool ProjectsOnLine(C2DLine line, C2DPoint ptOnLine,
             ref bool bAbove)
         {
-            C2DVector vecthis = new C2DVector(x - line.point.x, y - line.point.y);
-            double dProj = vecthis.Dot(line.vector);
+            var vecthis = new C2DVector(x - line.point.x, y - line.point.y);
+            var dProj = vecthis.Dot(line.vector);
 
             if (dProj < 0)
             {
@@ -178,7 +178,7 @@ namespace GeoLib
                 return false;
             }
 
-            double dLength = line.vector.GetLength();
+            var dLength = line.vector.GetLength();
 
             dProj /= dLength;
 
@@ -188,9 +188,9 @@ namespace GeoLib
                 return false;
             }
 
-            double dFactor = dProj / dLength;
+            var dFactor = dProj / dLength;
 
-            C2DVector vProj = new C2DVector(line.vector);
+            var vProj = new C2DVector(line.vector);
             vProj.Multiply(dFactor);
             ptOnLine.Set(line.point.x + vProj.i, line.point.y + vProj.j);
             return true;
@@ -203,8 +203,8 @@ namespace GeoLib
         /// <param name="other">The point to return the distance to.</param>
         public override double Distance(C2DPoint other)
         {
-            double dXd = x - other.x;
-            double dYd = y - other.y;
+            var dXd = x - other.x;
+            var dYd = y - other.y;
 
             return Math.Sqrt(dXd * dXd + dYd * dYd);
         }
@@ -235,7 +235,7 @@ namespace GeoLib
         /// <param name="p2">The second point.</param>
         public static C2DPoint operator +(C2DPoint p1, C2DPoint p2)
         {
-            C2DPoint result = new C2DPoint(p1.x + p2.x, p1.y + p2.y);
+            var result = new C2DPoint(p1.x + p2.x, p1.y + p2.y);
             return result;
         }
 
@@ -246,7 +246,7 @@ namespace GeoLib
         /// <param name="p2">The second point.</param>
         public static C2DPoint operator -(C2DPoint p1, C2DPoint p2)
         {
-            C2DPoint result = new C2DPoint(p1.x - p2.x, p1.y - p2.y);
+            var result = new C2DPoint(p1.x - p2.x, p1.y - p2.y);
             return result;
         }
 
@@ -313,7 +313,7 @@ namespace GeoLib
         /// <param name="origin">The origin about which to rotate.</param>
         public override void RotateToRight(double dAng, C2DPoint origin)
         {
-            C2DVector vector = new C2DVector(origin, this);
+            var vector = new C2DVector(origin, this);
             vector.TurnRight(dAng);
             x = origin.x + vector.i;
             y = origin.y + vector.j;
@@ -328,7 +328,7 @@ namespace GeoLib
         /// <param name="origin">The origin about which to rotate.</param>
         public override void Grow(double dFactor, C2DPoint origin)
         {
-            C2DVector vector = new C2DVector(origin, this);
+            var vector = new C2DVector(origin, this);
             vector.Multiply(dFactor);
             x = origin.x + vector.i;
             y = origin.y + vector.j;
@@ -342,7 +342,7 @@ namespace GeoLib
         public override void Reflect(C2DPoint other)
         {
             // Set up a vector from this to the other
-            C2DVector vec = new C2DVector(this, other);
+            var vec = new C2DVector(this, other);
             // Now use the vector to find the reflection by continuing along it from the point given.
             this.Set(other.GetPointTo(vec));
         }
@@ -355,20 +355,20 @@ namespace GeoLib
         {
             // First find the point along the line that this projects onto.
             // Make a vector from the point on the line given to this point.
-            C2DVector vecthis = new C2DVector(line.point, this);
+            var vecthis = new C2DVector(line.point, this);
             // Find the length of the line given.
-            double dLength = line.vector.GetLength();
+            var dLength = line.vector.GetLength();
             // Now make the projection of this point on the line.
-            double dProj = vecthis.Dot(line.vector);
+            var dProj = vecthis.Dot(line.vector);
             dProj /= dLength;
             // Find the factor along the line that the projection is.
-            double dFactor = dProj / dLength;
+            var dFactor = dProj / dLength;
             // Now set up a copy of the vector of the line given.
-            C2DVector vProj = new C2DVector(line.vector);
+            var vProj = new C2DVector(line.vector);
             // Multiply that by that factor calculated.
             vProj.Multiply(dFactor);
             // Use the vector to find the point on the line.
-            C2DPoint ptOnLine = new C2DPoint(line.point.GetPointTo(vProj));
+            var ptOnLine = new C2DPoint(line.point.GetPointTo(vProj));
             // Noe simply reflect this in the point.
             this.Reflect(ptOnLine);
         }
@@ -404,7 +404,7 @@ namespace GeoLib
         /// <param name="grid">The grid to snap this to.</param>
         public override void SnapToGrid(CGrid grid)
         {
-            double dxMultiple = Math.Abs(x / grid.GridSize) + 0.5;
+            var dxMultiple = Math.Abs(x / grid.GridSize) + 0.5;
 
             dxMultiple = Math.Floor(dxMultiple);
 
@@ -413,7 +413,7 @@ namespace GeoLib
             else
                 x = dxMultiple * grid.GridSize;
 
-            double dyMultiple = Math.Abs(y / grid.GridSize) + 0.5;
+            var dyMultiple = Math.Abs(y / grid.GridSize) + 0.5;
 
             dyMultiple = Math.Floor(dyMultiple);
 
@@ -430,12 +430,12 @@ namespace GeoLib
         /// <param name="line"></param>
         public void ProjectOnRay(C2DLine line)
         {
-            C2DVector vecthis = new C2DVector(line.point, this);
-            double dProj = vecthis.Dot(line.vector);
+            var vecthis = new C2DVector(line.point, this);
+            var dProj = vecthis.Dot(line.vector);
 
-            double dFactor = dProj / (line.vector.i * line.vector.i + line.vector.j * line.vector.j);
+            var dFactor = dProj / (line.vector.i * line.vector.i + line.vector.j * line.vector.j);
 
-            C2DVector vProj = new C2DVector(line.vector);
+            var vProj = new C2DVector(line.vector);
             vProj.i *= dFactor;
             vProj.j *= dFactor;
             this.Set(line.point.x + vProj.i, line.point.y + vProj.j);

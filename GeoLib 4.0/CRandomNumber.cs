@@ -72,7 +72,7 @@ namespace GeoLib
         /// </summary>
 	    public double Get() 
         {
-            double dResult = Min + (Max - Min) * _Random.NextDouble();
+            var dResult = Min + (Max - Min) * _Random.NextDouble();
 
 	        return dResult;
         }
@@ -83,8 +83,8 @@ namespace GeoLib
         /// </summary>
 	    public int GetInt() 
         {
-            CRandomNumber Num = new CRandomNumber(Math.Ceiling(Min), Math.Floor(Max) + 1.0);
-	        double dRes = Num.Get();
+            var Num = new CRandomNumber(Math.Ceiling(Min), Math.Floor(Max) + 1.0);
+	        var dRes = Num.Get();
 	        if (dRes == (int)Num.GetMax())
 		        return (int) (dRes - 1);
 	        else 

@@ -44,7 +44,7 @@ namespace GeoLib
 
 	        BoundingRect.Set(Other.BoundingRect);
 
-	        for (int i = 0 ; i < Other.LineRects.Count ; i ++)
+	        for (var i = 0 ; i < Other.LineRects.Count ; i ++)
 	        {
 		        LineRects.Add(new C2DRect( Other.LineRects[i]) );
 	        }
@@ -84,9 +84,9 @@ namespace GeoLib
 	        if (!BoundingRect.Contains(pt))
 		        return false;
 
-	        C2DPointSet IntersectedPts = new C2DPointSet ();
+	        var IntersectedPts = new C2DPointSet ();
 
-	        C2DLine Ray = new C2DLine(pt, new C2DVector(BoundingRect.Width(), 0.000001)); // Make sure to leave
+	        var Ray = new C2DLine(pt, new C2DVector(BoundingRect.Width(), 0.000001)); // Make sure to leave
 
 	        if (!this.Crosses(Ray,  IntersectedPts))
 		        return false;
@@ -141,7 +141,7 @@ namespace GeoLib
             if (!Contains(Line.GetPointFrom()))
                 return false;
 
-            C2DPointSet Pts = new C2DPointSet();
+            var Pts = new C2DPointSet();
 
             return !Crosses(Line, Pts);
         }
@@ -164,7 +164,7 @@ namespace GeoLib
 		        return 0;
 
 	        double dResult = Lines[0].Distance(pt);
-	        for (int i = 1; i < Lines.Count; i++)
+	        for (var i = 1; i < Lines.Count; i++)
 	        {
 		        double dDist = Lines[i].Distance(pt);
 		        if (dDist < dResult)
@@ -186,13 +186,13 @@ namespace GeoLib
 	        if (Lines.Count == 0)
 		        return 0;
 
-            C2DPoint pt1 = new C2DPoint();
-            C2DPoint pt2 = new C2DPoint();
+            var pt1 = new C2DPoint();
+            var pt2 = new C2DPoint();
 
             double dMin = Lines[0].Distance(Line, pt1, pt2);
 	        double dDist;
 
-	        for (int i = 1 ; i < Lines.Count; i++)
+	        for (var i = 1 ; i < Lines.Count; i++)
 	        {
 		        dDist = Lines[i].Distance(Line, pt1, pt2);
 		        if (dDist == 0 )
@@ -228,10 +228,10 @@ namespace GeoLib
 		        return 0;
 
 	        // First we find the closest line rect to the other's bounding rectangle.
-	        int usThisClosestLineGuess = 0;
-	        C2DRect OtherBoundingRect = Other.BoundingRect;
+	        var usThisClosestLineGuess = 0;
+	        var OtherBoundingRect = Other.BoundingRect;
 	        double dClosestDist = LineRects[0].Distance(OtherBoundingRect);
-	        for (int i = 1; i < LineRects.Count; i++)
+	        for (var i = 1; i < LineRects.Count; i++)
 	        {
 		        double dDist = LineRects[i].Distance(OtherBoundingRect);
 		        if (dDist < dClosestDist)
@@ -242,9 +242,9 @@ namespace GeoLib
 	        }
 	        // Now cycle through all the other poly's line rects to find the closest to the
 	        // guessed at closest line on this.
-	        int usOtherClosestLineGuess = 0;
+	        var usOtherClosestLineGuess = 0;
 	        dClosestDist = Other.LineRects[0].Distance(LineRects[usThisClosestLineGuess]);
-	        for (int j = 1; j < Other.LineRects.Count; j++)
+	        for (var j = 1; j < Other.LineRects.Count; j++)
 	        {
 		        double dDist = Other.LineRects[j].Distance(LineRects[usThisClosestLineGuess]);
 		        if (dDist < dClosestDist)
@@ -263,16 +263,16 @@ namespace GeoLib
 	        if (dMinDistGuess == 0)
 		        return 0;
 
-	        C2DPoint ptOnThisTemp = new C2DPoint();
-	        C2DPoint ptOnOtherTemp = new C2DPoint();
+	        var ptOnThisTemp = new C2DPoint();
+	        var ptOnOtherTemp = new C2DPoint();
 
 	        // Now go through all of our line rects and only check further if they are closer
 	        // to the other's bounding rect than the min guess.
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
 		        if (LineRects[i].Distance( OtherBoundingRect ) <  dMinDistGuess)
 		        {
-			        for (  int j = 0 ; j < Other.Lines.Count ; j++)
+			        for (  var j = 0 ; j < Other.Lines.Count ; j++)
 			        {
 				        double dDist = Lines[i].Distance(Other.Lines[j],
 													        ptOnThisTemp,
@@ -315,7 +315,7 @@ namespace GeoLib
         /// <param name="dRange">The range to test against.</param> 
         public bool IsWithinDistance(C2DPoint pt, double dRange)
         {
-	        C2DRect RectTemp = new C2DRect(BoundingRect);
+	        var RectTemp = new C2DRect(BoundingRect);
 	        RectTemp.Expand(dRange);
 
 	        if (!RectTemp.Contains(pt))
@@ -330,7 +330,7 @@ namespace GeoLib
 	        if (this.Contains(pt))
 		        return true;
 
-	        for (int i = 1; i < Lines.Count; i++)
+	        for (var i = 1; i < Lines.Count; i++)
 	        {
 		        if(Lines[i].Distance(pt) < dRange)
 			        return true;
@@ -354,7 +354,7 @@ namespace GeoLib
         public double GetPerimeter()
         {
 	        double dResult = 0;
-	        for (int i = 0; i < this.Lines.Count; i++)
+	        for (var i = 0; i < this.Lines.Count; i++)
 	        {
 		        dResult += Lines[i].GetLength();
 	        }
@@ -382,7 +382,7 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return;
 
-            for (int i = 0; i < Lines.Count; i++)
+            for (var i = 0; i < Lines.Count; i++)
 	        {
 		        Lines[i].Move(vector);
 		        LineRects[i].Move(vector);
@@ -402,7 +402,7 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return;
 
-	        for (int i = 0; i < Lines.Count; i++)
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
 		        Lines[i].RotateToRight(dAng, Origin);
 		        Lines[i].GetBoundingRect(LineRects[i]);		
@@ -424,7 +424,7 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return;
 
-            for (int i = 0; i < Lines.Count; i++)
+            for (var i = 0; i < Lines.Count; i++)
 	        {
 		        Lines[i].Grow(dFactor, Origin);
 		        Lines[i].GetBoundingRect(LineRects[i]);		
@@ -445,7 +445,7 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return;
 
-            for (int i = 0; i < Lines.Count; i++)
+            for (var i = 0; i < Lines.Count; i++)
 	        {
 		        Lines[i].Reflect(point);
 	        }
@@ -466,7 +466,7 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return;
 
-            for (int i = 0; i < Lines.Count; i++)
+            for (var i = 0; i < Lines.Count; i++)
 	        {
 		        Lines[i].Reflect(Line);
 	        }
@@ -487,8 +487,8 @@ namespace GeoLib
 	        if (!BoundingRect.Overlaps(Other.BoundingRect))
 		        return false;
 
-            List<C2DPoint> Temp = new List<C2DPoint>();
-	        for (int i = 0; i < Lines.Count; i++)
+            var Temp = new List<C2DPoint>();
+	        for (var i = 0; i < Lines.Count; i++)
 	        {
                 if (Other.Crosses(Lines[i], Temp))
 			        return true;
@@ -507,14 +507,14 @@ namespace GeoLib
             if (!BoundingRect.Overlaps(Other.BoundingRect))
                 return false;
 
-            List<C2DPoint> IntPtsTemp = new List<C2DPoint>();
-            List<int> Index1 = new List<int>();
-            List<int> Index2 = new List<int>();
+            var IntPtsTemp = new List<C2DPoint>();
+            var Index1 = new List<int>();
+            var Index2 = new List<int>();
 
             Lines.GetIntersections(Other.Lines, IntPtsTemp, Index1, Index2,
                                     BoundingRect, Other.BoundingRect);
 
-            bool bResult = IntPtsTemp.Count > 0;
+            var bResult = IntPtsTemp.Count > 0;
 
             IntersectionPts.InsertRange(0, IntPtsTemp);
 
@@ -527,12 +527,12 @@ namespace GeoLib
         /// <param name="Line">The other line.</param>
         public bool Crosses(C2DLineBase Line)
         {
-	        C2DRect LineRect = new C2DRect ();
+	        var LineRect = new C2DRect ();
 	        Line.GetBoundingRect(LineRect);
 
-            List<C2DPoint> Temp = new List<C2DPoint>();
+            var Temp = new List<C2DPoint>();
 
-	        for (int i = 0; i < this.Lines.Count; i++)
+	        for (var i = 0; i < this.Lines.Count; i++)
 	        {
 		        if (LineRects[i].Overlaps( LineRect ) &&  Lines[i].Crosses(Line, Temp))
 			        return true;
@@ -548,7 +548,7 @@ namespace GeoLib
         /// <param name="IntersectionPts">Output. The intersection points.</param>
         public bool Crosses(C2DLineBase Line, List<C2DPoint> IntersectionPts)
         {
-	        C2DRect LineRect = new C2DRect();
+	        var LineRect = new C2DRect();
 	        Line.GetBoundingRect( LineRect);
 
 	        if (!BoundingRect.Overlaps(LineRect))
@@ -559,11 +559,11 @@ namespace GeoLib
 	        if(Lines.Count != LineRects.Count)
 		        return false;
 
-	        C2DPointSet IntersectionTemp = new C2DPointSet();
+	        var IntersectionTemp = new C2DPointSet();
 
-	        bool bResult = false;
+	        var bResult = false;
 
-            for (int i = 0; i < this.Lines.Count; i++)
+            for (var i = 0; i < this.Lines.Count; i++)
 	        {
 		        if (LineRects[i].Overlaps(LineRect) &&
 			        Lines[i].Crosses(Line, IntersectionTemp as List<C2DPoint>))
@@ -586,7 +586,7 @@ namespace GeoLib
         {
             double dDist = Ray.point.Distance(BoundingRect.GetCentre());
 
-            C2DLine LineTemp = new C2DLine(Ray);
+            var LineTemp = new C2DLine(Ray);
 
             LineTemp.vector.SetLength(dDist + BoundingRect.Width() + BoundingRect.Height());
 
@@ -635,11 +635,11 @@ namespace GeoLib
         /// <param name="grid">The grid.</param>
         public override void SnapToGrid(CGrid grid)
         {
-            for (int i = 0; i < _Lines.Count; i++)
+            for (var i = 0; i < _Lines.Count; i++)
             {
                 _Lines[i].SnapToGrid(grid);
             }
-            for(int i = 0; i < _LineRects.Count; i++)
+            for(var i = 0; i < _LineRects.Count; i++)
             {
                 _LineRects[i].SnapToGrid(grid);
             }
@@ -702,7 +702,7 @@ namespace GeoLib
 		        return;
 	        }
 	        // Set up a new collection of routes.
-	        C2DLineBaseSetSet NewRoutes = new C2DLineBaseSetSet();
+	        var NewRoutes = new C2DLineBaseSetSet();
 	        // If the polygon has no points then return.
 	        if ( _Lines.Count < 1) 
 		        return;
@@ -710,7 +710,7 @@ namespace GeoLib
             IntPts.SortByIndex( IntIndexes );   
             
             // Set the inside / outside flag to the same as the start inside / outside flag.
-	        bool bInside = bStartInside;
+	        var bInside = bStartInside;
 	        // If we are inside and want route inside or outside and want routes outside then add a new route.
 	        if (bInside == bRoutesInside)
 	        {
@@ -718,13 +718,13 @@ namespace GeoLib
 	        }
 
 	        // The current index of the intersects.
-	        int usCurrentIntIndex = 0;
+	        var usCurrentIntIndex = 0;
 
 	        // cycle through the lines on the polygon.
-	        for (int i = 0 ; i < Lines.Count ; i++)
+	        for (var i = 0 ; i < Lines.Count ; i++)
 	        {
 		        // Set up a list of intersection points on this line only.
-		        C2DPointSet IntsOnLine = new C2DPointSet();
+		        var IntsOnLine = new C2DPointSet();
 		        // Cycle through all intersections on this line (leaving the usCurrentIntIndex at the next intersected line).
 		        while ( usCurrentIntIndex < IntIndexes.Count && IntIndexes[usCurrentIntIndex] == i)
 		        {
@@ -736,7 +736,7 @@ namespace GeoLib
 		        // If the line in question intersects the other poly then we have left / entered.
 		        if ( IntsOnLine.Count > 0 )
 		        {
-			        C2DLineBaseSet SubLines = new C2DLineBaseSet();
+			        var SubLines = new C2DLineBaseSet();
 			        Lines[i].GetSubLines( IntsOnLine, SubLines );
 
 			        while (SubLines.Count > 1)
@@ -790,8 +790,8 @@ namespace GeoLib
 		        {
 		        case CGrid.eDegenerateHandling.None:
 			        {
-				        C2DLineBaseSetSet Routes1 = new C2DLineBaseSetSet();
-                        C2DLineBaseSetSet Routes2 = new C2DLineBaseSetSet();
+				        var Routes1 = new C2DLineBaseSetSet();
+                        var Routes2 = new C2DLineBaseSetSet();
 				        C2DPolyBase.GetRoutes( this, bThisInside, Other, bOtherInside, Routes1, Routes2);
 				        Routes1.ExtractAllOf(Routes2);
 
@@ -800,9 +800,9 @@ namespace GeoLib
 					        // Add all the joining routes together to form closed routes
 					        Routes1.MergeJoining();
 					        // Set up some temporary polygons.
-					        List<C2DPolyBase> Polygons = new List<C2DPolyBase>();
+					        var Polygons = new List<C2DPolyBase>();
 					        // Turn the routes into polygons.
-					        for (int i = Routes1.Count - 1; i >= 0; i--)
+					        for (var i = Routes1.Count - 1; i >= 0; i--)
 					        {
 
 						        if (Routes1[i].IsClosed(true) && Routes1[i].Count > 2)
@@ -819,7 +819,7 @@ namespace GeoLib
                             
 
 					        // Set up some temporary holed polygons
-					        C2DHoledPolyBaseSet NewComPolys = new C2DHoledPolyBaseSet();
+					        var NewComPolys = new C2DHoledPolyBaseSet();
 					        // Turn the set of polygons into holed polygons. Not needed for intersection.
 					        if (!(bThisInside && bOtherInside))
 					        {
@@ -832,19 +832,19 @@ namespace GeoLib
 					        }
 					        else
 					        {
-                                for (int i = 0; i < Polygons.Count; i++)
+                                for (var i = 0; i < Polygons.Count; i++)
 						            HoledPolys.Add(new C2DHoledPolyBase(Polygons[i]));
 					        }
 
 					        // Now add them all to the provided set.
-                            for (int i = 0 ; i < NewComPolys.Count; i++)
+                            for (var i = 0 ; i < NewComPolys.Count; i++)
 					            HoledPolys.Add(NewComPolys[i]);
 				        }
 			        }
 			        break;
 		        case CGrid.eDegenerateHandling.RandomPerturbation:
 			        {
-				        C2DPolyBase OtherCopy = new C2DPolyBase(Other);
+				        var OtherCopy = new C2DPolyBase(Other);
 				        OtherCopy.RandomPerturb();
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
 				        GetBoolean( OtherCopy, HoledPolys, bThisInside, bOtherInside, grid);
@@ -853,10 +853,10 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.DynamicGrid:
 			        {
-				        C2DRect Rect = new C2DRect(); 
+				        var Rect = new C2DRect(); 
 				        if (this.BoundingRect.Overlaps(Other.BoundingRect, Rect))
 				        {
-					        double dOldGrid = grid.GridSize;
+					        var dOldGrid = grid.GridSize;
 					        grid.SetToMinGridSize(Rect, false);
                             grid.DegenerateHandling = CGrid.eDegenerateHandling.PreDefinedGrid;
 					        GetBoolean( Other, HoledPolys, bThisInside, bOtherInside, grid);
@@ -866,12 +866,12 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.PreDefinedGrid:
 			        {
-				        C2DPolyBase P1 = new C2DPolyBase(this);
-                        C2DPolyBase P2 = new C2DPolyBase(Other);
+				        var P1 = new C2DPolyBase(this);
+                        var P2 = new C2DPolyBase(Other);
 				        P1.SnapToGrid(grid);
                         P2.SnapToGrid(grid);
-				        C2DVector V1 = new C2DVector( P1.BoundingRect.TopLeft,  P2.BoundingRect.TopLeft);
-				        double dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
+				        var V1 = new C2DVector( P1.BoundingRect.TopLeft,  P2.BoundingRect.TopLeft);
+				        var dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
 				        if(V1.i > 0) 
                             V1.i = dPerturbation;
                         else
@@ -887,7 +887,7 @@ namespace GeoLib
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
 				        P1.GetBoolean( P2, HoledPolys, bThisInside, bOtherInside, grid);
 
-                        for (int i = 0; i < HoledPolys.Count; i++)
+                        for (var i = 0; i < HoledPolys.Count; i++)
                             HoledPolys[i].SnapToGrid(grid);
 
 	                    grid.DegenerateHandling = CGrid.eDegenerateHandling.PreDefinedGrid;
@@ -895,9 +895,9 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.PreDefinedGridPreSnapped:
 			        {
-				        C2DPolyBase P2 = new C2DPolyBase(Other);
-				        C2DVector V1 = new C2DVector( this.BoundingRect.TopLeft,  P2.BoundingRect.TopLeft);
-				        double dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
+				        var P2 = new C2DPolyBase(Other);
+				        var V1 = new C2DVector( this.BoundingRect.TopLeft,  P2.BoundingRect.TopLeft);
+				        var dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
 				        if (V1.i > 0)
                             V1.i = dPerturbation;
                         else
@@ -913,7 +913,7 @@ namespace GeoLib
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
 				        GetBoolean( P2, HoledPolys, bThisInside, bOtherInside, grid);
 
-                        for (int i = 0; i < HoledPolys.Count; i++)
+                        for (var i = 0; i < HoledPolys.Count; i++)
                             HoledPolys[i].SnapToGrid(grid);
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.PreDefinedGridPreSnapped;
 			        }
@@ -935,9 +935,9 @@ namespace GeoLib
 
 	        Lines[0].Project(Line, Interval);
 
-            for (int i = 1; i < Lines.Count; i++)
+            for (var i = 1; i < Lines.Count; i++)
 	        {
-		        CInterval LineInt = new CInterval();
+		        var LineInt = new CInterval();
 		        Lines[i].Project(Line, LineInt);
 		        Interval.ExpandToInclude( LineInt );
 	        }
@@ -955,9 +955,9 @@ namespace GeoLib
 
 	        Lines[0].Project(Vector, Interval);
 
-	        for (int i = 1; i < Lines.Count; i++)
+	        for (var i = 1; i < Lines.Count; i++)
 	        {
-		        CInterval LineInt = new CInterval();
+		        var LineInt = new CInterval();
 		        Lines[i].Project(Vector, LineInt);
 		        Interval.ExpandToInclude( LineInt );
 	        }
@@ -969,10 +969,10 @@ namespace GeoLib
 	    public void RandomPerturb()
         {
 	        C2DPoint pt = BoundingRect.GetPointFurthestFromOrigin();
-	        double dMinEq = Math.Max(pt.x, pt.y) * Constants.conEqualityTolerance;
-	        CRandomNumber rn = new CRandomNumber (dMinEq * 10, dMinEq * 100);
+	        var dMinEq = Math.Max(pt.x, pt.y) * Constants.conEqualityTolerance;
+	        var rn = new CRandomNumber (dMinEq * 10, dMinEq * 100);
 
-	        C2DVector cVector = new C2DVector( rn.Get(), rn.Get() );
+	        var cVector = new C2DVector( rn.Get(), rn.Get() );
 	        if (rn.GetBool())
 		        cVector.i = - cVector.i ;
 	        if (rn.GetBool())
@@ -1000,16 +1000,16 @@ namespace GeoLib
 				    C2DLineBaseSetSet Routes1, C2DLineBaseSetSet Routes2)
         {
             // Set up a collection of intersected points, and corresponding indexes.
-            C2DPointSet IntPoints = new C2DPointSet();
-            List<int> Indexes1 = new List<int>();
-            List<int> Indexes2 = new List<int>();
+            var IntPoints = new C2DPointSet();
+            var Indexes1 = new List<int>();
+            var Indexes2 = new List<int>();
             // Use the line collections in each shape to find the intersections between them.
             Poly1.Lines.GetIntersections(Poly2.Lines, IntPoints,
                                                 Indexes1, Indexes2,
                                         Poly1.BoundingRect, Poly2.BoundingRect);
             // Make a copy of the point set because this will be sorted by line index in the 
             // Get routes function later. We need an unsorted set for each polygon.
-            C2DPointSet IntPointsCopy = new C2DPointSet();
+            var IntPointsCopy = new C2DPointSet();
             IntPointsCopy.MakeCopy(IntPoints);
 
             // Find out whether the first poly starts inside the second.
@@ -1042,7 +1042,7 @@ namespace GeoLib
 	        {
 		        BoundingRect.Set(LineRects[0]);
 
-		        for (int i = 1 ; i  < LineRects.Count; i++)
+		        for (var i = 1 ; i  < LineRects.Count; i++)
 		        {
 			        BoundingRect.ExpandToInclude(LineRects[i]);
 		        }
@@ -1056,9 +1056,9 @@ namespace GeoLib
         {
 	        LineRects.Clear();
 
-	        for (int i = 0 ; i  < Lines.Count; i++)
+	        for (var i = 0 ; i  < Lines.Count; i++)
 	        {
-		        C2DRect pRect = new C2DRect();
+		        var pRect = new C2DRect();
 		        Lines[i].GetBoundingRect( pRect);
 		        LineRects.Add( pRect );
 	        }
@@ -1080,7 +1080,7 @@ namespace GeoLib
         /// </summary>
         public void Transform(CTransformation pProject)
         {
-	        for (int i = 0; i < this._Lines.Count; i++)	
+	        for (var i = 0; i < this._Lines.Count; i++)	
 	        {
                 C2DLineBase pLine = _Lines[i];
 		        pLine.Transform(pProject);
@@ -1095,7 +1095,7 @@ namespace GeoLib
         /// </summary>
         public void InverseTransform(CTransformation pProject)
         {
-            for (int i = 0; i < this._Lines.Count; i++)
+            for (var i = 0; i < this._Lines.Count; i++)
             {
                 C2DLineBase pLine = _Lines[i];
                 pLine.InverseTransform(pProject);

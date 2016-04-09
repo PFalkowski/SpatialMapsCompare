@@ -117,7 +117,7 @@ namespace SpatialMapsCompareTests
         private static List<C2DPoint> GetCircle(double a, double radius, int numberOfPoints = 100)
         {
             var temp = new List<C2DPoint>();
-            for (int i = 0; i < numberOfPoints; ++i)
+            for (var i = 0; i < numberOfPoints; ++i)
             {
                 double angle;
                 if (i == 0)
@@ -165,8 +165,8 @@ namespace SpatialMapsCompareTests
         [TestMethod]
         public void SerializeAllPolygons()
         {
-            List<List<C2DPoint>> polygons = new List<List<C2DPoint>> { _referencePolygon, _oryginalPolygon, _userPolygon, _polygon101Et1, _polygon101Et2, _polygon101Et3 };
-            int i = 0;
+            var polygons = new List<List<C2DPoint>> { _referencePolygon, _oryginalPolygon, _userPolygon, _polygon101Et1, _polygon101Et2, _polygon101Et3 };
+            var i = 0;
             foreach (var poly in polygons)
             {
                 poly.SerializeToXDoc().Save(Path.ChangeExtension($"polygon{++i}", "xml"));

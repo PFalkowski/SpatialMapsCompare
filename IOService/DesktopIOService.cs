@@ -45,7 +45,7 @@ namespace SpatialMaps
 
         public void PrintToScreen(string message, MessageSeverity severity)
         {
-            string caption = severity == MessageSeverity.None ? MessageSeverity.Information.ToString() : severity.ToString();
+            var caption = severity == MessageSeverity.None ? MessageSeverity.Information.ToString() : severity.ToString();
             PrintToScreen(message, caption, severity);
         }
 

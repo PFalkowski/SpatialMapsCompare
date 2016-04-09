@@ -179,8 +179,8 @@ namespace GeoLib
         /// </summary>
 	    public double GetArea() 
         {
-	        double dSegAng = Arc.GetSegmentAngle();
-	        double dRadius = Arc.Radius;
+	        var dSegAng = Arc.GetSegmentAngle();
+	        var dRadius = Arc.Radius;
 	        if (Arc.CentreOnRight ^ Arc.ArcOnRight)
 	        {
 		        return (   dRadius * dRadius * ( dSegAng - Math.Sin(dSegAng)) / 2);
@@ -210,28 +210,28 @@ namespace GeoLib
 	    public C2DPoint GetCentroid()
         {
 	        // Find the area first. Do it explicitly as we may need bits of the calc later.
-	        double dSegAng = Arc.GetSegmentAngle();
-	        bool bBig = Arc.ArcOnRight == Arc.CentreOnRight;
+	        var dSegAng = Arc.GetSegmentAngle();
+	        var bBig = Arc.ArcOnRight == Arc.CentreOnRight;
 
-	        double dRadius = Arc.Radius;
-	        double dRadiusSquare = dRadius * dRadius;
-	        double dCircleArea = dRadiusSquare * Constants.conPI;
-	        double dArea = dRadiusSquare * ( (dSegAng - Math.Sin(dSegAng)) / 2);
+	        var dRadius = Arc.Radius;
+	        var dRadiusSquare = dRadius * dRadius;
+	        var dCircleArea = dRadiusSquare * Constants.conPI;
+	        var dArea = dRadiusSquare * ( (dSegAng - Math.Sin(dSegAng)) / 2);
 
 	        // Find the maximum length of the small segment along the direction of the line.
-	        double dLength = Arc.Line.GetLength();
+	        var dLength = Arc.Line.GetLength();
 	        // Now find the average height of the segment over that line
-	        double dHeight = dArea / dLength;
+	        var dHeight = dArea / dLength;
 
 	        // Find the centre point on the line and the centre of the circle
-	        C2DPoint ptLineCen = new C2DPoint(Arc.Line.GetMidPoint());
-	        C2DPoint ptCircleCen = new C2DPoint(Arc.GetCircleCentre());
+	        var ptLineCen = new C2DPoint(Arc.Line.GetMidPoint());
+	        var ptCircleCen = new C2DPoint(Arc.GetCircleCentre());
 
 	        // Set up a line from the mid point on the line to the circle centre
 	        // then set the length of it to the average height divided by 2. The end
 	        // point of the line is then the centroid. If we are using the small bit, 
 	        // The line needs to be reversed.
-	        C2DLine Line = new C2DLine( ptLineCen, ptCircleCen);
+	        var Line = new C2DLine( ptLineCen, ptCircleCen);
 
 	        Line.vector.Reverse();
 
@@ -239,12 +239,12 @@ namespace GeoLib
 
 	        if (bBig)
 	        {
-		        C2DPoint ptSmallCen = new C2DPoint(Line.GetPointTo());
+		        var ptSmallCen = new C2DPoint(Line.GetPointTo());
 		        // Return the weighted average of the 2 centroids.
 
                 ptCircleCen.Multiply(dCircleArea);
                 ptSmallCen.Multiply(dArea);
-                C2DPoint pRes = ptCircleCen - ptSmallCen;
+                var pRes = ptCircleCen - ptSmallCen;
                 pRes.Multiply(1.0 / (dCircleArea - dArea));
                 return pRes;
 		   //     return ( new C2DPoint(ptCircleCen * dCircleArea - ptSmallCen * dArea) ) / ( dCircleArea - dArea);
@@ -283,7 +283,7 @@ namespace GeoLib
         /// </summary>
 	    public bool Contains( C2DPoint TestPoint) 
         {
-	        C2DPoint ptCentre = new C2DPoint(GetCircleCentre());
+	        var ptCentre = new C2DPoint(GetCircleCentre());
         	
 	        if (TestPoint.Distance(ptCentre) > Arc.Radius) 
 		        return false;
@@ -356,8 +356,8 @@ namespace GeoLib
         {
 	        if (Contains(TestPoint))
 		        return 0;
-            double d1 = Arc.Distance(TestPoint);
-            double d2 = Arc.Line.Distance(TestPoint);
+            var d1 = Arc.Distance(TestPoint);
+            var d2 = Arc.Line.Distance(TestPoint);
 	        return Math.Min(d1, d2);
         }
 
@@ -369,7 +369,7 @@ namespace GeoLib
 	    public override  void Project(C2DLine Line,  CInterval Interval) 
         {
 	        Arc.Project(Line, Interval);
-	        CInterval LineInterval = new CInterval();
+	        var LineInterval = new CInterval();
 	        Arc.Line.Project(Line,  LineInterval);
 	        Interval.ExpandToInclude( LineInterval );
         }
@@ -382,7 +382,7 @@ namespace GeoLib
 	    public  override void Project(C2DVector Vector,  CInterval Interval) 
         {
 	        Arc.Project(Vector,  Interval);
-	        CInterval LineInterval = new CInterval();
+	        var LineInterval = new CInterval();
 	        Arc.Line.Project(Vector,  LineInterval);
 	        Interval.ExpandToInclude( LineInterval );
         }

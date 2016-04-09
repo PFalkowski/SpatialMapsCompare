@@ -24,7 +24,7 @@ namespace GeoLib
         public C2DHoledPolyArc(C2DHoledPolyBase Other)
         {
             _Rim = new C2DPolyArc(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolyArc(Other.GetHole(i)));
             }
@@ -57,7 +57,7 @@ namespace GeoLib
         {
             _Rim.Set(Other.Rim);
             _Holes.Clear();
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolyArc(Other.GetHole(i)));
             }
@@ -71,7 +71,7 @@ namespace GeoLib
         {
             _Rim.Set(Other.Rim);
             _Holes.Clear();
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolyArc(Other.GetHole(i)));
             }
@@ -85,7 +85,7 @@ namespace GeoLib
         public C2DHoledPolyArc(C2DHoledPolyArc Other)
         {
             _Rim = new C2DPolyArc(Other.Rim);
-            for (int i = 0; i < Other.HoleCount; i++)
+            for (var i = 0; i < Other.HoleCount; i++)
             {
                 _Holes.Add(new C2DPolyArc(Other.GetHole(i)));
             }
@@ -101,7 +101,7 @@ namespace GeoLib
 
 		    dResult += Rim.GetArea();
 
-	        for ( int i = 0 ; i < _Holes.Count; i++)
+	        for ( var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        dResult -= GetHole(i).GetArea();
 	        }
@@ -115,16 +115,16 @@ namespace GeoLib
         /// </summary>
         C2DPoint GetCentroid()
         {
-            C2DPoint Centroid = Rim.GetCentroid();
-            double dArea = Rim.GetArea();
+            var Centroid = Rim.GetCentroid();
+            var dArea = Rim.GetArea();
 
-	        for (int i = 0; i < _Holes.Count; i++)
+	        for (var i = 0; i < _Holes.Count; i++)
 	        {
-			        C2DVector vec = new C2DVector( Centroid, GetHole(i).GetCentroid());
+			        var vec = new C2DVector( Centroid, GetHole(i).GetCentroid());
 
-			        double dHoleArea = GetHole(i).GetArea();
+			        var dHoleArea = GetHole(i).GetArea();
 
-			        double dFactor =  dHoleArea / (dHoleArea + dArea);	
+			        var dFactor =  dHoleArea / (dHoleArea + dArea);	
 
 			        vec.Multiply( dFactor);
 			        Centroid.x += vec.i;
@@ -147,11 +147,11 @@ namespace GeoLib
         public void GetNonOverlaps(C2DHoledPolyArc Other, List<C2DHoledPolyArc> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetNonOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 
@@ -164,11 +164,11 @@ namespace GeoLib
         public void GetUnion(C2DHoledPolyArc Other, List<C2DHoledPolyArc> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetUnion(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 
@@ -182,11 +182,11 @@ namespace GeoLib
         public void GetOverlaps(C2DHoledPolyArc Other, List<C2DHoledPolyArc> Polygons,
                                             CGrid grid)
         {
-            List<C2DHoledPolyBase> NewPolys = new List<C2DHoledPolyBase>();
+            var NewPolys = new List<C2DHoledPolyBase>();
 
             base.GetOverlaps(Other, NewPolys, grid);
 
-            for (int i = 0; i < NewPolys.Count; i++)
+            for (var i = 0; i < NewPolys.Count; i++)
                 Polygons.Add(new C2DHoledPolyArc(NewPolys[i]));
         }
 

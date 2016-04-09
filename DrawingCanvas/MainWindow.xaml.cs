@@ -42,9 +42,9 @@ namespace DrawingCanvas
             {
                 previous = points[0];
             }
-            for (int i = 1; i < points.Count; ++i)
+            for (var i = 1; i < points.Count; ++i)
             {
-                Line temp = new Line();
+                var temp = new Line();
                 temp.Stroke = Brushes.Black;
                 temp.StrokeThickness = 2;
                 temp.X1 = previous.X;

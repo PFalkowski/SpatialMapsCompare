@@ -26,7 +26,7 @@ namespace GeoLib
         {
 	        _Rim =  new C2DPolyBase( Other.Rim);
 
-	        for (int i = 0 ; i < Other.HoleCount; i++)
+	        for (var i = 0 ; i < Other.HoleCount; i++)
 	        {
 		        _Holes.Add(new C2DPolyBase(Other.GetHole(i)));
 	        }
@@ -55,7 +55,7 @@ namespace GeoLib
         {
             _Rim.Set(Other.Rim);
             _Holes.Clear();
-	        for (int i = 0 ; i < Other.HoleCount; i++)
+	        for (var i = 0 ; i < Other.HoleCount; i++)
 	        {
 		        _Holes.Add(new C2DPolyBase(Other.GetHole(i)));
 	        }
@@ -66,11 +66,11 @@ namespace GeoLib
         /// </summary>
 	    public int GetLineCount()
         {
-	        int nResult = 0;
+	        var nResult = 0;
 
             nResult += _Rim.Lines.Count;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        nResult +=	_Holes[i].Lines.Count;
 	        }
@@ -93,16 +93,16 @@ namespace GeoLib
         /// </summary>
         public bool IsValid()
         {
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
                 if (!_Rim.Contains(_Holes[i]))
 			        return false;
 	        }
 
-	        int h = 0;
+	        var h = 0;
 	        while (h < _Holes.Count)
 	        {
-		        int r = h + 1;
+		        var r = h + 1;
 		        while (r < _Holes.Count)
 		        {
 			        if (_Holes[h].Overlaps(_Holes[r]))
@@ -123,7 +123,7 @@ namespace GeoLib
         {
             _Rim.RotateToRight(dAng, Origin);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].RotateToRight(dAng, Origin);
 	        }
@@ -137,7 +137,7 @@ namespace GeoLib
         {
             _Rim.Move(Vector);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].Move(Vector);
 	        }
@@ -152,7 +152,7 @@ namespace GeoLib
         {
             _Rim.Grow(dFactor, Origin);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].Grow(dFactor, Origin);
 	        }
@@ -167,7 +167,7 @@ namespace GeoLib
         {
             _Rim.Reflect(Point);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].Reflect(Point);
 	        }
@@ -181,7 +181,7 @@ namespace GeoLib
         {
             _Rim.Reflect(Line);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].Reflect(Line);
 	        }
@@ -193,13 +193,13 @@ namespace GeoLib
         /// <param name="TestPoint">Point to find the distance to.</param> 
         public double Distance(C2DPoint TestPoint)
         {
-            double dResult = _Rim.Distance(TestPoint);
-	        bool bInside = dResult < 0;
+            var dResult = _Rim.Distance(TestPoint);
+	        var bInside = dResult < 0;
 	        dResult = Math.Abs(dResult);
 
-	        for (int i = 0; i < _Holes.Count; i++)
+	        for (var i = 0; i < _Holes.Count; i++)
 	        {
-		        double dDist = _Holes[i].Distance(TestPoint); 
+		        var dDist = _Holes[i].Distance(TestPoint); 
 		        if (dDist < 0)
 			        bInside = false;
 		        if (Math.Abs(dDist) < dResult)
@@ -219,16 +219,16 @@ namespace GeoLib
         /// <param name="Line">Line to find the distance to.</param> 
         public double Distance(C2DLineBase Line) 
         {
-            double dResult = _Rim.Distance(Line);
+            var dResult = _Rim.Distance(Line);
 	        if (dResult == 0)
 		        return 0;
 
-	        bool bInside = dResult < 0;
+	        var bInside = dResult < 0;
 	        dResult = Math.Abs(dResult);
 
-	        for ( int i = 0; i < _Holes.Count; i++)
+	        for ( var i = 0; i < _Holes.Count; i++)
 	        {
-		        double dDist = _Holes[i].Distance(Line); 
+		        var dDist = _Holes[i].Distance(Line); 
 		        if (dDist == 0)
 			        return 0;
         		
@@ -254,11 +254,11 @@ namespace GeoLib
         /// <param name="ptOnOther">Closest point on the other to recieve the result.</param> 
         public double Distance(C2DPolyBase Poly, C2DPoint ptOnThis, C2DPoint ptOnOther) 
         {
-	        C2DPoint ptOnThisResult = new C2DPoint();
-	        C2DPoint ptOnOtherResult = new C2DPoint();
+	        var ptOnThisResult = new C2DPoint();
+	        var ptOnOtherResult = new C2DPoint();
 
 
-            double dResult = _Rim.Distance(Poly, ptOnThis, ptOnOther);
+            var dResult = _Rim.Distance(Poly, ptOnThis, ptOnOther);
 
 	        if (dResult == 0)
 		        return 0;
@@ -266,12 +266,12 @@ namespace GeoLib
 		    ptOnThisResult.Set(ptOnThis); 
 		    ptOnOtherResult.Set(ptOnOther); 
 
-	        bool bInside = dResult < 0;
+	        var bInside = dResult < 0;
 	        dResult = Math.Abs(dResult);
 
-	        for (int i = 0; i < _Holes.Count; i++)
+	        for (var i = 0; i < _Holes.Count; i++)
 	        {
-		        double dDist = _Holes[i].Distance(Poly, ptOnThis, ptOnOther); 
+		        var dDist = _Holes[i].Distance(Poly, ptOnThis, ptOnOther); 
 		        if (dDist == 0)
 			        return 0;
         		
@@ -305,7 +305,7 @@ namespace GeoLib
             if (_Rim.IsWithinDistance(TestPoint, dDist))
 		        return true;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].IsWithinDistance( TestPoint,  dDist))
 			        return true;
@@ -319,9 +319,9 @@ namespace GeoLib
 	    public double GetPerimeter() 
         {
 
-            double dResult = _Rim.GetPerimeter();
+            var dResult = _Rim.GetPerimeter();
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        dResult += _Holes[i].GetPerimeter();
 	        }
@@ -355,11 +355,11 @@ namespace GeoLib
         /// </summary>
         public bool HasCrossingLines()
         {
-	        C2DLineBaseSet Lines = new C2DLineBaseSet();
+	        var Lines = new C2DLineBaseSet();
 
             Lines.InsertRange(0, _Rim.Lines);
 
-	        for (int i = 0; i < _Holes.Count; i++)
+	        for (var i = 0; i < _Holes.Count; i++)
 	        {
 		        Lines.InsertRange( 0, _Holes[i].Lines);
 	        }
@@ -375,7 +375,7 @@ namespace GeoLib
         {
             Rect.Set(_Rim.BoundingRect);
 
-	        for (int i = 0; i < _Holes.Count; i++)
+	        for (var i = 0; i < _Holes.Count; i++)
 	        {
 		        Rect.ExpandToInclude( _Holes[i].BoundingRect);
 	        }
@@ -390,7 +390,7 @@ namespace GeoLib
             if (!_Rim.Contains(pt))
 		        return false;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].Contains(pt))
 			        return false;
@@ -408,7 +408,7 @@ namespace GeoLib
             if (!_Rim.Contains(Line))
 		        return false;
 
-	        for ( int i = 0 ; i < _Holes.Count; i++)
+	        for ( var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].Crosses(Line) || _Holes[i].Contains( Line.GetPointFrom()))
 			        return false;
@@ -427,7 +427,7 @@ namespace GeoLib
             if (!_Rim.Contains(Polygon))
 		        return false;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].Overlaps(Polygon))
 			        return false;
@@ -445,7 +445,7 @@ namespace GeoLib
 	        if (! Contains( Polygon.Rim))
 		        return false;
         	
-	        for (int i = 0 ; i < Polygon.HoleCount; i++)
+	        for (var i = 0 ; i < Polygon.HoleCount; i++)
 	        {
 		        if (! Contains(  Polygon.GetHole(i)) )
 			        return false;
@@ -462,7 +462,7 @@ namespace GeoLib
             if (_Rim.Crosses(Line))
 		        return true;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].Crosses(Line))
 			        return true;
@@ -477,15 +477,15 @@ namespace GeoLib
         /// <param name="IntersectionPts">Point set to recieve the intersections.</param> 
         public bool Crosses(C2DLineBase Line, C2DPointSet IntersectionPts) 
         {
-	        C2DPointSet IntPts = new C2DPointSet();
+	        var IntPts = new C2DPointSet();
 
             _Rim.Crosses(Line, IntPts);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        _Holes[i].Crosses(Line, IntPts);
 	        }
-	        bool bResult = (IntPts.Count != 0);
+	        var bResult = (IntPts.Count != 0);
 		    IntersectionPts.ExtractAllOf(IntPts);
 
 	        return (bResult);
@@ -502,7 +502,7 @@ namespace GeoLib
             if (_Rim.Crosses(Poly))
 		        return true;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if(_Holes[i].Crosses(Poly))
 			        return true;
@@ -517,18 +517,18 @@ namespace GeoLib
         /// <param name="IntersectionPts">Intersection points.</param> 
         public bool CrossesRay(C2DLine Ray, C2DPointSet IntersectionPts) 
         {
-	        C2DPointSet IntPts = new C2DPointSet();
+	        var IntPts = new C2DPointSet();
 
             _Rim.CrossesRay(Ray, IntPts);
 
 	        IntersectionPts.ExtractAllOf(IntPts);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].CrossesRay(Ray, IntPts))
 		        {
 			        double dDist = Ray.point.Distance(IntPts[0]);
-			        int nInsert = 0;
+			        var nInsert = 0;
 
 			        while (nInsert < IntersectionPts.Count && 
 				        Ray.point.Distance( IntersectionPts[nInsert]) < dDist )
@@ -552,7 +552,7 @@ namespace GeoLib
         {
 	        if (!Overlaps( Other.Rim ))
 		        return false;
-	        for (int i = 0 ; i < Other.HoleCount; i++)
+	        for (var i = 0 ; i < Other.HoleCount; i++)
 	        {
                 if (Other.GetHole(i).Contains(_Rim))
 			        return false;
@@ -569,7 +569,7 @@ namespace GeoLib
             if (!_Rim.Overlaps(Other))
 		        return false;
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        if (_Holes[i].Contains(Other))
 			        return false;
@@ -586,18 +586,18 @@ namespace GeoLib
         public static void PolygonsToHoledPolygons(List<C2DHoledPolyBase> HoledPolys,
 				    List<C2DPolyBase> Polygons)
         {
-	        List<C2DPolyBase> Unmatched = new List<C2DPolyBase>();
-	        List<C2DHoledPolyBase> NewHoledPolys = new List<C2DHoledPolyBase>();
+	        var Unmatched = new List<C2DPolyBase>();
+	        var NewHoledPolys = new List<C2DHoledPolyBase>();
 
-	        for (int i = Polygons.Count - 1 ; i >= 0  ; i--)
+	        for (var i = Polygons.Count - 1 ; i >= 0  ; i--)
 	        {
-		        bool bMatched = false;
+		        var bMatched = false;
 
-		        C2DPolyBase pPoly = Polygons[i];
+		        var pPoly = Polygons[i];
                 Polygons.RemoveAt(i);
 
 		        // Cycle through the newly created polygons to see if it's a hole.
-		        for ( int p = 0; p < NewHoledPolys.Count; p++)
+		        for ( var p = 0; p < NewHoledPolys.Count; p++)
 		        {
 			        if (  NewHoledPolys[p].Rim.Contains(  pPoly.Lines[0].GetPointFrom() ))
 			        {
@@ -609,9 +609,9 @@ namespace GeoLib
 		        // If its not then compare it to all the other unknowns.
 		        if (!bMatched)
 		        {
-			        int u = 0; 
+			        var u = 0; 
 
-			        bool bKnownRim = false;
+			        var bKnownRim = false;
 
 			        while (u < Unmatched.Count)
 			        {
@@ -663,9 +663,9 @@ namespace GeoLib
 		        }
 	        }
 
-            for (int i = 0; i < Unmatched.Count; i++)
+            for (var i = 0; i < Unmatched.Count; i++)
             {
-                C2DHoledPolyBase NewHoled = new C2DHoledPolyBase();
+                var NewHoled = new C2DHoledPolyBase();
                 NewHoled.Rim = Unmatched[i];
                 HoledPolys.Add(NewHoled);
             }
@@ -740,22 +740,22 @@ namespace GeoLib
 			    return;
 		    }
 
-		    C2DPointSet IntPointsTemp = new C2DPointSet();
-            C2DPointSet IntPointsRim1 = new C2DPointSet();
-            C2DPointSet IntPointsRim2 = new C2DPointSet();
-		    List<int>	IndexesRim1 = new List<int>();
-            List<int>	IndexesRim2 = new List<int>();
+		    var IntPointsTemp = new C2DPointSet();
+            var IntPointsRim1 = new C2DPointSet();
+            var IntPointsRim2 = new C2DPointSet();
+		    var	IndexesRim1 = new List<int>();
+            var	IndexesRim2 = new List<int>();
 
 
-            List<C2DPointSet> IntPoints1AllHoles = new List<C2DPointSet>();
-            List<C2DPointSet> IntPoints2AllHoles = new List<C2DPointSet>();
-            List<List<int>> Indexes1AllHoles = new List<List<int>>();
-            List<List<int>> Indexes2AllHoles = new List<List<int>>();
+            var IntPoints1AllHoles = new List<C2DPointSet>();
+            var IntPoints2AllHoles = new List<C2DPointSet>();
+            var Indexes1AllHoles = new List<List<int>>();
+            var Indexes2AllHoles = new List<List<int>>();
 		//    std::vector<C2DPointSet* > IntPoints1AllHoles, IntPoints2AllHoles;
 		 //   std::vector<CIndexSet*> Indexes1AllHoles, Indexes2AllHoles;
 
-		    int usP1Holes = Poly1.HoleCount;
-		    int usP2Holes = Poly2.HoleCount;
+		    var usP1Holes = Poly1.HoleCount;
+		    var usP2Holes = Poly2.HoleCount;
 
 		    // *** Rim Rim Intersections
 		    Poly1.Rim.Lines.GetIntersections(  Poly2.Rim.Lines,
@@ -766,7 +766,7 @@ namespace GeoLib
 		    IntPointsRim2.ExtractAllOf(IntPointsTemp);
 
 		    // *** Rim Hole Intersections
-		    for ( int i = 0 ; i < usP2Holes; i++)
+		    for ( var i = 0 ; i < usP2Holes; i++)
 		    {
 			    Debug.Assert(IntPointsTemp.Count == 0);
 
@@ -784,7 +784,7 @@ namespace GeoLib
 			    }
 		    }
 		    // *** Rim Hole Intersections
-		    for ( int j = 0 ; j < usP1Holes; j++)
+		    for ( var j = 0 ; j < usP1Holes; j++)
 		    {
 			    Debug.Assert(IntPointsTemp.Count == 0);
 
@@ -830,13 +830,13 @@ namespace GeoLib
 			    }
 
 			    // *** Hole Hole Intersections
-			    for (int h = 0 ; h < usP1Holes; h++)
+			    for (var h = 0 ; h < usP1Holes; h++)
 			    {
-				    for ( int k = 0 ; k < usP2Holes; k++)
+				    for ( var k = 0 ; k < usP2Holes; k++)
 				    {
 					    Debug.Assert(IntPointsTemp.Count == 0);	
-					    C2DPolyBase pHole1 = Poly1.GetHole(h);
-                        C2DPolyBase pHole2 = Poly2.GetHole(k);
+					    var pHole1 = Poly1.GetHole(h);
+                        var pHole2 = Poly2.GetHole(k);
 
 					    if ( pHole1.BoundingRect.Overlaps( pHole2.BoundingRect) )
 					    {
@@ -852,9 +852,9 @@ namespace GeoLib
 
 
 			    // *** Hole Routes
-			    for (int a = 0 ; a < usP1Holes; a++)
+			    for (var a = 0 ; a < usP1Holes; a++)
 			    {
-				    C2DPolyBase pHole = Poly1.GetHole(a);
+				    var pHole = Poly1.GetHole(a);
     				
 				    if ( IntPoints1AllHoles[a].Count % 2 != 0)	// Must be even
 				    {
@@ -878,9 +878,9 @@ namespace GeoLib
 				    }
 			    }
 			    // *** Hole Routes	
-			    for (int b = 0 ; b < usP2Holes; b++)
+			    for (var b = 0 ; b < usP2Holes; b++)
 			    {
-				    C2DPolyBase pHole = Poly2.GetHole(b);
+				    var pHole = Poly2.GetHole(b);
 
 				    if ( IntPoints2AllHoles[b].Count % 2 != 0)	// Must be even
 				    {
@@ -923,10 +923,10 @@ namespace GeoLib
         public void RandomPerturb()
         {
             C2DPoint pt = _Rim.BoundingRect.GetPointFurthestFromOrigin();
-	        double dMinEq = Math.Max(pt.x, pt.y) * Constants.conEqualityTolerance;
-	        CRandomNumber rn = new CRandomNumber(dMinEq * 10, dMinEq * 100);
+	        var dMinEq = Math.Max(pt.x, pt.y) * Constants.conEqualityTolerance;
+	        var rn = new CRandomNumber(dMinEq * 10, dMinEq * 100);
 
-	        C2DVector cVector = new C2DVector( rn.Get(), rn.Get() );
+	        var cVector = new C2DVector( rn.Get(), rn.Get() );
 	        if (rn.GetBool())
 		        cVector.i = - cVector.i ;
 	        if (rn.GetBool())
@@ -944,7 +944,7 @@ namespace GeoLib
         {
             _Rim.SnapToGrid(grid);
 
-	        for (int i = 0 ; i < _Holes.Count; i++)
+	        for (var i = 0 ; i < _Holes.Count; i++)
 	        {
 		        GetHole(i).SnapToGrid(grid);
 	        }
@@ -972,10 +972,10 @@ namespace GeoLib
 		        {
 		        case CGrid.eDegenerateHandling.None:
 			        {
-				        List<C2DPolyBase> CompleteHoles1 = new List<C2DPolyBase>();
-				        List<C2DPolyBase> CompleteHoles2 = new List<C2DPolyBase>();
-				        C2DLineBaseSetSet Routes1 = new C2DLineBaseSetSet(); 
-				        C2DLineBaseSetSet Routes2 = new C2DLineBaseSetSet(); 
+				        var CompleteHoles1 = new List<C2DPolyBase>();
+				        var CompleteHoles2 = new List<C2DPolyBase>();
+				        var Routes1 = new C2DLineBaseSetSet(); 
+				        var Routes2 = new C2DLineBaseSetSet(); 
 				        GetRoutes( this, bThisInside, Other, bOtherInside, Routes1, Routes2,
 								        CompleteHoles1, CompleteHoles2, grid);
 
@@ -985,9 +985,9 @@ namespace GeoLib
 				        {
 					        Routes1.MergeJoining();
 
-					        List<C2DPolyBase> Polygons = new List<C2DPolyBase>();
+					        var Polygons = new List<C2DPolyBase>();
 
-					        for (int i = Routes1.Count - 1; i >= 0; i--)
+					        for (var i = Routes1.Count - 1; i >= 0; i--)
 					        {
 						        C2DLineBaseSet pRoute = Routes1[i];
 						        if (pRoute.IsClosed(true) )
@@ -1002,7 +1002,7 @@ namespace GeoLib
 						        }	
 					        }
 
-                            C2DHoledPolyBaseSet NewComPolys = new C2DHoledPolyBaseSet();
+                            var NewComPolys = new C2DHoledPolyBaseSet();
         					
 					        PolygonsToHoledPolygons(NewComPolys, Polygons);
 
@@ -1025,7 +1025,7 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.RandomPerturbation:
 			        {
-				        C2DHoledPolyBase OtherCopy = new C2DHoledPolyBase(Other);
+				        var OtherCopy = new C2DHoledPolyBase(Other);
 				        OtherCopy.RandomPerturb();
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
 				        GetBoolean( OtherCopy, HoledPolys, bThisInside, bOtherInside , grid );
@@ -1034,7 +1034,7 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.DynamicGrid:
 			        {
-				        C2DRect Rect = new C2DRect();
+				        var Rect = new C2DRect();
                         if (_Rim.BoundingRect.Overlaps(Other.Rim.BoundingRect, Rect))
 				        {
 					        //double dOldGrid = CGrid::GetGridSize();
@@ -1047,12 +1047,12 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.PreDefinedGrid:
 			        {
-				        C2DHoledPolyBase P1 = new C2DHoledPolyBase(this);
-                        C2DHoledPolyBase P2 = new C2DHoledPolyBase(Other);
+				        var P1 = new C2DHoledPolyBase(this);
+                        var P2 = new C2DHoledPolyBase(Other);
 				        P1.SnapToGrid(grid);
 				        P2.SnapToGrid(grid);
-				        C2DVector V1 = new C2DVector( P1.Rim.BoundingRect.TopLeft,  P2.Rim.BoundingRect.TopLeft);
-				        double dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
+				        var V1 = new C2DVector( P1.Rim.BoundingRect.TopLeft,  P2.Rim.BoundingRect.TopLeft);
+				        var dPerturbation = grid.GridSize; // ensure it snaps back to original grid positions.
 				        if (V1.i > 0)
                             V1.i = dPerturbation;
                         else
@@ -1068,7 +1068,7 @@ namespace GeoLib
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
 				        P1.GetBoolean( P2, HoledPolys, bThisInside, bOtherInside , grid );
 
-                        for (int i = 0 ; i < HoledPolys.Count ; i++)
+                        for (var i = 0 ; i < HoledPolys.Count ; i++)
 				            HoledPolys[i].SnapToGrid(grid);
 
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.PreDefinedGrid;
@@ -1077,9 +1077,9 @@ namespace GeoLib
 			        break;
 		        case CGrid.eDegenerateHandling.PreDefinedGridPreSnapped:
 			        {
-				        C2DHoledPolyBase P2 = new C2DHoledPolyBase(Other);
-                        C2DVector V1 = new C2DVector(_Rim.BoundingRect.TopLeft, P2.Rim.BoundingRect.TopLeft);
-				        double dPerturbation = grid.GridSize;
+				        var P2 = new C2DHoledPolyBase(Other);
+                        var V1 = new C2DVector(_Rim.BoundingRect.TopLeft, P2.Rim.BoundingRect.TopLeft);
+				        var dPerturbation = grid.GridSize;
 				        if (V1.i > 0) 
                             V1.i = dPerturbation; 
                         else
@@ -1095,7 +1095,7 @@ namespace GeoLib
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.None;
                         GetBoolean(P2, HoledPolys, bThisInside, bOtherInside, grid);
 
-                        for (int i = 0; i < HoledPolys.Count; i++)
+                        for (var i = 0; i < HoledPolys.Count; i++)
                             HoledPolys[i].SnapToGrid(grid);
 
                         grid.DegenerateHandling = CGrid.eDegenerateHandling.PreDefinedGridPreSnapped;
@@ -1113,7 +1113,7 @@ namespace GeoLib
             if (_Rim != null)
 	            _Rim.Transform(pProject);
 
-            for (int i = 0; i < _Holes.Count; i++)
+            for (var i = 0; i < _Holes.Count; i++)
             {
 	            _Holes[i].Transform(pProject);
             }
@@ -1127,7 +1127,7 @@ namespace GeoLib
             if (_Rim != null)
                 _Rim.InverseTransform(pProject);
 
-            for (int i = 0; i < _Holes.Count; i++)
+            for (var i = 0; i < _Holes.Count; i++)
             {
                 _Holes[i].Transform(pProject);
             }

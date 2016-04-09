@@ -21,9 +21,9 @@ namespace GeoLib
         /// <param name="Polys">The set to extract from converting to holed polygns.</param>
         public void ExtractAllOf(List<C2DPolyBase> Polys)
         {
-            for (int i = 0; i < Polys.Count; i++)
+            for (var i = 0; i < Polys.Count; i++)
             {
-                C2DHoledPolyBase NewPoly = new C2DHoledPolyBase();
+                var NewPoly = new C2DHoledPolyBase();
                 NewPoly.Rim = Polys[i];
                 Add(NewPoly);
             }
@@ -44,20 +44,20 @@ namespace GeoLib
         /// </summary>
         public void UnifyBasic()
         {
-	        C2DHoledPolyBaseSet TempSet = new C2DHoledPolyBaseSet();
-	        C2DHoledPolyBaseSet UnionSet = new C2DHoledPolyBaseSet();
+	        var TempSet = new C2DHoledPolyBaseSet();
+	        var UnionSet = new C2DHoledPolyBaseSet();
 
 	        while (Count > 0)
 	        {
-		        C2DHoledPolyBase pLast = this[Count - 1];
+		        var pLast = this[Count - 1];
                 this.RemoveAt(Count - 1);
 
-		        bool bIntersect = false;
-		        int i = 0;
+		        var bIntersect = false;
+		        var i = 0;
 
                 while (i < Count && !bIntersect)
 		        {
-                    CGrid grid = new CGrid();
+                    var grid = new CGrid();
                     this[i].GetUnion(pLast, UnionSet, grid);
 
 			        if (UnionSet.Count == 1)
@@ -92,7 +92,7 @@ namespace GeoLib
 	        switch( grid.DegenerateHandling )
 	        {
 	        case CGrid.eDegenerateHandling.RandomPerturbation:
-		        for (int i = 0 ; i < Count ; i++)
+		        for (var i = 0 ; i < Count ; i++)
 		        {
 			        this[i].RandomPerturb();
 		        }
@@ -102,7 +102,7 @@ namespace GeoLib
 
 		        break;
 	        case CGrid.eDegenerateHandling.PreDefinedGrid:
-		        for (int i = 0 ; i < Count ; i++)
+		        for (var i = 0 ; i < Count ; i++)
 		        {
 			        this[i].SnapToGrid(grid);
 		        }
@@ -114,13 +114,13 @@ namespace GeoLib
 	        }
 
 
-	        C2DHoledPolyBaseSet NoUnionSet = new C2DHoledPolyBaseSet();
-	        C2DHoledPolyBaseSet PossUnionSet = new C2DHoledPolyBaseSet();
-	        C2DHoledPolyBaseSet SizeHoldSet = new C2DHoledPolyBaseSet();
-	        C2DHoledPolyBaseSet UnionSet = new C2DHoledPolyBaseSet();
-	        C2DHoledPolyBaseSet TempSet = new C2DHoledPolyBaseSet();
+	        var NoUnionSet = new C2DHoledPolyBaseSet();
+	        var PossUnionSet = new C2DHoledPolyBaseSet();
+	        var SizeHoldSet = new C2DHoledPolyBaseSet();
+	        var UnionSet = new C2DHoledPolyBaseSet();
+	        var TempSet = new C2DHoledPolyBaseSet();
 
-	        int nThreshold = GetMinLineCount();
+	        var nThreshold = GetMinLineCount();
 
 	        if (nThreshold == 0)
 		        nThreshold = 10;	// avoid infinate loop.
@@ -141,7 +141,7 @@ namespace GeoLib
 		        // Put all the size held that are small enough back (or in to start with)
 		        while (SizeHoldSet.Count > 0)
 		        {
-			        C2DHoledPolyBase pLast = SizeHoldSet[SizeHoldSet.Count - 1];
+			        var pLast = SizeHoldSet[SizeHoldSet.Count - 1];
                     SizeHoldSet.RemoveAt(SizeHoldSet.Count - 1);
 
 			        if (pLast.GetLineCount() > nThreshold)
@@ -160,19 +160,19 @@ namespace GeoLib
 		        // Cycle through all popping the last and finding a union
 		        while (Count > 0)
 		        {
-			        C2DHoledPolyBase pLast = this[Count-1];
+			        var pLast = this[Count-1];
         		    this.RemoveAt(Count-1);
 
-			        bool bIntersect = false;
+			        var bIntersect = false;
 
-			        int i = 0;
+			        var i = 0;
 			        while ( i < Count && !bIntersect )
 			        {
 				        this[i].GetUnion( pLast, UnionSet, grid);
 
 				        if (UnionSet.Count == 1)
 				        {
-					        C2DHoledPolyBase pUnion = UnionSet[UnionSet.Count - 1];
+					        var pUnion = UnionSet[UnionSet.Count - 1];
                             UnionSet.RemoveAt(UnionSet.Count - 1);
 
 					        if (pUnion.GetLineCount() > nThreshold)
@@ -201,8 +201,8 @@ namespace GeoLib
 
 			        if (!bIntersect)
 			        {
-				        bool bPosInterSect = false;
-				        for (int j = 0 ; j <  SizeHoldSet.Count; j ++)
+				        var bPosInterSect = false;
+				        for (var j = 0 ; j <  SizeHoldSet.Count; j ++)
 				        {
 					        if (pLast.Rim.BoundingRect.Overlaps( 
 								        SizeHoldSet[j].Rim.BoundingRect))
@@ -248,11 +248,11 @@ namespace GeoLib
         /// <param name="pOther">The polygon set to add and possible unify.</param>
         public void AddAndUnify(C2DHoledPolyBaseSet pOther)
         {
-            C2DHoledPolyBaseSet TempSet = new C2DHoledPolyBaseSet();
+            var TempSet = new C2DHoledPolyBaseSet();
 
             while (pOther.Count > 0)
             {
-                C2DHoledPolyBase pLast = pOther[pOther.Count - 1];
+                var pLast = pOther[pOther.Count - 1];
                 pOther.RemoveAt(pOther.Count - 1);
 
                 if (!AddIfUnify(pLast))
@@ -268,12 +268,12 @@ namespace GeoLib
         /// <param name="pPoly">The polygon to add if there is a union.</param>
         public bool AddIfUnify(C2DHoledPolyBase pPoly)
         {
-            C2DHoledPolyBaseSet TempSet = new C2DHoledPolyBaseSet();
-            C2DHoledPolyBaseSet UnionSet = new C2DHoledPolyBaseSet();
-            CGrid grid = new CGrid();
+            var TempSet = new C2DHoledPolyBaseSet();
+            var UnionSet = new C2DHoledPolyBaseSet();
+            var grid = new CGrid();
             while (Count > 0 && pPoly != null)
             {
-                C2DHoledPolyBase pLast = this[Count-1];
+                var pLast = this[Count-1];
                 this.RemoveAt(Count - 1);
 
                 pLast.GetUnion(pPoly, UnionSet, grid);
@@ -311,12 +311,12 @@ namespace GeoLib
 	        {
 		        while (pOther.Count > 0)
 		        {
-			        C2DPolyBase pLast = pOther[pOther.Count - 1];
+			        var pLast = pOther[pOther.Count - 1];
                     pOther.RemoveAt(pOther.Count - 1);
 			        if (pLast.Lines.Count > 0)
 			        {
-                        int i = Count - 1;
-				        bool bFound = false;
+                        var i = Count - 1;
+				        var bFound = false;
 				        while ( i > 0 && !bFound)
 				        {
 					        if ( this[i].Contains( pLast.Lines[0].GetPointFrom()))
@@ -341,9 +341,9 @@ namespace GeoLib
         /// </summary>
         public int GetLineCount()
         {
-	        int nResult = 0 ;
+	        var nResult = 0 ;
 
-	        for (int n = 0; n < Count ; n ++)
+	        for (var n = 0; n < Count ; n ++)
 	        {
 		        nResult += this[n].GetLineCount();
 	        }
@@ -356,11 +356,11 @@ namespace GeoLib
         /// </summary>
         public int GetMinLineCount()
         {
-	        int nMin = ~(int)0;
+	        var nMin = ~(int)0;
 
-	        for(int i = 0 ; i < Count; i++)
+	        for(var i = 0 ; i < Count; i++)
 	        {
-		        int nCount = this[i].GetLineCount();
+		        var nCount = this[i].GetLineCount();
 		        if( nCount < nMin)
 		        {
 			        nMin = nCount;
@@ -374,7 +374,7 @@ namespace GeoLib
         /// </summary>
         public void Transform(CTransformation pProject)
         {
-	        for (int i = 0 ; i <  this.Count; i++)
+	        for (var i = 0 ; i <  this.Count; i++)
 	        {
 		        this[i].Transform(pProject);
 	        }
@@ -384,7 +384,7 @@ namespace GeoLib
         /// </summary>
         public void InverseTransform(CTransformation pProject)
         {
-	        for ( int i = 0 ; i < this.Count; i++)
+	        for ( var i = 0 ; i < this.Count; i++)
 	        {
 		        this[i].InverseTransform(pProject);
 	        }

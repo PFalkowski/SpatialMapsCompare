@@ -195,14 +195,14 @@ namespace SpatialMapsCompare
         private void draw_series_chart1(C2DHoledPolyBase holedPolygon, string seriesName)
         {
             _chart1.Series[seriesName].Points.Clear();
-            C2DPolygon polygon = new C2DPolygon(holedPolygon.Rim);
+            var polygon = new C2DPolygon(holedPolygon.Rim);
             draw_series_chart1(polygon, seriesName);
         }
 
         private void chart1_add_series(C2DPolygon polygon)
         {
-            Series series = new Series();
-            for (int i = 0; i < polygon.Lines.Count; i++)
+            var series = new Series();
+            for (var i = 0; i < polygon.Lines.Count; i++)
             {
                 series.Points.AddXY(polygon.Lines[i].GetPointFrom().x, polygon.Lines[i].GetPointFrom().y);
                 series.Points.AddXY(polygon.Lines[i].GetPointTo().x, polygon.Lines[i].GetPointTo().y);
@@ -215,13 +215,13 @@ namespace SpatialMapsCompare
 
         private void chart1_add_series(C2DHoledPolyBase holedPolygon)
         {
-            C2DPolygon polygon = new C2DPolygon(holedPolygon.Rim);
+            var polygon = new C2DPolygon(holedPolygon.Rim);
             chart1_add_series(polygon);
         }
 
         private void chart1_draw_holed(List<C2DHoledPolygon> holedPolygons)
         {
-            for (int i = 0; i < holedPolygons.Count<C2DHoledPolygon>(); i++)
+            for (var i = 0; i < holedPolygons.Count<C2DHoledPolygon>(); i++)
             {
                 chart1_add_series(holedPolygons[i]);
             }
@@ -230,7 +230,7 @@ namespace SpatialMapsCompare
         private void read_from_rows(string seriesName, int firstRowIndex = 0)
         {
             List<C2DPoint> tempPoints = new C2DPointSet(); ;
-            for (int i = 0; i < _dataGridView1.Rows.Count; i++)
+            for (var i = 0; i < _dataGridView1.Rows.Count; i++)
             {
                 if (_dataGridView1.Rows[i].Cells[0].Value != null)
                 {
@@ -267,11 +267,11 @@ namespace SpatialMapsCompare
             _comparedPolygon.GetOverlaps(_oryginalPolygon, _yellowPolys, _someGrid);
             _oryginalPolygon.GetNonOverlaps(_comparedPolygon, _bluePolysNoOverlap, _someGrid);
             _comparedPolygon.GetNonOverlaps(_oryginalPolygon, _yellowPolysNoOverlap, _someGrid);
-            double bluePolysSum = _bluePolys.Sum(current => current.GetArea());
-            double yellowPolysSum = _yellowPolys.Sum(current2 => current2.GetArea());
-            double bluePolysNoOverlapSum = _bluePolysNoOverlap.Sum(current3 => current3.GetArea());
-            double yellowPolysNoOverlapSum = _yellowPolysNoOverlap.Sum(current4 => current4.GetArea());
-            double noOverlapSum = bluePolysNoOverlapSum + yellowPolysNoOverlapSum;
+            var bluePolysSum = _bluePolys.Sum(current => current.GetArea());
+            var yellowPolysSum = _yellowPolys.Sum(current2 => current2.GetArea());
+            var bluePolysNoOverlapSum = _bluePolysNoOverlap.Sum(current3 => current3.GetArea());
+            var yellowPolysNoOverlapSum = _yellowPolysNoOverlap.Sum(current4 => current4.GetArea());
+            var noOverlapSum = bluePolysNoOverlapSum + yellowPolysNoOverlapSum;
             _label2.Text = Math.Round(_area, 3).ToString(CultureInfo.InvariantCulture);
             _label3.Text = Math.Round(_comparedArea, 3).ToString(CultureInfo.InvariantCulture);
             _label5.Text = Math.Round(_area - _comparedArea, 3).ToString(CultureInfo.InvariantCulture);
@@ -366,8 +366,8 @@ namespace SpatialMapsCompare
         {
             _trackBar1.Value = 100;
             _comparedArea = _comparedPolygon.GetArea();
-            bool flag = false;
-            bool flag2 = false;
+            var flag = false;
+            var flag2 = false;
             while (_comparedArea > _area * (1.0 + _precision) || _comparedArea < _area * (1.0 - _precision))
             {
                 if (_comparedArea > _area * (1.0 + _precision))
@@ -392,11 +392,11 @@ namespace SpatialMapsCompare
 
         private C2DPolygon move_to_zero_point(C2DPolygon polygon)
         {
-            List<C2DPoint> list = new List<C2DPoint>();
+            var list = new List<C2DPoint>();
             polygon.GetPointsCopy(list);
-            double num = list.Min((item) => item.x);
-            double num2 = list.Min((item) => item.y);
-            foreach (C2DPoint current in list.ToList())
+            var num = list.Min((item) => item.x);
+            var num2 = list.Min((item) => item.y);
+            foreach (var current in list.ToList())
             {
                 current.x -= num;
                 current.y -= num2;
@@ -416,10 +416,10 @@ namespace SpatialMapsCompare
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            var chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            var series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this._label1 = new System.Windows.Forms.Label();
             this._label2 = new System.Windows.Forms.Label();
             this._button1 = new System.Windows.Forms.Button();

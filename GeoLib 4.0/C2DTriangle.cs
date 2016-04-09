@@ -114,7 +114,7 @@ namespace GeoLib
         /// </summary>
 	    public bool Contains(C2DPoint ptTest)
         {
-	        bool bClockwise = GetAreaSigned() < 0;
+	        var bClockwise = GetAreaSigned() < 0;
 
 	        if ( (GetAreaSigned(P1, P2, ptTest) < 0) ^ bClockwise)
 		        return false;
@@ -191,7 +191,7 @@ namespace GeoLib
         /// <param name="ptTest">The test point.</param>
         public override double Distance(C2DPoint ptTest)
         {
-            C2DPoint P1 = new C2DPoint();
+            var P1 = new C2DPoint();
 	        return Distance(ptTest,  P1);
         }
 
@@ -202,19 +202,19 @@ namespace GeoLib
         /// <param name="ptOnThis">Output. The closest point on the triangle.</param>
 	    public double Distance(C2DPoint ptTest,  C2DPoint ptOnThis)
         {
-	        double dArea = GetAreaSigned();
-            bool BTemp = true;
+	        var dArea = GetAreaSigned();
+            var BTemp = true;
 	        // Construct the lines.
-	        C2DLine Line12 = new C2DLine(P1, P2);
-	        C2DLine Line23 = new C2DLine(P2, P3);
-            C2DLine Line31 = new C2DLine(P3, P1);
+	        var Line12 = new C2DLine(P1, P2);
+	        var Line23 = new C2DLine(P2, P3);
+            var Line31 = new C2DLine(P3, P1);
 
 	        if (dArea == 0)
 	        {
 		        // Colinear so find the biggest line and return the distance from that
-		        double d1 = Line12.GetLength();
-		        double d2 = Line23.GetLength();
-		        double d3 = Line31.GetLength();
+		        var d1 = Line12.GetLength();
+		        var d2 = Line23.GetLength();
+		        var d3 = Line31.GetLength();
 		        if (d1 > d2 && d1 > d3)
 			        return Line12.Distance(ptTest,  ptOnThis);
 		        else if (d2 > d3)
@@ -223,7 +223,7 @@ namespace GeoLib
 			        return Line31.Distance(ptTest,  ptOnThis);
 	        }
 	        // Find out it the triangle is clockwise or not.
-	        bool bClockwise = dArea < 0;
+	        var bClockwise = dArea < 0;
 
 	        // Set up some pointers to record the lines that the point is "above", "above" meaning that the
 	        // point is on the opposite side of the line to the rest of the triangle
@@ -258,8 +258,8 @@ namespace GeoLib
 		        // Pt inside so project onto all the lines and find the closest projection (there must be one).
         	
 		        // Set up a record of the point projection on the lines.
-		        C2DPoint ptOnLine = new C2DPoint();
-		        bool bSet = false;
+		        var ptOnLine = new C2DPoint();
+		        var bSet = false;
 		        double dMinDist = 0;
 
                 if (ptTest.ProjectsOnLine(Line12,  ptOnLine,  ref BTemp))
@@ -270,7 +270,7 @@ namespace GeoLib
 		        }
                 if (ptTest.ProjectsOnLine(Line23,  ptOnLine, ref BTemp))
 		        {
-			        double dDist = ptTest.Distance(ptOnLine);
+			        var dDist = ptTest.Distance(ptOnLine);
 			        if (!bSet || dDist < dMinDist)
 			        {
 				        dMinDist = dDist;
@@ -280,7 +280,7 @@ namespace GeoLib
 		        }
                 if (ptTest.ProjectsOnLine(Line31,  ptOnLine, ref BTemp))
 		        {
-			        double dDist = ptTest.Distance(ptOnLine);
+			        var dDist = ptTest.Distance(ptOnLine);
 			        if (!bSet || dDist < dMinDist)
 			        {
 				        dMinDist = dDist;
@@ -300,7 +300,7 @@ namespace GeoLib
 	        {
 		        // It's above 2 lines so first check them both for projection. Can only be projected on 1.
 		        // If the point can be projected onto the line then that's the closest point.
-		        C2DPoint ptOnLine = new C2DPoint();
+		        var ptOnLine = new C2DPoint();
                 if (ptTest.ProjectsOnLine(LineAbove1,  ptOnLine, ref BTemp))
 		        {
 			        ptOnThis = ptOnLine;
@@ -344,11 +344,11 @@ namespace GeoLib
         /// <param name="ptOnOther">Output. The closest point on the other triangle.</param>
         public double Distance(C2DTriangle Other,  C2DPoint ptOnThis,  C2DPoint ptOnOther)
         {
-            C2DPoint ptTemp = new C2DPoint();
-            double dMinDist = Distance(Other.P1,  ptOnThis);
+            var ptTemp = new C2DPoint();
+            var dMinDist = Distance(Other.P1,  ptOnThis);
             ptOnOther.Set( Other.P1 );
 
-            double dDist = Distance(Other.P2,  ptTemp);
+            var dDist = Distance(Other.P2,  ptTemp);
             if (dDist < dMinDist)
             {
                 ptOnOther.Set(Other.P2);
@@ -409,7 +409,7 @@ namespace GeoLib
         /// </summary>
 	    public static double GetAreaSigned(C2DPoint pt1, C2DPoint pt2, C2DPoint pt3)
         {
-	        double dArea = pt1.x * pt2.y - pt2.x * pt1.y +
+	        var dArea = pt1.x * pt2.y - pt2.x * pt1.y +
 				           pt2.x * pt3.y - pt3.x * pt2.y +
 				           pt3.x * pt1.y - pt1.x * pt3.y;
 
@@ -433,8 +433,8 @@ namespace GeoLib
         public static C2DPoint GetCircumCentre(C2DPoint pt1, C2DPoint pt2, C2DPoint pt3)
         {
             
-	        C2DLine Line12 = new C2DLine (pt1, pt2);
-	        C2DLine Line23 = new C2DLine (pt2, pt3);
+	        var Line12 = new C2DLine (pt1, pt2);
+	        var Line23 = new C2DLine (pt2, pt3);
         	
 	        // Move the lines to start from the midpoint on them
 	        Line12.point.Set( Line12.GetMidPoint());
@@ -445,11 +445,11 @@ namespace GeoLib
 	        // Find the intersection between them taking the intersect point even if they don't 
 	        // intersect directly (i.e. where they would intersect because we may have turned them
 	        // the wrong way).
-	        List<C2DPoint> IntPt = new List<C2DPoint>();
+	        var IntPt = new List<C2DPoint>();
             bool B1 = true , B2 = true;
 	        Line12.Crosses(Line23,  IntPt,ref B1, ref B2, true);
 
-	        C2DPoint ptResult = new C2DPoint(0, 0);
+	        var ptResult = new C2DPoint(0, 0);
 
 	        if (IntPt.Count == 1)
 	        {
@@ -470,18 +470,18 @@ namespace GeoLib
         /// </summary>
         public static C2DPoint GetFermatPoint(C2DPoint pt1, C2DPoint pt2, C2DPoint pt3)
         {
-            C2DLine Line12 = new C2DLine(pt1, pt2);
-            C2DLine Line23 = new C2DLine(pt2, pt3);
-            C2DLine Line31 = new C2DLine(pt3, pt1);
+            var Line12 = new C2DLine(pt1, pt2);
+            var Line23 = new C2DLine(pt2, pt3);
+            var Line31 = new C2DLine(pt3, pt1);
 
-            double dAng2 = Constants.conPI - Line12.vector.AngleBetween(Line23.vector);
+            var dAng2 = Constants.conPI - Line12.vector.AngleBetween(Line23.vector);
             if (dAng2 >= Constants.conTWOTHIRDPI) // greater than 120 degrees
             {
 	            return new C2DPoint(pt2);
             }
             else if (dAng2 < Constants.conTHIRDPI)  // if less than 60 then 1 of the other 2 could be greater than 120
             {
-                double dAng3 = Constants.conPI - Line23.vector.AngleBetween(Line31.vector);
+                var dAng3 = Constants.conPI - Line23.vector.AngleBetween(Line31.vector);
 	            if (dAng3 >= Constants.conTWOTHIRDPI) // greater than 120 degrees
 	            {
 		            return new C2DPoint(pt3);
@@ -492,7 +492,7 @@ namespace GeoLib
 	            }
             }
 
-            bool bClockwise = Line12.IsOnRight(pt3);
+            var bClockwise = Line12.IsOnRight(pt3);
 
             if (bClockwise)
             {
@@ -508,7 +508,7 @@ namespace GeoLib
             Line12.SetPointFrom(pt3);
             Line23.SetPointFrom(pt1);	
         	
-            List<C2DPoint> IntPt = new List<C2DPoint>();
+            var IntPt = new List<C2DPoint>();
             bool B1 = true, B2 = true;
             if (Line12.Crosses(Line23,  IntPt, ref B1, ref B2, false))
             {
@@ -528,19 +528,19 @@ namespace GeoLib
         public static C2DPoint GetInCentre(C2DPoint pt1, C2DPoint pt2, C2DPoint pt3)
         {
 	        // Set up a line to bisect the lines from 1 to 2 and 1 to 3
-	        C2DLine Line1 = new C2DLine(pt1, pt2);
-	        C2DLine Line2 = new C2DLine(pt1, pt3);
+	        var Line1 = new C2DLine(pt1, pt2);
+	        var Line2 = new C2DLine(pt1, pt3);
 	        Line1.SetLength( Line2.GetLength() );
-	        C2DLine Line12Bisect = new C2DLine(  pt1, pt3.GetMidPoint( Line1.GetPointTo()));
+	        var Line12Bisect = new C2DLine(  pt1, pt3.GetMidPoint( Line1.GetPointTo()));
 
 	        // Set up a line to bisect the lines from 2 to 1 and 2 to 3
-	        C2DLine Line3 = new C2DLine(pt2, pt1);
-	        C2DLine Line4 = new C2DLine(pt2, pt3);
+	        var Line3 = new C2DLine(pt2, pt1);
+	        var Line4 = new C2DLine(pt2, pt3);
 	        Line3.SetLength( Line4.GetLength() );
-            C2DLine Line34Bisect = new C2DLine(pt2, pt3.GetMidPoint(Line3.GetPointTo()));
+            var Line34Bisect = new C2DLine(pt2, pt3.GetMidPoint(Line3.GetPointTo()));
 
 	        // Now intersect the 2 lines and find the point.
-	        List<C2DPoint> Int = new List<C2DPoint>();
+	        var Int = new List<C2DPoint>();
 
 	        // Add the intersection even if there isn't one (i.e. infinite lines)
             bool B1 = true, B2 = true;

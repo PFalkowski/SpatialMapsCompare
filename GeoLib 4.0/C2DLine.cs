@@ -114,7 +114,7 @@ namespace GeoLib
 	    public void SetPointFrom( C2DPoint PointFrom)
         {
 	        // Get point to.
-	        C2DPoint PointTo = new C2DPoint(point.x + vector.i, point.y + vector.j);	
+	        var PointTo = new C2DPoint(point.x + vector.i, point.y + vector.j);	
 	        // Set the point from 
 	        point.Set(PointFrom);
 	        // Rest the point to.
@@ -161,7 +161,7 @@ namespace GeoLib
         /// </summary>
         public override C2DPoint GetPointTo()
         {
-	        C2DPoint PointTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
+	        var PointTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
 	        return PointTo;
         }
 
@@ -179,8 +179,8 @@ namespace GeoLib
         /// <param name="Other">The other line to test.</param>
 	    public bool WouldCross(C2DLine Other)
         {
-	        bool bPointOnRight = IsOnRight(Other.point);
-	        bool bPointToOnRight = IsOnRight(Other.GetPointTo());
+	        var bPointOnRight = IsOnRight(Other.point);
+	        var bPointToOnRight = IsOnRight(Other.GetPointTo());
 
 	        return (bPointOnRight^bPointToOnRight);
         }
@@ -198,7 +198,7 @@ namespace GeoLib
             }
             else if (Other is C2DArc)
             {
-                C2DArc Arc = Other as C2DArc;
+                var Arc = Other as C2DArc;
                 return Arc.Crosses(this,  IntersectionPts);
             }
             else
@@ -215,8 +215,8 @@ namespace GeoLib
         /// <param name="IntersectionPts">Output. The intersection points.</param>
         public bool Crosses(C2DLine Other,  List<C2DPoint> IntersectionPts)
         {
-            bool bOnThis = true;
-            bool bOnOther = true;
+            var bOnThis = true;
+            var bOnOther = true;
 
             return Crosses(Other,  IntersectionPts, ref bOnThis, ref bOnOther, false);
         }
@@ -239,16 +239,16 @@ namespace GeoLib
 	        bOnThis = false;
 	        bOnOther = false;
 
-	        C2DPoint p1 = point;
-	        C2DPoint p2 = GetPointTo();
+	        var p1 = point;
+	        var p2 = GetPointTo();
 
-	        C2DPoint p3 = Other.point;
-	        C2DPoint p4 = Other.GetPointTo();
+	        var p3 = Other.point;
+	        var p4 = Other.GetPointTo();
 
-	        double Ua = (p4.x - p3.x)*(p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
-	        double Ub = (p2.x - p1.x)*(p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
+	        var Ua = (p4.x - p3.x)*(p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
+	        var Ub = (p2.x - p1.x)*(p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
 
-	        double dDenominator = (p4.y - p3.y)*(p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+	        var dDenominator = (p4.y - p3.y)*(p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
 
 	        if (dDenominator == 0) 
                 return false;
@@ -258,7 +258,7 @@ namespace GeoLib
 
 	        bOnThis = (Ua >= 0 && Ua < 1);		// For ints we need the line to be the point set [a,b);
 	        bOnOther = (Ub >= 0 && Ub < 1);		// For ints we need the line to be the point set [a,b);
-	        bool bResult  = bOnThis && bOnOther;
+	        var bResult  = bOnThis && bOnOther;
 
 	        if (bAddPtIfFalse || bResult)
 	        {
@@ -278,16 +278,16 @@ namespace GeoLib
         /// <param name="Other">The other line</param>
         public bool Join(C2DLine Other)
         {
-            C2DPoint p1 = point;
-            C2DPoint p2 = GetPointTo();
+            var p1 = point;
+            var p2 = GetPointTo();
 
-            C2DPoint p3 = Other.point;
-            C2DPoint p4 = Other.GetPointTo();
+            var p3 = Other.point;
+            var p4 = Other.GetPointTo();
 
-            double Ua = (p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
-            double Ub = (p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
+            var Ua = (p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
+            var Ub = (p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
 
-            double dDenominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+            var dDenominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
 
             if (dDenominator == 0)
                 return false;
@@ -295,7 +295,7 @@ namespace GeoLib
             Ua = Ua / dDenominator;
             Ub = Ub / dDenominator;
 
-            C2DPoint IntPt = new C2DPoint(p1.x + Ua * (p2.x - p1.x), p1.y + Ua * (p2.y - p1.y));
+            var IntPt = new C2DPoint(p1.x + Ua * (p2.x - p1.x), p1.y + Ua * (p2.y - p1.y));
             if ( Ua >=0.5)
                 this.SetPointTo( IntPt );
             else
@@ -316,16 +316,16 @@ namespace GeoLib
         /// <param name="IntersectionPts">Output. The intersection points.</param>
 	    public bool CrossesRay(C2DLine Ray,  List<C2DPoint> IntersectionPts)
         {
-	        C2DPoint p1 = point;
-	        C2DPoint p2 = GetPointTo();
+	        var p1 = point;
+	        var p2 = GetPointTo();
 
-	        C2DPoint p3 = Ray.point;
-	        C2DPoint p4 = Ray.GetPointTo();
+	        var p3 = Ray.point;
+	        var p4 = Ray.GetPointTo();
 
-	        double Ua = (p4.x - p3.x)*(p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
-	        double Ub = (p2.x - p1.x)*(p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
+	        var Ua = (p4.x - p3.x)*(p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
+	        var Ub = (p2.x - p1.x)*(p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x);
 
-	        double dDenominator = (p4.y - p3.y)*(p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+	        var dDenominator = (p4.y - p3.y)*(p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
 
 	        if (dDenominator == 0) 
                 return false;
@@ -333,7 +333,7 @@ namespace GeoLib
 	        Ua = Ua / dDenominator;
 	        Ub = Ub / dDenominator;
 
-	        bool bResult = (Ua >= 0 && Ua <= 1) && (Ub >= 0);
+	        var bResult = (Ua >= 0 && Ua <= 1) && (Ub >= 0);
 
 	        if (bResult)
 	        {
@@ -349,7 +349,7 @@ namespace GeoLib
         /// <param name="TestPoint">The test point.</param>
 	    public override double Distance(C2DPoint TestPoint)
         {
-            C2DPoint P1 = new C2DPoint();
+            var P1 = new C2DPoint();
             return Distance(TestPoint,  P1);
         }
 
@@ -360,9 +360,9 @@ namespace GeoLib
         /// <param name="ptOnThis">Output. The closest point on this.</param>
         public override double Distance(C2DPoint TestPoint,  C2DPoint ptOnThis)
         {
-	        C2DVector vP1ToPoint = new C2DVector(point, TestPoint);
-	        double dLength = GetLength();
-	        double dProjLength = vP1ToPoint.Dot(vector);
+	        var vP1ToPoint = new C2DVector(point, TestPoint);
+	        var dLength = GetLength();
+	        var dProjLength = vP1ToPoint.Dot(vector);
 
 	        if (dProjLength < 0)
 	        {
@@ -376,8 +376,8 @@ namespace GeoLib
 		        if (dProjLength < dLength)
 		        {
 			        // The projection is on the line
-			        double dFactorOnLine = dProjLength / dLength;
-			        C2DPoint PtOnLine = new C2DPoint(point.x + vector.i * dFactorOnLine, 
+			        var dFactorOnLine = dProjLength / dLength;
+			        var PtOnLine = new C2DPoint(point.x + vector.i * dFactorOnLine, 
 							          point.y + vector.j * dFactorOnLine);
 			        ptOnThis.Set(PtOnLine);
 			        return TestPoint.Distance(PtOnLine);
@@ -401,13 +401,13 @@ namespace GeoLib
         {
             // First, project the other line onto this and if it falls entirely below it or
 	        // above it then 1. There is no intersection, 2. This is closest to one end on this line.
-	        C2DPoint ptOtherP2 = new C2DPoint(Other.GetPointTo());
-	        C2DVector vThisP1OtherP1 = new C2DVector(point, Other.point);
-	        C2DVector vThisP1OtherP2 = new C2DVector(point, ptOtherP2);
-	        C2DPoint ptThisP2 = new C2DPoint(GetPointTo());
+	        var ptOtherP2 = new C2DPoint(Other.GetPointTo());
+	        var vThisP1OtherP1 = new C2DVector(point, Other.point);
+	        var vThisP1OtherP2 = new C2DVector(point, ptOtherP2);
+	        var ptThisP2 = new C2DPoint(GetPointTo());
 
-	        double dOtherP1Proj = vThisP1OtherP1.Dot(vector);
-	        double dOtherP2Proj = vThisP1OtherP2.Dot(vector);
+	        var dOtherP1Proj = vThisP1OtherP1.Dot(vector);
+	        var dOtherP2Proj = vThisP1OtherP2.Dot(vector);
 	        // If they are both less than 0 then the projection falls below the line.
 	        if (dOtherP1Proj <= 0 && dOtherP2Proj <= 0)
 	        {
@@ -415,7 +415,7 @@ namespace GeoLib
 		        return Other.Distance(point,  ptOnOther);
 	        }
 	        // Now modify the projection so it is the length along this line.
-	        double dThisLength = GetLength();
+	        var dThisLength = GetLength();
 	        dOtherP1Proj = dOtherP1Proj / dThisLength;
 	        dOtherP2Proj = dOtherP2Proj / dThisLength;
 	        // If the projections are both above the line then the second point is closest
@@ -426,11 +426,11 @@ namespace GeoLib
 	        }
 
 	        // This hasn't worked so try the same on the other line.
-	        C2DVector vOtherP1ThisP1 = new C2DVector (Other.point, point);
-	        C2DVector vOtherP1ThisP2 = new C2DVector(Other.point, ptThisP2);
+	        var vOtherP1ThisP1 = new C2DVector (Other.point, point);
+	        var vOtherP1ThisP2 = new C2DVector(Other.point, ptThisP2);
 
-	        double dThisP1Proj = vOtherP1ThisP1.Dot(Other.vector);
-	        double dThisP2Proj = vOtherP1ThisP2.Dot(Other.vector);
+	        var dThisP1Proj = vOtherP1ThisP1.Dot(Other.vector);
+	        var dThisP2Proj = vOtherP1ThisP2.Dot(Other.vector);
 	        // If they are both less than 0 then the projection falls below the line.
 	        if (dThisP1Proj <= 0 && dThisP2Proj <= 0)
 	        {
@@ -438,7 +438,7 @@ namespace GeoLib
 		        return Distance(Other.point,  ptOnThis);
 	        }
 	        // Now modify the projection so it is the length along this line.
-	        double dOtherLength = Other.GetLength();
+	        var dOtherLength = Other.GetLength();
 	        dThisP1Proj = dThisP1Proj / dOtherLength;
 	        dThisP2Proj = dThisP2Proj / dOtherLength;
 	        // If the projections are both above the line then the second point is closest
@@ -448,7 +448,7 @@ namespace GeoLib
 		        return Distance( ptOtherP2,   ptOnThis);
 	        }
 	        // Now test for an intersection.
-            List<C2DPoint> IntPoint = new List<C2DPoint>();
+            var IntPoint = new List<C2DPoint>();
             bool B1 = true, B2 = true;
             if (this.Crosses(Other,  IntPoint,ref  B1, ref B2, false))
 	        {
@@ -461,16 +461,16 @@ namespace GeoLib
 	        // So find the distances to all these projections and take the minimum.
 	        double dDist = 0;
 	        double dMinDist = 0;
-	        bool bSet = false;
+	        var bSet = false;
 
 
-            C2DPoint ptOnThisTemp = new C2DPoint();
-            C2DPoint ptOnOtherTemp = new C2DPoint(); 
+            var ptOnThisTemp = new C2DPoint();
+            var ptOnOtherTemp = new C2DPoint(); 
 	        // Is the other lines first point projected on this?
 	        if (dOtherP1Proj >= 0 && dOtherP1Proj <= dThisLength)
 	        {
 		        // If so find the point on this line and get distance to it.
-		        double dFactor = dOtherP1Proj / dThisLength;
+		        var dFactor = dOtherP1Proj / dThisLength;
                 ptOnThisTemp.Set(new C2DPoint(point.x + vector.i * dFactor,
 								           point.y + vector.j * dFactor) );
 
@@ -484,7 +484,7 @@ namespace GeoLib
 	        if (dOtherP2Proj >= 0 && dOtherP2Proj <= dThisLength)
 	        {
 		        // If so find the point on this and then the distance. Is it less?
-		        double dFactor = dOtherP2Proj / dThisLength;
+		        var dFactor = dOtherP2Proj / dThisLength;
 		        ptOnThisTemp.Set( new C2DPoint(point.x + vector.i * dFactor,
 											           point.y + vector.j * dFactor) );
 
@@ -502,7 +502,7 @@ namespace GeoLib
 	        if (dThisP1Proj >= 0 && dThisP1Proj <= dOtherLength)
 	        {
 		        // If so find the point and the distance. Is it less?
-		        double dFactor = dThisP1Proj / dOtherLength;
+		        var dFactor = dThisP1Proj / dOtherLength;
 		        ptOnOtherTemp.Set( new C2DPoint(Other.point.x + Other.vector.i * dFactor,
 								         Other.point.y + Other.vector.j * dFactor));
 
@@ -522,7 +522,7 @@ namespace GeoLib
 	        if (dThisP2Proj >= 0 && dThisP2Proj <= dOtherLength)
 	        {
 		        // If so find the point and the distance. Is it less?
-		        double dFactor = dThisP2Proj / dOtherLength;
+		        var dFactor = dThisP2Proj / dOtherLength;
 
 		        ptOnOtherTemp.Set( new C2DPoint(Other.point.x + Other.vector.i * dFactor,
 											         Other.point.y + Other.vector.j * dFactor));
@@ -559,7 +559,7 @@ namespace GeoLib
             }
       	    else if (Other is C2DArc)
             {
-                C2DArc Arc = Other as C2DArc;
+                var Arc = Other as C2DArc;
 
                 return Arc.Distance(this,  ptOnThis,  ptOnOther);
 	        }
@@ -575,7 +575,7 @@ namespace GeoLib
         /// </summary>
 	    public C2DPoint GetMidPoint()
         {
-	        C2DPoint Result = new C2DPoint(point.x + vector.i / 2, point.y + vector.j / 2);
+	        var Result = new C2DPoint(point.x + vector.i / 2, point.y + vector.j / 2);
 	        return Result;
         }
 
@@ -585,10 +585,10 @@ namespace GeoLib
         /// <param name="dFactorFromStart">The factor from the start.</param>
 	    public C2DPoint GetPointOn(double dFactorFromStart)
         {
-	        C2DVector vNew = new C2DVector(vector);
+	        var vNew = new C2DVector(vector);
             vNew.Multiply( dFactorFromStart);
 
-	        C2DPoint Result = new C2DPoint(point.x + vNew.i, point.y + vNew.j );
+	        var Result = new C2DPoint(point.x + vNew.i, point.y + vNew.j );
 	        return Result;
         }
 
@@ -636,7 +636,7 @@ namespace GeoLib
         /// <param name="Origin">The origin about which to grow.</param>
         public override void Grow(double dFactor, C2DPoint Origin)
         {
-	        C2DPoint pointTo = new C2DPoint(GetPointTo());
+	        var pointTo = new C2DPoint(GetPointTo());
 	        point.Grow(dFactor, Origin);
 	        pointTo.Grow(dFactor, Origin);
 	        SetPointTo(pointTo);
@@ -648,7 +648,7 @@ namespace GeoLib
         /// <param name="Point">The point through which to reflect this.</param>
         public override void Reflect(C2DPoint Point)
         {
-	        C2DPoint pointTo = new C2DPoint(GetPointTo());
+	        var pointTo = new C2DPoint(GetPointTo());
 	        point.Reflect(Point);
 	        pointTo.Reflect(Point);
 	        SetPointTo(pointTo);
@@ -660,7 +660,7 @@ namespace GeoLib
         /// <param name="Line">The line through which to reflect this.</param>
         public override void Reflect(C2DLine Line)
         {
-	        C2DPoint pointTo = new C2DPoint(GetPointTo());
+	        var pointTo = new C2DPoint(GetPointTo());
 	        point.Reflect(Line);
 	        pointTo.Reflect(Line);
 	        SetPointTo(pointTo);
@@ -685,7 +685,7 @@ namespace GeoLib
         /// <param name="Interval">Output. The interval.</param>
         public override void Project(C2DLine TestLine,  CInterval Interval)
         {
-            double dP1 = point.Project(TestLine);
+            var dP1 = point.Project(TestLine);
 	        Interval.dMax = dP1;
 	        Interval.dMin = dP1;
             Interval.ExpandToInclude(GetPointTo().Project(TestLine));
@@ -698,7 +698,7 @@ namespace GeoLib
         /// <param name="Interval">Output. The interval.</param>
         public override void Project(C2DVector Vector,  CInterval Interval) 
         {
-	        double dP1 = point.Project(Vector);
+	        var dP1 = point.Project(Vector);
 	        Interval.dMax = dP1;
 	        Interval.dMin = dP1;
 	        Interval.ExpandToInclude( GetPointTo().Project( Vector) );
@@ -713,14 +713,14 @@ namespace GeoLib
         public override void GetSubLines(List<C2DPoint> PtsOnLine,  List<C2DLineBase> LineSet)
         {
 	        // if there are no points on the line to split on then add a copy of this and return.
-	        int usPointsCount = PtsOnLine.Count;
+	        var usPointsCount = PtsOnLine.Count;
 	        if (usPointsCount == 0 )
 	        {
 		        LineSet.Add(new C2DLine(this));
 	        }
 	        else
 	        {
-		        C2DPointSet TempPts = new C2DPointSet();
+		        var TempPts = new C2DPointSet();
 		        TempPts.MakeCopy(PtsOnLine);
 
 		        if (usPointsCount > 1) // They need sorting
@@ -733,7 +733,7 @@ namespace GeoLib
 		        LineSet.Add(new C2DLine(point, TempPts[0]  ));
 
 		        // Add all the sub lines.
-		        for (int i = 1; i < usPointsCount; i++)
+		        for (var i = 1; i < usPointsCount; i++)
 			        LineSet.Add(new C2DLine(TempPts[i - 1], TempPts[i]));
 
 		        // Add the line from the last point on this to the end of this.
@@ -750,7 +750,7 @@ namespace GeoLib
         /// <param name="grid">The grid to snap to.</param>
         public override void SnapToGrid(CGrid grid)
         {
-            C2DPoint pt = GetPointTo();
+            var pt = GetPointTo();
 
             pt.SnapToGrid(grid);
 
@@ -772,7 +772,7 @@ namespace GeoLib
 		        Debug.Assert(false);
 		        return 0;
 	        }
-	        double m = vector.j / vector.i;
+	        var m = vector.j / vector.i;
 	        return m * dx + point.y - m * point.x;
         }
 
@@ -790,16 +790,16 @@ namespace GeoLib
 									        C2DPoint ptOnThis, C2DPoint ptOnOther)
         {
 	        // Get the 2 points for both lines
-	        C2DPoint OtherTo = new C2DPoint(Other.point.x + Other.vector.i, Other.point.y + Other.vector.j);
-	        C2DPoint ThisTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
+	        var OtherTo = new C2DPoint(Other.point.x + Other.vector.i, Other.point.y + Other.vector.j);
+	        var ThisTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
 	        // Make an interval for both in the x plane
-	        CInterval iThis = new CInterval( point.x, point.x);
+	        var iThis = new CInterval( point.x, point.x);
 	        iThis.ExpandToInclude( ThisTo.x );
 
-	        CInterval iOther = new CInterval( Other.point.x, Other.point.x);
+	        var iOther = new CInterval( Other.point.x, Other.point.x);
             iOther.ExpandToInclude(OtherTo.x);
 	        // This is an interval for the overlap between the 2
-	        CInterval iOverlap = new CInterval();
+	        var iOverlap = new CInterval();
 	        // If there is an overlap...
 	        if (iThis.Overlaps(iOther, iOverlap))
 	        {
@@ -831,8 +831,8 @@ namespace GeoLib
 			        dOtherYMax = Other.GetY(iOverlap.dMax);
 		        }
 		        // Now find the distance between the 2 at the ends
-		        double dDistMin = dOtherYMin - dThisYMin;
-		        double dDistMax = dOtherYMax - dThisYMax;
+		        var dDistMin = dOtherYMin - dThisYMin;
+		        var dDistMax = dOtherYMax - dThisYMax;
 		        // If they are both same sign then there is no intersection
 		        if ( (dDistMin * dDistMax) > 0)
 		        {
@@ -861,7 +861,7 @@ namespace GeoLib
 		        {
 			        // find the intersection.
 			        dVerticalDistance = 0;
-			        C2DPointSet pts = new C2DPointSet();
+			        var pts = new C2DPointSet();
 			        if(this.Crosses(Other, pts))
 			        {
 				        ptOnThis = pts[0];
@@ -895,16 +895,16 @@ namespace GeoLib
 									        C2DPoint ptOnThis, C2DPoint ptOnOther)
         {
 	        // Get the 2 points for both lines
-	        C2DPoint OtherTo = new C2DPoint(Other.point.x + Other.vector.i, Other.point.y + Other.vector.j);
-	        C2DPoint ThisTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
+	        var OtherTo = new C2DPoint(Other.point.x + Other.vector.i, Other.point.y + Other.vector.j);
+	        var ThisTo = new C2DPoint(point.x + vector.i, point.y + vector.j);
 	        // Make an interval for both in the x plane
-	        CInterval iThis = new CInterval( point.x, point.x);
+	        var iThis = new CInterval( point.x, point.x);
 	        iThis.ExpandToInclude( ThisTo.x );
 
-	        CInterval iOther = new CInterval( Other.point.x, Other.point.x);
+	        var iOther = new CInterval( Other.point.x, Other.point.x);
 	        iOther.ExpandToInclude( OtherTo.x );
 	        // This is an interval for the overlap between the 2
-	        CInterval iOverlap = new CInterval();
+	        var iOverlap = new CInterval();
 	        // If there is an overlap...
 	        if (iThis.Overlaps(iOther, iOverlap))
 	        {
@@ -937,8 +937,8 @@ namespace GeoLib
 		        }
         		
 		        // Now find the distance between the 2 at the ends
-		        double dDistMin = dThisYMin - dOtherYMin;
-		        double dDistMax = dThisYMax - dOtherYMax;
+		        var dDistMin = dThisYMin - dOtherYMin;
+		        var dDistMax = dThisYMax - dOtherYMax;
 		        // If they are both > 0 then no intersection
 		        if ( (dDistMin > 0) && (dDistMax > 0))
 		        {
@@ -972,7 +972,7 @@ namespace GeoLib
 		        {
 			        // find the intersection.
 			        dVerticalDistance = 0;
-			        C2DPointSet pts = new C2DPointSet();
+			        var pts = new C2DPointSet();
 			        if(this.Crosses(Other, pts))
 			        {
 				        ptOnThis = pts[0];
@@ -1000,7 +1000,7 @@ namespace GeoLib
         /// <returns></returns>
         public double DistanceAsRay(C2DPoint TestPoint)
         {
-            C2DPoint ptOnThis = new C2DPoint();
+            var ptOnThis = new C2DPoint();
             return DistanceAsRay(TestPoint, ptOnThis);
         }
 
@@ -1013,10 +1013,10 @@ namespace GeoLib
         /// <returns></returns>
         public double DistanceAsRay(C2DPoint TestPoint,  C2DPoint ptOnThis)
         {
-	        C2DVector vP1ToPoint = new C2DVector(point, TestPoint);
+	        var vP1ToPoint = new C2DVector(point, TestPoint);
 
 	        // The projection is on the line
-	        double dFactorOnLine = vP1ToPoint.Dot(vector) / (vector.i * vector.i + vector.j * vector.j);
+	        var dFactorOnLine = vP1ToPoint.Dot(vector) / (vector.i * vector.i + vector.j * vector.j);
 
             ptOnThis.Set(point.x + vector.i * dFactorOnLine,
                               point.y + vector.j * dFactorOnLine);
@@ -1029,7 +1029,7 @@ namespace GeoLib
         /// </summary>
         public override void Transform(CTransformation pProject)
         {
-	        C2DPoint pt2 = new C2DPoint(point.x + vector.i, point.y + vector.j);
+	        var pt2 = new C2DPoint(point.x + vector.i, point.y + vector.j);
 
 	        pProject.Transform(point.x, point.y);
 	        pProject.Transform(pt2.x, pt2.y);
@@ -1043,7 +1043,7 @@ namespace GeoLib
         /// </summary>
         public override void InverseTransform(CTransformation pProject)
         {
-	        C2DPoint pt2 = new C2DPoint(point.x + vector.i, point.y + vector.j);
+	        var pt2 = new C2DPoint(point.x + vector.i, point.y + vector.j);
 
 	        pProject.InverseTransform(point.x, point.y);
 	        pProject.InverseTransform(pt2.x, pt2.y);

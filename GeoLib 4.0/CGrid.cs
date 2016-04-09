@@ -50,9 +50,9 @@ namespace GeoLib
         public static double GetMinGridSize(C2DRect cRect, bool bRoundToNearestDecimalFactor)
         {
             // Find the furthest possible linear distance from the origin.
-            C2DPoint pt = cRect.GetPointFurthestFromOrigin();
+            var pt = cRect.GetPointFurthestFromOrigin();
 
-            double dRes = Math.Abs(Math.Max(pt.x, pt.y));
+            var dRes = Math.Abs(Math.Max(pt.x, pt.y));
             // Now multiply this by the eq tol. Now, 2 points which are this far apart from each other
             // (in x and y) and at the edge of the rect would be considered only just not equal.
             dRes *= Constants.conEqualityTolerance;
@@ -64,7 +64,7 @@ namespace GeoLib
 
             if (bRoundToNearestDecimalFactor)
             {
-                double dRound = 0.0001;
+                var dRound = 0.0001;
 
                 while (dRound >= dRes)
                     dRound /= 10.0;
