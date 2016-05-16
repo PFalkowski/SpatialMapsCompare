@@ -22,5 +22,7 @@ namespace SpatialMaps
         double? GetPerimeter(string rightPolyName);
         double? GetOverlappingArea(string leftPolygonName, string rightPolygonName);
         double? GetNonOverlappingArea(string leftPolygonName, string rightPolygonName);
+        IList<C2DPoint>  SnapToOrigin(IList<C2DPoint> input);
+        void SnapToOriginInPlace(IList<C2DPoint> input);
     }
 }

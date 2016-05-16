@@ -18,6 +18,8 @@ namespace SpatialMaps
         DelegateCommand DrawLeftFileCommand { get; }
         DelegateCommand DrawRightFileCommand { get; }
         DelegateCommand RefreshCommand { get; }
+        DelegateCommand SnapToOriginLeftCommand { get; }
+        DelegateCommand SnapToOriginRightCommand { get; }
         double? LeftPolyArea { get; }
         double? RightPolyArea { get; }
         double? AreaDifference { get; }

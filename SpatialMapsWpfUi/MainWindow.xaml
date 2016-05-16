@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SpatialMapsWpfUi"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:SpatialMapsWpfUi.Properties"
-        Title="MainWindow" Height="600" Width="800" MinHeight="300" MinWidth="400">
+        Title="MainWindow" Height="600" Width="800" MinHeight="300" MinWidth="400" WindowState="Maximized">
 
     <Window.Resources>
         <CollectionViewSource x:Key="LeftCollectionViewSource" CollectionViewType="{x:Type ListCollectionView}"/>
@@ -25,39 +25,43 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="250*"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="120*"/>
             <ColumnDefinition Width="620*"/>
         </Grid.ColumnDefinitions>
 
 
-        <DataGrid x:Name="RightDataGrid" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" Margin="10"		
+        <DataGrid x:Name="RightDataGrid" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="4" Margin="10"		
         DataContext="{StaticResource RightCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="True" SelectionChanged="RightDataGrid_SelectionChanged"/>
 
-        <DataGrid x:Name="LeftDataGrid" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="2" Margin="10"		
+        <DataGrid x:Name="LeftDataGrid" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="4" Margin="10"		
         DataContext="{StaticResource LeftCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="True" SelectionChanged="LeftDataGrid_SelectionChanged">
         </DataGrid>
 
-        <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="0" Margin="1"/>
-        <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="0" Margin="1"/>
-        <Button x:Name="DrawLeftFile" Content="Draw" Command="{Binding DrawLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="1" Margin="1"/>
-        <Button x:Name="DrawRightFile" Content="Draw" Command="{Binding DrawRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" Margin="1"/>
+        <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"  Grid.Column="0" Grid.Row="0" Margin="1"/>
+        <Button x:Name="OpenRightFile" Content="Load" Command="{Binding OpenRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="0" Margin="1"/>
+        <Button x:Name="DrawLeftFile" Content="Draw" Command="{Binding DrawLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"  Grid.Column="0" Grid.Row="1" Margin="1"/>
+        <Button x:Name="DrawRightFile" Content="Draw" Command="{Binding DrawRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="1" Margin="1"/>
+        <Button x:Name="SnapToOriginLeft" Content="Snap to origin" Command="{Binding SnapToOriginLeftCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="0" Grid.Row="2" Margin="1"/>
+        <Button x:Name="SnapToOriginRight" Content="Snap to origin" Command="{Binding SnapToOriginRightCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="2" Margin="1"/>
 
-        <Canvas Name="ChartingCanvas" Grid.Column="2" Margin="10" Grid.RowSpan="5"/>
+        <Canvas Name="ChartingCanvas" Grid.Column="2" Grid.Row="4" Margin="10" Grid.RowSpan="3"/>
 
-        <Button x:Name="SaveLeftFile" Content="Save" Command="{Binding SaveLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="4" Margin="1"/>
-        <Button x:Name="SaveRightFile" Content="Save" Command="{Binding SaveRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="4" Margin="1"/>
-        <Grid Name="LeftStatusGrid" Margin="10" Grid.RowSpan="2" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Button x:Name="SaveLeftFile" Content="Save" Command="{Binding SaveLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"  Grid.Column="0" Grid.Row="6" Margin="1"/>
+        <Button x:Name="SaveRightFile" Content="Save" Command="{Binding SaveRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="6" Margin="1"/>
+        <Grid Name="LeftStatusGrid" Margin="10" Grid.RowSpan="2" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

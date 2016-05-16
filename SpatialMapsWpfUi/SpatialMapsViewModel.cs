@@ -52,7 +52,7 @@ namespace SpatialMapsWpfUi
                 if (_leftPolyName != value)
                 {
                     _leftPolyName = value;
-                    OnPropertyChanged(nameof(LeftPolyName));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace SpatialMapsWpfUi
                 if (_rightPolyName != value)
                 {
                     _rightPolyName = value;
-                    OnPropertyChanged(nameof(RightPolyName));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -80,7 +80,9 @@ namespace SpatialMapsWpfUi
         public DelegateCommand DrawRightFileCommand { get; }
         public DelegateCommand RefreshCommand { get; }
         public DelegateCommand AboutCommand { get; }
-        
+        public DelegateCommand SnapToOriginLeftCommand { get; }
+        public DelegateCommand SnapToOriginRightCommand { get; }
+
 
         public double? LeftPolyArea => Model.GetArea(LeftPolyName);
         public double? RightPolyArea => Model.GetArea(RightPolyName);
@@ -99,7 +101,10 @@ namespace SpatialMapsWpfUi
             get
             {
                 if (!(LeftPolyOverlappingArea.HasValue && LeftPolyArea.HasValue && RightPolyArea.HasValue)) return null;
-                var index = (LeftPolyOverlappingArea.Value / ((LeftPolyArea.Value + RightPolyArea.Value) / 2)) * 100;
+                var leftPolyOverlappingArea = LeftPolyOverlappingArea.Value;
+                var leftPolyArea = LeftPolyArea.Value;
+                var rightPolyArea = RightPolyArea.Value;
+                var index = leftPolyOverlappingArea / ((leftPolyArea + rightPolyArea) / 2) * 100;
                 return Math.Round(index, 1);
             }
         }
@@ -116,10 +121,44 @@ namespace SpatialMapsWpfUi
             SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
             DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
             DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
+            SnapToOriginLeftCommand = new DelegateCommand(snapToOriginLeft);
+            SnapToOriginRightCommand = new DelegateCommand(snapToOriginRight);
             RefreshCommand = new DelegateCommand(Refresh);
             AboutCommand = new DelegateCommand(About);
             Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
             Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
+        }
+
+        private void snapToOriginRight()
+        {
+            try
+            {
+                if (RightPoly?.Count > 0)
+                {
+                    Model.SnapToOriginInPlace(RightPoly);
+                    Refresh();
+                }
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+        }
+
+        private void snapToOriginLeft()
+        {
+            try
+            {
+                if (LeftPoly?.Count > 0)
+                {
+                    Model.SnapToOriginInPlace(LeftPoly);
+                    Refresh();
+                }
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
         }
 
         private void About()

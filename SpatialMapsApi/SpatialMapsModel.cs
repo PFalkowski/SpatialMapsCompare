@@ -82,7 +82,7 @@ namespace SpatialMaps
 
         public void Update(string name, List<C2DPoint> polygon)
         {
-            if(Polygons.ContainsKey(name))
+            if (Polygons.ContainsKey(name))
             {
                 Polygons[name] = polygon;
             }
@@ -97,7 +97,7 @@ namespace SpatialMaps
             if (Polygons.ContainsKey(name))
             {
                 var polyRetreived = Polygons[name];
-                if (polygon.SequenceEqual(polyRetreived))
+                if (!polygon.SequenceEqual(polyRetreived))
                 {
                     throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
                 }
@@ -227,6 +227,29 @@ namespace SpatialMaps
             var polygons = GetIntersectingPolygons(firstPolygonName, secondPolygonName, IntersectionType.NonOverlapping);
             var area = polygons.Sum(p => p.GetArea());
             return Math.Round(area, RoundDigits);
+        }
+
+        public IList<C2DPoint> SnapToOrigin(IList<C2DPoint> input)
+        {
+            IList<C2DPoint> result = new List<C2DPoint>(input);
+            SnapToOriginInPlace(result);
+            return result;
+        }
+        public void SnapToOriginInPlace(IList<C2DPoint> input)
+        {
+            var minX = double.MaxValue;
+            var minY = double.MaxValue;
+            foreach (var t in input)
+            {
+                if (t.X < minX)
+                    minX = t.x;
+                if (t.y < minY)
+                    minY = t.y;
+            }
+            for (var i = 0; i < input.Count; ++i)
+            {
+                input[i] = new C2DPoint(input[i].X - minX, input[i].Y - minY);
+            }
         }
     }
 }
