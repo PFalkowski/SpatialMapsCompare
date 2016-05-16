@@ -24,7 +24,11 @@ namespace SpatialMapsWpfUi
             }
             set
             {
-                _leftPoly = value;
+                if (value != _leftPoly)
+                {
+                    _leftPoly = value;
+                    OnPropertyChanged();
+                }
             }
         }
         private ObservableCollection<C2DPoint> _rightPoly = new ObservableCollection<C2DPoint>();
@@ -36,7 +40,11 @@ namespace SpatialMapsWpfUi
             }
             set
             {
-                _rightPoly = value;
+                if (value != _rightPoly)
+                {
+                    _rightPoly = value;
+                    OnPropertyChanged();
+                }
             }
         }
         private string LeftPolyDefaultName => "Left Polygon";
@@ -115,21 +123,21 @@ namespace SpatialMapsWpfUi
             RightPolyName = RightPolyDefaultName;
             Model = model;
             Events = new EventAggregator();
-            OpenLeftFileCommand = new DelegateCommand(openLeftFileSafe);
-            OpenRightFileCommand = new DelegateCommand(openRightFileSafe);
-            SaveLeftFileCommand = new DelegateCommand(saveLeftFileSafe);
-            SaveRightFileCommand = new DelegateCommand(saveRightFileSafe);
-            DrawLeftFileCommand = new DelegateCommand(drawLeftFileSafe);
-            DrawRightFileCommand = new DelegateCommand(drawRightFileSafe);
-            SnapToOriginLeftCommand = new DelegateCommand(snapToOriginLeft);
-            SnapToOriginRightCommand = new DelegateCommand(snapToOriginRight);
+            OpenLeftFileCommand = new DelegateCommand(OpenLeftFileSafe);
+            OpenRightFileCommand = new DelegateCommand(OpenRightFileSafe);
+            SaveLeftFileCommand = new DelegateCommand(SaveLeftFileSafe);
+            SaveRightFileCommand = new DelegateCommand(SaveRightFileSafe);
+            DrawLeftFileCommand = new DelegateCommand(DrawLeftFileSafe);
+            DrawRightFileCommand = new DelegateCommand(DrawRightFileSafe);
+            SnapToOriginLeftCommand = new DelegateCommand(SnapToOriginLeft);
+            SnapToOriginRightCommand = new DelegateCommand(SnapToOriginRight);
             RefreshCommand = new DelegateCommand(Refresh);
             AboutCommand = new DelegateCommand(About);
             Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
             Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
         }
 
-        private void snapToOriginRight()
+        private void SnapToOriginRight()
         {
             try
             {
@@ -145,7 +153,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void snapToOriginLeft()
+        private void SnapToOriginLeft()
         {
             try
             {
@@ -188,7 +196,7 @@ namespace SpatialMapsWpfUi
             OnPropertyChanged(nameof(ResemblenceIndex));
         }
 
-        private void openLeftFileSafe()
+        private void OpenLeftFileSafe()
         {
             try
             {
@@ -201,7 +209,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void openRightFileSafe()
+        private void OpenRightFileSafe()
         {
             try
             {
@@ -215,7 +223,7 @@ namespace SpatialMapsWpfUi
         }
 
 
-        private void saveLeftFileSafe()
+        private void SaveLeftFileSafe()
         {
             try
             {
@@ -227,7 +235,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void saveRightFileSafe()
+        private void SaveRightFileSafe()
         {
             try
             {
@@ -272,7 +280,7 @@ namespace SpatialMapsWpfUi
             }
         }
 
-        private void drawLeftFileSafe()//todo move to model
+        private void DrawLeftFileSafe()//todo move to model
         {
             try
             {
@@ -293,7 +301,7 @@ namespace SpatialMapsWpfUi
             Refresh();
         }
 
-        private void drawRightFileSafe()
+        private void DrawRightFileSafe()
         {
             try
             {

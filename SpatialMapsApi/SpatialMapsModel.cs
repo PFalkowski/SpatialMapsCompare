@@ -246,6 +246,8 @@ namespace SpatialMaps
                 if (t.y < minY)
                     minY = t.y;
             }
+            //minX += 0.0000000000001;
+            //minX += 0.0000000000001;
             for (var i = 0; i < input.Count; ++i)
             {
                 input[i] = new C2DPoint(input[i].X - minX, input[i].Y - minY);
