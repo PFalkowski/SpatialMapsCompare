@@ -11,7 +11,6 @@ namespace SpatialMaps
         public string FileType { get; set; } = "xml";
         public string FilterString => $"{FileType.ToUpper()} Files|*.{FileType.ToLower()};";
         public int RoundDigits { get; set; } = 1;
-        private Dictionary<string, List<C2DPoint>> Polygons { get; set; } = new Dictionary<string, List<C2DPoint>>();
 
         public IOService InputOutputService { get; }
 
@@ -20,96 +19,84 @@ namespace SpatialMaps
             InputOutputService = ioService;
         }
 
-        public List<C2DPoint> GetPolyByKey(string polygonKey)
-        {
-            if (string.IsNullOrEmpty(polygonKey)) return null;
-            List<C2DPoint> tempPoly;
-            if (Polygons.TryGetValue(polygonKey, out tempPoly))
-            {
-                return tempPoly;
-            }
-            else
-            {
-                throw new KeyNotFoundException($"No polygon with name \"{polygonKey}\" loaded");
-            }
-        }
-
-        public List<C2DPoint> TryGetPolyByKeySafe(string polygonKey)
-        {
-            List<C2DPoint> tempPoly;
-            Polygons.TryGetValue(polygonKey, out tempPoly);
-            return tempPoly;
-        }
-
-        private bool IsPolygonValid(IList<C2DPoint> polygon)
+        public bool IsPolygonValid(IList<C2DPoint> polygon)
         {
             if (polygon?.Count > 2) return true;
             return false;
         }
 
-        public bool IsPolygonValid(string polygonKey)
+        public enum IntersectionType
         {
-            if (string.IsNullOrEmpty(polygonKey)) return false;
-            var tempPoly = TryGetPolyByKeySafe(polygonKey);
-            return IsPolygonValid(tempPoly);
+            Overlapping,
+            NonOverlapping
         }
 
-        public bool IsNameUnique(string name)
+        public List<C2DHoledPolygon> GetIntersectingPolygons(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB, IntersectionType whichPolygons)
         {
-            return Polygons.ContainsKey(name);
-        }
-
-        public string GetUniqueNameForPolygon(string basedOnName)
-        {
-            if (Polygons.ContainsKey(basedOnName))
+            var leftPoly = new C2DPolygon(pointsA.ToList(), true);
+            var rightPoly = new C2DPolygon(pointsB.ToList(), true);
+            rightPoly.RandomPerturb();
+            var someGrid = new CGrid();
+            var smallPolygons = new List<C2DHoledPolygon>();
+            switch (whichPolygons)
             {
-                return GetUniqueNameForPolygon(basedOnName + "'");
+                case IntersectionType.Overlapping:
+                    leftPoly.GetOverlaps(rightPoly, smallPolygons, someGrid);
+                    break;
+                case IntersectionType.NonOverlapping:
+                    leftPoly.GetNonOverlaps(rightPoly, smallPolygons, someGrid);
+                    break;
+                default:
+                    throw new ArgumentException(nameof(whichPolygons));
             }
-            else return basedOnName;
+            return smallPolygons;
         }
 
-        public bool IsPolygonNew(List<C2DPoint> polygon, string name)
+        public double? GetOverlappingArea(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB)
         {
-            if (Polygons.ContainsKey(name))
-            {
-                var polyRetreived = Polygons[name];
-                if (polygon.SequenceEqual(polyRetreived))
-                    return false;
-            }
-            return true;
+            var polygons = GetIntersectingPolygons(pointsA, pointsB, IntersectionType.Overlapping);
+            var area = polygons.Sum(p => p.GetArea());
+            return Math.Round(area, RoundDigits);
         }
 
-
-        public void Update(string name, List<C2DPoint> polygon)
+        public double? GetNonOverlappingArea(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB)
         {
-            if (Polygons.ContainsKey(name))
-            {
-                Polygons[name] = polygon;
-            }
-            else
-            {
-                Polygons.Add(name, polygon);
-            }
+            var polygons = GetIntersectingPolygons(pointsA, pointsB, IntersectionType.NonOverlapping);
+            var area = polygons.Sum(p => p.GetArea());
+            return Math.Round(area, RoundDigits);
         }
 
-        public void AddPolygonToDictionary(string name, List<C2DPoint> polygon)
+        public IList<C2DPoint> SnapToOrigin(IList<C2DPoint> input)
         {
-            if (Polygons.ContainsKey(name))
-            {
-                var polyRetreived = Polygons[name];
-                if (!polygon.SequenceEqual(polyRetreived))
-                {
-                    throw new ArgumentException($"Polygon with name \"{name}\" already exists, but with different data. Change the file name to load it.");
-                }
-            }
-            else Polygons.Add(name, polygon);
+            IList<C2DPoint> result = new List<C2DPoint>(input);
+            SnapToOriginInPlace(result);
+            return result;
         }
 
-        public void AddPolygonToDictionary(KeyValuePair<string, List<C2DPoint>> polygon)
+        public void SnapToOriginInPlace(IList<C2DPoint> input)
         {
-            AddPolygonToDictionary(polygon.Key, polygon.Value);
+            var minX = double.MaxValue;
+            var minY = double.MaxValue;
+            foreach (var t in input)
+            {
+                if (t.X < minX)
+                    minX = t.x;
+                if (t.y < minY)
+                    minY = t.y;
+            }
+            for (var i = 0; i < input.Count; ++i)
+            {
+                input[i] = new C2DPoint(input[i].X - minX, input[i].Y - minY);
+            }
+            var poly = new C2DPolygon(input.ToList(), true);
+            poly.RandomPerturb();
+            var pointsCopy = new C2DPointSet();
+            poly.GetPointsCopy(pointsCopy);
+            for (var i = 0; i < pointsCopy.Count; ++i)
+            {
+                input[i] = pointsCopy[i];
+            }
         }
-
         public KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName)
         {
             List<C2DPoint> tempPoly;
@@ -133,7 +120,6 @@ namespace SpatialMaps
                     throw new IOException($"The file \"{fileName}\" is not a valid xml file with polygon points data.", iop);
                 }
             }
-            AddPolygonToDictionary(fileNameWithoutExtension, tempPoly);
             return new KeyValuePair<string, List<C2DPoint>>(fileNameWithoutExtension, tempPoly);
         }
 
@@ -148,110 +134,31 @@ namespace SpatialMaps
             return temp;
         }
 
-        private void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
+        public void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
             poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, FileType));
         }
 
-        public void WritePolygonToFile(string polyName)
+        public double? GetArea(IList<C2DPoint> points)
         {
-            var poly = GetPolyByKey(polyName);
-            var fileName = InputOutputService.GetFileNameForWrite(null, polyName, FilterString);
-            if (fileName != null)
-            {
-                WritePolygonToFile(poly, fileName);
-            }
-        }
-
-        public double? GetArea(string polygonKey)
-        {
-            var points = GetPolyByKey(polygonKey);
             if (IsPolygonValid(points))
             {
-                var poly = new C2DPolygon(points, true);
+                var poly = new C2DPolygon(points.ToList(), true);
                 var area = poly.GetArea();
                 return Math.Round(area, RoundDigits);
             }
             return null;
         }
 
-        public double? GetPerimeter(string polygonKey)
+        public double? GetPerimeter(IList<C2DPoint> points)
         {
-            var points = GetPolyByKey(polygonKey);
             if (IsPolygonValid(points))
             {
-                var poly = new C2DPolygon(points, true);
+                var poly = new C2DPolygon(points.ToList(), true);
                 var area = poly.GetPerimeter();
                 return Math.Round(area, RoundDigits);
             }
             return null;
-        }
-
-        public enum IntersectionType
-        {
-            Overlapping,
-            NonOverlapping
-        }
-        public List<C2DHoledPolygon> GetIntersectingPolygons(string firstPolygonName, string secondPolygonName, IntersectionType whichPolygons)
-        {
-            var tempLeftPoints = GetPolyByKey(firstPolygonName);
-            var tempRightPoints = GetPolyByKey(secondPolygonName);
-            var leftPoly = new C2DPolygon(tempLeftPoints, true);
-            var rightPoly = new C2DPolygon(tempRightPoints, true);
-            rightPoly.RandomPerturb();
-            var someGrid = new CGrid();
-            var smallPolygons = new List<C2DHoledPolygon>();
-            switch (whichPolygons)
-            {
-                case IntersectionType.Overlapping:
-                    leftPoly.GetOverlaps(rightPoly, smallPolygons, someGrid);
-                    break;
-                case IntersectionType.NonOverlapping:
-                    leftPoly.GetNonOverlaps(rightPoly, smallPolygons, someGrid);
-                    break;
-                default:
-                    throw new ArgumentException(nameof(whichPolygons));
-            }
-            return smallPolygons;
-        }
-
-        public double? GetOverlappingArea(string firstPolygonName, string secondPolygonName)
-        {
-            var polygons = GetIntersectingPolygons(firstPolygonName, secondPolygonName, IntersectionType.Overlapping);
-            var area = polygons.Sum(p => p.GetArea());
-            return Math.Round(area, RoundDigits);
-        }
-
-        public double? GetNonOverlappingArea(string firstPolygonName, string secondPolygonName)
-        {
-            var polygons = GetIntersectingPolygons(firstPolygonName, secondPolygonName, IntersectionType.NonOverlapping);
-            var area = polygons.Sum(p => p.GetArea());
-            return Math.Round(area, RoundDigits);
-        }
-
-        public IList<C2DPoint> SnapToOrigin(IList<C2DPoint> input)
-        {
-            IList<C2DPoint> result = new List<C2DPoint>(input);
-            SnapToOriginInPlace(result);
-            return result;
-        }
-        public void SnapToOriginInPlace(IList<C2DPoint> input)
-        {
-            var minX = double.MaxValue;
-            var minY = double.MaxValue;
-            foreach (var t in input)
-            {
-                if (t.X < minX)
-                    minX = t.x;
-                if (t.y < minY)
-                    minY = t.y;
-            }
-            //minX += 0.0000000000001;
-            //minX += 0.0000000000001;
-            for (var i = 0; i < input.Count; ++i)
-            {
-                input[i] = new C2DPoint(input[i].X - minX, input[i].Y - minY);
-            }
         }
     }
 }

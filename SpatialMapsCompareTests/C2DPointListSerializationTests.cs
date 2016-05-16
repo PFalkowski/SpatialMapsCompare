@@ -138,9 +138,12 @@ namespace SpatialMapsCompareTests
         [TestMethod]
         public void Circle()
         {
-            var serialized = GetCircle(300, 200, 200).SerializeToXDoc();
+            const double a = 300;
+            const double radius = 200;
+            const int numberOfPoints = 300;
+            var serialized = GetCircle(a, radius, numberOfPoints).SerializeToXDoc();
             //Console.WriteLine(serialized);
-            serialized.Save(testFileName);
+            serialized.Save($"Circle {a} {radius} {numberOfPoints}.xml");
         }
         [TestMethod]
         public void TestSerialization()

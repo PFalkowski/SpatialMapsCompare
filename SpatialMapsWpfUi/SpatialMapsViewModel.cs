@@ -15,6 +15,7 @@ namespace SpatialMapsWpfUi
     {
         public ISpatialMapsModel Model { get; set; }
         public IEventAggregator Events { get; }
+
         private ObservableCollection<C2DPoint> _leftPoly = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> LeftPoly
         {
@@ -54,7 +55,7 @@ namespace SpatialMapsWpfUi
         public string LeftPolyName
         {
             get
-            { return _leftPolyName; }
+            { return _leftPolyName ?? LeftPolyDefaultName; }
             set
             {
                 if (_leftPolyName != value)
@@ -69,7 +70,7 @@ namespace SpatialMapsWpfUi
         public string RightPolyName
         {
             get
-            { return _rightPolyName; }
+            { return _rightPolyName ?? RightPolyDefaultName; }
             set
             {
                 if (_rightPolyName != value)
@@ -92,16 +93,16 @@ namespace SpatialMapsWpfUi
         public DelegateCommand SnapToOriginRightCommand { get; }
 
 
-        public double? LeftPolyArea => Model.GetArea(LeftPolyName);
-        public double? RightPolyArea => Model.GetArea(RightPolyName);
+        public double? LeftPolyArea => Model.GetArea(LeftPoly);
+        public double? RightPolyArea => Model.GetArea(RightPoly);
         public double? AreaDifference => LeftPolyArea - RightPolyArea;
-        public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPolyName);
-        public double? RightPolyPerimeter => Model.GetPerimeter(RightPolyName);
+        public double? LeftPolyPerimeter => Model.GetPerimeter(LeftPoly);
+        public double? RightPolyPerimeter => Model.GetPerimeter(RightPoly);
         public double? PerimeterDifference => LeftPolyPerimeter - RightPolyPerimeter;
-        public double? LeftPolyOverlappingArea => Model.GetOverlappingArea(LeftPolyName, RightPolyName);
-        public double? RightPolyOverlappingArea => Model.GetOverlappingArea(RightPolyName, LeftPolyName);
-        public double? LeftPolyNonOverlappingArea => Model.GetNonOverlappingArea(LeftPolyName, RightPolyName);
-        public double? RightPolyNonOverlappingArea => Model.GetNonOverlappingArea(RightPolyName, LeftPolyName);
+        public double? LeftPolyOverlappingArea => Model.GetOverlappingArea(LeftPoly, RightPoly);
+        public double? RightPolyOverlappingArea => Model.GetOverlappingArea(RightPoly, LeftPoly);
+        public double? LeftPolyNonOverlappingArea => Model.GetNonOverlappingArea(LeftPoly, RightPoly);
+        public double? RightPolyNonOverlappingArea => Model.GetNonOverlappingArea(RightPoly, LeftPoly);
         public double? OverlappingAreasSum => LeftPolyOverlappingArea + RightPolyOverlappingArea;
         public double? NonOverlappingAreasSum => LeftPolyNonOverlappingArea + RightPolyNonOverlappingArea;
         public double? ResemblenceIndex
@@ -119,8 +120,6 @@ namespace SpatialMapsWpfUi
 
         public SpatialMapsViewModel(ISpatialMapsModel model)
         {
-            LeftPolyName = LeftPolyDefaultName;
-            RightPolyName = RightPolyDefaultName;
             Model = model;
             Events = new EventAggregator();
             OpenLeftFileCommand = new DelegateCommand(OpenLeftFileSafe);
@@ -133,8 +132,6 @@ namespace SpatialMapsWpfUi
             SnapToOriginRightCommand = new DelegateCommand(SnapToOriginRight);
             RefreshCommand = new DelegateCommand(Refresh);
             AboutCommand = new DelegateCommand(About);
-            Model.AddPolygonToDictionary(LeftPolyName, LeftPoly.ToList());
-            Model.AddPolygonToDictionary(RightPolyName, RightPoly.ToList());
         }
 
         private void SnapToOriginRight()
@@ -176,8 +173,6 @@ namespace SpatialMapsWpfUi
 
         public void Refresh()
         {
-            Model.Update(LeftPolyName, LeftPoly.ToList());
-            Model.Update(RightPolyName, RightPoly.ToList());
             var refreshEvents = Events.GetEvent<RefreshEvent>();
             refreshEvents?.Publish(true);
 
@@ -227,7 +222,7 @@ namespace SpatialMapsWpfUi
         {
             try
             {
-                Model.WritePolygonToFile(LeftPolyName);
+                Model.WritePolygonToFile(LeftPoly, Model.InputOutputService.GetFileNameForWrite(null, LeftPolyName, Model.FilterString));
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -239,7 +234,7 @@ namespace SpatialMapsWpfUi
         {
             try
             {
-                Model.WritePolygonToFile(RightPolyName);
+                Model.WritePolygonToFile(RightPoly, Model.InputOutputService.GetFileNameForWrite(null, RightPolyName, Model.FilterString));
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
             {
@@ -249,7 +244,7 @@ namespace SpatialMapsWpfUi
 
         public void OpenLeftFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyName, Model.FilterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, LeftPolyDefaultName, Model.FilterString);
             if (fileName != null)
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
@@ -261,7 +256,7 @@ namespace SpatialMapsWpfUi
 
         public void OpenRightFile()
         {
-            var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyName, Model.FilterString);
+            var fileName = Model.InputOutputService.GetFileNameForRead(null, RightPolyDefaultName, Model.FilterString);
             if (fileName != null)
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
@@ -286,12 +281,9 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(LeftPolyName, LeftPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
+                if (dialogResult != null && (bool)dialogResult)
                 {
                     RedrawPoly(LeftPoly, canvas.viewModel.Points);
-                    var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
-                    LeftPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -307,12 +299,9 @@ namespace SpatialMapsWpfUi
             {
                 var canvas = new DrawingCanvas.MainWindow(RightPolyName, RightPoly);
                 var dialogResult = canvas.ShowDialog();
-                if ((bool)dialogResult && Model.IsPolygonNew(canvas.viewModel.Points, canvas.viewModel.FileName))
+                if (dialogResult != null && (bool)dialogResult)
                 {
                     RedrawPoly(RightPoly, canvas.viewModel.Points);
-                    var uniqeName = Model.GetUniqueNameForPolygon(canvas.viewModel.FileName);
-                    RightPolyName = uniqeName;
-                    Model.AddPolygonToDictionary(uniqeName, canvas.viewModel.Points);
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)

@@ -15,14 +15,12 @@ namespace SpatialMapsWpfUi
     {
         private IUnityContainer ioc;
         private ISpatialMapsViewModel viewModel;
-        //private SpatialMapsViewModel viewModel;
 
         public MainWindow()
         {
             ioc = new UnityContainer();
             ioc.Bootstrap();
             viewModel = ioc.Resolve<ISpatialMapsViewModel>();
-            //viewModel = new SpatialMapsViewModel(new SpatialMapsModel(new DesktopIOService()));
             viewModel.Events.GetEvent<RefreshEvent>().Subscribe(RefreshView, Prism.Events.ThreadOption.UIThread);
             InitializeComponent();
             DataContext = viewModel;

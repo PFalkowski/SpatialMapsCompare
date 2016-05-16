@@ -42,12 +42,15 @@
         <DataGrid x:Name="RightDataGrid" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="4" Margin="10"		
         DataContext="{StaticResource RightCollectionViewSource}"
 		ItemsSource="{Binding}"
-		CanUserAddRows="True" SelectionChanged="RightDataGrid_SelectionChanged"/>
+		CanUserAddRows="True" SelectionChanged="RightDataGrid_SelectionChanged">
+            
+        </DataGrid>
 
         <DataGrid x:Name="LeftDataGrid" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="4" Margin="10"		
         DataContext="{StaticResource LeftCollectionViewSource}"
 		ItemsSource="{Binding}"
 		CanUserAddRows="True" SelectionChanged="LeftDataGrid_SelectionChanged">
+            
         </DataGrid>
 
         <Button x:Name="OpenLeftFile" Content="Load" Command="{Binding OpenLeftFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"  Grid.Column="0" Grid.Row="0" Margin="1"/>
