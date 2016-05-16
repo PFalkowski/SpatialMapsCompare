@@ -14,5 +14,41 @@
     <Setting Name="AboutString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Made by Piotr Falkowski 2016</Value>
     </Setting>
+    <Setting Name="RightAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Right Figure Area</Value>
+    </Setting>
+    <Setting Name="LeftPerimeterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Left Figure Perimeter</Value>
+    </Setting>
+    <Setting Name="RightPerimeterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Right Figure Perimeter</Value>
+    </Setting>
+    <Setting Name="AreaDifferenceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Area Difference</Value>
+    </Setting>
+    <Setting Name="PerimeterDifferenceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Perimeter Difference</Value>
+    </Setting>
+    <Setting Name="LeftOverlappingAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Left Overlapping Area</Value>
+    </Setting>
+    <Setting Name="RightOverlappingAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Right Overlapping Area</Value>
+    </Setting>
+    <Setting Name="LeftNonOverlappingAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Left Non-Overlapping Area</Value>
+    </Setting>
+    <Setting Name="RightNonOverlappingAreaName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Right Non-Overlapping Area</Value>
+    </Setting>
+    <Setting Name="OverlappingAreasSumName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Overlapping Areas Sum</Value>
+    </Setting>
+    <Setting Name="NonOverlappingAreasSumName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Non-Overlapping Areas Sum</Value>
+    </Setting>
+    <Setting Name="ResemblenceIndexName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Common Area %</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

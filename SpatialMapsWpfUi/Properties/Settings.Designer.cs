@@ -70,5 +70,149 @@ namespace SpatialMapsWpfUi.Properties {
                 this["AboutString"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right Figure Area")]
+        public string RightAreaName {
+            get {
+                return ((string)(this["RightAreaName"]));
+            }
+            set {
+                this["RightAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Left Figure Perimeter")]
+        public string LeftPerimeterName {
+            get {
+                return ((string)(this["LeftPerimeterName"]));
+            }
+            set {
+                this["LeftPerimeterName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right Figure Perimeter")]
+        public string RightPerimeterName {
+            get {
+                return ((string)(this["RightPerimeterName"]));
+            }
+            set {
+                this["RightPerimeterName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Area Difference")]
+        public string AreaDifferenceName {
+            get {
+                return ((string)(this["AreaDifferenceName"]));
+            }
+            set {
+                this["AreaDifferenceName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Perimeter Difference")]
+        public string PerimeterDifferenceName {
+            get {
+                return ((string)(this["PerimeterDifferenceName"]));
+            }
+            set {
+                this["PerimeterDifferenceName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Left Overlapping Area")]
+        public string LeftOverlappingAreaName {
+            get {
+                return ((string)(this["LeftOverlappingAreaName"]));
+            }
+            set {
+                this["LeftOverlappingAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right Overlapping Area")]
+        public string RightOverlappingAreaName {
+            get {
+                return ((string)(this["RightOverlappingAreaName"]));
+            }
+            set {
+                this["RightOverlappingAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Left Non-Overlapping Area")]
+        public string LeftNonOverlappingAreaName {
+            get {
+                return ((string)(this["LeftNonOverlappingAreaName"]));
+            }
+            set {
+                this["LeftNonOverlappingAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right Non-Overlapping Area")]
+        public string RightNonOverlappingAreaName {
+            get {
+                return ((string)(this["RightNonOverlappingAreaName"]));
+            }
+            set {
+                this["RightNonOverlappingAreaName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Overlapping Areas Sum")]
+        public string OverlappingAreasSumName {
+            get {
+                return ((string)(this["OverlappingAreasSumName"]));
+            }
+            set {
+                this["OverlappingAreasSumName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Non-Overlapping Areas Sum")]
+        public string NonOverlappingAreasSumName {
+            get {
+                return ((string)(this["NonOverlappingAreasSumName"]));
+            }
+            set {
+                this["NonOverlappingAreasSumName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Common Area %")]
+        public string ResemblenceIndexName {
+            get {
+                return ((string)(this["ResemblenceIndexName"]));
+            }
+            set {
+                this["ResemblenceIndexName"] = value;
+            }
+        }
     }
 }

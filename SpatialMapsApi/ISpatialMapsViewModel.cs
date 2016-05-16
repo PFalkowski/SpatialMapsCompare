@@ -20,6 +20,7 @@ namespace SpatialMaps
         DelegateCommand RefreshCommand { get; }
         DelegateCommand SnapToOriginLeftCommand { get; }
         DelegateCommand SnapToOriginRightCommand { get; }
+        DelegateCommand SaveResultsCommand { get; }
         double? LeftPolyArea { get; }
         double? RightPolyArea { get; }
         double? AreaDifference { get; }

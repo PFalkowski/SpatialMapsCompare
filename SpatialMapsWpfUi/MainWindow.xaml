@@ -84,35 +84,37 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!--Collumn 0-->
-            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" TextAlignment="Left" x:Name="leftAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=LeftAreaName}" Foreground="{Binding Source={x:Static p:Settings.Default}, Path=LeftPolygonColor}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" TextAlignment="Left" x:Name="rightAreaName" Text="Right Figure Area"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" TextAlignment="Left" x:Name="leftPerimeterName" Text="Left Figure Perimeter"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="3" Grid.Column="0" TextAlignment="Left" x:Name="rightPerimeterName" Text="Right Figure Perimeter"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" TextAlignment="Left" x:Name="areaDifferenceName" Text="Area Difference"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="5" Grid.Column="0" TextAlignment="Left" x:Name="perimeterDifferenceName" Text="Perimeter Difference"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" TextAlignment="Left" x:Name="leftOverlappingAreaName" Text="Left Overlapping Area"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="7" Grid.Column="0" TextAlignment="Left" x:Name="rightOverlappingAreaName" Text="Right Overlapping Area"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="8" Grid.Column="0" TextAlignment="Left" x:Name="leftNonOverlappingAreaName" Text="Left Non-Overlapping Area"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="9" Grid.Column="0" TextAlignment="Left" x:Name="rightNonOverlappingAreaName" Text="Right Non-Overlapping Area"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="10" Grid.Column="0" TextAlignment="Left" x:Name="OverlappingAreasSumName" Text="Overlapping Areas Sum"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="11" Grid.Column="0" TextAlignment="Left" x:Name="NonOverlappingAreasSumName" Text="Non-Overlapping Areas Sum"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="12" Grid.Column="0" TextAlignment="Left" x:Name="ResemblenceIndexName" Text="Common Area %"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" TextAlignment="Left" x:Name="LeftAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=LeftAreaName}" Foreground="{Binding Source={x:Static p:Settings.Default}, Path=LeftPolygonColor}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" TextAlignment="Left" x:Name="RightAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=RightAreaName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" TextAlignment="Left" x:Name="LeftPerimeterName" Text="{Binding Source={x:Static p:Settings.Default}, Path=LeftPerimeterName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="3" Grid.Column="0" TextAlignment="Left" x:Name="RightPerimeterName" Text="{Binding Source={x:Static p:Settings.Default}, Path=RightPerimeterName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="4" Grid.Column="0" TextAlignment="Left" x:Name="AreaDifferenceName" Text="{Binding Source={x:Static p:Settings.Default}, Path=AreaDifferenceName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="5" Grid.Column="0" TextAlignment="Left" x:Name="PerimeterDifferenceName" Text="{Binding Source={x:Static p:Settings.Default}, Path=PerimeterDifferenceName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="6" Grid.Column="0" TextAlignment="Left" x:Name="LeftOverlappingAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=LeftOverlappingAreaName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="7" Grid.Column="0" TextAlignment="Left" x:Name="RightOverlappingAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=RightOverlappingAreaName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="8" Grid.Column="0" TextAlignment="Left" x:Name="LeftNonOverlappingAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=LeftNonOverlappingAreaName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="9" Grid.Column="0" TextAlignment="Left" x:Name="RightNonOverlappingAreaName" Text="{Binding Source={x:Static p:Settings.Default}, Path=RightNonOverlappingAreaName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="10" Grid.Column="0" TextAlignment="Left" x:Name="OverlappingAreasSumName" Text="{Binding Source={x:Static p:Settings.Default}, Path=OverlappingAreasSumName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="11" Grid.Column="0" TextAlignment="Left" x:Name="NonOverlappingAreasSumName" Text="{Binding Source={x:Static p:Settings.Default}, Path=NonOverlappingAreasSumName}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="12" Grid.Column="0" TextAlignment="Left" x:Name="ResemblenceIndexName" Text="{Binding Source={x:Static p:Settings.Default}, Path=ResemblenceIndexName}"/>
             <!--Collumn 1-->
-            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="leftAreaBlock" Text="{Binding LeftPolyArea}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="rightAreaBlock" Text="{Binding RightPolyArea}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="leftPerimeterBlock" Text="{Binding LeftPolyPerimeter}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="rightPerimeterBlock" Text="{Binding RightPolyPerimeter}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="areaDifferenceBlock" Text="{Binding AreaDifference}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="perimeterDifferenceBlock" Text="{Binding PerimeterDifference}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="leftOverlapingAreaBlock" Text="{Binding LeftPolyOverlappingArea}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="rightOverlapingAreaBlock" Text="{Binding RightPolyOverlappingArea}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="leftNonOverlapingAreaBlock" Text="{Binding LeftPolyNonOverlappingArea}"/>
-            <TextBlock Margin="10,0,0,0" Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="rightNonOverlapingAreaBlock" Text="{Binding RightPolyNonOverlappingArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="LeftAreaBlock" Text="{Binding LeftPolyArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="RightAreaBlock" Text="{Binding RightPolyArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="LeftPerimeterBlock" Text="{Binding LeftPolyPerimeter}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="RightPerimeterBlock" Text="{Binding RightPolyPerimeter}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="AreaDifferenceBlock" Text="{Binding AreaDifference}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="PerimeterDifferenceBlock" Text="{Binding PerimeterDifference}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="LeftOverlapingAreaBlock" Text="{Binding LeftPolyOverlappingArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="RightOverlapingAreaBlock" Text="{Binding RightPolyOverlappingArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="LeftNonOverlapingAreaBlock" Text="{Binding LeftPolyNonOverlappingArea}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="RightNonOverlapingAreaBlock" Text="{Binding RightPolyNonOverlappingArea}"/>
             <TextBlock Margin="10,0,0,0" Grid.Row="10" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="OverlapingAreasSumBlock" Text="{Binding OverlappingAreasSum}"/>
             <TextBlock Margin="10,0,0,0" Grid.Row="11" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="NonOverlapingAreasSumBlock" Text="{Binding NonOverlappingAreasSum}"/>
             <TextBlock Margin="10,0,0,0" Grid.Row="12" Grid.Column="1" VerticalAlignment="Top" TextAlignment="Left" x:Name="ResemblenceIndexBlock" Text="{Binding ResemblenceIndex}"/>
+            <Button x:Name="SaveResults" Content="Save results" Command="{Binding SaveResultsCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="Auto" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="13" Margin="1"/>
 
         </Grid>
     </Grid>

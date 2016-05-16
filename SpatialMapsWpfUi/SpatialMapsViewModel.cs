@@ -8,6 +8,8 @@ using Prism.Events;
 using SpatialMaps;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using SpatialMapsWpfUi.Properties;
 
 namespace SpatialMapsWpfUi
 {
@@ -91,6 +93,7 @@ namespace SpatialMapsWpfUi
         public DelegateCommand AboutCommand { get; }
         public DelegateCommand SnapToOriginLeftCommand { get; }
         public DelegateCommand SnapToOriginRightCommand { get; }
+        public DelegateCommand SaveResultsCommand { get; }
 
 
         public double? LeftPolyArea => Model.GetArea(LeftPoly);
@@ -132,6 +135,7 @@ namespace SpatialMapsWpfUi
             SnapToOriginRightCommand = new DelegateCommand(SnapToOriginRight);
             RefreshCommand = new DelegateCommand(Refresh);
             AboutCommand = new DelegateCommand(About);
+            SaveResultsCommand = new DelegateCommand(_saveResults);
         }
 
         private void SnapToOriginRight()
@@ -309,6 +313,39 @@ namespace SpatialMapsWpfUi
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
             Refresh();
+        }
+
+        private void _saveResults()
+        {
+            try
+            {
+                var defaultFileName = $"{LeftPolyName}-{RightPolyName}.csv";
+                var location = Model.InputOutputService.GetFileNameForWrite(null, defaultFileName, null);
+                if (!string.IsNullOrEmpty(location))
+                {
+                    var stb = new StringBuilder();
+                    stb.AppendLine($"\"{Settings.Default.LeftAreaName}\",\"{LeftPolyArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.RightAreaName}\",\"{RightPolyArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.AreaDifferenceName}\",\"{AreaDifference}\"");
+                    stb.AppendLine($"\"{Settings.Default.LeftPerimeterName}\",\"{LeftPolyPerimeter}\"");
+                    stb.AppendLine($"\"{Settings.Default.RightPerimeterName}\",\"{RightPolyPerimeter}\"");
+                    stb.AppendLine($"\"{Settings.Default.PerimeterDifferenceName}\",\"{PerimeterDifference}\"");
+                    stb.AppendLine($"\"{Settings.Default.LeftOverlappingAreaName}\",\"{LeftPolyOverlappingArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.RightOverlappingAreaName}\",\"{RightPolyOverlappingArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.LeftNonOverlappingAreaName}\",\"{LeftPolyNonOverlappingArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.RightNonOverlappingAreaName}\",\"{RightPolyNonOverlappingArea}\"");
+                    stb.AppendLine($"\"{Settings.Default.OverlappingAreasSumName}\",\"{OverlappingAreasSum}\"");
+                    stb.AppendLine($"\"{Settings.Default.NonOverlappingAreasSumName}\",\"{NonOverlappingAreasSum}\"");
+                    stb.AppendLine($"\"{Settings.Default.ResemblenceIndexName}\",\"{ResemblenceIndex}\"");
+
+                    File.WriteAllText(location,stb.ToString());
+                }
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
         }
     }
 }
