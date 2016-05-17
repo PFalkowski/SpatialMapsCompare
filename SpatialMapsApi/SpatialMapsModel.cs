@@ -170,7 +170,7 @@ namespace SpatialMaps
             for (int i = 0; i < points.Count; ++i)
             {
                 points[i].X = points[i].X / minXYMaxXY.Item3 * size;
-                points[i].Y = points[i].Y / minXYMaxXY.Item4 * size;
+                points[i].Y = points[i].Y / minXYMaxXY.Item3 * size;
             }
         }
     }
