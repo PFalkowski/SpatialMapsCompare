@@ -37,5 +37,7 @@ namespace SpatialMaps
         double? NonOverlappingAreasSum { get; }
         double? ResemblenceIndex { get; }
         void Refresh();
+        string LeftPolyName { get; set; }
+        string RightPolyName { get; set; }
     }
 }

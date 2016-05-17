@@ -21,8 +21,7 @@ namespace SpatialMaps
 
         public bool IsPolygonValid(IList<C2DPoint> polygon)
         {
-            if (polygon?.Count > 2) return true;
-            return false;
+            return polygon?.Count > 2;
         }
 
         public enum IntersectionType
