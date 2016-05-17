@@ -50,5 +50,8 @@
     <Setting Name="ResemblenceIndexName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Common Area %</Value>
     </Setting>
+    <Setting Name="ScaleFactor" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

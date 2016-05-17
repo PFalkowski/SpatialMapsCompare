@@ -65,28 +65,32 @@ namespace SpatialMaps
             var area = polygons.Sum(p => p.GetArea());
             return Math.Round(area, RoundDigits);
         }
-
-        public IList<C2DPoint> SnapToOrigin(IList<C2DPoint> input)
-        {
-            IList<C2DPoint> result = new List<C2DPoint>(input);
-            SnapToOriginInPlace(result);
-            return result;
-        }
-
-        public void SnapToOriginInPlace(IList<C2DPoint> input)
+        
+        private Tuple<double, double, double, double> MinMax(IList<C2DPoint> input)
         {
             var minX = double.MaxValue;
             var minY = double.MaxValue;
+            var maxX = double.MinValue;
+            var maxY = double.MinValue;
             foreach (var t in input)
             {
                 if (t.X < minX)
                     minX = t.x;
                 if (t.y < minY)
                     minY = t.y;
+                if (t.X > maxX)
+                    maxX = t.x;
+                if (t.y > maxY)
+                    maxY = t.y;
             }
+            return new Tuple<double, double, double, double>(minX, minY, maxX, maxY);
+        }
+        public void SnapToOriginInPlace(IList<C2DPoint> input)
+        {
+            var minXy = MinMax(input);
             for (var i = 0; i < input.Count; ++i)
             {
-                input[i] = new C2DPoint(input[i].X - minX, input[i].Y - minY);
+                input[i] = new C2DPoint(input[i].X - minXy.Item1, input[i].Y - minXy.Item2);
             }
             var poly = new C2DPolygon(input.ToList(), true);
             poly.RandomPerturb();
@@ -159,6 +163,15 @@ namespace SpatialMaps
                 return Math.Round(area, RoundDigits);
             }
             return null;
+        }
+        public void ScaleInPlace(IList<C2DPoint> points, double size)
+        {
+            var minXYMaxXY = MinMax(points);
+            for (int i = 0; i < points.Count; ++i)
+            {
+                points[i].X = points[i].X / minXYMaxXY.Item3 * size;
+                points[i].Y = points[i].Y / minXYMaxXY.Item4 * size;
+            }
         }
     }
 }

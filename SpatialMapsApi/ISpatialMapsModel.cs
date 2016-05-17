@@ -13,12 +13,12 @@ namespace SpatialMaps
         List<C2DHoledPolygon> GetIntersectingPolygons(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB, SpatialMapsModel.IntersectionType whichPolygons);
         double? GetOverlappingArea(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB);
         double? GetNonOverlappingArea(IList<C2DPoint> pointsA, IList<C2DPoint> pointsB);
-        IList<C2DPoint> SnapToOrigin(IList<C2DPoint> input);
         void SnapToOriginInPlace(IList<C2DPoint> input);
         KeyValuePair<string, List<C2DPoint>> GetPolygonFromFile(string fileName);
         KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService();
         void WritePolygonToFile(IList<C2DPoint> poly, string fileName);
         double? GetArea(IList<C2DPoint> points);
         double? GetPerimeter(IList<C2DPoint> points);
+        void ScaleInPlace(IList<C2DPoint> points, double size);
     }
 }

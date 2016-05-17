@@ -59,6 +59,8 @@
         <Button x:Name="DrawRightFile" Content="Draw" Command="{Binding DrawRightFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="1" Margin="1"/>
         <Button x:Name="SnapToOriginLeft" Content="Snap to origin" Command="{Binding SnapToOriginLeftCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="0" Grid.Row="2" Margin="1"/>
         <Button x:Name="SnapToOriginRight" Content="Snap to origin" Command="{Binding SnapToOriginRightCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="2" Margin="1"/>
+        <Button x:Name="ScaleLeft" Content="Scale" Command="{Binding ScaleLeftCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="0" Grid.Row="3" Margin="1"/>
+        <Button x:Name="ScaleRight" Content="Scale" Command="{Binding ScaleRightCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Grid.Column="1" Grid.Row="3" Margin="1"/>
 
         <Canvas Name="ChartingCanvas" Grid.Column="2" Grid.Row="4" Margin="10" Grid.RowSpan="3"/>
 

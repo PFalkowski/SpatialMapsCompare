@@ -94,6 +94,8 @@ namespace SpatialMapsWpfUi
         public DelegateCommand SnapToOriginLeftCommand { get; }
         public DelegateCommand SnapToOriginRightCommand { get; }
         public DelegateCommand SaveResultsCommand { get; }
+        public DelegateCommand ScaleLeftCommand { get; }
+        public DelegateCommand ScaleRightCommand { get; }
 
 
         public double? LeftPolyArea => Model.GetArea(LeftPoly);
@@ -136,7 +138,10 @@ namespace SpatialMapsWpfUi
             RefreshCommand = new DelegateCommand(Refresh);
             AboutCommand = new DelegateCommand(About);
             SaveResultsCommand = new DelegateCommand(_saveResults);
+            ScaleLeftCommand = new DelegateCommand(_scaleLeft);
+            ScaleRightCommand = new DelegateCommand(_scaleRight);
         }
+
 
         private void SnapToOriginRight()
         {
@@ -338,7 +343,7 @@ namespace SpatialMapsWpfUi
                     stb.AppendLine($"\"{Settings.Default.NonOverlappingAreasSumName}\",\"{NonOverlappingAreasSum}\"");
                     stb.AppendLine($"\"{Settings.Default.ResemblenceIndexName}\",\"{ResemblenceIndex}\"");
 
-                    File.WriteAllText(location,stb.ToString());
+                    File.WriteAllText(location, stb.ToString());
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
@@ -346,6 +351,31 @@ namespace SpatialMapsWpfUi
 
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
+        }
+        private void _scaleRight()
+        {
+            try
+            {
+                Model.ScaleInPlace(RightPoly, Settings.Default.ScaleFactor);
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+            Refresh();
+        }
+
+        private void _scaleLeft()
+        {
+            try
+            {
+                Model.ScaleInPlace(LeftPoly, Settings.Default.ScaleFactor);
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            {
+                Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
+            }
+            Refresh();
         }
     }
 }

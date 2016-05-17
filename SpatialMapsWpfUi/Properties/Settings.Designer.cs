@@ -214,5 +214,17 @@ namespace SpatialMapsWpfUi.Properties {
                 this["ResemblenceIndexName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int ScaleFactor {
+            get {
+                return ((int)(this["ScaleFactor"]));
+            }
+            set {
+                this["ScaleFactor"] = value;
+            }
+        }
     }
 }
