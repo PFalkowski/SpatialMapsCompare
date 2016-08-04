@@ -11,8 +11,8 @@
     <Setting Name="LeftAreaName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Left Figure Area</Value>
     </Setting>
-    <Setting Name="AboutString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Made by Piotr Falkowski 2016</Value>
+    <Setting Name="AboutString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Made by Piotr Falkowski © 2016</Value>
     </Setting>
     <Setting Name="RightAreaName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Right Figure Area</Value>

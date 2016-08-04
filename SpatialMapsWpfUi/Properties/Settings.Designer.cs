@@ -59,15 +59,12 @@ namespace SpatialMapsWpfUi.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Made by Piotr Falkowski 2016")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Made by Piotr Falkowski © 2016")]
         public string AboutString {
             get {
                 return ((string)(this["AboutString"]));
-            }
-            set {
-                this["AboutString"] = value;
             }
         }
         
