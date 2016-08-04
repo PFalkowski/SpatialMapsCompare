@@ -126,6 +126,16 @@ namespace SpatialMaps
             return new KeyValuePair<string, List<C2DPoint>>(fileNameWithoutExtension, tempPoly);
         }
 
+        public void CleanPoints(List<C2DPoint> poly)
+        {
+            var polygon = new C2DPolygon(poly, true);
+            var pointsCopy = new List<C2DPoint>();
+            polygon.GetPointsCopy(pointsCopy);
+            for (int i = 0; i < pointsCopy.Count; ++i)
+            {
+                poly[i] = pointsCopy[i];
+            }
+        }
         public KeyValuePair<string, List<C2DPoint>> GetPolygonUsingIOService()
         {
             var fileName = InputOutputService.GetFileNameForRead(null, null, FilterString);
@@ -139,7 +149,8 @@ namespace SpatialMaps
 
         public void WritePolygonToFile(IList<C2DPoint> poly, string fileName)
         {
-            poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, FileType));
+            if (!string.IsNullOrEmpty(fileName))
+                poly.SerializeToXDoc().Save(Path.ChangeExtension(fileName, FileType));
         }
 
         public double? GetArea(IList<C2DPoint> points)

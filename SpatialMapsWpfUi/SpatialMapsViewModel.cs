@@ -258,6 +258,7 @@ namespace SpatialMapsWpfUi
             {
                 var dataLoaded = Model.GetPolygonFromFile(fileName);
                 LeftPolyName = dataLoaded.Key;
+                Model.CleanPoints(dataLoaded.Value);
                 RedrawPoly(LeftPoly, dataLoaded.Value);
                 Refresh();
             }

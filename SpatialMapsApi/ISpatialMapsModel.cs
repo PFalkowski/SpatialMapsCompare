@@ -20,5 +20,6 @@ namespace SpatialMaps
         double? GetArea(IList<C2DPoint> points);
         double? GetPerimeter(IList<C2DPoint> points);
         void ScaleInPlace(IList<C2DPoint> points, double size);
+        void CleanPoints(List<C2DPoint> poly);
     }
 }
