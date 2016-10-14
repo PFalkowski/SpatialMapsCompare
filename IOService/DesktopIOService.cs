@@ -16,9 +16,7 @@ namespace SpatialMaps
 
         public string GetFileNameForRead(string initialDirectory = null, string defaultFileName = null, string filter = null)
         {
-            //if (!string.IsNullOrWhiteSpace(initialDirectory))
             openFileDialog1.InitialDirectory = initialDirectory;
-            //if (!string.IsNullOrWhiteSpace(filter))
             openFileDialog1.Filter = filter;
 
             openFileDialog1.FileName = defaultFileName;
@@ -31,9 +29,7 @@ namespace SpatialMaps
 
         public string GetFileNameForWrite(string initialDirectory = null, string defaultFileName = null, string filter = null)
         {
-            //if (!string.IsNullOrWhiteSpace(initialDirectory))
             saveFileDialog1.FileName = initialDirectory;
-            //if (!string.IsNullOrWhiteSpace(filter))
             saveFileDialog1.Filter = filter;
             saveFileDialog1.FileName = defaultFileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)

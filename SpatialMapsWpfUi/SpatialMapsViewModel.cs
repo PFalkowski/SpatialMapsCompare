@@ -17,6 +17,7 @@ namespace SpatialMapsWpfUi
     {
         public ISpatialMapsModel Model { get; set; }
         public IEventAggregator Events { get; }
+        private readonly Func<Exception, bool> AcceptedExceptions = (ex) => (ex is ArgumentException || ex is ArgumentOutOfRangeException || ex is InvalidOperationException);
 
         private ObservableCollection<C2DPoint> _leftPoly = new ObservableCollection<C2DPoint>();
         public ObservableCollection<C2DPoint> LeftPoly
@@ -153,7 +154,7 @@ namespace SpatialMapsWpfUi
                     Refresh();
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -169,7 +170,7 @@ namespace SpatialMapsWpfUi
                     Refresh();
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -207,7 +208,7 @@ namespace SpatialMapsWpfUi
                 OpenLeftFile();
                 Refresh();
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -220,7 +221,7 @@ namespace SpatialMapsWpfUi
                 OpenRightFile();
                 Refresh();
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -233,7 +234,7 @@ namespace SpatialMapsWpfUi
             {
                 Model.WritePolygonToFile(LeftPoly, Model.InputOutputService.GetFileNameForWrite(null, LeftPolyName, Model.FilterString));
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -245,7 +246,7 @@ namespace SpatialMapsWpfUi
             {
                 Model.WritePolygonToFile(RightPoly, Model.InputOutputService.GetFileNameForWrite(null, RightPolyName, Model.FilterString));
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -296,7 +297,7 @@ namespace SpatialMapsWpfUi
                     RedrawPoly(LeftPoly, canvas.viewModel.Points);
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -314,7 +315,7 @@ namespace SpatialMapsWpfUi
                     RedrawPoly(RightPoly, canvas.viewModel.Points);
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -347,7 +348,7 @@ namespace SpatialMapsWpfUi
                     File.WriteAllText(location, stb.ToString());
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
 
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
@@ -359,7 +360,7 @@ namespace SpatialMapsWpfUi
             {
                 Model.ScaleInPlace(RightPoly, Settings.Default.ScaleFactor);
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
@@ -372,7 +373,7 @@ namespace SpatialMapsWpfUi
             {
                 Model.ScaleInPlace(LeftPoly, Settings.Default.ScaleFactor);
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is InvalidOperationException)
+            catch (Exception ex) when (AcceptedExceptions(ex))
             {
                 Model.InputOutputService.PrintToScreen(ex.Message, MessageSeverity.Error);
             }
